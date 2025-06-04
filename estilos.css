@@ -1,0 +1,128 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html, body {
+  font-family: 'Roboto', sans-serif;
+  color: #121212;
+  background-color: #f5f0e6;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  overflow-x: hidden;
+  transition: all 0.4s;
+}
+
+header {
+  background-color: #ecf0f1; /*buen azul oscuro#09131d*/
+  padding: 15px 0;
+  position:relative;
+  top: 0;
+  z-index: 5;
+}
+
+header .container {
+  width: 80%;
+  max-width: 1096px;
+  margin: 0 auto;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background-color: #5601ff00;
+}
+
+header img {
+  max-width: 100px;
+}
+
+header nav ul {
+  display: flex;
+  gap: 15px;
+}
+
+header nav ul li {
+  list-style: none;
+}
+
+header nav ul li a {
+  color: #09131d;
+  text-decoration: none;
+  font-weight: 700;
+  margin-left: 16px;
+  transition: color 0.4s;
+}
+
+header nav ul li a:hover, .active {
+  color: #f1c40f;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+.burger-ico {
+  display: none;
+}
+
+/*MEDIAQUERYS*/
+
+
+@media screen and (max-width: 950px) {
+  header img {
+      max-width: 60px; 
+  }
+  .hero {
+      padding: 10px;
+      height: auto;
+  }
+  h1 {
+      font-size: 50px;
+  }
+  h2 {
+      font-size: 24px;
+  }
+  p {
+      font-size: 14px;
+  }
+  .footerimg {
+      height: 460px;
+  }
+  .burger-ico {
+color: #ffe600; 
+display: block; 
+cursor: pointer; 
+font-weight: 800; font-size: 20px; 
+background: #5601ff; 
+z-index: 9; transition: all .4s; 
+height: 40px; width: 40px; 
+display: grid; place-items: center; 
+border-radius: 50%; 
+padding: 0 1.5px 3px 1.5px;
+} 
+.burger-active {transform: rotate(-90deg);}
+.shadow {transition: all .4s; background: rgba(0, 0, 0, 0);}
+.shadow-active {position: fixed; top: 0; height: 100%; width: 100%; background: rgba(0, 0, 0, 0); z-index: 7;}
+nav {position: fixed; right: -300px; width: 300px; background: #a521d1c8; height: 100%; top: 0; transition: all .4s; z-index: 8;}
+nav ul {flex-direction: column; padding: 82px 22px;}
+nav ul li {padding: 12px 0; font-size: 22px; color: #fff;} nav ul li a {color: #fff;}
+.show-menu {transform: translateX(-300px);}
+.blur-effect::before {
+    content: '';
+    position: fixed;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    backdrop-filter: blur(6px);
+    pointer-events: none; 
+    z-index: 1;
+}
+}
