@@ -4,10 +4,19 @@
   box-sizing: border-box;
 }
 
+:root {
+  --amarillo: #f1c40f;
+  --beige-claro: #f5f0e6;
+  --gris-oscuro: #121212;
+  --blanco: #ecf0f1;
+  --azul-boton: #2C3E50;
+  --azul-letras-header: #09131d;
+}
+
 html, body {
   font-family: 'Roboto', sans-serif;
-  color: #121212;
-  background-color: #f5f0e6;
+  color: var(--gris-oscuro);
+  background-color: var(--beige-claro);
   height: 100%;
   display: flex;
   flex-direction: column;
@@ -16,7 +25,7 @@ html, body {
 }
 
 header {
-  background-color: #ecf0f1; /*buen azul oscuro#09131d*/
+  background-color: var(--blanco); /*buen azul oscuro#09131d*/
   padding: 15px 0;
   position:relative;
   top: 0;
@@ -30,11 +39,10 @@ header .container {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  background-color: #5601ff00;
 }
 
 header img {
-  max-width: 100px;
+  max-width: 40px;
 }
 
 header nav ul {
@@ -47,7 +55,7 @@ header nav ul li {
 }
 
 header nav ul li a {
-  color: #09131d;
+  color: var(--azul-letras-header);
   text-decoration: none;
   font-weight: 700;
   margin-left: 16px;
@@ -55,16 +63,42 @@ header nav ul li a {
 }
 
 header nav ul li a:hover, .active {
-  color: #f1c40f;
+  color: var(--amarillo);
+}
+
+#IniciarSesion {
+  background-color: var(--azul-boton);
+  border-radius: 4px;
+  padding: 15px;
 }
 
 
 
+/*Foto de la Hero Section*/
+.hero {
+  background-image: linear-gradient(rgba(61, 79, 61, 0.6), rgba(0, 0, 0, 0.8)), url("Fotos/montevideo.jpg");
+  height: 100%;
+  display: flex;
+}
 
+.hero h1 {
+  font-size: 96px;
+}
 
+.hero a{
+  color: #121212;
+  text-decoration: none;
+  font-weight: 700;
+}
 
+#izq {
+  padding: 20% 7%;
+  width: 50%;
+}
 
-
+#der {
+  width: 50%;
+}
 
 
 
@@ -75,47 +109,33 @@ header nav ul li a:hover, .active {
 
 /*MEDIAQUERYS*/
 
-
+/*Telefonos y Tablets, BURGER ICO*/
 @media screen and (max-width: 950px) {
-  header img {
-      max-width: 60px; 
-  }
-  .hero {
-      padding: 10px;
-      height: auto;
-  }
-  h1 {
-      font-size: 50px;
-  }
-  h2 {
-      font-size: 24px;
-  }
-  p {
-      font-size: 14px;
-  }
-  .footerimg {
-      height: 460px;
-  }
-  .burger-ico {
-color: #ffe600; 
-display: block; 
-cursor: pointer; 
-font-weight: 800; font-size: 20px; 
-background: #5601ff; 
-z-index: 9; transition: all .4s; 
-height: 40px; width: 40px; 
-display: grid; place-items: center; 
-border-radius: 50%; 
-padding: 0 1.5px 3px 1.5px;
+
+
+
+
+
+.burger-ico {
+  color: var(--amarillo); 
+  display: block; 
+  cursor: pointer; 
+  font-weight: 800; font-size: 20px; 
+  background: var(--amarillo); 
+  z-index: 9; transition: all .4s; 
+  height: 40px; width: 40px; 
+  display: grid; place-items: center; 
+  border-radius: 50%; 
+  padding: 0 1.5px 3px 1.5px;
 } 
-.burger-active {transform: rotate(-90deg);}
-.shadow {transition: all .4s; background: rgba(0, 0, 0, 0);}
-.shadow-active {position: fixed; top: 0; height: 100%; width: 100%; background: rgba(0, 0, 0, 0); z-index: 7;}
-nav {position: fixed; right: -300px; width: 300px; background: #a521d1c8; height: 100%; top: 0; transition: all .4s; z-index: 8;}
-nav ul {flex-direction: column; padding: 82px 22px;}
-nav ul li {padding: 12px 0; font-size: 22px; color: #fff;} nav ul li a {color: #fff;}
-.show-menu {transform: translateX(-300px);}
-.blur-effect::before {
+  .burger-active {transform: rotate(-90deg);}
+  .shadow {transition: all .4s; background: rgba(0, 0, 0, 0);}
+  .shadow-active {position: fixed; top: 0; height: 100%; width: 100%; background: rgba(0, 0, 0, 0); z-index: 7;}
+  nav {position: fixed; right: -300px; width: 300px; background: #f1c40f; height: 100%; top: 0; transition: all .4s; z-index: 8;}
+  nav ul {flex-direction: column; padding: 82px 22px;}
+  nav ul li {padding: 12px 0; font-size: 22px; color: #fff;} nav ul li a {color: #fff;}
+  .show-menu {transform: translateX(-300px);}
+  .blur-effect::before {
     content: '';
     position: fixed;
     top: 0;
