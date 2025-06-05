@@ -117,7 +117,7 @@ header nav ul li a:hover, .active {
 
 
 .burger-ico {
-  color: var(--amarillo); 
+  color: var(--azul-boton); 
   display: block; 
   cursor: pointer; 
   font-weight: 800; font-size: 20px; 
@@ -131,7 +131,7 @@ header nav ul li a:hover, .active {
   .burger-active {transform: rotate(-90deg);}
   .shadow {transition: all .4s; background: rgba(0, 0, 0, 0);}
   .shadow-active {position: fixed; top: 0; height: 100%; width: 100%; background: rgba(0, 0, 0, 0); z-index: 7;}
-  nav {position: fixed; right: -300px; width: 300px; background: #f1c40f; height: 100%; top: 0; transition: all .4s; z-index: 8;}
+  nav {position: fixed; right: -300px; width: 300px; background: var(--blanco); height: 100%; top: 0; transition: all .4s; z-index: 8;}
   nav ul {flex-direction: column; padding: 82px 22px;}
   nav ul li {padding: 12px 0; font-size: 22px; color: #fff;} nav ul li a {color: #fff;}
   .show-menu {transform: translateX(-300px);}
