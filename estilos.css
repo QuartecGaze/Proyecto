@@ -54,7 +54,7 @@ header nav ul li {
   list-style: none;
 }
 
-header nav ul li a {
+header nav ul li a { /*Todo junto porque sino se bugea el burger ico*/
   color: var(--azul-letras-header);
   text-decoration: none;
   font-weight: 700;
@@ -86,7 +86,7 @@ header nav ul li a:hover, .active {
 }
 
 .hero a{
-  color: #121212;
+  color: var(--gris-oscuro);
   text-decoration: none;
   font-weight: 700;
 }
@@ -101,6 +101,26 @@ header nav ul li a:hover, .active {
 }
 
 
+
+
+
+
+.FAQ {
+  margin-top: 30px;
+}
+.Registro {
+  margin-top: 30px;
+}
+
+
+
+
+
+
+footer {
+  height: 100px;
+  background-color: var(--azul-letras-header);
+}
 
 
 .burger-ico {
