@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="estilos.css">
+</head>
+<header>
+        <div class="shadow"></div>
+          <div class="container">
+            
+              <img src="Fotos/logo.png" alt="logoPrincipal">
+              
+              <nav>
+                <ul>
+                  <li><a href="index.html" class="activo">Inicio</a></li>
+                  <li><a href="#SobreNosotros">Sobre Nosotros</a></li>
+                  <li><a href="#FAQ">FAQ</a></li>
+                  <li><a href="#Registro">Registrarme</a></li>
+                  <li><a href="IniciarSesion.php" id="IniciarSesion">Iniciar Sesion</a></li>
+
+                </ul>
+              </nav>
+              <span class="burger-ico">&#9776;</span>
+          </div>
+</header>
+
+<body>
+    <section class="hero">
+        <div id="izq">
+            <h1>Coperativa NOMBRE</h1>
+            <div><a href="IniciarSesion.html" id="IniciarSesion">Iniciar Sesion</a></div>
+        </div>
+
+        <div id="der"></div>
+
+    </section>
+
+
+    <section class="SobreNosotros">
+
+    </section>
+
+
+    <section class="FAQ">
+
+        <h2>Como me registro</h2>
+        <h4>para registrarte tenes que llenar el formulario</h4>
+
+<br>
+
+        <h2>Que pasa al momento de registrarme</h2>
+        <h4>Al momento de registrarte, se ingresa la solicitud para entrar a la coperativa, <br>
+             posteriormente se te va a comunicar por via telefonica o mail para agendar una entrevista. <br>
+             Posterior a esa entrevista en el caso de ser apto, se te asignara una unidad habitacional y empezaras a construir tu casa <br>
+
+            </h4>
+        
+<br>
+
+        <h2>Que necesito para ser Apto?</h2>
+        <h4>Cumplir con el perfil de la gente de la coperativa, los cuales son:
+            -no tener antecedentes penales
+            -ser una persona con estudios
+            -no ganar mas de 100.000,00$
+            -etc
+        </h4>
+
+<br>
+
+        <h2>Que tanto hay que trabajar en la coperativa</h2>
+        <h4>En la coperativa hay que trabajar 21 horas por semana ademas de pagos mensuales para pagar los materiales</h4>
+
+        <h2>Si tenes alguna otra pregunta hacela en el foro de whatsapp +598 092 257 362 </h2>
+
+    </section>
+
+
+    <section class="Registro">
+
+        <form action="../back/registro.php" method="POST">
+
+            <h2>Cedula</h2>
+                <input type="text" name="Cedula" required>
+            <h2>Email</h2>
+                <input type="email" name="email" required>
+            <h2>Numero De Telefono</h2>
+                <input type="tel" name="Telefono" required>
+            <h2>Contraseña</h2>
+                <input type="password" name="password" minlength="6" required>
+
+
+                <br>
+
+            <button type="submit">Registrarse</button>
+
+                <br>
+
+            <h2>Ir al  <a href="login.php">LOGIN</a></h2>
+
+        </form>
+
+    </section>
+    
+</body>
+
+<footer>
+
+</footer>
+    <script src="javascript.js"></script>
+</html>
