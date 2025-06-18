@@ -30,12 +30,12 @@
 
         public function cargarPersona($persona){
             $CI = $persona->getCI();
-            $email = $presona->getEmail();
+            $email = $persona->getEmail();
             $contraseña = $persona->getContraseña();
             $rol = $persona->getRol();
-            $nivelPermisos = $admin->getNivelPermisos();
-            $nombre = $admin->getNombre();
-            $apellido = $admin->getApellido();
+            $nivelPermisos = $persona->getNivelPermisos();
+            $nombre = $persona->getNombre();
+            $apellido = $persona->getApellido();
             $consulta = "
                 INSERT INTO Persona (CI, Email, Contraseña, Rol, Nombre, Apellido) 
                 VALUES ('$CI', '$email', '$contraseña', '$rol', '$nombre', '$apellido')
@@ -62,7 +62,7 @@
             $montoPagoInicial = $interesado->getMontoPagoIncial();
             $consulta = "
                 INSERT INTO Interesado (ID_Persona, Antecedentes, Estado_entrevista, Fecha_entrevista, Pago_inicial, Estado_pago_inicial, Monto_pago_inicial) 
-                VALUES ('$idPersona', '$antecedentes', '$estadoEntrevista', '$fechaEntrevista', '$pagoInicial', '$estadoPegoInicial', '$montoPagoInicial')
+                VALUES ('$idPersona', '$antecedentes', '$estadoEntrevista', '$fechaEntrevista', '$pagoInicial', '$estadoPagoInicial', '$montoPagoInicial')
             ";
             mysqli_query($this->conn, $consulta);
         }
