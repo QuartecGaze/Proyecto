@@ -4,8 +4,8 @@
         private $foto;
         private $fechaIngreso;
 
-        public function __construct($CI, $email, $idPersona, $nombre, $apellido, $contraseña, $rol, $fechaNacimiento, $fechaIngreso, $foto) {
-            parent::__construct($CI, $email, $idPersona, $nombre, $apellido, $contraseña, $rol);
+        public function __construct($ci, $email, $idPersona, $nombre, $apellido, $contraseña, $rol, $fechaNacimiento, $fechaIngreso, $foto) {
+            parent::__construct($ci, $email, $idPersona, $nombre, $apellido, $contraseña, $rol);
             $this->fechaNacimiento = $fechaNacimiento;
             $this->fechaIngreso = $fechaIngreso;
             $this->foto = $foto;

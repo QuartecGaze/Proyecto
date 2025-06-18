@@ -5,13 +5,37 @@
          public function __construct($repositorio) {
             $this->repositorio = $repositorio;
         }
-        public crearUsuario(){
-            if($repositorio->usuarioExiste()){
+        public function crearUsuario(){
+            if($this->repositorio->usuarioExiste()){
                 return "error"; //
             } else{
                 if(passwordMatch()){
-                    $repositorio->crearUsuario()
+                    $this->repositorio->crearUsuario()
                 }
+            }
+        }
+
+        public function iniciarSesison($ci, $contraseña){
+            if(personaExiste($ci)){
+
+                if(password_verify($contraseña, $this->repositorio->getContraseña($ci))){
+                    return getIdPersona($ci);
+                }else{
+                      throw new Exception("Contraseña Incorrecta");
+                }
+
+            }else{
+                throw new Exception("Usuario invalido");
+            }
+        }
+
+        public function registro($ci, $email, $idPersona, $nombre, $apellido, $contraseña){
+            if(!personaExiste($ci)){
+                $password = password_hash($contraseña, PASSWORD_DEFAULT);
+                $persona = new Persona($ci, $email, $idPersona, $nombre, $apellido, $contraseña);
+                $this->repositorio->cargarUsuario($persona);
+            }else{
+                throw new Exception("Usuario ya existe");
             }
         }
     }

@@ -3,12 +3,12 @@
         private $antecedentes;
         private $estadoEntrevista;
         private $fechaEntrevista;
-        private $pagoInical;
+        private $pagoInicial;
         private $estadoPagoInicial;
         private $montoPagoInicial;
 
-        public function __construct($CI, $email, $idPersona, $contraseña, $rol, $antecedentes, $estadoEntrevista, $fechaEntrevista, $pagoInical, $estadoPagoInicial, $montoPagoInicial) {
-            parent::__construct($CI, $email, $idPersona, $contraseña, $rol);
+        public function __construct($ci, $email, $idPersona, $contraseña, $rol, $antecedentes, $estadoEntrevista, $fechaEntrevista, $pagoInicial, $estadoPagoInicial, $montoPagoInicial) {
+            parent::__construct($ci, $email, $idPersona, $contraseña, $rol);
             $this->antecedentes = $antecedentes;
             $this->estadoEntrevista = $estadoEntrevista;
             $this->fechaEntrevista = $fechaEntrevista;

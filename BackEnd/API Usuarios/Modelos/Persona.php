@@ -1,15 +1,15 @@
 <?php
     class Persona {
-        private $CI;
+        private $ci;
         private $email;
         private $idPersona;
         private $nombre;
-        private $apellido
+        private $apellido;
         private $contraseña;
         private $rol; 
 
-        public function __construct($CI, $email, $idPersona, $nombre, $apellido, $contraseña, $rol){
-            $this->CI = $CI;
+        public function __construct($ci, $email, $idPersona, $nombre, $apellido, $contraseña, $rol){
+            $this->ci = $ci;
             $this->email = $email;
             $this->idPersona = $idPersona;
             $this->nombre = $nombre;
@@ -19,7 +19,7 @@
         }
     //Getters
     public function getCI() {
-        return $this->CI;
+        return $this->ci;
     }
 
     public function getEmail() {
@@ -45,8 +45,8 @@
     }
 
     // Setters
-    public function setCI($CI) {
-        $this->CI = $CI;
+    public function setCI($ci) {
+        $this->ci = $ci;
     }
 
     public function setEmail($email) {
