@@ -18,7 +18,7 @@
             $this->rol = $rol;
         }
     //Getters
-    public function getCI() {
+    public function getCi() {
         return $this->ci;
     }
 
@@ -45,6 +45,9 @@
     }
 
     // Setters
+     public function setIdPersona($id) {
+        $this->idPersona = $id;
+    }
     public function setCI($ci) {
         $this->ci = $ci;
     }

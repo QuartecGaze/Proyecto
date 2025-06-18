@@ -1,5 +1,5 @@
 <?php
-    Class RepositorioUsuarios {
+    Class RepositorioUsuario {
         private $conn;
 
         public function __construct($conn) {
@@ -29,7 +29,7 @@
         //CRUD Persona
 
         public function cargarPersona($persona){
-            $ci = $persona->getCI(); 
+            $ci = $persona->Ci(); 
             $email = $persona->getEmail();
             $contraseña = $persona->getContraseña();
             $rol = $persona->getRol();
@@ -47,6 +47,16 @@
                 DELETE FROM Persona WHERE ID_Persona=$id
             ";
             mysqli_query($this->conn, $consulta);
+        }
+
+        public function getPersona($id){
+            $consulta = "
+                SELECT * FROM Persona WHERE ID_Persona=$id
+            ";
+            $resultado = mysqli_query($this->conn, $consulta);
+            $fila = mysqli_fetch_assoc($resultado);
+            $persona = new Persona($fila['CI'], $fila['Email'], $fila['ID_Persona'], $fila['Nombre'], $fila['Apellido'], $fila['Contraseña'], $fila['Rol']);
+            return $persona;
         }
 
         //CRUD Interesado
@@ -92,11 +102,13 @@
             ";
             mysqli_query($this->conn, $consulta);
         }
+       
 
         //Funciones
         
+        
         public function getIdPersona($persona){
-            $ci = $persona->getCI();
+            $ci = $persona->getCi();
             $consulta = "SELECT ID FROM Persona WHERE CI = '$ci'";
             $resultado = mysqli_query($this->conn, $consulta);
             $fila = mysqli_fetch_assoc($resultado);
@@ -119,7 +131,7 @@
 
         public function getContraseña($ci){
             if($this->personaExiste($ci)){
-             $consulta = "SELECT Contraseña FROM Persona WHERE ci = '$ci'";
+             $consulta = "SELECT Contraseña FROM Persona WHERE CI = '$ci'";
              $resultado = mysqli_query($this->conn, $consulta);
              $fila = mysqli_fetch_assoc($resultado);
              return $fila['Contraseña'];
