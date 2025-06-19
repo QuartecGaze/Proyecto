@@ -1,169 +1,232 @@
 * {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
+    margin: 0;
+    font-family: "Montserrat", sans-serif;
 }
 
 :root {
-  --amarillo: #f1c40f;
-  --beige-claro: #f5f0e6;
-  --gris-oscuro: #121212;
-  --blanco: #ecf0f1;
-  --azul-boton: #2C3E50;
-  --azul-letras-header: #09131d;
+    --primario: #00B4FF;
+    --primarioOscuro: #1E2344;
+    --secundario: #F4D35E;
+    --oscuro: #333;
+    --claro: #f9f9f9;
 }
 
-html, body {
-  font-family: 'Roboto', sans-serif;
-  color: var(--gris-oscuro);
-  background-color: var(--beige-claro);
-  height: 100%;
-  display: flex;
-  flex-direction: column;
-  overflow-x: hidden;
-  transition: all 0.4s;
-}
 
+
+
+
+
+/* Estructura principal */
 header {
-  background-color: var(--blanco); /*buen azul oscuro#09131d*/
-  padding: 15px 0;
-  position:relative;
-  top: 0;
-  z-index: 5;
-}
-
-header .container {
-  width: 80%;
-  max-width: 1096px;
-  margin: 0 auto;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-}
-
-header img {
-  max-width: 40px;
-}
-
-header nav ul {
-  display: flex;
-  gap: 15px;
-}
-
-header nav ul li {
-  list-style: none;
-}
-
-header nav ul li a { /*Todo junto porque sino se bugea el burger ico*/
-  color: var(--azul-letras-header);
-  text-decoration: none;
-  font-weight: 700;
-  margin-left: 16px;
-  transition: color 0.4s;
-}
-
-header nav ul li a:hover, .active {
-  color: var(--amarillo);
-}
-
-#IniciarSesion {
-  background-color: var(--azul-boton);
-  border-radius: 4px;
-  padding: 15px;
-}
-
-
-
-/*Foto de la Hero Section*/
-.hero {
-  background-image: linear-gradient(rgba(61, 79, 61, 0.6), rgba(0, 0, 0, 0.8)), url("Fotos/montevideo.jpg");
-  height: 100%;
-  display: flex;
-}
-
-.hero h1 {
-  font-size: 96px;
-}
-
-.hero a{
-  color: var(--gris-oscuro);
-  text-decoration: none;
-  font-weight: 700;
-}
-
-#izq {
-  padding: 20% 7%;
-  width: 50%;
-}
-
-#der {
-  width: 50%;
-}
-
-
-
-
-
-
-.FAQ {
-  margin-top: 30px;
-}
-.Registro {
-  margin-top: 30px;
-}
-
-
-
-
-
-
-footer {
-  height: 100px;
-  background-color: var(--azul-letras-header);
-}
-
-
-.burger-ico {
-  display: none;
-}
-
-/*MEDIAQUERYS*/
-
-/*Telefonos y Tablets, BURGER ICO*/
-@media screen and (max-width: 950px) {
-
-
-
-
-
-.burger-ico {
-  color: var(--azul-boton); 
-  display: block; 
-  cursor: pointer; 
-  font-weight: 800; font-size: 20px; 
-  background: var(--amarillo); 
-  z-index: 9; transition: all .4s; 
-  height: 40px; width: 40px; 
-  display: grid; place-items: center; 
-  border-radius: 50%; 
-  padding: 0 1.5px 3px 1.5px;
-} 
-  .burger-active {transform: rotate(-90deg);}
-  .shadow {transition: all .4s; background: rgba(0, 0, 0, 0);}
-  .shadow-active {position: fixed; top: 0; height: 100%; width: 100%; background: rgba(0, 0, 0, 0); z-index: 7;}
-  nav {position: fixed; right: -300px; width: 300px; background: var(--blanco); height: 100%; top: 0; transition: all .4s; z-index: 8;}
-  nav ul {flex-direction: column; padding: 82px 22px;}
-  nav ul li {padding: 12px 0; font-size: 22px; color: #fff;} nav ul li a {color: #fff;}
-  .show-menu {transform: translateX(-300px);}
-  .blur-effect::before {
-    content: '';
-    position: fixed;
+    position: sticky;
     top: 0;
-    width: 100%;
-    height: 100%;
-    backdrop-filter: blur(6px);
-    pointer-events: none; 
-    z-index: 1;
+    z-index: 10;
+    padding: 16px 5%;
+    color: white;
+    background: linear-gradient(135deg, var(--primarioOscuro), var(--primario));
+    box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.1);
 }
 
+.contenedor-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+.hero-section {
+    background: linear-gradient(135deg, #010101, #1B2344);
+    padding: 5% 3%;
+    height: 700px;
+}
+
+.hero-section h1 {
+    font-size: 7rem;
+    color: var(--claro);
+}
+
+.hero-section h2 {
+    margin: 50px 0;
+    font-size: 2rem;
+    color: var(--claro);
+    font-weight: 300;
+}
+
+
+/* Componente Logo */
+.logo {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-size: 1.5rem;
+    font-weight: 700;
+}
+
+.logo img {
+    height: 50px;
+}
+
+
+
+
+
+
+
+
+/* Navegación principal */
+nav ul {
+    display: flex;
+    gap: 32px;
+    list-style: none;
+}
+
+nav a {
+    position: relative;
+    padding: 8px 0;
+    color: white;
+    font-weight: 500;
+    text-decoration: none;
+    transition: all 0.3s;
+}
+
+nav a:hover {
+    color: var(--secundario);
+}
+
+nav a::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 50%;
+    width: 0;
+    height: 2px;
+    background: var(--secundario);
+    transform: translateX(-50%);
+    transition: width 0.3s ease-in-out;
+}
+
+nav a:hover::after {
+    width: 100%;
+}
+
+
+
+
+
+
+/* Botones */
+.boton-formulario {
+    height: 40px;
+    padding: 0 24px;
+    border: none;
+    border-radius: 18px;
+    font-size: 1rem;
+    font-weight: 600;
+    color: #2F2F3F;
+    background: var(--secundario);
+    cursor: pointer;
+    transition: transform 0.3s, box-shadow 0.3s;
+}
+
+.boton-formulario:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 6px 12px rgba(241, 143, 1, .03);
+}
+
+.hero-section button {
+    height: 60px;
+    padding: 0 24px;
+    border: none;
+    border-radius: 28px;
+    font-size: 14,5px;
+    font-weight: 700;
+    color: #2F2F3F;
+    background: var(--secundario);
+    cursor: pointer;
+    transition: transform 0.3s, box-shadow 0.3s;
+}
+
+
+
+
+/* Menú móvil */
+.menu-celular {
+    display: none;
+    padding: 0;
+    margin: 0;
+    border: none;
+    background: none;
+    color: white;
+    font-size: 2rem;
+    cursor: pointer;
+}
+
+.menu-celular .material-icons {
+    transition: transform 0.3s ease;
+}
+
+.menu-celular.activo .material-icons {
+    transform: rotate(90deg);
+}
+
+.boton-movil {
+    display: none;
+}
+
+
+
+
+/* Responsivo Menu Hamburguesa */
+@media (max-width: 750px) {
+    .menu-celular {
+        display: block;
+        z-index: 20;
+    }
+
+    nav {
+        position: fixed;
+        top: 0;
+        right: -100%;
+        width: 80%;
+        height: calc(100vh - 80px);
+        padding: 32px;
+        font-size: 1.5rem;
+        background: var(--primarioOscuro);
+        transition: right 0.3s ease-in-out;
+        z-index: 15;
+    }
+
+    nav.activo {
+        right: 0;
+    }
+
+    nav ul {
+        flex-direction: column;
+        gap: 32px;
+    }
+
+    nav ul li {
+        padding: 18px 0;
+    }
+
+    .boton-formulario {
+        display: none;
+    }
+
+    .boton-escritorio {
+        display: none;
+    }
+
+    .boton-movil {
+        display: block;
+        width: 80%;
+        margin: 32px auto 0;
+    }
+
+    nav {
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+    }
 }
