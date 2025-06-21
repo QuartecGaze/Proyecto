@@ -1,5 +1,5 @@
 <?php
-    Class RepositorioUsuario {
+    Class RepositorioPersona {
         private $conn;
 
         public function __construct($conn) {

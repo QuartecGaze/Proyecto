@@ -8,15 +8,15 @@
 
         public function iniciarSesison($ci, $contraseña){
             if($this->repositorio->personaExiste($ci)){
-
+                
                 if(password_verify($contraseña, $this->repositorio->getContraseña($ci))){
                     return $this->repositorio->getIdPersona($ci);
                 }else{
-                      throw new Exception("Contraseña Incorrecta");
+                      throw new Exception("Contraseña Incorrecta", 401);
                 }
 
             }else{
-                throw new Exception("Usuario invalido");
+                throw new Exception("Usuario invalido", 404);
             }
         }
 
@@ -38,10 +38,10 @@
                     $this->repositorio->cargarInteresado($persona);
 
                 }else{
-                    throw new Exception("Las contraseñas no coinciden");
+                    throw new Exception("Las contraseñas no coinciden", 400);
                 }
             }else{
-                throw new Exception("Usuario ya existe");
+                throw new Exception("Usuario ya existe", 409);
             }
         }
         

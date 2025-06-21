@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    
+</body>
+</html>
+<script>
+const datos = {
+  ci: "12345678",
+  email: "usuario@example.com",
+  nombre: "Juan",
+  apellido: "Pérez",
+  contraseña: "clave123",
+  confirmarContraseña: "clave123"
+};
+
+fetch('http://localhost/BackEnd/APIUsuarios/ApiUsuarios.php/registro', {
+  method: 'POST',
+  headers: {
+    'Content-Type': 'application/json'
+  },
+  body: JSON.stringify(datos)
+})
+.then(async response => {
+  const text = await response.text();
+
+  try {
+    const data = JSON.parse(text);
+    if (response.ok) {
+      console.log("Registro exitoso:", data);
+    } else {
+      console.error("Error API:", data);
+    }
+  } catch (err) {
+    // No es JSON válido, imprimimos crudo el error recibido
+    console.error("Error crudo recibido:", text);
+  }
+})
+.catch(err => {
+  console.error("Error en fetch:", err);
+});
+</script>
