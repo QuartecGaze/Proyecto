@@ -29,7 +29,7 @@
         //CRUD Persona
 
         public function cargarPersona($persona){
-            $ci = $persona->Ci(); 
+            $ci = $persona->getCi(); 
             $email = $persona->getEmail();
             $contraseña = $persona->getContraseña();
             $rol = $persona->getRol();
@@ -66,9 +66,9 @@
             $antecedentes = $interesado->getAntecedentes();
             $estadoEntrevista = $interesado->getEstadoEntrevista();
             $fechaEntrevista = $interesado->getFechaEntrevista();
-            $pagoInicial = $interesado->getPagoIncial();
-            $estadoPagoInicial = $interesado->getEstadoPagoIncial();
-            $montoPagoInicial = $interesado->getMontoPagoIncial();
+            $pagoInicial = $interesado->getPagoInicial();
+            $estadoPagoInicial = $interesado->getEstadoPagoInicial();
+            $montoPagoInicial = $interesado->getMontoPagoInicial();
             $consulta = "
                 INSERT INTO Interesado (ID_Persona, Antecedentes, Estado_entrevista, Fecha_entrevista, Pago_inicial, Estado_pago_inicial, Monto_pago_inicial) 
                 VALUES ('$idPersona', '$antecedentes', '$estadoEntrevista', '$fechaEntrevista', '$pagoInicial', '$estadoPagoInicial', '$montoPagoInicial')
@@ -109,11 +109,16 @@
         
         public function getIdPersona($persona){
             $ci = $persona->getCi();
-            $consulta = "SELECT ID FROM Persona WHERE CI = '$ci'";
+            $consulta = "SELECT ID_Persona FROM Persona WHERE CI = '$ci'";
             $resultado = mysqli_query($this->conn, $consulta);
+            if(mysqli_num_rows($resultado) > 0) {
             $fila = mysqli_fetch_assoc($resultado);
-            $id = $fila['ID'];
+            $id = $fila['ID_Persona']; 
             return $id;
+            }else{
+                throw new Exception("No se encontro una persona con la CI $ci");
+            }
+
         }
 
         public function personaExiste($ci){
@@ -138,4 +143,8 @@
             }
             
         }
+
+
+        
     }
+    ?>

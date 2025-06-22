@@ -1,4 +1,5 @@
 <?php
+    require_once 'Persona.php';
     Class Interesado extends Persona {
         private $antecedentes;
         private $estadoEntrevista;
@@ -7,8 +8,8 @@
         private $estadoPagoInicial;
         private $montoPagoInicial;
 
-        public function __construct($ci, $email, $idPersona, $contraseña, $rol, $antecedentes, $estadoEntrevista, $fechaEntrevista, $pagoInicial, $estadoPagoInicial, $montoPagoInicial) {
-            parent::__construct($ci, $email, $idPersona, $contraseña, $rol);
+        public function __construct($ci, $email, $idPersona, $nombre, $apellido, $contraseña, $rol, $antecedentes, $estadoEntrevista, $fechaEntrevista, $pagoInicial, $estadoPagoInicial, $montoPagoInicial) {
+            parent::__construct($ci, $email, $idPersona, $nombre, $apellido, $contraseña, $rol);
             $this->antecedentes = $antecedentes;
             $this->estadoEntrevista = $estadoEntrevista;
             $this->fechaEntrevista = $fechaEntrevista;
