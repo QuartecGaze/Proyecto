@@ -1,4 +1,5 @@
 <?php
+    require_once 'Persona.php';
     Class Usuario extends Persona {
         private $fechaNacimiento;
         private $foto;

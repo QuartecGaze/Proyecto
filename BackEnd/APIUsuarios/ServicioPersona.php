@@ -1,22 +1,22 @@
 <?php
     Class ServicioPersona {
-        //nos e especifica el tipo porque un servicio tiene un solo repositorio
+        //no se especifica el tipo porque cada servicio tiene un repositorio
         private $repositorio;
          public function __construct($repositorio) {
             $this->repositorio = $repositorio;
         }
 
-        public function iniciarSesison($ci, $contraseña){
+        public function iniciarSesion($ci, $contraseña){
             if($this->repositorio->personaExiste($ci)){
-
+                
                 if(password_verify($contraseña, $this->repositorio->getContraseña($ci))){
                     return $this->repositorio->getIdPersona($ci);
                 }else{
-                      throw new Exception("Contraseña Incorrecta");
+                      throw new Exception("Contraseña Incorrecta", 401);
                 }
 
             }else{
-                throw new Exception("Usuario invalido");
+                throw new Exception("Usuario invalido", 404);
             }
         }
 
@@ -26,22 +26,21 @@
                 if($contraseña==$contraseñaConfirmar){
 
                     $contraseña = password_hash($contraseña, PASSWORD_DEFAULT);
-                    //idpersona y rol se envian en null, porque idpersona todavia no esta asignnado y
-                    //el rol se asigna Interesado, porque la persona inicialmente es un Interesado, luego se cambia si es necesario
-                    $persona = new Persona($ci, $email, null, $nombre, $apellido, $contraseña, "Interesado"); 
-                    $this->repositorio->cargarUsuario($persona);
-                    //se llama para crear la id persona, porque hasta no traerla de la base de datos esta en null,
-                    //lo cual es clave foranea de Interesado por lo tanto, no se crearia el interesado porque 
-                    //la clave foranea estaria null
-                    $idPersona = $this->repositorio->getIdPersona($ci);
-                    $persona->setIdPersona($idPersona);
-                    $this->repositorio->cargarInteresado($persona);
+
+                    // idPersona se manda como null porque lo asigna la base de datos y Interesado se establece de una porque aca se esta registrando un registro desde la landing page 
+                    $persona = new Persona($ci, $email, null, $nombre, $apellido, $contraseña, "Interesado");
+                    $this->repositorio->cargarPersona($persona);
+                    $idPersona = $this->repositorio->getIdPersona($persona);
+                    //Las cosas en null se asignan posteriormente en el backoffice ademas de cambiar el estado "pendiente" etc
+                    $interesado = new Interesado($ci, $email, $idPersona, $nombre, $apellido, $contraseña, "Interesado", //datos heredados de persona
+                    null, "Pendiente", null, null, "Pendiente", null); //datos de Interesado
+                    $this->repositorio->cargarInteresado($interesado);
 
                 }else{
-                    throw new Exception("Las contraseñas no coinciden");
+                    throw new Exception("Las contraseñas no coinciden", 400);
                 }
             }else{
-                throw new Exception("Usuario ya existe");
+                throw new Exception("Esta Persona ya existe", 409);
             }
         }
         
