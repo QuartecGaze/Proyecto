@@ -6,8 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Cooperativa Nombre - Dashboard</title>
     <link rel="stylesheet" href="front/Css/estilosDash.css">
-    <link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap"
-        rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
 </head>
@@ -25,7 +24,7 @@
             <nav id="NavegacionDashboard">
                 <ul class="menu-dashboard">
                     <li class="item-menu activo">
-                        <a href="#Inicio"><i class="material-icons">home</i> Inicio</a>
+                        <a href="dashboard.html"><i class="material-icons">home</i> Inicio</a>
                     </li>
                     <li class="item-menu">
                         <a href="#Socios"><i class="material-icons">people</i> Socios</a>
@@ -40,7 +39,7 @@
                         <a href="#Reuniones"><i class="material-icons">event</i> Reuniones</a>
                     </li>
                     <li class="item-menu">
-                        <a href="#Mensajes"><i class="material-icons">email</i> Mensajes</a>
+                        <a href="sol-pending.html"><i class="material-icons">email</i> Solicitudes</a>
                     </li>
                     <li class="item-menu">
                         <a href="#Configuracion"><i class="material-icons">settings</i> Configuración</a>
@@ -61,9 +60,21 @@
                 </button>
             </div>
         </aside>
+
+        <!-- Contenido principal -->
+        <main class="contenido-principal">
+            <a href="sol-pending.html" class="card-solicitudes">
+                <div class="solicitudes-pendientes">
+                    <span class="icon-pending">
+                        <img src="Fotos/pending_actions_24dp_000000_FILL0_wght400_GRAD0_opsz24.svg" alt="">
+                    </span>
+                    <div class="texto-solicitud">Solicitudes Pendientes</div>
+                    <div class="numero-solicitud">5</div>
+                </div>
+            </a>
+        </main>
     </div>
 
-    <script src="script.js"></script>
+    <!--script src="script.js"></script-->
 </body>
-
 </html>

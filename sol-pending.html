@@ -1,0 +1,227 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cooperativa Nombre - Solicitudes</title>
+    <link rel="stylesheet" href="front/Css/estilosSol.css">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap"
+        rel="stylesheet">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+</head>
+
+<body>
+    <div class="contenedor-dashboard">
+        <!-- Sidebar -->
+        <aside class="sidebar">
+            <div class="logo-dashboard">
+                <img src="" alt="Logo Cooperativa">
+                <span>Cooperativa Nombre</span>
+                <p>Construyendo oportunidades juntos</p>
+            </div>
+
+            <nav id="NavegacionDashboard">
+                <ul class="menu-dashboard">
+                    <li class="item-menu">
+                        <a href="dashboard.html"><i class="material-icons">home</i> Inicio</a>
+                    </li>
+                    <li class="item-menu">
+                        <a href="#Socios"><i class="material-icons">people</i> Socios</a>
+                    </li>
+                    <li class="item-menu">
+                        <a href="#Proyectos"><i class="material-icons">apartment</i> Proyectos</a>
+                    </li>
+                    <li class="item-menu">
+                        <a href="#Finanzas"><i class="material-icons">payments</i> Finanzas</a>
+                    </li>
+                    <li class="item-menu">
+                        <a href="#Reuniones"><i class="material-icons">event</i> Reuniones</a>
+                    </li>
+                    <li class="item-menu activo">
+                        <a href="sol-pending.html"><i class="material-icons">email</i> Solicitudes</a>
+                    </li>
+                    <li class="item-menu">
+                        <a href="#Configuracion"><i class="material-icons">settings</i> Configuración</a>
+                    </li>
+                </ul>
+            </nav>
+
+            <div class="perfil-usuario">
+                <div class="info-usuario">
+                    <img src="https://via.placeholder.com/40" alt="Foto perfil">
+                    <div>
+                        <p class="nombre-usuario">Admin User</p>
+                        <p class="rol-usuario">Administrador</p>
+                    </div>
+                </div>
+                <button class="boton-cerrar-sesion">
+                    <i class="material-icons">logout</i> Cerrar sesión
+                </button>
+            </div>
+        </aside>
+
+        <!-- Contenido de solicitudes pendientes -->
+        <main class="contenido-principal">
+            <h1>Solicitudes Pendientes</h1>
+            <div class="contenedor-solicitud">
+                <div class="solicitud-header">
+                    <h2>Solicitud Nr #0001 <span class="estado-badge pendiente">PENDIENTE</span> </h2>
+                    <p>Fecha de solicitud 00/00/0000</p>
+                </div>
+                <div class="solicitud-info">
+                    <div>
+                        <h3>Información Personal</h3>
+                        <p><strong>Nombre: </strong> Alain Arce</p>
+                        <p><strong>CI: </strong> 5.555.555 - 5</p>
+                        <p><strong>Mail: </strong>alain@gmail.com</p>
+                        <p><strong>Telefono: </strong> (+598) 099 000 000</p>
+                    </div>
+                    <div class="date">
+                        <h3>Asignar Fecha de Entrevista</h3>
+                        <div class="calendario">
+                            <p><strong>Fecha:  </strong> </p>
+                            <input type="date">
+                        </div>
+                        <div class="hora">
+                            <p><strong>Hora:   </strong></p>
+                            <input type="time">
+                        </div>
+                        <div class="direccion">
+                            <p><strong>Direccion:   </strong></p>
+                            Av.Gral Rivera 3729 bis, 11600 Montevideo
+                        </div>
+                    </div>
+                </div>
+
+
+                <div class="solicitud documentos">
+                    <h3>Documentos Adjuntos</h3>
+                    <div class="documento-card">
+                        <div class="documento-info">
+                            <h4>Antecedentes Penales</h4>
+                            <p>Documento PDF - <span class="estado-badge pendiente">PENDIENTE</span></p>
+                        </div>
+                        <div class="documento-acciones">
+                            <a href="#">
+                                <li class="material-icons">download</li> Descargar
+                            </a>
+                        </div>
+                    </div>
+                    <div class="acciones">
+                        <button id="btn-rechazar">
+                            <i class="material-icons">close</i> Rechazar
+                        </button>
+                        <button id="btn-aprobar">
+                            <i class="material-icons">check</i> Aprobar
+                        </button>
+                    </div>
+
+
+                    <div class="documento-card">
+                        <div class="documento-info">
+                            <h4>Comprobante de Pago Inicial</h4>
+                            <p>Documento PDF - <span class="estado-badge pendiente">PENDIENTE</span></p>
+                        </div>
+                        <div class="documento-acciones">
+                            <a href="#">
+                                <li class="material-icons">download</li> Descargar
+                            </a>
+                        </div>
+                    </div>
+                    <div class="acciones">
+                        <button id="btn-rechazar">
+                            <i class="material-icons">close</i> Rechazar
+                        </button>
+                        <button id="btn-aprobar">
+                            <i class="material-icons">check</i> Aprobar
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+
+
+            <div class="contenedor-solicitud">
+                <div class="solicitud-header">
+                    <h2>Solicitud Nr #0001 <span class="estado-badge pendiente">PENDIENTE</span> </h2>
+                    <p>Fecha de solicitud 00/00/0000</p>
+                </div>
+                <div class="solicitud-info">
+                    <div>
+                        <h3>Información Personal</h3>
+                        <p><strong>Nombre: </strong> Alain Arce</p>
+                        <p><strong>CI: </strong> 5.555.555 - 5</p>
+                        <p><strong>Mail: </strong>alain@gmail.com</p>
+                        <p><strong>Telefono: </strong> (+598) 099 000 000</p>
+                    </div>
+                    <div class="date">
+                        <h3>Asignar Fecha de Entrevista</h3>
+                        <div class="calendario">
+                            <p><strong>Fecha:  </strong> </p>
+                            <input type="date">
+                        </div>
+                        <div class="hora">
+                            <p><strong>Hora:   </strong></p>
+                            <input type="time">
+                        </div>
+                        <div class="direccion">
+                            <p><strong>Direccion:   </strong></p>
+                            Av.Gral Rivera 3729 bis, 11600 Montevideo
+                        </div>
+                    </div>
+                </div>
+
+
+                <div class="solicitud documentos">
+                    <h3>Documentos Adjuntos</h3>
+                    <div class="documento-card">
+                        <div class="documento-info">
+                            <h4>Antecedentes Penales</h4>
+                            <p>Documento PDF - <span class="estado-badge pendiente">PENDIENTE</span></p>
+                        </div>
+                        <div class="documento-acciones">
+                            <a href="#">
+                                <li class="material-icons">download</li> Descargar
+                            </a>
+                        </div>
+                    </div>
+                    <div class="acciones">
+                        <button id="btn-rechazar">
+                            <i class="material-icons">close</i> Rechazar
+                        </button>
+                        <button id="btn-aprobar">
+                            <i class="material-icons">check</i> Aprobar
+                        </button>
+                    </div>
+
+
+                    <div class="documento-card">
+                        <div class="documento-info">
+                            <h4>Comprobante de Pago Inicial</h4>
+                            <p>Documento PDF - <span class="estado-badge pendiente">PENDIENTE</span></p>
+                        </div>
+                        <div class="documento-acciones">
+                            <a href="#">
+                                <li class="material-icons">download</li> Descargar
+                            </a>
+                        </div>
+                    </div>
+                    <div class="acciones">
+                        <button id="btn-rechazar">
+                            <i class="material-icons">close</i> Rechazar
+                        </button>
+                        <button id="btn-aprobar">
+                            <i class="material-icons">check</i> Aprobar
+                        </button>
+                    </div>
+                </div>
+            </div>
+            <!-- Aquí iría el contenido específico de solicitudes -->
+        </main>
+    </div>
+
+    <!--script src="script.js"></script-->
+</body>
+
+</html>
