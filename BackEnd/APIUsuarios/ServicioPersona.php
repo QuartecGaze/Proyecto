@@ -1,4 +1,8 @@
 <?php
+    require_once __DIR__ . '/RepositorioPersona.php';
+    require_once __DIR__ . '/ApiUsuarios.php';
+    
+
     Class ServicioPersona {
         //no se especifica el tipo porque cada servicio tiene un repositorio
         private $repositorio;
@@ -33,7 +37,7 @@
                     $idPersona = $this->repositorio->getIdPersona($persona);
                     //Las cosas en null se asignan posteriormente en el backoffice ademas de cambiar el estado "pendiente" etc
                     $interesado = new Interesado($ci, $email, $idPersona, $nombre, $apellido, $contraseña, "Interesado", //datos heredados de persona
-                    null, "Pendiente", null, null, "Pendiente", null); //datos de Interesado
+                    null, "Pendiente", "Pendiente", null, null, null, "Pendiente", null); //datos de Interesado
                     $this->repositorio->cargarInteresado($interesado);
 
                 }else{
@@ -44,41 +48,7 @@
             }
         }
         
-        public function cargarUsuario($idPersona, $fechaNacimiento, $fechaIngreso, $foto){
-            $persona = $this->repositorio->getPersona($idPersona);
-            $usuario = new Usuario(
-                    $persona->getCi(),
-                    $persona->getEmail(),
-                    $persona->getIdPersona(),
-                    $persona->getNombre(),
-                    $persona->getApellido(),
-                    $persona->getContraseña(),
-                    "Usuario",          //Asigna el rol Usuario
-                    $fechaNacimiento, 
-                    $fechaIngreso, 
-                    $foto
-                );
-            $this->repositorio->cargarUsuario($usuario);
-        }
-
-        public function cargarAdmin($idPersona, $nivelPermisos){
-            $persona = $this->repositorio->getPersona($idPersona);
-            $admin = new Admin(
-                    $persona->getCi(),
-                    $persona->getEmail(),
-                    $persona->getIdPersona(),
-                    $persona->getNombre(),
-                    $persona->getApellido(),
-                    $persona->getContraseña(),
-                    "Admin",          //Asigna el rol Admin
-                    $nivelPermisos
-                );
-            $this->repositorio->cargarAdmin($admin);
-        }
-
-
-
-
+        
 
 
         
