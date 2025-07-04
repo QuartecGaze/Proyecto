@@ -66,7 +66,7 @@ body {
 
 
 /* Contenedor principal */
-.contenedor-registro {
+.contenedor-login {
     flex: 1;
     display: grid;
     grid-template-columns: 50% 50%;
@@ -253,7 +253,7 @@ body {
         flex-direction: column;
     }
 
-    .contenedor-registro {
+    .contenedor-login {
         grid-template-columns: 1fr;
         grid-template-rows: auto auto;
         width: 95%;
@@ -331,7 +331,7 @@ body {
 
 /* Responsive: móviles */
 @media (max-width: 480px) {
-    .contenedor-registro {
+    .contenedor-login {
         width: 100%;
         margin: 0 auto;
     }

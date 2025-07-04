@@ -20,23 +20,23 @@
         </div>
     </header>
 
-    <main class="contenedor-registro">
+    <main class="contenedor-login">
         <div class="divForm">
             <div class="form-header">
                 <img src="../../Fotos/logo.png" alt="Logo Cooperativa" class="form-logo">
                 <h1>Ingrese a su cuenta</h1>
             </div>
-            <form action="#" id="formRegistro">
+            <form action="#" id="formLogin">
                 <div class="fieldInfo">
-                    <label for="telefono">Cedula de Identidad</label>
-                    <input type="tel" id="telefono" name="telefono" pattern="[0-9]{9,12}"
-                        title="Ingresa tu número de teléfono (9-12 dígitos)" required>
+                    <label for="cedula">Cedula de Identidad</label>
+                    <input type="text" id="cedula" name="cedula"
+                        title="ingrese su cedula" required>
                 </div>
 
                 <div class="fieldInfo">
                     <label for="password">Contraseña</label>
-                    <input type="password" id="password" name="password" required minlength="8"
-                        pattern="(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}">
+                    <input type="password" id="password" name="password" required
+                        >
                 </div>
 
                 <button type="submit" class="btnIngresar">Ingresar</button>
@@ -75,5 +75,36 @@
 
     <script src="registro.js"></script>
 </body>
-
+<script>
+    const formLogin = document.getElementById("formLogin");
+    const inputCi = document.getElementById("cedula");
+    const inputContraseña = document.getElementById("password");
+formLogin.addEventListener("submit", function(event) {
+    event.preventDefault();
+    iniciarSesion();
+})
+function iniciarSesion() {
+  fetch('http://localhost/Proyecto/BackEnd/APIUsuarios/ApiUsuarios.php?accion=login', {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({
+      ci: inputCi.value,
+      contraseña: inputContraseña.value,
+    })
+  })
+  .then(async response => {
+    const data = await response.json().catch(() => null);
+    if (!response.ok) {
+      throw new Error(data?.message || `Error HTTP ${response.status}`);
+    }
+    return data;
+  })
+  .then(data => {
+    console.log('Respuesta del servidor:', data);
+  })
+  .catch(error => {
+    console.error('Error en la solicitud POST:', error.message);
+  });
+}
+</script>
 </html>

@@ -18,7 +18,7 @@
             if($this->repositorio->personaExiste($ci)){
                 
                 if(password_verify($contraseña, $this->repositorio->getContraseña($ci))){
-                    return $this->repositorio->getIdPersona($ci);
+                    return $this->repositorio->getIdPersonaCi($ci);
                 }else{
                       throw new Exception("Contraseña Incorrecta", 401);
                 }
