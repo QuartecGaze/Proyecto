@@ -113,6 +113,44 @@ button:hover {
     background: var(--secundario);
 }
 
+/* Selector idioma flotante */
+.flotante-idioma {
+    position: fixed;
+    bottom: 2rem;
+    right: 2rem;
+    z-index: 50;
+}
+
+.boton-idioma {
+    background: var(--primario);
+    color: white;
+    border: none;
+    border-radius: 50px;
+    padding: 0.8rem 1.2rem;
+    display: flex;
+    align-items: center;
+    cursor: pointer;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+    transition: all 0.3s;
+}
+
+.boton-idioma:hover {
+    background: var(--primarioOscuro);
+    transform: translateY(-3px);
+}
+
+.boton-idioma .material-icons {
+    margin-right: 0.5rem;
+    font-size: 1.2rem;
+}
+
+@media (max-width: 768px) {
+    .flotante-idioma {
+        bottom: 1rem;
+        right: 1rem;
+    }
+}
+
 /* Menú móvil */
 .menu-celular {
     display: none;
