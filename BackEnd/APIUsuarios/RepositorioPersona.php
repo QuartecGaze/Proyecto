@@ -61,9 +61,22 @@
 
         //Funciones
         
-        
+        //recibe un objeto tipo persona y devuelve la id        
         public function getIdPersona($persona){
             $ci = $persona->getCi();
+            $consulta = "SELECT ID_Persona FROM Persona WHERE CI = '$ci'";
+            $resultado = mysqli_query($this->conn, $consulta);
+            if(mysqli_num_rows($resultado) > 0) {
+            $fila = mysqli_fetch_assoc($resultado);
+            $id = $fila['ID_Persona']; 
+            return $id;
+            }else{
+                throw new Exception("No se encontro una persona con la CI $ci");
+            }
+
+        }
+        //recibe una cedula y devuelve la id;
+        public function getIdPersonaCi($ci){
             $consulta = "SELECT ID_Persona FROM Persona WHERE CI = '$ci'";
             $resultado = mysqli_query($this->conn, $consulta);
             if(mysqli_num_rows($resultado) > 0) {

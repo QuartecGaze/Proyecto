@@ -1,6 +1,10 @@
 <?php
     require_once __DIR__ . '/RepositorioPersona.php';
     require_once __DIR__ . '/ApiUsuarios.php';
+    require_once __DIR__ .'/Modelos/Usuario.php';
+    require_once __DIR__ .'/Modelos/Persona.php'; 
+    require_once __DIR__ .'/Modelos/Admin.php';
+    require_once __DIR__ .'/Modelos/Interesado.php';
     
 
     Class ServicioPersona {
@@ -14,7 +18,7 @@
             if($this->repositorio->personaExiste($ci)){
                 
                 if(password_verify($contraseña, $this->repositorio->getContraseña($ci))){
-                    return $this->repositorio->getIdPersona($ci);
+                    return $this->repositorio->getIdPersonaCi($ci);
                 }else{
                       throw new Exception("Contraseña Incorrecta", 401);
                 }
@@ -39,7 +43,6 @@
                     $interesado = new Interesado($ci, $email, $idPersona, $nombre, $apellido, $contraseña, "Interesado", //datos heredados de persona
                     null, "Pendiente", "Pendiente", null, null, null, "Pendiente", null); //datos de Interesado
                     $this->repositorio->cargarInteresado($interesado);
-
                 }else{
                     throw new Exception("Las contraseñas no coinciden", 400);
                 }

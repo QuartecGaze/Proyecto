@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Registro - Cooperativa Nombre</title>
+    <link rel="stylesheet" href="estilosReg.css">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+</head>
+
+<body>
+    <header class="header-registro">
+        <div class="contenedor-header">
+            <div class="logo">
+                <img src="logo.png" alt="Logo Cooperativa">
+                <span>Cooperativa Nombre</span>
+            </div>
+        </div>
+    </header>
+
+    <main class="contenedor-registro">
+        <div class="divForm">
+            <h1>Crea tu cuenta</h1>
+            <form action="#" id="formRegistro">
+                <div class="fieldInfo">
+                    <label for="nombre">Nombre completo</label>
+                    <input type="text" id="nombre" name="nombre" required>
+                </div>
+
+                <div class="fieldInfo">
+                    <label for="email">Correo electrónico</label>
+                    <input type="email" id="email" name="email" required>
+                </div>
+
+                <div class="fieldInfo">
+                    <label for="telefono">Telefono Movil</label>
+                    <input type="tel" id="telefono" name="telefono" pattern="[0-9]{9,12}"
+                        title="Ingresa tu número de teléfono (9-12 dígitos)" required>
+                </div>
+
+                <div class="fieldInfo">
+                    <label for="cedula">Cedula de Identidad</label>
+                    <input type="text" id="cedula" name="cedula" required minlength="8">
+                </div>
+
+                <div class="fieldInfo">
+                    <label for="password">Contraseña</label>
+                    <input type="password" id="password" name="password" required minlength="8" pattern="(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}">
+                </div>
+
+                <div class="fieldInfo">
+                    <label for="confirmar-password">Confirmar Contraseña</label>
+                    <input type="password" id="confirmar-password" name="confirmar-password" required>
+                </div>
+
+                <div class="terminos">
+                    <input type="checkbox" id="terminos" name="terminos" required>
+                    <label for="terminos">Acepto los <a href="#">Términos de servicio</a> y <a href="#">Política de privacidad</a></label>
+                </div>
+                <button type="submit" class="btnRegistro">Registrarse</button>
+            </form>
+             <div class="login-link">
+                ¿Ya tienes una cuenta? <a href="../Ingreso/login.html">Inicia sesión aquí</a>
+            </div>
+        </div>
+        <div class="infoSide">
+            <h1>hola</h1>
+        </div>
+
+    </main>
+
+    <footer class="footer-registro">
+        <p>&copy; 2025 Cooperativa Nombre. Todos los derechos reservados.</p>
+    </footer>
+
+    <script src="registro.js"></script>
+</body>
+<script>
+const formRegistro = document.getElementById("formRegistro");
+const inputEmail = document.getElementById("email")
+const inputCi = document.getElementById("cedula");
+const inputNombre = document.getElementById("nombre");
+const inputPassword = document.getElementById("password");
+const inputConfirmarPass = document.getElementById("confirmar-password");
+const inputTelefono = document.getElementById("telefono");
+
+formRegistro.addEventListener("submit", function(event) {
+    event.preventDefault();
+    registrarUsuario();
+})
+function registrarUsuario() {
+  const nombreCompleto = inputNombre.value.trim().split(/\s+/);
+  fetch('http://localhost/Proyecto/BackEnd/APIUsuarios/ApiUsuarios.php?accion=registro', {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({
+      ci: inputCi.value,
+      email: email.value,
+      nombre: nombreCompleto[0],
+      apellido: nombreCompleto[1],
+      contraseña: inputPassword.value,
+      confirmarContraseña: inputConfirmarPass.value,
+      telefono: inputTelefono.value
+    })
+  })
+  .then(async response => {
+    const data = await response.json().catch(() => null);
+    if (!response.ok) {
+      throw new Error(data?.message || `Error HTTP ${response.status}`);
+    }
+    return data;
+  })
+  .then(data => {
+    console.log('Respuesta del servidor:', data);
+  })
+  .catch(error => {
+    console.error('Error en la solicitud POST:', error.message);
+  });
+}
+
+</script>
+</html>

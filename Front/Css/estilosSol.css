@@ -1,17 +1,17 @@
 /* Variables de color */
 :root {
-    --color-primario: #2c3e50;/* Azul oscuro principal */
-    --color-secundario: #3498db;/* Azul brillante para elementos importantes */
-    --color-fondo-claro: #ecf0f1;/* Fondo gris claro azulado */
-    --color-fondo-header: #1a2b3c;/* Azul muy oscuro para cabeceras */
-    --color-texto-oscuro: #2c3e50;/* Texto azul oscuro */
-    --color-texto-claro: #fdfdfd00;/* Texto blanco */
-    --color-borde: #bdc3c7;/* Bordes gris azulado */
-    --color-destacado: #e74c3c;/* Color de acento (ej: botones importantes) */
-    --color-sombra: rgba(0, 0, 0, 0.171);/* Sombra suave azulada */
-    --color-hover: #3498db;/* Color para hover */
-    --color-exito: #27ae60;/* Verde para confirmaciones */
-    --color-alerta: #e74c3c;/* Rojo para alertas */
+    --color-primario: #2c3e50;
+    --color-secundario: #3498db;
+    --color-fondo-claro: #ecf0f1;
+    --color-fondo-header: #1a2b3c;
+    --color-texto-oscuro: #2c3e50;
+    --color-texto-claro: #fdfdfd00;
+    --color-borde: #bdc3c7;
+    --color-destacado: #e74c3c;
+    --color-sombra: rgba(0, 0, 0, 0.171);
+    --color-hover: #3498db;
+    --color-exito: #27ae60;
+    --color-alerta: #e74c3c;
 }
 
 /* Estilos generales */
@@ -29,18 +29,25 @@ body {
 
 /* Contenedor principal */
 .contenedor-dashboard {
+    position: relative;
     display: flex;
     min-height: 100vh;
+    overflow: hidden;
 }
 
 /* Sidebar */
 .sidebar {
+    position: fixed;
     width: 280px;
     background-color: white;
     box-shadow: 4px 0 10px var(--color-sombra);
     display: flex;
     flex-direction: column;
     padding: 20px 0;
+    top: 0;
+    height: 100vh;
+    overflow-y: auto;
+    z-index: 100;
 }
 
 .logo-dashboard {
@@ -164,9 +171,12 @@ h1 {
 .contenido-principal {
     padding: 30px;
     flex-grow: 1;
+    margin-left: 280px;
+    width: calc(100% - 280px); /* Calcula el ancho restante */
 }
 
 .contenedor-solicitud {
+    position: static;
     background: white;
     border-radius: 10px;
     box-shadow: 4px 0 10px var(--color-sombra);
@@ -368,14 +378,22 @@ a {
 @media (max-width: 768px) {
     .contenedor-dashboard {
         flex-direction: column;
+        height: auto;
     }
 
     .sidebar {
         width: 100%;
         padding: 10px;
+        position: relative;
     }
 
     .seccion-estadisticas {
         grid-template-columns: 1fr 1fr;
+    }
+
+    .contenido-principal {
+        margin-left: 0;
+        width: 100%;
+        padding: 15px;
     }
 }
