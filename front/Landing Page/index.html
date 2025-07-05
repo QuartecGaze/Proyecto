@@ -20,7 +20,7 @@
                     <li><a href="#SobreNosotros">Sobre Nosotros</a></li>
                     <li><a href="#Localizacion">Localizacion</a></li>
                     <li><a href="#FAQ">FAQ</a></li>
-                    <li><a href="#contacto"></a>Contacto</li>
+                    <li><a href="#contacto">Contacto</a></li>
                 </ul>
                 <button class="boton-formulario boton-movil registro-btn">Registrarse</button>
             </nav>
@@ -30,7 +30,7 @@
             </button>
         </div>
         <div class="flotante-idioma">
-          <button class="boton-idioma">
+          <button class="boton-idioma" onclick="toggleIdioma(this)">
         <span class="material-icons">translate</span>
         <span>ES/EN</span>
           </button>
@@ -172,6 +172,7 @@
     </footer>
 
     <script>
+        let idiomaActual = 'es';
         // Menú móvil
         document.getElementById('menu-hamburguesa').addEventListener('click', function() {
             const nav = document.querySelector('nav');
@@ -203,13 +204,17 @@
                 icono.textContent = 'add';
             }
         }
-
-        //FETCH PARA CONSEGUIR LOS DATOS DEL IDIOMA
-         fetch('http://localhost/Proyecto/BackEnd/APITraduccion/ApiTraduccion.php?accion=getIdioma', {
+        function toggleIdioma(){
+            if(idiomaActual == "es"){
+                idiomaActual = "en";
+            } else {
+                idiomaActual = "es";
+            }
+fetch('http://localhost/Proyecto/BackEnd/APITraduccion/ApiTraduccion.php?accion=getIdioma', {
     method: 'POST',
     headers: { 'Content-Type': 'application/json' },
     body: JSON.stringify({
-        idioma: "es",
+        idioma: idiomaActual,
         pagina: "landing",
     })
   })
@@ -263,6 +268,9 @@
     .catch(error => {
       console.error('Error en la solicitud POST:', error.message);
     });
+        }
+        //FETCH PARA CONSEGUIR LOS DATOS DEL IDIOMA
+         
 </script>
 </body>
 </html>
