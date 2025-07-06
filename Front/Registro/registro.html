@@ -26,42 +26,49 @@
             <form action="#" id="formRegistro">
                 <div class="fieldInfo">
                     <label for="nombre">Nombre completo</label>
-                    <input type="text" id="nombre" name="nombre" required>
+                    <input type="text" id="nombre" name="nombre" required title="Ingresa tu nombre completo">
                 </div>
 
                 <div class="fieldInfo">
                     <label for="email">Correo electrónico</label>
-                    <input type="email" id="email" name="email" required>
+                    <input type="email" id="email" name="email" required title="Ingresa un correo electrónico válido">
                 </div>
 
                 <div class="fieldInfo">
-                    <label for="telefono">Telefono Movil</label>
-                    <input type="tel" id="telefono" name="telefono" pattern="[0-9]{9,12}"
-                        title="Ingresa tu número de teléfono (9-12 dígitos)" required>
+                    <label for="telefono">Teléfono Móvil</label>
+                    <input type="tel" id="telefono" name="telefono" pattern="[0-9]{9,12}" required
+                        title="Ingresa tu número de teléfono (9 a 12 dígitos sin espacios)">
                 </div>
 
                 <div class="fieldInfo">
-                    <label for="cedula">Cedula de Identidad</label>
-                    <input type="text" id="cedula" name="cedula" required minlength="8">
+                    <label for="cedula">Cédula de Identidad</label>
+                    <input type="text" id="cedula" name="cedula" required pattern="^\d{7,8}$"
+                        title="Debe contener 7 u 8 dígitos numéricos sin puntos ni guiones">
                 </div>
 
                 <div class="fieldInfo">
                     <label for="password">Contraseña</label>
-                    <input type="password" id="password" name="password" required minlength="8" pattern="(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}">
+                    <input type="password" id="password" name="password" required minlength="8"
+                        pattern="(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}"
+                        title="Debe tener al menos 8 caracteres, incluyendo mayúscula, minúscula, número y símbolo especial">
                 </div>
 
                 <div class="fieldInfo">
                     <label for="confirmar-password">Confirmar Contraseña</label>
-                    <input type="password" id="confirmar-password" name="confirmar-password" required>
+                    <input type="password" id="confirmar-password" name="confirmar-password" required
+                        title="Repite la contraseña exactamente como la escribiste arriba">
                 </div>
 
                 <div class="terminos">
-                    <input type="checkbox" id="terminos" name="terminos" required>
-                    <label for="terminos">Acepto los <a href="#">Términos de servicio</a> y <a href="#">Política de privacidad</a></label>
+                    <input type="checkbox" id="terminos" name="terminos" required
+                        title="Debes aceptar los términos y condiciones">
+                    <label for="terminos">Acepto los <a href="#">Términos de servicio</a> y <a href="#">Política de
+                            privacidad</a></label>
                 </div>
+
                 <button type="submit" class="btnRegistro">Registrarse</button>
             </form>
-             <div class="login-link">
+            <div class="login-link">
                 ¿Ya tienes una cuenta? <a href="../Ingreso/login.html">Inicia sesión aquí</a>
             </div>
         </div>
@@ -78,47 +85,48 @@
     <script src="registro.js"></script>
 </body>
 <script>
-const formRegistro = document.getElementById("formRegistro");
-const inputEmail = document.getElementById("email")
-const inputCi = document.getElementById("cedula");
-const inputNombre = document.getElementById("nombre");
-const inputPassword = document.getElementById("password");
-const inputConfirmarPass = document.getElementById("confirmar-password");
-const inputTelefono = document.getElementById("telefono");
+    const formRegistro = document.getElementById("formRegistro");
+    const inputEmail = document.getElementById("email")
+    const inputCi = document.getElementById("cedula");
+    const inputNombre = document.getElementById("nombre");
+    const inputPassword = document.getElementById("password");
+    const inputConfirmarPass = document.getElementById("confirmar-password");
+    const inputTelefono = document.getElementById("telefono");
 
-formRegistro.addEventListener("submit", function(event) {
-    event.preventDefault();
-    registrarUsuario();
-})
-function registrarUsuario() {
-  const nombreCompleto = inputNombre.value.trim().split(/\s+/);
-  fetch('http://localhost/Proyecto/BackEnd/APIUsuarios/ApiUsuarios.php?accion=registro', {
-    method: 'POST',
-    headers: { 'Content-Type': 'application/json' },
-    body: JSON.stringify({
-      ci: inputCi.value,
-      email: email.value,
-      nombre: nombreCompleto[0],
-      apellido: nombreCompleto[1],
-      contraseña: inputPassword.value,
-      confirmarContraseña: inputConfirmarPass.value,
-      telefono: inputTelefono.value
+    formRegistro.addEventListener("submit", function (event) {
+        event.preventDefault();
+        registrarUsuario();
     })
-  })
-  .then(async response => {
-    const data = await response.json().catch(() => null);
-    if (!response.ok) {
-      throw new Error(data?.message || `Error HTTP ${response.status}`);
+    function registrarUsuario() {
+        const nombreCompleto = inputNombre.value.trim().split(/\s+/);
+        fetch('http://localhost/Proyecto/BackEnd/APIUsuarios/ApiUsuarios.php?accion=registro', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({
+                ci: inputCi.value,
+                email: email.value,
+                nombre: nombreCompleto[0],
+                apellido: nombreCompleto[1],
+                contraseña: inputPassword.value,
+                confirmarContraseña: inputConfirmarPass.value,
+                telefono: inputTelefono.value
+            })
+        })
+            .then(async response => {
+                const data = await response.json().catch(() => null);
+                if (!response.ok) {
+                    throw new Error(data?.message || `Error HTTP ${response.status}`);
+                }
+                return data;
+            })
+            .then(data => {
+                console.log('Respuesta del servidor:', data);
+            })
+            .catch(error => {
+                console.error('Error en la solicitud POST:', error.message);
+            });
     }
-    return data;
-  })
-  .then(data => {
-    console.log('Respuesta del servidor:', data);
-  })
-  .catch(error => {
-    console.error('Error en la solicitud POST:', error.message);
-  });
-}
 
 </script>
+
 </html>
