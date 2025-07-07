@@ -107,7 +107,17 @@
             
         }
 
-
+        public function getRol($ci){
+            $consulta = "SELECT Rol FROM Persona WHERE CI = '$ci'";
+            $resultado = mysqli_query($this->conn, $consulta);
+            if(mysqli_num_rows($resultado) > 0) {
+            $fila = mysqli_fetch_assoc($resultado);
+            $rol = $fila['Rol']; 
+            return $rol;
+            }else{
+                throw new Exception("No se encontro una persona con la CI $ci");
+            }
+        }
         
     }
     ?>

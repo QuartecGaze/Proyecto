@@ -48,10 +48,13 @@
             } elseif ($accion === "login") {
 
                 try {
+                    session_start();
                     $datos = json_decode(file_get_contents('php://input'), true);
-                    $id = $servicio->iniciarSesion($datos['ci'], $datos['contraseña']);
-                    $_SESSION['id'] = $id;
-                    respuesta("Sesion iniciada con exito", "exito", 200);
+                    $persona = $servicio->iniciarSesion($datos['ci'], $datos['contraseña']);
+                    $_SESSION['id'] = $persona['id'];
+                    $_SESSION['rol'] = $persona['rol'];
+                    respuesta("Sesion iniciada con exito", "exito", 200, $persona['rol']);
+
 
                 } catch(Exception $e) {
                     respuesta($e->getMessage(), "error", $e->getCode());
@@ -70,13 +73,20 @@
 
     }
 
-    function respuesta($mensaje, $estado, $codigo) {
+    function respuesta($mensaje, $estado, $codigo, $rol = null) { // $rol = null hace que sea opcional ponerlo para usar el metodo
         header('Content-Type: application/json');
         http_response_code($codigo);
-        echo json_encode([
+    
+        $respuesta = [
             "status"  => $estado,
-            "message" => $mensaje,
-        ]);
+            "message" => $mensaje
+        ];
+    
+        if ($rol != null) {
+            $respuesta["rol"] = $rol;
+        }
+    
+        echo json_encode($respuesta);
         exit;
     }
 
