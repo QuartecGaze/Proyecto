@@ -42,6 +42,8 @@ INSERT INTO `traducciones` (`pagina`, `clave`, `idioma`, `texto`) VALUES
 ('', 'contactanos-form-label', '', 'Name;Email;Phone Number (e.g. 098123456);Message'),
 ('landing', 'comunidad-titulo', 'en', 'Solid community'),
 ('landing', 'comunidad-titulo', 'es', 'Comunidad Sólida'),
+('landing', 'comunidad-texto', 'en', 'Projects designed to endure over time and benefit future generations.'),
+('landing', 'comunidad-texto', 'es', 'Proyectos diseñados para perdurar en el tiempo y beneficiar a futuras generaciones.'),
 ('landing', 'contactanos-btn', 'en', 'Send Message'),
 ('landing', 'contactanos-btn', 'es', 'Enviar Mensaje'),
 ('landing', 'contactanos-form-label', 'en', 'Name;Email;Phone Number (e.g. 098123456);Message'),
@@ -50,6 +52,8 @@ INSERT INTO `traducciones` (`pagina`, `clave`, `idioma`, `texto`) VALUES
 ('landing', 'contactanos-titulo', 'es', 'CONTACTANOS'),
 ('landing', 'decision-titulo', 'en', 'Democratic Decisions'),
 ('landing', 'decision-titulo', 'es', 'Decisión Democrática'),
+('landing', 'decision-texto', 'en', 'Each member has a voice and a vote in the important decisions that affect the community.'),
+('landing', 'decision-texto', 'es', 'Cada miembro tiene voz y voto en las decisiones importantes que afectan a la comunidad.'),
 ('landing', 'faq-titulo2', 'es', 'Qué necesito para ser Apto?'),
 ('landing', 'faqs-texto1', 'en', 'Once your registration is complete, our team will get in touch to schedule an interview and explain the next steps.'),
 ('landing', 'faqs-texto1', 'es', 'Una vez completado tu registro, nuestro equipo se pondrá en contacto para programar una entrevista y explicarte los próximos pasos.'),
@@ -62,9 +66,11 @@ INSERT INTO `traducciones` (`pagina`, `clave`, `idioma`, `texto`) VALUES
 ('landing', 'faqs-titulo-4', 'es', '¿Tenes más preguntas?'),
 ('landing', 'faqs-titulo1', 'en', 'What happens when I register?'),
 ('landing', 'faqs-titulo1', 'es', '¿Qué pasa al momento de registrarme?'),
+('landing', 'faqs-titulo2', 'es', '¿Qué necesito para ser Apto?'),
 ('landing', 'faqs-titulo2', 'en', 'What do I need to qualify?'),
 ('landing', 'faqs-titulo3', 'en', 'How much do I have to work in the cooperative?'),
 ('landing', 'faqs-titulo3', 'es', '¿Qué tanto hay que trabajar en la cooperativa?'),
+('landing', 'faqs-titulo4', 'es', '¿Tenes más preguntas?'),
 ('landing', 'faqs-titulo4', 'en', 'Do you have any more questions?'),
 ('landing', 'footer-contacto-telefono', 'en', 'Phone Number: +598 92 124 491'),
 ('landing', 'footer-contacto-telefono', 'es', 'Teléfono: +598 92 124 491'),
@@ -93,10 +99,12 @@ INSERT INTO `traducciones` (`pagina`, `clave`, `idioma`, `texto`) VALUES
 ('landing', 'que-hacemos-texto2', 'es', 'A través de redes solidarias, construimos soluciones compartidas que surgen desde abajo, priorizando la autogestión, la equidad y el bienestar colectivo.'),
 ('landing', 'que-hacemos-titulo', 'en', 'WHAT WE DO'),
 ('landing', 'que-hacemos-titulo', 'es', '¿QUÉ HACEMOS?'),
-('landing', 'registro-btn', 'en', 'Sign Up'),
-('landing', 'registro-btn', 'es', 'Registrarse'),
+('landing', 'iniciarsesion-btn', 'en', 'Sign Up'),
+('landing', 'iniciarsesion-btn', 'es', 'Iniciar Sesion'),
+('landing', 'sostenibilidad-titulo', 'es', 'Sostenibilidad\r\n\r\n');
 ('landing', 'sostenibilidad-titulo', 'en', 'Sustainability\r\n\r\n');
-
+('landing', 'sostenibilidad-texto', 'es', 'Forma parte de una red de apoyo mutuo donde todos contribuimos y nos beneficiamos del esfuerzo colectivo.');
+('landing', 'sostenibilidad-texto', 'en', 'Be part of a mutual support network where everyone contributes and benefits from the collective effort.');
 --
 -- Índices para tablas volcadas
 --
