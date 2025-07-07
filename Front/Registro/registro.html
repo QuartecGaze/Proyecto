@@ -14,7 +14,9 @@
     <header class="header-registro">
         <div class="contenedor-header">
             <div class="logo">
-                <img src="logo.png" alt="Logo Cooperativa">
+                <a href="../Landing Page/index.html">
+                    <img src="../../Fotos/logo.webp" alt="Logo Cooperativa">
+                </a>
                 <span>Cooperativa Nombre</span>
             </div>
         </div>
@@ -99,7 +101,7 @@
     })
     function registrarUsuario() {
         const nombreCompleto = inputNombre.value.trim().split(/\s+/);
-        fetch('http://localhost/Proyecto/BackEnd/APIUsuarios/ApiUsuarios.php?accion=registro', {
+        fetch('http://localhost:8888/Proyecto/BackEnd/APIUsuarios/ApiUsuarios.php?accion=registro', {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify({

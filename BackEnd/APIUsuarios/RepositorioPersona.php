@@ -38,17 +38,12 @@
 
         public function cargarInteresado($interesado){
             $idPersona = $interesado->getIdPersona();
-            $antecedentes = $interesado->getAntecedentes();
             $estadoAntecedentes = $interesado->getEstadoAntecedentes();
             $estadoEntrevista = $interesado->getEstadoEntrevista();
-            $fechaEntrevista = $interesado->getFechaEntrevista();
-            $horaEntrevista = $interesado->getHoraEntrevista();
-            $pagoInicial = $interesado->getPagoInicial();
             $estadoPagoInicial = $interesado->getEstadoPagoInicial();
-            $montoPagoInicial = $interesado->getMontoPagoInicial();
             $consulta = "
-                INSERT INTO Interesado (ID_Persona, Antecedentes, Estado_antecedentes, Estado_entrevista, Fecha_entrevista, Hora_entrevista, Pago_inicial, Estado_pago_inicial, Monto_pago_inicial) 
-                VALUES ('$idPersona', '$antecedentes', '$estadoAntecedentes', '$estadoEntrevista', '$fechaEntrevista', '$horaEntrevista', '$pagoInicial', '$estadoPagoInicial', '$montoPagoInicial')
+                INSERT INTO Interesado (ID_Persona, Estado_antecedentes, Estado_entrevista, Estado_pago_inicial) 
+                VALUES ('$idPersona', '$estadoAntecedentes', '$estadoEntrevista', '$estadoPagoInicial')
             ";
             mysqli_query($this->conn, $consulta);
         }

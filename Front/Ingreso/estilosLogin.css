@@ -90,7 +90,7 @@ body {
     color: white;
     text-align: center;
     background-image: linear-gradient(rgba(47, 47, 63, 0.9), rgba(47, 47, 63, 0.9)),
-        url('../../Fotos/Foto-Login.jpg');
+        url('../../Fotos/Foto-Login.webp');
     background-size: cover;
     background-position: center;
 }
