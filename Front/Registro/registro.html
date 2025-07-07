@@ -101,7 +101,7 @@
     })
     function registrarUsuario() {
         const nombreCompleto = inputNombre.value.trim().split(/\s+/);
-        fetch('http://localhost:8888/Proyecto/BackEnd/APIUsuarios/ApiUsuarios.php?accion=registro', {
+        fetch('http://localhost/Proyecto/BackEnd/APIUsuarios/ApiUsuarios.php?accion=registro', {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify({
