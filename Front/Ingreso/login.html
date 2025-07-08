@@ -87,6 +87,7 @@
     const formLogin = document.getElementById("formLogin");
     const inputCi = document.getElementById("cedula");
     const inputContraseña = document.getElementById("password");
+    const divError = document.getElementById("mensajeError");
 
     formLogin.addEventListener("submit", function (event) {
         event.preventDefault();
@@ -105,6 +106,8 @@
             .then(async response => {
                 const data = await response.json().catch(() => null);
                 if (!response.ok) {
+                    divError.style.display = "block";
+                    divError.textContent = data.message;
                     throw new Error(data?.message || `Error HTTP ${response.status}`);
                 }
                 return data;
