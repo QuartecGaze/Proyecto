@@ -143,6 +143,30 @@ body {
 }
 
 
+.password-container {
+    position: relative;
+}
+
+.toggle-password {
+    position: absolute;
+    right: 10px;
+    top: 50%;
+    transform: translateY(-50%);
+    cursor: pointer;
+    color: var(--primarioOscuro);
+    user-select: none;
+}
+
+.toggle-password:hover {
+    color: var(--primario);
+}
+
+.fieldInfo input[type="password"],
+.fieldInfo input[type="text"] {
+    padding-right: 40px; 
+}
+
+
 .btnRegistro {
     width: 100%;
     padding: 1rem;

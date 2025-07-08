@@ -200,6 +200,29 @@ body {
     box-shadow: 0 0 0 2px rgba(0, 180, 255, 0.2);
 }
 
+.password-container {
+    position: relative;
+}
+
+.toggle-password {
+    position: absolute;
+    right: 10px;
+    top: 45%;
+    transform: translateY(-50%);
+    cursor: pointer;
+    color: var(--primarioOscuro);
+    user-select: none;
+}
+
+.toggle-password:hover {
+    color: var(--primario);
+}
+
+.fieldInfo input[type="password"],
+.fieldInfo input[type="text"] {
+    padding-right: 40px; 
+}
+
 .btnIngresar {
     width: 100%;
     padding: 1rem;

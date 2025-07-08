@@ -31,14 +31,16 @@
             <form action="#" id="formLogin">
                 <div class="fieldInfo">
                     <label for="cedula">Cedula de Identidad</label>
-                    <input type="text" id="cedula" name="cedula"
-                        title="ingrese su cedula" required>
+                    <input type="text" id="cedula" name="cedula" title="ingrese su cedula" required>
                 </div>
 
                 <div class="fieldInfo">
                     <label for="password">Contraseña</label>
-                    <input type="password" id="password" name="password" required
-                        >
+                    <div class="password-container">
+                        <input type="password" id="password" name="password" required>
+                        <span class="toggle-password material-icons"
+                            onclick="togglePassword('password')">visibility</span>
+                    </div>
                 </div>
 
                 <button type="submit" class="btnIngresar">Ingresar</button>
@@ -82,46 +84,60 @@
     const inputCi = document.getElementById("cedula");
     const inputContraseña = document.getElementById("password");
 
-    formLogin.addEventListener("submit", function(event) {
+    formLogin.addEventListener("submit", function (event) {
         event.preventDefault();
         iniciarSesion();
     })
 
     function iniciarSesion() {
         fetch('http://localhost/Proyecto/BackEnd/APIUsuarios/ApiUsuarios.php?accion=login', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({
-            ci: inputCi.value,
-            contraseña: inputContraseña.value,
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({
+                ci: inputCi.value,
+                contraseña: inputContraseña.value,
+            })
         })
-    })
-    .then(async response => {
-    const data = await response.json().catch(() => null);
-    if (!response.ok) {
-        throw new Error(data?.message || `Error HTTP ${response.status}`);
-    }
-    return data;
-    })
-    .then(data => {
-    if (data.status === "exito") {
-      if (data.rol === "Admin") {
-        window.location.href = "../Admin/index.html";
-      } else if (data.rol === "Usuario") {
-        window.location.href = "../Usuario/index.html";
-      } else if (data.rol === "Interesado") {
-        window.location.href = "../Interesado/index.html";
-      } else {
-        alert("Rol no reconocido: " + data.rol);
-      }
-    } else {
-      alert("Error al iniciar sesión");
-    }
-  })
-    .catch(error => {
-        console.error('Error en la solicitud POST:', error.message);
-    });
+            .then(async response => {
+                const data = await response.json().catch(() => null);
+                if (!response.ok) {
+                    throw new Error(data?.message || `Error HTTP ${response.status}`);
+                }
+                return data;
+            })
+            .then(data => {
+                if (data.status === "exito") {
+                    if (data.rol === "Admin") {
+                        window.location.href = "../Admin/index.html";
+                    } else if (data.rol === "Usuario") {
+                        window.location.href = "../Usuario/index.html";
+                    } else if (data.rol === "Interesado") {
+                        window.location.href = "../Interesado/index.html";
+                    } else {
+                        alert("Rol no reconocido: " + data.rol);
+                    }
+                } else {
+                    alert("Error al iniciar sesión");
+                }
+            })
+            .catch(error => {
+                console.error('Error en la solicitud POST:', error.message);
+            });
 
     }
+
+    function togglePassword(fieldId) {
+        const passwordField = document.getElementById(fieldId);
+        const toggleIcon = passwordField.nextElementSibling;
+        
+        if (passwordField.type === "password") {
+            passwordField.type = "text";
+            toggleIcon.textContent = "visibility_off";
+        } else {
+            passwordField.type = "password";
+            toggleIcon.textContent = "visibility";
+        }
+    }
 </script>
+
 </html>
