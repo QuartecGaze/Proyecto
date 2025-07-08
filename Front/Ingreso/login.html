@@ -28,6 +28,10 @@
                 <img src="../../Fotos/logo.webp" alt="Logo Cooperativa" class="form-logo">
                 <h1>Ingrese a su cuenta</h1>
             </div>
+
+            <div id="mensajeError" class="mensaje-error" style="display: none;">
+            </div>
+
             <form action="#" id="formLogin">
                 <div class="fieldInfo">
                     <label for="cedula">Cedula de Identidad</label>
@@ -129,7 +133,7 @@
     function togglePassword(fieldId) {
         const passwordField = document.getElementById(fieldId);
         const toggleIcon = passwordField.nextElementSibling;
-        
+
         if (passwordField.type === "password") {
             passwordField.type = "text";
             toggleIcon.textContent = "visibility_off";
