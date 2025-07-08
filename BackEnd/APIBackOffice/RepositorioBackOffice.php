@@ -8,6 +8,19 @@
         }
 
         //Persona
+        public function personaExiste($id){
+            $consulta = "
+            SELECT * FROM Persona WHERE ID_Persona=$id
+            ";
+            $resultado = mysqli_query($this->conn, $consulta);
+            if(mysqli_num_rows($resultado) > 0){
+                return true;
+            }else
+            {
+                return false;
+            }
+            
+        }
 
         public function borrarPersona($id){
             $consulta = "
@@ -27,26 +40,57 @@
         
 
         public function asignarEntrevista($id, $fechaEntrevista, $horaEntrevista){
-            $estadoEntrevista = "Pendiente"; // revisar bien si es pendiente o que 
+            $estadoEntrevista = "En espera"; 
             $consulta = "
                 INSERT INTO Interesado WHERE ID_Persona=$id (Estado_entrevista, Fecha_entrevista, Hora_entrevista) 
                 VALUES ('$estadoEntrevista', '$fechaEntrevista', '$horaEntrevista')
             ";
+            mysqli_query($this->conn, $consulta);
         }
 
-        public function revisarAntecedentes($id, )
+        public function asignarEstadoEntrevista($id, $estadoEntrevista){
+            $consulta = "
+                INSERT INTO Interesado WHERE ID_Persona=$id (Estado_entrevista) 
+                VALUES ('$estadoEntrevista')
+            ";
+            mysqli_query($this->conn, $consulta);
+        }
+
+        public function revisarAntecedentes($id, $estadoAntecedentes){
+            $consulta = "
+                INSERT INTO Interesado WHERE ID_Persona=$id (Estado_antecedentes) 
+                VALUES ('$estadoAntecedentes')
+            ";
+            mysqli_query($this->conn, $consulta);   
+        }
+
+        public function revisarPagoInicial($id, $estadoPagoInicial){
+            $consulta = "
+                INSERT INTO Interesado WHERE ID_Persona=$id (Estado_pago) 
+                VALUES ('$estadoPagoInicial')
+            ";
+            mysqli_query($this->conn, $consulta);   
+        }
+
+        public function setMontoPagoInicial($id, $montoPagoInicial){
+            $consulta = "
+                INSERT INTO Interesado WHERE ID_Persona=$id (Monto_pago_inicial) 
+                VALUES ('$montoPagoInicial')
+            ";
+            mysqli_query($this->conn, $consulta); 
+        }
+
 
         //Usuario
 
         public function cargarUsuario($Usuario) {
             $idPersona = $Usuario->getIdPersona();
-            $fechaNacimiento = $Usuario->getFechaNacimiento();
             $fechaIngreso = $Usuario->getFechaIngreso();
-            $foto = $Usuario->getFoto();
             $consulta = "
-                INSERT INTO Usuario (ID_Persona, Fecha_nacimiento, Fecha_ingreso, Foto)
-                VALUES ('$idPersona','$fechaNacimiento','$fechaIngreso','$foto')
+                INSERT INTO Usuario (ID_Persona Fecha_ingreso)
+                VALUES ('$idPersona','$fechaIngreso')
             ";
+            mysqli_query($this->conn, $consulta);
         }
         
         public function borrarUsuario($id){

@@ -101,9 +101,9 @@ INSERT INTO `traducciones` (`pagina`, `clave`, `idioma`, `texto`) VALUES
 ('landing', 'que-hacemos-titulo', 'es', '¿QUÉ HACEMOS?'),
 ('landing', 'iniciarsesion-btn', 'en', 'Sign Up'),
 ('landing', 'iniciarsesion-btn', 'es', 'Iniciar Sesion'),
-('landing', 'sostenibilidad-titulo', 'es', 'Sostenibilidad\r\n\r\n');
-('landing', 'sostenibilidad-titulo', 'en', 'Sustainability\r\n\r\n');
-('landing', 'sostenibilidad-texto', 'es', 'Forma parte de una red de apoyo mutuo donde todos contribuimos y nos beneficiamos del esfuerzo colectivo.');
+('landing', 'sostenibilidad-titulo', 'es', 'Sostenibilidad\r\n\r\n'),
+('landing', 'sostenibilidad-titulo', 'en', 'Sustainability\r\n\r\n'),
+('landing', 'sostenibilidad-texto', 'es', 'Forma parte de una red de apoyo mutuo donde todos contribuimos y nos beneficiamos del esfuerzo colectivo.'),
 ('landing', 'sostenibilidad-texto', 'en', 'Be part of a mutual support network where everyone contributes and benefits from the collective effort.');
 --
 -- Índices para tablas volcadas
