@@ -51,6 +51,22 @@
 
         //CRUD Usuario
 
+        public function cargarFotoUsuario($id, $foto){
+            $consulta = "
+            INSERT INTO Usuario WHERE ID_Persona=$id (Foto) 
+            VALUES ('$foto')
+
+        ";
+        mysqli_query($this->conn, $consulta);
+        }
+
+        public function cargarFechaNacimientoUsuario($id, $fechaNacimiento){
+            $consulta = "
+            INSERT INTO Usuario WHERE ID_Persona=$id (Fecha_nacimiento) 
+            VALUES ('$fechaNacimiento')
+        ";
+        mysqli_query($this->conn, $consulta);
+        }
         //ediar datos usuario
        
 
@@ -118,6 +134,7 @@
                 throw new Exception("No se encontro una persona con la CI $ci");
             }
         }
+        
         
     }
     ?>

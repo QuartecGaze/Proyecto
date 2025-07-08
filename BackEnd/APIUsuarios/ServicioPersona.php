@@ -26,7 +26,7 @@
                 }
 
             }else{
-                throw new Exception("Usuario invalido", 404);
+                throw new Exception("El usuario no existe", 404);
             }
         }
 
@@ -50,6 +50,13 @@
                 }
             }else{
                 throw new Exception("Esta Persona ya existe", 409);
+            }
+        }
+        public function getInteresado($id){
+            if($this->repositorio->interesadoExiste($id)){
+                return $this->repositorio->getInteresado($id);
+            } else{
+                throw new Exception("El interesado no existe", 404);
             }
         }
         
