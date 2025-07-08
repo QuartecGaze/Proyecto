@@ -9,7 +9,7 @@
     header("Access-Control-Allow-Origin: *");
     header("Access-Control-Allow-Methods: GET, POST, OPTIONS");
     header("Access-Control-Allow-Headers: Content-Type, Authorization");
-
+    header("Access-Control-Allow-Credentials: true");
 
     if ($_SERVER['REQUEST_METHOD'] === 'OPTIONS') {
         http_response_code(200);
@@ -64,7 +64,42 @@
         break;
 
         case "GET":
+            if($accion === "getInteresado"){
+                session_start();
+                $id = $_SESSION['id'] ?? null;
+                if($id != null){
+                    try{
+                    $interesado = $servicio->getInteresado($id);
+                    $respuesta = [
+                    'idPersona' => $interesado->getIdPersona(),
+                    'nombre' => $interesado->getNombre(),
+                    'apellido' => $interesado->getApellido(),
+                    'antecedentes' => $interesado->getAntecedentes(),
+                    'estadoAntecedentes' => $interesado->getEstadoAntecedentes(),
+                    'fechaEntrevista' => $interesado->getFechaEntrevista(),
+                    'horaEntrevista' => $interesado->getHoraEntrevista(),
+                    'pagoInicial' => $interesado->getPagoInicial(),
+                    'estadoPagoInicial' => $interesado->getEstadoPagoInicial(),
+                    'montoPagoInicial' => $interesado->getMontoPagoInicial(),
+                    ];
+                        respuesta($respuesta, "exito", 200);
+                    }
+                    catch(Exception $e) {
+                    respuesta($e->getMessage(), "error", $e->getCode());
+                }
 
+            } else{
+                respuesta("No se encontro una id para buscar", "error", 0);
+            }
+        }
+            if($accion == "getIdSesion"){
+                session_start();
+                if(isset($_SESSION['id'])){
+                    respuesta($_SESSION['id'], "exito", 200);
+                } else {
+                    respuesta("No se ha encontrado una variable de sesion", "error", 404);
+                }
+            }
         break;
 
         default:

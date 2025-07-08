@@ -69,5 +69,27 @@
         <p>&copy; 2025 Cooperativa Nombre. Todos los derechos reservados.</p>
     </footer>
 </body>
+<script>
+    //Conseguir la id de sesion
+    let idSesion = null;
 
+    fetch(`http://localhost/Proyecto/BackEnd/APIUsuarios/ApiUsuarios.php?accion=getInteresado`, {
+        method: 'GET',
+        credentials:'include',
+    })
+    .then(async response => {
+    const data = await response.text();
+    console.log(data); // mejor usar .json() si esperás JSON
+    if (!response.ok) {
+        throw new Error(data?.message || `Error HTTP ${response.status}`);
+    }
+    console.log('Respuesta del servidor (interesado):', data);
+})
+.catch(error => {
+    console.error('Error en la solicitud:', error.message);
+});
+    //hacer el fetch con la id
+    
+    
+</script>
 </html>

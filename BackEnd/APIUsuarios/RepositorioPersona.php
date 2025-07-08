@@ -47,6 +47,31 @@
             ";
             mysqli_query($this->conn, $consulta);
         }
+          public function getInteresado($id){
+            $consulta = "
+                SELECT * FROM Persona JOIN Interesado ON Persona.ID_Persona = Interesado.ID_Persona;
+            ";
+            $resultado = mysqli_query($this->conn, $consulta);
+            $fila = mysqli_fetch_assoc($resultado);
+            $interesado = new Interesado(
+                $fila['CI'], 
+                $fila['Email'], 
+                $fila['ID_Persona'], 
+                $fila['Nombre'], 
+                $fila['Apellido'], 
+                $fila['Contraseña'], 
+                $fila['Rol'],
+                $fila['Antecedentes'], 
+                $fila['Estado_antecedentes'], 
+                $fila['Estado_entrevista'], 
+                $fila['Fecha_entrevista'], 
+                $fila['Hora_entrevista'], 
+                $fila['Pago_inicial'], 
+                $fila['Estado_pago_inicial'], 
+                $fila['Monto_pago_inicial']); 
+            return $interesado;
+        }
+
 
 
         //CRUD Usuario
@@ -102,6 +127,17 @@
 
         public function personaExiste($ci){
             $consulta = "SELECT * FROM Persona WHERE CI = '$ci'";
+            $resultado = mysqli_query($this->conn, $consulta);
+            if(mysqli_num_rows($resultado) > 0){
+                return true;
+            }else
+            {
+                return false;
+            }
+            
+        }
+         public function InteresadoExisteID($id){
+            $consulta = "SELECT * FROM Interesado WHERE ID_Persona = '$id'";
             $resultado = mysqli_query($this->conn, $consulta);
             if(mysqli_num_rows($resultado) > 0){
                 return true;

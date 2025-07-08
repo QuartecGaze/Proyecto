@@ -53,7 +53,7 @@
             }
         }
         public function getInteresado($id){
-            if($this->repositorio->interesadoExiste($id)){
+            if($this->repositorio->interesadoExisteID($id)){
                 return $this->repositorio->getInteresado($id);
             } else{
                 throw new Exception("El interesado no existe", 404);

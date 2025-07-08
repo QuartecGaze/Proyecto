@@ -50,11 +50,9 @@
                 <button type="submit" class="btnIngresar login-btn">Ingresar</button>
             </form>
             <div class="login-link">
-<<<<<<< HEAD
+
                 <p class="no-cuenta-text">¿Aun no tienes una cuenta?</p> <a href="../Registro/registro.html" class="no-cuenta-link">Crea tu cuenta aquí</a>
-=======
-                <p>¿Aun no tienes una cuenta? </p><a href="../Registro/registro.html">Crea tu cuenta aquí</a>
->>>>>>> 1628a8d418a35acb9d3c75ad380c01261502d410
+
             </div>
         </div>
         <div class="infoSide">
@@ -99,7 +97,7 @@
     })
 
     function iniciarSesion() {
-        fetch('http://localhost:8888/Proyect/BackEnd/APIUsuarios/ApiUsuarios.php?accion=login', {
+        fetch('http://localhost/Proyecto/BackEnd/APIUsuarios/ApiUsuarios.php?accion=login', {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify({
@@ -141,8 +139,7 @@
     method: 'POST',
     headers: { 'Content-Type': 'application/json' },
     body: JSON.stringify({
-        idioma: idiomaActual,
-        pagina: "landing",
+        pagina: "login",
     })
   })
   .then(async response => {
@@ -208,64 +205,6 @@
             toggleIcon.textContent = "visibility";
         }
     }
-    //SOLICITAR LOS DATOS DE IDIOMA YA SELECCIONADO
-    fetch('http://localhost:8888/Proyect/BackEnd/APITraduccion/ApiTraduccion.php?accion=getIdioma', {
-    method: 'POST',
-    headers: { 'Content-Type': 'application/json' },
-    body: JSON.stringify({
-        pagina: "login",
-    })
-  })
-  .then(async response => {
-    const data = await response.json().catch(() => null);
-    if (!response.ok) {
-      throw new Error(data?.message || `Error HTTP ${response.status}`);
-    }
-    return data;
-  })
-  .then(data => {
-      console.log('Respuesta del servidor:', data);
-
-      for (const [clave, valor] of Object.entries(data.message)) {
-        const elementos = document.querySelectorAll(`.${clave}`);
-
-        elementos.forEach(el => {
-          if (el.tagName.toLowerCase() === 'nav') {
-            const ul = el.querySelector('ul');
-            if (ul) {
-              const items = valor.split(';');
-              const lis = ul.querySelectorAll('li');
-
-              lis.forEach((li, index) => {
-                const a = li.querySelector('a');
-                if (a) {
-                  a.innerHTML = items[index] ?? '';
-                }
-              });
-            }
-          }
-
-          else if (el.tagName.toLowerCase() === 'form') {
-            const divs = el.querySelectorAll('div');
-            const items = valor.split(';');
-
-            divs.forEach((div, index) => {
-              const label = div.querySelector('label');
-              if (label) {
-                label.innerHTML = items[index] ?? '';
-              }
-            });
-          }
-
-          else {
-            el.innerHTML = valor;
-          }
-        });
-      }
-    })
-    .catch(error => {
-      console.error('Error en la solicitud POST:', error.message);
-    });
 </script>
 
 </html>
