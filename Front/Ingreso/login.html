@@ -50,7 +50,7 @@
                 <button type="submit" class="btnIngresar">Ingresar</button>
             </form>
             <div class="login-link">
-                ¿Aun no tienes una cuenta? <a href="../Registro/registro.html">Crea tu cuenta aquí</a>
+                <p>¿Aun no tienes una cuenta? </p><a href="../Registro/registro.html">Crea tu cuenta aquí</a>
             </div>
         </div>
         <div class="infoSide">
@@ -65,7 +65,7 @@
                     </div>
                     <div class="beneficiosItem">
                         <span class="material-icons">security</span>
-                        <p>Seguridad garantizada</p>
+                        <p>Seguridad garanrtizada</p>
                     </div>
                     <div class="beneficiosItem">
                         <span class="material-icons">support_agent</span>
@@ -132,6 +132,65 @@
             });
 
     }
+    //CONSEGUIR EL IDIOMA YA ASIGNADO
+    fetch('http://localhost/Proyecto/BackEnd/APITraduccion/ApiTraduccion.php?accion=getIdioma', {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({
+        idioma: idiomaActual,
+        pagina: "landing",
+    })
+  })
+  .then(async response => {
+    const data = await response.json().catch(() => null);
+    if (!response.ok) {
+      throw new Error(data?.message || `Error HTTP ${response.status}`);
+    }
+    return data;
+  })
+  .then(data => {
+      console.log('Respuesta del servidor:', data);
+
+      for (const [clave, valor] of Object.entries(data.message)) {
+        const elementos = document.querySelectorAll(`.${clave}`);
+
+        elementos.forEach(el => {
+          if (el.tagName.toLowerCase() === 'nav') {
+            const ul = el.querySelector('ul');
+            if (ul) {
+              const items = valor.split(';');
+              const lis = ul.querySelectorAll('li');
+
+              lis.forEach((li, index) => {
+                const a = li.querySelector('a');
+                if (a) {
+                  a.innerHTML = items[index] ?? '';
+                }
+              });
+            }
+          }
+
+          else if (el.tagName.toLowerCase() === 'form') {
+            const divs = el.querySelectorAll('div');
+            const items = valor.split(';');
+
+            divs.forEach((div, index) => {
+              const label = div.querySelector('label');
+              if (label) {
+                label.innerHTML = items[index] ?? '';
+              }
+            });
+          }
+
+          else {
+            el.innerHTML = valor;
+          }
+        });
+      }
+    })
+    .catch(error => {
+      console.error('Error en la solicitud POST:', error.message);
+    });
 
     function togglePassword(fieldId) {
         const passwordField = document.getElementById(fieldId);

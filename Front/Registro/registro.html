@@ -106,6 +106,7 @@
     const inputPassword = document.getElementById("password");
     const inputConfirmarPass = document.getElementById("confirmar-password");
     const inputTelefono = document.getElementById("telefono");
+     const divError = document.getElementById("mensajeError");
 
     formRegistro.addEventListener("submit", function (event) {
         event.preventDefault();
@@ -129,6 +130,8 @@
             .then(async response => {
                 const data = await response.json().catch(() => null);
                 if (!response.ok) {
+                    divError.style.display = "block";
+                    divError.textContent = data.message;
                     throw new Error(data?.message || `Error HTTP ${response.status}`);
                 }
                 return data;

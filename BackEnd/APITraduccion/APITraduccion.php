@@ -23,15 +23,22 @@ header("Access-Control-Allow-Headers: Content-Type, Authorization");
 
     switch($metodo) {
         case "POST":
-            if ($accion === "getIdioma") {
-                
+            if ($accion === "setIdioma") {
+                    session_start();
                     $datos = json_decode(file_get_contents('php://input'), true);
-                    $traduccion = $servicio->getIdiomaPagina(
-                        $datos['idioma'], 
-                        $datos['pagina'], 
-                    );
+                    $_SESSION['idioma'] = $datos['idioma'];
+                    $traduccion = getIdioma($datos['idioma'], $datos['pagina']);
                     respuesta($traduccion, "exito", 201);
                 }
+            if ($accion === "getIdioma"){
+                session_start();
+                $datos = json_decode(file_get_contents('php://input'), true);
+                if(!isset($_SESSION['idioma'])){
+                    $_SESSION['idioma'] = 'es';
+                }
+                $traduccion = getIdioma($_SESSION['idioma'], $datos['pagina']);
+                respuesta($traduccion, "exito", 201);
+            }
         break;
 
         case "GET":
@@ -52,6 +59,13 @@ header("Access-Control-Allow-Headers: Content-Type, Authorization");
             "message" => $mensaje,
         ]);
         exit;
+    }
+    function getIdioma($idioma, $pagina){
+        $traduccion = $servicio->getIdiomaPagina(
+                        $idioma, 
+                        $pagina, 
+                    );
+        return $traduccion;
     }
 
 
