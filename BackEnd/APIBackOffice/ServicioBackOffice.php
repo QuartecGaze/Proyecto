@@ -51,6 +51,17 @@
             $this->repositorio->revisarPagoInicial($idPersona, "Pendiente");
         }
 
+        public function rechazarEstado($idPersona, $campo) {
+            $camposValidos = ["Estado_entrevista", "Estado_antecedentes", "Estado_pago_inicial"];
+            //hacemos esto para evitar una posible inyeccion sql desde el javscript
+            if (!in_array($campo, $camposValidos)) {
+                return false;
+            }
+        
+            $this->repositorio->revisarEstado($idPersona, $campo, "Rechazado");
+            return true;
+        }
+
         public function aprobarEstado($idPersona, $campo) {
             $camposValidos = ["Estado_entrevista", "Estado_antecedentes", "Estado_pago_inicial"];
             //hacemos esto para evitar una posible inyeccion sql desde el javscript
