@@ -65,8 +65,7 @@
 
         case "GET":
             if($accion === "getInteresado"){
-                session_start();
-                $id = $_SESSION['id'] ?? null;
+                $id = $_GET['id'];
                 if($id != null){
                     try{
                     $interesado = $servicio->getInteresado($id);
@@ -76,6 +75,7 @@
                     'apellido' => $interesado->getApellido(),
                     'antecedentes' => $interesado->getAntecedentes(),
                     'estadoAntecedentes' => $interesado->getEstadoAntecedentes(),
+                    'estadoEntrevista' => $interesado->getEstadoEntrevista(),
                     'fechaEntrevista' => $interesado->getFechaEntrevista(),
                     'horaEntrevista' => $interesado->getHoraEntrevista(),
                     'pagoInicial' => $interesado->getPagoInicial(),

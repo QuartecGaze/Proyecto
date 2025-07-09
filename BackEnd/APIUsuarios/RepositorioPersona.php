@@ -49,7 +49,8 @@
         }
           public function getInteresado($id){
             $consulta = "
-                SELECT * FROM Persona JOIN Interesado ON Persona.ID_Persona = Interesado.ID_Persona;
+                SELECT * FROM Persona JOIN Interesado ON Persona.ID_Persona = Interesado.ID_Persona
+                WHERE Persona.ID_Persona = '$id' ;
             ";
             $resultado = mysqli_query($this->conn, $consulta);
             $fila = mysqli_fetch_assoc($resultado);

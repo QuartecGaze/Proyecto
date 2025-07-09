@@ -85,12 +85,17 @@ h2 {
     color: #ffffff;
 }
 
-.recibido {
+.pendiente {
     background-color: #f39c12;
     color: #ffffff;
 }
 
-.pendiente {
+.espera {
+    background-color: #8b8b8b;
+    color: #ffffff;
+}
+
+.rechazado {
     background-color: #e74c3c;
     color: #ffffff;
 }
