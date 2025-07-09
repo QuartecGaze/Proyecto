@@ -40,45 +40,35 @@
         
 
         public function asignarEntrevista($id, $fechaEntrevista, $horaEntrevista){
-            $estadoEntrevista = "En espera"; 
+            $estadoEntrevista = "Pendiente"; 
             $consulta = "
-                INSERT INTO Interesado WHERE ID_Persona=$id (Estado_entrevista, Fecha_entrevista, Hora_entrevista) 
-                VALUES ('$estadoEntrevista', '$fechaEntrevista', '$horaEntrevista')
+                UPDATE Interesado
+                SET Estado_entrevista = '$estadoEntrevista',
+                    Fecha_entrevista = '$fechaEntrevista',
+                    Hora_entrevista = '$horaEntrevista'
+                WHERE ID_Persona = $id
             ";
             mysqli_query($this->conn, $consulta);
         }
 
-        public function asignarEstadoEntrevista($id, $estadoEntrevista){
+        public function revisarEstado($id, $tipo, $estado){
             $consulta = "
-                INSERT INTO Interesado WHERE ID_Persona=$id (Estado_entrevista) 
-                VALUES ('$estadoEntrevista')
+                UPDATE Interesado
+                SET $tipo = '$estado'
+                WHERE ID_Persona = $id
             ";
             mysqli_query($this->conn, $consulta);
-        }
-
-        public function revisarAntecedentes($id, $estadoAntecedentes){
-            $consulta = "
-                INSERT INTO Interesado WHERE ID_Persona=$id (Estado_antecedentes) 
-                VALUES ('$estadoAntecedentes')
-            ";
-            mysqli_query($this->conn, $consulta);   
-        }
-
-        public function revisarPagoInicial($id, $estadoPagoInicial){
-            $consulta = "
-                INSERT INTO Interesado WHERE ID_Persona=$id (Estado_pago) 
-                VALUES ('$estadoPagoInicial')
-            ";
-            mysqli_query($this->conn, $consulta);   
         }
 
         public function setMontoPagoInicial($id, $montoPagoInicial){
             $consulta = "
-                INSERT INTO Interesado WHERE ID_Persona=$id (Monto_pago_inicial) 
-                VALUES ('$montoPagoInicial')
+                UPDATE Interesado
+                SET Monto_pago_inicial = '$montoPagoInicial'
+                WHERE ID_Persona = $id
             ";
             mysqli_query($this->conn, $consulta); 
         }
+        
 
 
         //Usuario

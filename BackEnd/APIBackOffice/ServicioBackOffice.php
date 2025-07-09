@@ -46,6 +46,31 @@
             }
         }
 
+        public function asignarPagoInicial($idPersona, $montoPagoInicial){
+            $this->repositorio->setMontoPagoInicial($idPersona, $montoPagoInicial);
+            $this->repositorio->revisarPagoInicial($idPersona, "Pendiente");
+        }
+
+        public function aprobarEstado($idPersona, $campo) {
+            $camposValidos = ["Estado_entrevista", "Estado_antecedentes", "Estado_pago_inicial"];
+            //hacemos esto para evitar una posible inyeccion sql desde el javscript
+            if (!in_array($campo, $camposValidos)) {
+                return false;
+            }
+        
+            $this->repositorio->revisarEstado($idPersona, $campo, "Aprobado");
+            return true;
+        }
+
+        /* EJEMPLO DE USO DEL METODO PARA APIbackoffice estos datos van a venir del javascript todo evitando inyeccion sql
+        $resultado = $servicio->aprobarEstado(12, "Estado_entrevista");
+
+        if ($resultado) {
+            echo "Actualizado correctamente";
+        } else {
+            echo "Campo inválido";
+        }
+        */
 
 
 

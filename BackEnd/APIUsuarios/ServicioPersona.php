@@ -41,9 +41,9 @@
                     $persona = new Persona($ci, $email, null, $nombre, $apellido, $contraseña, "Interesado");
                     $this->repositorio->cargarPersona($persona);
                     $idPersona = $this->repositorio->getIdPersona($persona);
-                    //Las cosas en null se asignan posteriormente en el backoffice ademas de cambiar el estado "pendiente" etc
+                    //Las cosas en null se asignan posteriormente en el backoffice ademas de cambiar el estado "En espera" etc
                     $interesado = new Interesado($ci, $email, $idPersona, $nombre, $apellido, $contraseña, "Interesado", //datos heredados de persona
-                    null, "Pendiente", "Pendiente", null, null, null, "Pendiente", null); //datos de Interesado
+                    null, "En espera", "En espera", null, null, null, "En espera", null); //datos de Interesado
                     $this->repositorio->cargarInteresado($interesado);
                 }else{
                     throw new Exception("Las contraseñas no coinciden", 400);
