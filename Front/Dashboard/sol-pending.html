@@ -68,7 +68,11 @@
                 <div class="solicitud-header">
                     <h2>Solicitud Nr #0001 <span class="estado-badge pendiente">PENDIENTE</span> </h2>
                     <p>Fecha de solicitud 00/00/0000</p>
+                     <button class="btn-rechazar-solicitud">
+                       <i class="material-icons">block</i> Rechazar Solicitud
+                     </button>     
                 </div>
+                
                 <div class="solicitud-info">
                     <div>
                         <h3>Información Personal</h3>
@@ -146,6 +150,9 @@
                 <div class="solicitud-header">
                     <h2>Solicitud Nr #0001 <span class="estado-badge pendiente">PENDIENTE</span> </h2>
                     <p>Fecha de solicitud 00/00/0000</p>
+                    <button class="btn-rechazar-solicitud">
+                       <i class="material-icons">block</i> Rechazar Solicitud
+                    </button>
                 </div>
                 <div class="solicitud-info">
                     <div>
@@ -222,6 +229,9 @@
                 <div class="solicitud-header">
                     <h2>Solicitud Nr #0001 <span class="estado-badge pendiente">PENDIENTE</span> </h2>
                     <p>Fecha de solicitud 00/00/0000</p>
+                    <button class="btn-rechazar-solicitud">
+                       <i class="material-icons">block</i> Rechazar Solicitud
+                    </button>
                 </div>
                 <div class="solicitud-info">
                     <div>
@@ -295,7 +305,23 @@
             </div>
         </main>
     </div>
-
+    
+    <!-- Modal de confirmación -->
+    <div class="modal-confirmacion" id="modalConfirmacion">
+        <div class="modal-contenido">
+            <h3>Confirmar Rechazo</h3>
+            <p>¿Estás seguro que deseas rechazar esta solicitud?</p>
+            <p>Esta acción no se puede deshacer.</p>
+            <div class="modal-acciones">
+                <button class="btn-cancelar">
+                    <i class="material-icons">arrow_back</i> Cancelar
+                </button>
+                <button class="btn-confirmar-rechazo">
+                    <i class="material-icons">delete_forever</i> Confirmar Rechazo
+                </button>
+            </div>
+        </div>
+    </div>
     <!--script src="script.js"></script-->
 </body>
 
