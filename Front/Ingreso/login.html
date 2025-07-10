@@ -63,15 +63,15 @@
                 <div class="beneficios">
                     <div class="beneficiosItem">
                         <span class="material-icons">savings</span>
-                        <p>Tasas competitivas</p>
+                        <p class="login-beneficio1">Tasas competitivas</p>
                     </div>
                     <div class="beneficiosItem">
                         <span class="material-icons">security</span>
-                        <p>Seguridad garanrtizada</p>
+                        <p class="login-beneficio2">Seguridad garanrtizada</p>
                     </div>
                     <div class="beneficiosItem">
                         <span class="material-icons">support_agent</span>
-                        <p>Atención personalizada</p>
+                        <p class="login-beneficio3">Atención personalizada</p>
                     </div>
                 </div>
             </div>
@@ -135,12 +135,8 @@
 
     }
     //CONSEGUIR EL IDIOMA YA ASIGNADO
-    fetch('http://localhost/Proyecto/BackEnd/APITraduccion/ApiTraduccion.php?accion=getIdioma', {
-    method: 'POST',
-    headers: { 'Content-Type': 'application/json' },
-    body: JSON.stringify({
-        pagina: "login",
-    })
+    fetch('http://localhost/Proyecto/BackEnd/APITraduccion/ApiTraduccion.php?accion=getIdioma&pagina=login', {
+    method: 'GET',
   })
   .then(async response => {
     const data = await response.json().catch(() => null);
@@ -190,7 +186,7 @@
       }
     })
     .catch(error => {
-      console.error('Error en la solicitud POST:', error.message);
+      console.error('Error en la solicitud GET:', error.message);
     });
 
     function togglePassword(fieldId) {

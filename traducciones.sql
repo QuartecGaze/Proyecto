@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 05-07-2025 a las 06:01:59
+-- Tiempo de generación: 10-07-2025 a las 17:04:03
 -- Versión del servidor: 10.4.32-MariaDB
 -- Versión de PHP: 8.2.12
 
@@ -40,20 +40,20 @@ CREATE TABLE `traducciones` (
 
 INSERT INTO `traducciones` (`pagina`, `clave`, `idioma`, `texto`) VALUES
 ('', 'contactanos-form-label', '', 'Name;Email;Phone Number (e.g. 098123456);Message'),
-('landing', 'comunidad-titulo', 'en', 'Solid community'),
-('landing', 'comunidad-titulo', 'es', 'Comunidad Sólida'),
 ('landing', 'comunidad-texto', 'en', 'Projects designed to endure over time and benefit future generations.'),
 ('landing', 'comunidad-texto', 'es', 'Proyectos diseñados para perdurar en el tiempo y beneficiar a futuras generaciones.'),
+('landing', 'comunidad-titulo', 'en', 'Solid community'),
+('landing', 'comunidad-titulo', 'es', 'Comunidad Sólida'),
 ('landing', 'contactanos-btn', 'en', 'Send Message'),
 ('landing', 'contactanos-btn', 'es', 'Enviar Mensaje'),
 ('landing', 'contactanos-form-label', 'en', 'Name;Email;Phone Number (e.g. 098123456);Message'),
 ('landing', 'contactanos-form-label', 'es', 'Nombre;Email;Telefono (Ej: 098123456);Mensaje'),
 ('landing', 'contactanos-titulo', 'en', 'CONTACT US'),
 ('landing', 'contactanos-titulo', 'es', 'CONTACTANOS'),
-('landing', 'decision-titulo', 'en', 'Democratic Decisions'),
-('landing', 'decision-titulo', 'es', 'Decisión Democrática'),
 ('landing', 'decision-texto', 'en', 'Each member has a voice and a vote in the important decisions that affect the community.'),
 ('landing', 'decision-texto', 'es', 'Cada miembro tiene voz y voto en las decisiones importantes que afectan a la comunidad.'),
+('landing', 'decision-titulo', 'en', 'Democratic Decisions'),
+('landing', 'decision-titulo', 'es', 'Decisión Democrática'),
 ('landing', 'faq-titulo2', 'es', 'Qué necesito para ser Apto?'),
 ('landing', 'faqs-texto1', 'en', 'Once your registration is complete, our team will get in touch to schedule an interview and explain the next steps.'),
 ('landing', 'faqs-texto1', 'es', 'Una vez completado tu registro, nuestro equipo se pondrá en contacto para programar una entrevista y explicarte los próximos pasos.'),
@@ -66,12 +66,12 @@ INSERT INTO `traducciones` (`pagina`, `clave`, `idioma`, `texto`) VALUES
 ('landing', 'faqs-titulo-4', 'es', '¿Tenes más preguntas?'),
 ('landing', 'faqs-titulo1', 'en', 'What happens when I register?'),
 ('landing', 'faqs-titulo1', 'es', '¿Qué pasa al momento de registrarme?'),
-('landing', 'faqs-titulo2', 'es', '¿Qué necesito para ser Apto?'),
 ('landing', 'faqs-titulo2', 'en', 'What do I need to qualify?'),
+('landing', 'faqs-titulo2', 'es', '¿Qué necesito para ser Apto?'),
 ('landing', 'faqs-titulo3', 'en', 'How much do I have to work in the cooperative?'),
 ('landing', 'faqs-titulo3', 'es', '¿Qué tanto hay que trabajar en la cooperativa?'),
-('landing', 'faqs-titulo4', 'es', '¿Tenes más preguntas?'),
 ('landing', 'faqs-titulo4', 'en', 'Do you have any more questions?'),
+('landing', 'faqs-titulo4', 'es', '¿Tenes más preguntas?'),
 ('landing', 'footer-contacto-telefono', 'en', 'Phone Number: +598 92 124 491'),
 ('landing', 'footer-contacto-telefono', 'es', 'Teléfono: +598 92 124 491'),
 ('landing', 'footer-derechos', 'en', '© 2025 Cooperativa Nombre. All rights reserved.'),
@@ -83,6 +83,8 @@ INSERT INTO `traducciones` (`pagina`, `clave`, `idioma`, `texto`) VALUES
 ('landing', 'hero-texto', 'en', 'In a world that divides, we choose to unite—to share, support, and build opportunities through cooperation.'),
 ('landing', 'hero-texto', 'es', 'En un mundo que divide, elegimos unirnos para compartir, apoyarnos y construir oportunidades desde la cooperación.'),
 ('landing', 'hero-titulo', 'es', 'Cooperativa<br>nombre'),
+('landing', 'iniciarsesion-btn', 'en', 'Sign Up'),
+('landing', 'iniciarsesion-btn', 'es', 'Iniciar Sesion'),
 ('landing', 'localizacion-texto', 'en', 'We are located at Av. Perú and Magallanes'),
 ('landing', 'localizacion-texto', 'es', 'Nos encontramos en Av. Perú y Magallanes'),
 ('landing', 'localizacion-titulo', 'en', 'LOCALIZATION'),
@@ -99,12 +101,43 @@ INSERT INTO `traducciones` (`pagina`, `clave`, `idioma`, `texto`) VALUES
 ('landing', 'que-hacemos-texto2', 'es', 'A través de redes solidarias, construimos soluciones compartidas que surgen desde abajo, priorizando la autogestión, la equidad y el bienestar colectivo.'),
 ('landing', 'que-hacemos-titulo', 'en', 'WHAT WE DO'),
 ('landing', 'que-hacemos-titulo', 'es', '¿QUÉ HACEMOS?'),
-('landing', 'iniciarsesion-btn', 'en', 'Sign Up'),
-('landing', 'iniciarsesion-btn', 'es', 'Iniciar Sesion'),
-('landing', 'sostenibilidad-titulo', 'es', 'Sostenibilidad\r\n\r\n'),
-('landing', 'sostenibilidad-titulo', 'en', 'Sustainability\r\n\r\n'),
+('landing', 'sostenibilidad-texto', 'en', 'Be part of a mutual support network where everyone contributes and benefits from the collective effort.'),
 ('landing', 'sostenibilidad-texto', 'es', 'Forma parte de una red de apoyo mutuo donde todos contribuimos y nos beneficiamos del esfuerzo colectivo.'),
-('landing', 'sostenibilidad-texto', 'en', 'Be part of a mutual support network where everyone contributes and benefits from the collective effort.');
+('landing', 'sostenibilidad-titulo', 'en', 'Sustainability\r\n\r\n'),
+('landing', 'sostenibilidad-titulo', 'es', 'Sostenibilidad\r\n\r\n'),
+('login', 'footer', 'en', '© 2025 Cooperativa nombre. All rights reserved.'),
+('login', 'footer', 'es', '© 2025 Cooperativa Nombre. Todos los derechos reservados.'),
+('login', 'form-login', 'en', 'National ID card;Password'),
+('login', 'form-login', 'es', 'Cedula de Identidad;Contraseña'),
+('login', 'login-beneficio1', 'en', 'Competitive rates'),
+('login', 'login-beneficio1', 'es', 'Tasas competitivas'),
+('login', 'login-beneficio2', 'en', '\r\nGuaranteed security'),
+('login', 'login-beneficio2', 'es', 'Seguridad garanrtizada'),
+('login', 'login-beneficio3', 'en', 'Personalized attention'),
+('login', 'login-beneficio3', 'es', 'Atención personalizada'),
+('login', 'login-btn', 'en', 'Log in'),
+('login', 'login-btn', 'es', 'Ingresar'),
+('login', 'login-texto-side', 'en', 'Access all the benefits of being part of our financial community'),
+('login', 'login-texto-side', 'es', 'Accede a todos los beneficios de ser parte de nuestra comunidad financiera'),
+('login', 'login-titulo', 'en', 'Log in to your account'),
+('login', 'login-titulo', 'es', 'Ingrese a su cuenta'),
+('login', 'login-titulo-side', 'en', 'Welcome to Cooperativa Nombre'),
+('login', 'login-titulo-side', 'es', 'Bienvenido a Cooperativa Nombre'),
+('login', 'no-cuenta-link', 'en', 'Sign in here'),
+('login', 'no-cuenta-link', 'es', 'Crea tu cuenta aquí'),
+('login', 'no-cuenta-text', 'en', 'Don\'t have an account yet?'),
+('login', 'no-cuenta-text', 'es', '¿Aun no tienes una cuenta?'),
+('registro', 'cuenta-link', 'en', 'Log in here'),
+('registro', 'cuenta-link', 'es', 'Inicia sesión aquí'),
+('registro', 'cuenta-text', 'en', 'Already have an account?\r\n\r\n'),
+('registro', 'cuenta-text', 'es', '¿Ya tienes una cuenta?'),
+('registro', 'registro-btn', 'en', 'Sign In'),
+('registro', 'registro-btn', 'es', 'Registrarse'),
+('registro', 'registro-form', 'en', 'Full Name;Email Address;Phone number;National ID;Password;Confirm Password;I accept the <a href=\"#\">Terms of Service</a> and <a href=\"#\">Privacy Policy</a>'),
+('registro', 'registro-form', 'es', 'Nombre completo;Correo electrónico;Teléfono Móvil;Cédula de Identidad;Contraseña;Confirmar Contraseña;Acepto los <a href=\"#\">Términos de servicio</a> y <a href=\"#\">Política de\n                            privacidad'),
+('registro', 'registro-titulo', 'en', 'Create your account'),
+('registro', 'registro-titulo', 'es', 'Crea tu cuenta');
+
 --
 -- Índices para tablas volcadas
 --
