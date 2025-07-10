@@ -12,6 +12,7 @@
     --color-hover: #3498db;
     --color-exito: #27ae60;
     --color-alerta: #e74c3c;
+    --color-espera: #f39c12;
 }
 
 /* Estilos generales */
@@ -176,12 +177,36 @@ h1 {
 }
 
 .contenedor-solicitud {
+    box-sizing: content-box;
     position: static;
     background: white;
     border-radius: 10px;
     box-shadow: 4px 0 10px var(--color-sombra);
     padding: 25px;
     margin-bottom: 25px;
+    display: grid;
+    grid-template-columns: 95% 5%;
+}
+
+.contador{
+    border: 2px solid var(--color-primario);
+    border-radius: 7px;
+    width: 20px;
+    margin-left: 50%;
+    display: grid;
+    grid-template-rows: 2fr 1fr 1fr;
+}
+
+#seg-1{
+background-color: var(--color-exito);
+}
+
+#seg-2{
+    background-color: var(--color-espera);
+}
+
+#seg-3{
+    background-color: var(--color-alerta);
 }
 
 .solicitud-header {
@@ -197,6 +222,28 @@ h1 {
     margin-bottom: 25px;
 }
 
+/* Estilo botón Asignar */
+.btn-asignar-entrevista {
+    background-color: var(--color-secundario);
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 5px;
+    cursor: pointer;
+    font-weight: bold;
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    margin-top: 5px;
+    margin-bottom: 5px;
+    transition: all 0.3s;
+}
+
+.btn-asignar-entrevista:hover {
+    background-color: #2980b9;
+    transform: translateY(-2px);
+}
+
 input[type="date"], input[type="time"] {
     background-color: var(--color-secundario);
     padding: 10px;
@@ -205,6 +252,10 @@ input[type="date"], input[type="time"] {
     outline: none;
     border-radius: 5px;
     height: 30px;
+}
+
+input[type="time"] {
+    margin-left: 10px;
 }
 
 .date p{
@@ -248,6 +299,12 @@ input[type="date"], input[type="time"] {
     justify-content: space-between;
     align-items: center;
     transition: all 0.3s;
+}
+
+.info-card {
+    border: 1px solid var(--color-borde);
+    border-radius: 8px;
+    padding: 15px;
 }
 
 .documento-acciones {
@@ -324,7 +381,7 @@ strong {
 }
 
 .pendiente {
-    background-color: #f39c12;
+    background-color: var(--color-espera);
     color: white;
 }
 
@@ -406,8 +463,7 @@ a {
     position: relative; /* Para posicionar el botón */
 }
 
-.btn-rechazar-solicitud {
-    background-color: var(--color-alerta);
+.btn-solicitud {
     color: white;
     border: none;
     padding: 8px 20px;
@@ -421,14 +477,24 @@ a {
     margin-left: auto; /* Lo coloca a la derecha */
 }
 
-.btn-rechazar-solicitud:hover {
+.btn-solicitud:hover {
     background-color: #c0392b; /* Un rojo más oscuro para hover */
     transform: translateY(-2px);
 }
 
-.btn-rechazar-solicitud i {
+.btn-solicitud i {
     font-size: 1.1rem;
 }
+
+#btn-rechazar-solicitud {
+    background-color: var(--color-alerta);
+}
+
+#btn-aprobar-solicitud {
+    background-color: var(--color-exito);
+}
+
+
 
 /* Contenedor de título y estado */
 .solicitud-header .titulo-estado {
