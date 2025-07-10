@@ -30,19 +30,17 @@ header("Access-Control-Allow-Headers: Content-Type, Authorization");
                     $traduccion = getIdioma($servicio, $datos['idioma'], $datos['pagina']);
                     respuesta($traduccion, "exito", 201);
                 }
-            if ($accion === "getIdioma"){
-                session_start();
-                $datos = json_decode(file_get_contents('php://input'), true);
-                if(!isset($_SESSION['idioma'])){
-                    $_SESSION['idioma'] = 'es';
-                }
-                $traduccion = getIdioma($servicio, $_SESSION['idioma'], $datos['pagina']);
-                respuesta($traduccion, "exito", 201);
-            }
         break;
 
         case "GET":
-
+             if ($accion === "getIdioma"){
+                session_start();
+                if(!isset($_SESSION['idioma'])){
+                    $_SESSION['idioma'] = 'es';
+                }
+                $traduccion = getIdioma($servicio, $_SESSION['idioma'], $_GET['pagina']);
+                respuesta($traduccion, "exito", 201);
+            }
         break;
 
         default:

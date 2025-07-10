@@ -206,6 +206,9 @@ body {
 .login-link {
     text-align: center;
     font-size: 0.9rem;
+    display: flex;
+    justify-content: center;
+    gap: 10px;
 }
 
 .login-link a {

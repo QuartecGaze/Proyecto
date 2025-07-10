@@ -24,12 +24,12 @@
 
     <main class="contenedor-registro">
         <div class="divForm">
-            <h1>Crea tu cuenta</h1>
+            <h1 class="registro-titulo">Crea tu cuenta</h1>
 
             <div id="mensajeError" class="mensaje-error" style="display: none;">
             </div>
 
-            <form action="#" id="formRegistro">
+            <form action="#" id="formRegistro" class="registro-form">
                 <div class="fieldInfo">
                     <label for="nombre">Nombre completo</label>
                     <input type="text" id="nombre" name="nombre" required title="Ingresa tu nombre completo">
@@ -80,10 +80,10 @@
                             privacidad</a></label>
                 </div>
 
-                <button type="submit" class="btnRegistro">Registrarse</button>
+                <button type="submit" class="btnRegistro registro-btn">Registrarse</button>
             </form>
             <div class="login-link">
-                ¿Ya tienes una cuenta? <a href="../Ingreso/login.html">Inicia sesión aquí</a>
+                <p class="cuenta-text">¿Ya tienes una cuenta? </p><a href="../Ingreso/login.html" class="cuenta-link">Inicia sesión aquí</a>
             </div>
         </div>
         <div class="infoSide">
@@ -156,7 +156,58 @@
             toggleIcon.textContent = "visibility";
         }
     }
-    
+    //CONSEGUIR EL IDIOMA YA ASIGNADO
+    fetch('http://localhost/Proyecto/BackEnd/APITraduccion/ApiTraduccion.php?accion=getIdioma&pagina=registro', {
+    method: 'GET',
+  })
+  .then(async response => {
+    const data = await response.json().catch(() => null);
+    if (!response.ok) {
+      throw new Error(data?.message || `Error HTTP ${response.status}`);
+    }
+    return data;
+  })
+  .then(data => {
+      console.log('Respuesta del servidor:', data);
+
+      for (const [clave, valor] of Object.entries(data.message)) {
+        const elementos = document.querySelectorAll(`.${clave}`);
+
+        elementos.forEach(el => {
+          if (el.tagName.toLowerCase() === 'nav') {
+            const ul = el.querySelector('ul');
+            if (ul) {
+              const items = valor.split(';');
+              const lis = ul.querySelectorAll('li');
+
+              lis.forEach((li, index) => {
+                const a = li.querySelector('a');
+                if (a) {
+                  a.innerHTML = items[index] ?? '';
+                }
+              });
+            }
+          }
+
+          else if (el.tagName.toLowerCase() === 'form') {
+  const labels = el.querySelectorAll('label');
+  const items = valor.split(';');
+
+  labels.forEach((label, index) => {
+    label.innerHTML = items[index] ?? '';
+  });
+}
+
+          else {
+            el.innerHTML = valor;
+          }
+        });
+      }
+    })
+    .catch(error => {
+      console.error('Error en la solicitud POST:', error.message);
+    });
+
 </script>
 
 </html>
