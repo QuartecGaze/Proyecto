@@ -17,7 +17,53 @@
 
     switch($metodo) {
         case "POST":
+            if($accion === "asignarEntrevista"){
+                try {
+                    $datos = json_decode(file_get_contents('php://input'), true);
+                    $servicio->asignarEntrevista(
+                        $datos['idPersona'],
+                        $datos['fechaEntrevista'],
+                        $datos['horaEntrevista']
+                    );
+                    respuesta("La entrevista se asigno con exito", "exito", 201);
+                } catch(Exception $e) {
+                    respuesta($e->getMessage(), "error", $e->getCode());
+                }
+            }
 
+            if ($accion === "aprobarEstado") {
+                try {
+                    $datos = json_decode(file_get_contents('php://input'), true);
+                    
+                    $resultado = $servicio->aprobarEstado($datos['idPersona'], $datos['campo']);
+            
+                    if ($resultado) {
+                        respuesta("Estado actualizado correctamente", "exito", 200);
+                    } else {
+                        respuesta("Campo inválido", "error", 400);
+                    }
+                } catch(Exception $e) {
+                    respuesta($e->getMessage(), "error", $e->getCode());
+                }
+            }
+
+            if ($accion === "rechazarEstado") {
+                try {
+                    $datos = json_decode(file_get_contents('php://input'), true);
+                    
+                    $resultado = $servicio->rechazarEstado($datos['idPersona'], $datos['campo']);
+            
+                    if ($resultado) {
+                        respuesta("Estado actualizado correctamente", "exito", 200);
+                    } else {
+                        respuesta("Campo inválido", "error", 400);
+                    }
+                } catch(Exception $e) {
+                    respuesta($e->getMessage(), "error", $e->getCode());
+                }
+            }
+            
+            
         break;
 
         case "GET":

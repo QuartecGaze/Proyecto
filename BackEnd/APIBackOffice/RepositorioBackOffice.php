@@ -39,7 +39,7 @@
         }
         
 
-        public function asignarEntrevista($id, $fechaEntrevista, $horaEntrevista){
+        public function cargarEntrevista($id, $fechaEntrevista, $horaEntrevista){
             $estadoEntrevista = "Pendiente"; 
             $consulta = "
                 UPDATE Interesado

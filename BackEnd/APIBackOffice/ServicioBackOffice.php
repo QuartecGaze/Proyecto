@@ -51,6 +51,11 @@
             $this->repositorio->revisarPagoInicial($idPersona, "Pendiente");
         }
 
+        public function asignarEntrevista($idPersona, $fechaEntrevista, $horaEntrevista){
+            $this->repositorio->cargarEntrevista($idPersona, $fechaEntrevista, $horaEntrevista);
+        }
+
+
         public function rechazarEstado($idPersona, $campo) {
             $camposValidos = ["Estado_entrevista", "Estado_antecedentes", "Estado_pago_inicial"];
             //hacemos esto para evitar una posible inyeccion sql desde el javscript
@@ -72,16 +77,6 @@
             $this->repositorio->revisarEstado($idPersona, $campo, "Aprobado");
             return true;
         }
-
-        /* EJEMPLO DE USO DEL METODO PARA APIbackoffice estos datos van a venir del javascript todo evitando inyeccion sql
-        $resultado = $servicio->aprobarEstado(12, "Estado_entrevista");
-
-        if ($resultado) {
-            echo "Actualizado correctamente";
-        } else {
-            echo "Campo inválido";
-        }
-        */
 
 
 
