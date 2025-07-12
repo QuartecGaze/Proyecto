@@ -1,7 +1,7 @@
 import { apiRequest } from 'apiConfig.js';
 /**
  * Llama a la API para iniciar sesión.
- * @param {Object} datos 
+ * @param {Object} datos - Contiene `ci` y `contraseña`
  * @returns {Promise<Object>} - Respuesta de la API
  */
 export function registrarUsuario(datos) {
