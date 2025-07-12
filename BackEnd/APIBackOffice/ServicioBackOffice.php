@@ -80,8 +80,14 @@
 
         public function contarInteresados() {
             $resultado = $this->repositorio->obtenerTodosLosInteresados();
+            $cantidadInteresados = mysqli_num_rows($resultado);
         
-            return mysqli_num_rows($resultado);
+            $ids = [];
+            while ($fila = mysqli_fetch_assoc($resultado)) {
+                $ids[] = $fila['ID_Persona'];
+            }
+        
+            return ['Interesados' => $cantidadInteresados,'ID' => $ids];
         }
 
 

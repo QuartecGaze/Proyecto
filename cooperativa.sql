@@ -2,10 +2,10 @@
 -- version 5.2.1
 -- https://www.phpmyadmin.net/
 --
--- Servidor: 127.0.0.1
--- Tiempo de generación: 10-07-2025 a las 17:04:03
--- Versión del servidor: 10.4.32-MariaDB
--- Versión de PHP: 8.2.12
+-- Host: localhost:8889
+-- Generation Time: Jul 12, 2025 at 05:56 PM
+-- Server version: 8.0.40
+-- PHP Version: 8.3.14
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -18,27 +18,139 @@ SET time_zone = "+00:00";
 /*!40101 SET NAMES utf8mb4 */;
 
 --
--- Base de datos: `cooperativa`
+-- Database: `cooperativa`
 --
 
 -- --------------------------------------------------------
 
 --
--- Estructura de tabla para la tabla `traducciones`
+-- Table structure for table `Admin`
 --
 
-CREATE TABLE `traducciones` (
+CREATE TABLE `Admin` (
+  `ID_Persona` int NOT NULL,
+  `Nivel_permisos` enum('Operador','Admin') DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `Comprobante_pago`
+--
+
+CREATE TABLE `Comprobante_pago` (
+  `ID_Comprobante_pago` int NOT NULL,
+  `ID_Persona` int DEFAULT NULL,
+  `Motivo_pago` varchar(255) DEFAULT NULL,
+  `Estado_pago` enum('En espera','Pendiente','Aprobado','Rechazado') DEFAULT NULL,
+  `Mes` date DEFAULT NULL,
+  `Foto` varchar(255) DEFAULT NULL,
+  `Monto` int DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `Falta`
+--
+
+CREATE TABLE `Falta` (
+  `ID_Falta` int NOT NULL,
+  `ID_Persona` int DEFAULT NULL,
+  `ID_Semana_trabajo` int DEFAULT NULL,
+  `Motivo_falta` varchar(255) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `Horas_trabajadas`
+--
+
+CREATE TABLE `Horas_trabajadas` (
+  `ID_Horas_trabajadas` int NOT NULL,
+  `Horas` int DEFAULT NULL,
+  `Fecha_registro_horas` date DEFAULT NULL,
+  `ID_Persona` int DEFAULT NULL,
+  `ID_Semana_trabajo` int DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `Interesado`
+--
+
+CREATE TABLE `Interesado` (
+  `ID_Persona` int NOT NULL,
+  `Antecedentes` varchar(255) DEFAULT NULL,
+  `Estado_entrevista` enum('En espera','Pendiente','Aprobado','Rechazado') DEFAULT NULL,
+  `Estado_antecedentes` enum('En espera','Pendiente','Aprobado','Rechazado') DEFAULT NULL,
+  `Fecha_entrevista` date DEFAULT NULL,
+  `Hora_entrevista` time DEFAULT NULL,
+  `Pago_inicial` varchar(255) DEFAULT NULL,
+  `Estado_pago_inicial` enum('En espera','Pendiente','Aprobado','Rechazado') DEFAULT NULL,
+  `Monto_pago_inicial` int DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `Numero_de_telefono`
+--
+
+CREATE TABLE `Numero_de_telefono` (
+  `ID_Telefono` int NOT NULL,
+  `ID_Persona` int DEFAULT NULL,
+  `Telefono` int DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `Persona`
+--
+
+CREATE TABLE `Persona` (
+  `ID_Persona` int NOT NULL,
+  `CI` varchar(8) NOT NULL,
+  `Email` varchar(100) NOT NULL,
+  `Contraseña` varchar(100) NOT NULL,
+  `Rol` enum('Usuario','Interesado','Admin') DEFAULT NULL,
+  `Nombre` varchar(100) NOT NULL,
+  `Apellido` varchar(100) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `Semana_trabajo`
+--
+
+CREATE TABLE `Semana_trabajo` (
+  `ID_Semana_trabajo` int NOT NULL,
+  `Horas_semanales` int DEFAULT NULL,
+  `Fecha_semana` date DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `Traducciones`
+--
+
+CREATE TABLE `Traducciones` (
   `pagina` varchar(100) NOT NULL,
   `clave` varchar(100) NOT NULL,
   `idioma` varchar(10) NOT NULL,
   `texto` text NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 --
--- Volcado de datos para la tabla `traducciones`
+-- Dumping data for table `Traducciones`
 --
 
-INSERT INTO `traducciones` (`pagina`, `clave`, `idioma`, `texto`) VALUES
+INSERT INTO `Traducciones` (`pagina`, `clave`, `idioma`, `texto`) VALUES
 ('', 'contactanos-form-label', '', 'Name;Email;Phone Number (e.g. 098123456);Message'),
 ('landing', 'comunidad-texto', 'en', 'Projects designed to endure over time and benefit future generations.'),
 ('landing', 'comunidad-texto', 'es', 'Proyectos diseñados para perdurar en el tiempo y beneficiar a futuras generaciones.'),
@@ -138,15 +250,224 @@ INSERT INTO `traducciones` (`pagina`, `clave`, `idioma`, `texto`) VALUES
 ('registro', 'registro-titulo', 'en', 'Create your account'),
 ('registro', 'registro-titulo', 'es', 'Crea tu cuenta');
 
+-- --------------------------------------------------------
+
 --
--- Índices para tablas volcadas
+-- Table structure for table `Unidad_habitacional`
+--
+
+CREATE TABLE `Unidad_habitacional` (
+  `ID_Unidad_habitacional` int NOT NULL,
+  `ID_Persona` int DEFAULT NULL,
+  `Numero_puerta` varchar(20) DEFAULT NULL,
+  `Pasillo` varchar(20) DEFAULT NULL,
+  `Estado_unidad` enum('En espera','En pausa','En construcción','Finalizada') DEFAULT NULL,
+  `Cantidad_habitaciones` int DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `Unidad_habitacional_Semana_trabajo`
+--
+
+CREATE TABLE `Unidad_habitacional_Semana_trabajo` (
+  `ID_Semana_trabajo` int NOT NULL,
+  `ID_Unidad_habitacional` int NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `Usuario`
+--
+
+CREATE TABLE `Usuario` (
+  `ID_Persona` int NOT NULL,
+  `Fecha_nacimiento` date DEFAULT NULL,
+  `Fecha_ingreso` date DEFAULT NULL,
+  `Foto` varchar(255) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+
+--
+-- Indexes for dumped tables
 --
 
 --
--- Indices de la tabla `traducciones`
+-- Indexes for table `Admin`
 --
-ALTER TABLE `traducciones`
+ALTER TABLE `Admin`
+  ADD PRIMARY KEY (`ID_Persona`);
+
+--
+-- Indexes for table `Comprobante_pago`
+--
+ALTER TABLE `Comprobante_pago`
+  ADD PRIMARY KEY (`ID_Comprobante_pago`),
+  ADD KEY `ID_Persona` (`ID_Persona`);
+
+--
+-- Indexes for table `Falta`
+--
+ALTER TABLE `Falta`
+  ADD PRIMARY KEY (`ID_Falta`),
+  ADD KEY `ID_Persona` (`ID_Persona`),
+  ADD KEY `ID_Semana_trabajo` (`ID_Semana_trabajo`);
+
+--
+-- Indexes for table `Horas_trabajadas`
+--
+ALTER TABLE `Horas_trabajadas`
+  ADD PRIMARY KEY (`ID_Horas_trabajadas`),
+  ADD KEY `ID_Persona` (`ID_Persona`),
+  ADD KEY `ID_Semana_trabajo` (`ID_Semana_trabajo`);
+
+--
+-- Indexes for table `Interesado`
+--
+ALTER TABLE `Interesado`
+  ADD PRIMARY KEY (`ID_Persona`);
+
+--
+-- Indexes for table `Numero_de_telefono`
+--
+ALTER TABLE `Numero_de_telefono`
+  ADD PRIMARY KEY (`ID_Telefono`),
+  ADD KEY `ID_Persona` (`ID_Persona`);
+
+--
+-- Indexes for table `Persona`
+--
+ALTER TABLE `Persona`
+  ADD PRIMARY KEY (`ID_Persona`),
+  ADD UNIQUE KEY `CI` (`CI`);
+
+--
+-- Indexes for table `Semana_trabajo`
+--
+ALTER TABLE `Semana_trabajo`
+  ADD PRIMARY KEY (`ID_Semana_trabajo`);
+
+--
+-- Indexes for table `Traducciones`
+--
+ALTER TABLE `Traducciones`
   ADD PRIMARY KEY (`pagina`,`clave`,`idioma`);
+
+--
+-- Indexes for table `Unidad_habitacional`
+--
+ALTER TABLE `Unidad_habitacional`
+  ADD PRIMARY KEY (`ID_Unidad_habitacional`),
+  ADD KEY `ID_Persona` (`ID_Persona`);
+
+--
+-- Indexes for table `Unidad_habitacional_Semana_trabajo`
+--
+ALTER TABLE `Unidad_habitacional_Semana_trabajo`
+  ADD PRIMARY KEY (`ID_Semana_trabajo`,`ID_Unidad_habitacional`),
+  ADD KEY `ID_Unidad_habitacional` (`ID_Unidad_habitacional`);
+
+--
+-- Indexes for table `Usuario`
+--
+ALTER TABLE `Usuario`
+  ADD PRIMARY KEY (`ID_Persona`);
+
+--
+-- AUTO_INCREMENT for dumped tables
+--
+
+--
+-- AUTO_INCREMENT for table `Comprobante_pago`
+--
+ALTER TABLE `Comprobante_pago`
+  MODIFY `ID_Comprobante_pago` int NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT for table `Falta`
+--
+ALTER TABLE `Falta`
+  MODIFY `ID_Falta` int NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT for table `Horas_trabajadas`
+--
+ALTER TABLE `Horas_trabajadas`
+  MODIFY `ID_Horas_trabajadas` int NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT for table `Numero_de_telefono`
+--
+ALTER TABLE `Numero_de_telefono`
+  MODIFY `ID_Telefono` int NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT for table `Persona`
+--
+ALTER TABLE `Persona`
+  MODIFY `ID_Persona` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+
+--
+-- Constraints for dumped tables
+--
+
+--
+-- Constraints for table `Admin`
+--
+ALTER TABLE `Admin`
+  ADD CONSTRAINT `admin_ibfk_1` FOREIGN KEY (`ID_Persona`) REFERENCES `Persona` (`ID_Persona`);
+
+--
+-- Constraints for table `Comprobante_pago`
+--
+ALTER TABLE `Comprobante_pago`
+  ADD CONSTRAINT `comprobante_pago_ibfk_1` FOREIGN KEY (`ID_Persona`) REFERENCES `Persona` (`ID_Persona`);
+
+--
+-- Constraints for table `Falta`
+--
+ALTER TABLE `Falta`
+  ADD CONSTRAINT `falta_ibfk_1` FOREIGN KEY (`ID_Persona`) REFERENCES `Persona` (`ID_Persona`),
+  ADD CONSTRAINT `falta_ibfk_2` FOREIGN KEY (`ID_Semana_trabajo`) REFERENCES `Semana_trabajo` (`ID_Semana_trabajo`);
+
+--
+-- Constraints for table `Horas_trabajadas`
+--
+ALTER TABLE `Horas_trabajadas`
+  ADD CONSTRAINT `horas_trabajadas_ibfk_1` FOREIGN KEY (`ID_Persona`) REFERENCES `Persona` (`ID_Persona`),
+  ADD CONSTRAINT `horas_trabajadas_ibfk_2` FOREIGN KEY (`ID_Semana_trabajo`) REFERENCES `Semana_trabajo` (`ID_Semana_trabajo`);
+
+--
+-- Constraints for table `Interesado`
+--
+ALTER TABLE `Interesado`
+  ADD CONSTRAINT `interesado_ibfk_1` FOREIGN KEY (`ID_Persona`) REFERENCES `Persona` (`ID_Persona`);
+
+--
+-- Constraints for table `Numero_de_telefono`
+--
+ALTER TABLE `Numero_de_telefono`
+  ADD CONSTRAINT `numero_de_telefono_ibfk_1` FOREIGN KEY (`ID_Persona`) REFERENCES `Persona` (`ID_Persona`);
+
+--
+-- Constraints for table `Unidad_habitacional`
+--
+ALTER TABLE `Unidad_habitacional`
+  ADD CONSTRAINT `unidad_habitacional_ibfk_1` FOREIGN KEY (`ID_Persona`) REFERENCES `Persona` (`ID_Persona`);
+
+--
+-- Constraints for table `Unidad_habitacional_Semana_trabajo`
+--
+ALTER TABLE `Unidad_habitacional_Semana_trabajo`
+  ADD CONSTRAINT `unidad_habitacional_semana_trabajo_ibfk_1` FOREIGN KEY (`ID_Semana_trabajo`) REFERENCES `Semana_trabajo` (`ID_Semana_trabajo`),
+  ADD CONSTRAINT `unidad_habitacional_semana_trabajo_ibfk_2` FOREIGN KEY (`ID_Unidad_habitacional`) REFERENCES `Unidad_habitacional` (`ID_Unidad_habitacional`);
+
+--
+-- Constraints for table `Usuario`
+--
+ALTER TABLE `Usuario`
+  ADD CONSTRAINT `usuario_ibfk_1` FOREIGN KEY (`ID_Persona`) REFERENCES `Persona` (`ID_Persona`);
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
