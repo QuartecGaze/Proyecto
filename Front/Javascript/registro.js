@@ -6,7 +6,8 @@
     const inputConfirmarPass = document.getElementById("confirmar-password");
     const inputTelefono = document.getElementById("telefono");
     const divError = document.getElementById("mensajeError");
-    import { registrarUsuario } from '../../BackEnd/APIFetchs/APIUsuario';
+    import { registrarUsuario } from '../../BackEnd/APIFetchs/APIUsuario.js';
+    const nombreCompleto = inputNombre.value.trim().split(/\s+/);
     formRegistro.addEventListener("submit", async function (event) {
         event.preventDefault();
         const datos = {
@@ -22,7 +23,7 @@
         const data = await registrarUsuario(datos);
         } catch(error){
             divError.style.display = "block";
-            divError.textContent = data.message;
+            divError.textContent = error.message;
         }
 
     })

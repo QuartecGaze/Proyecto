@@ -2,7 +2,7 @@
     const inputCi = document.getElementById("cedula");
     const inputContraseña = document.getElementById("password");
     const divError = document.getElementById("mensajeError");
-    import { iniciarSesion } from '../../BackEnd/APIFetchs/APIUsuario.js';
+    import { iniciarSesion } from 'http://localhost/Proyecto/BackEnd/APIFetchs/APIUsuario.js';
 
     formLogin.addEventListener("submit", async function (event) {
         event.preventDefault();
@@ -28,7 +28,7 @@
                 }
         } catch (error){
             divError.style.display = "block";
-            divError.textContent = data.message;
+            divError.textContent = error.message;
             throw new Error(data?.message || `Error HTTP ${response.status}`);
         }
     })
