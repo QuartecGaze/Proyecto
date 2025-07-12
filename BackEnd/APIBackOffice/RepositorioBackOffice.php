@@ -31,6 +31,23 @@
 
 
         //Interesado
+        public function Interesados() {
+            //trae solo el id persona para no traer a todo el interesado y poder lekear datos sin querer
+            $consulta = "
+                SELECT ID_Persona 
+                FROM Persona 
+                WHERE Rol = 'Interesado'
+            ";
+        
+            $resultado = mysqli_query($this->conn, $consulta);
+        
+            if (!$resultado) {
+                throw new Exception("Error al obtener interesados", 500);
+            }
+        
+            return $resultado; // devuelve el resultado crudo (el cursor)
+        }
+        
         public function borrarInteresado($id){
             $consulta = "
                 DELETE FROM Interesado WHERE ID_Persona=$id

@@ -63,6 +63,14 @@
                 }
             }
             
+            if ($accion === "contarInteresados") {
+                try {
+                    $total = $servicio->contarInteresados();
+                    respuesta($total, "exito", 200);
+                } catch (Exception $e) {
+                    respuesta($e->getMessage(), "error", $e->getCode());
+                }
+            }
             
         break;
 

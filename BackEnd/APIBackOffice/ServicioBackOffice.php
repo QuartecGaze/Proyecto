@@ -78,6 +78,11 @@
             return true;
         }
 
+        public function contarInteresados() {
+            $resultado = $this->repositorio->obtenerTodosLosInteresados();
+        
+            return mysqli_num_rows($resultado);
+        }
 
 
 
