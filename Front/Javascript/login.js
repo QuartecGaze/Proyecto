@@ -2,7 +2,7 @@
     const inputCi = document.getElementById("cedula");
     const inputContraseña = document.getElementById("password");
     const divError = document.getElementById("mensajeError");
-    import { iniciarSesion } from '../../BackEnd/APIFetchs/APIUsuario';
+    import { iniciarSesion } from '../../BackEnd/APIFetchs/APIUsuario.js';
 
     formLogin.addEventListener("submit", async function (event) {
         event.preventDefault();

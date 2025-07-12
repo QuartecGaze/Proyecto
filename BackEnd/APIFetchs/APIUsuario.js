@@ -1,4 +1,4 @@
-import { apiRequest } from 'apiConfig.js';
+import { apiRequest } from '/apiConfig.js';
 /**
  * Llama a la API para iniciar sesión.
  * @param {Object} datos - Contiene `ci` y `contraseña`
