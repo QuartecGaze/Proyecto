@@ -7,8 +7,11 @@
     const inputTelefono = document.getElementById("telefono");
     const divError = document.getElementById("mensajeError");
     import { registrarUsuario } from '../../BackEnd/APIFetchs/APIUsuario.js';
-    const nombreCompleto = inputNombre.value.trim().split(/\s+/);
+    import { getIdioma } from '../../BackEnd/APIFetchs/APITraduccion.js';
+    import { aplicarIdioma } from '../../BackEnd/APIFetchs/APITraduccion.js';
+    
     formRegistro.addEventListener("submit", async function (event) {
+        const nombreCompleto = inputNombre.value.trim().split(/\s+/);
         event.preventDefault();
         const datos = {
             ci: inputCi.value,
@@ -21,9 +24,15 @@
         }
         try{
         const data = await registrarUsuario(datos);
+
+        if(data.status === "exito"){
+            window.location.href = "../Landing Page/login.html"
+        } else {
+          divError.style.display = "block";
+          divError.textContent = data.message;
+        }
         } catch(error){
-            divError.style.display = "block";
-            divError.textContent = error.message;
+            
         }
 
     })
@@ -41,55 +50,6 @@
         }
     }
     //CONSEGUIR EL IDIOMA YA ASIGNADO
-    fetch('http://localhost/Proyecto/BackEnd/APITraduccion/ApiTraduccion.php?accion=getIdioma&pagina=registro', {
-    method: 'GET',
-  })
-  .then(async response => {
-    const data = await response.json().catch(() => null);
-    if (!response.ok) {
-      throw new Error(data?.message || `Error HTTP ${response.status}`);
-    }
-    return data;
-  })
-  .then(data => {
-      console.log('Respuesta del servidor:', data);
-
-      for (const [clave, valor] of Object.entries(data.message)) {
-        const elementos = document.querySelectorAll(`.${clave}`);
-
-        elementos.forEach(el => {
-          if (el.tagName.toLowerCase() === 'nav') {
-            const ul = el.querySelector('ul');
-            if (ul) {
-              const items = valor.split(';');
-              const lis = ul.querySelectorAll('li');
-
-              lis.forEach((li, index) => {
-                const a = li.querySelector('a');
-                if (a) {
-                  a.innerHTML = items[index] ?? '';
-                }
-              });
-            }
-          }
-
-          else if (el.tagName.toLowerCase() === 'form') {
-  const labels = el.querySelectorAll('label');
-  const items = valor.split(';');
-
-  labels.forEach((label, index) => {
-    label.innerHTML = items[index] ?? '';
-  });
-}
-
-          else {
-            el.innerHTML = valor;
-          }
-        });
-      }
-    })
-    .catch(error => {
-      console.error('Error en la solicitud POST:', error.message);
-    });
-
+    const data = await getIdioma("registro");
+    aplicarIdioma(data);
 

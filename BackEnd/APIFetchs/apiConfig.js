@@ -26,11 +26,8 @@ export async function apiRequest(endpoint, method = 'GET', body = null) {
     // Intenta leer la respuesta como JSON (puede fallar si no es JSON válido)
     const data = await response.json().catch(() => null);
     console.log(data);
-    // Si la respuesta no fue exitosa (error HTTP), lanza un error
-    if (!response.ok) {
-        throw new Error(data?.message || `Error HTTP ${response.status}`);
-    }
 
     // Si todo fue bien, devuelve los datos
     return data;
+
 }

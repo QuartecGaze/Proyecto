@@ -9,5 +9,5 @@ export function registrarUsuario(datos) {
 }
 
 export function iniciarSesion(datos) {
-    return apiRequest('/APIUsuarios/ApiUsuarios.php?accion=registro', 'POST', datos);
+    return apiRequest('/APIUsuarios/ApiUsuarios.php?accion=login', 'POST', datos);
 }

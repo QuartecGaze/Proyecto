@@ -168,7 +168,7 @@
             $fila = mysqli_fetch_assoc($resultado);
             $rol = $fila['Rol']; 
             return $rol;
-            }else{
+            } else{
                 throw new Exception("No se encontro una persona con la CI $ci");
             }
         }

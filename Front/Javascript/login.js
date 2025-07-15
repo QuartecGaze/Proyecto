@@ -2,7 +2,9 @@
     const inputCi = document.getElementById("cedula");
     const inputContraseña = document.getElementById("password");
     const divError = document.getElementById("mensajeError");
-    import { iniciarSesion } from 'http://localhost/Proyecto/BackEnd/APIFetchs/APIUsuario.js';
+    import { iniciarSesion } from '../../BackEnd/APIFetchs/APIUsuario.js';
+    import { getIdioma } from '../../BackEnd/APIFetchs/APITraduccion.js';
+    import { aplicarIdioma } from '../../BackEnd/APIFetchs/APITraduccion.js';
 
     formLogin.addEventListener("submit", async function (event) {
         event.preventDefault();
@@ -24,12 +26,11 @@
                         alert("Rol no reconocido: " + data.rol);
                     }
                 } else {
-                    alert("Error al iniciar sesión");
+                    divError.style.display = "block";
+                    divError.textContent = data.message;
                 }
         } catch (error){
-            divError.style.display = "block";
-            divError.textContent = error.message;
-            throw new Error(data?.message || `Error HTTP ${response.status}`);
+            throw new Error("error en la api: " + error.message);
         }
     })
 
@@ -101,3 +102,6 @@
             toggleIcon.textContent = "visibility";
         }
     }
+    //CONSEGUIR EL IDIOMA YA ASIGNADO
+    const data = await getIdioma("registro");
+    aplicarIdioma(data);
