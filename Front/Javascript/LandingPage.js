@@ -1,5 +1,6 @@
  let idiomaActual = 'es';
  const botonIdioma = document.getElementById("botonIdioma");
+ const preguntaHeader = document.querySelectorAll(".pregunta-header");
  import { setIdioma } from '../../BackEnd/APIFetchs/APITraduccion.js';
  import { getIdioma } from '../../BackEnd/APIFetchs/APITraduccion.js';
  import { aplicarIdioma } from '../../BackEnd/APIFetchs/APITraduccion.js';
@@ -9,8 +10,8 @@
             nav.classList.toggle('activo');
         });
 
-        // Funcionalidad FAQ acordeón
-        function toggleRespuesta(element) {
+        preguntaHeader.forEach(element => {
+            element.addEventListener('click', function(){
             const pregunta = element.parentElement;
             const respuesta = pregunta.querySelector('.respuesta');
             const icono = element.querySelector('.material-icons');
@@ -33,7 +34,9 @@
                 respuesta.style.maxHeight = null;
                 icono.textContent = 'add';
             }
-        }
+            });
+        })
+ 
 
         botonIdioma.addEventListener("click", async function toggleIdioma(){
             if(idiomaActual == "es"){

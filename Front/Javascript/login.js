@@ -2,6 +2,7 @@
     const inputCi = document.getElementById("cedula");
     const inputContraseña = document.getElementById("password");
     const divError = document.getElementById("mensajeError");
+    const mostrarContraseña = document.getElementById("mostrarContraseña")
     import { iniciarSesion } from '../../BackEnd/APIFetchs/APIUsuario.js';
     import { getIdioma } from '../../BackEnd/APIFetchs/APITraduccion.js';
     import { aplicarIdioma } from '../../BackEnd/APIFetchs/APITraduccion.js';

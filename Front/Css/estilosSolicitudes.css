@@ -52,7 +52,7 @@ body {
 }
 
 .logo-dashboard {
-    padding: 0 20px 20px;
+    padding: 0 20px;
     border-bottom: 1px solid var(--color-borde);
     margin-bottom: 20px;
     display: flex;
@@ -197,7 +197,6 @@ h1 {
 }
 
 .contador{
-    border: 2px solid var(--color-primario);
     border-radius: 7px;
     width: 20px;
     margin-left: 50%;
@@ -207,6 +206,7 @@ h1 {
 
 #seg-1{
 background-color: var(--color-exito);
+border-radius: 7px 7px 0 0;
 }
 
 #seg-2{
@@ -215,6 +215,7 @@ background-color: var(--color-exito);
 
 #seg-3{
     background-color: var(--color-alerta);
+    border-radius: 0 0 7px 7px;
 }
 
 .solicitud-header {
