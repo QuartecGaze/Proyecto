@@ -34,6 +34,8 @@
             return $persona;
         }
 
+       
+
         //CRUD Interesado
 
         public function cargarInteresado($interesado){
@@ -74,8 +76,7 @@
             return $interesado;
         }
 
-
-
+        
         //CRUD Usuario
 
         public function cargarFotoUsuario($id, $foto){
