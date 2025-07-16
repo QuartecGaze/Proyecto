@@ -286,7 +286,6 @@ CREATE TABLE `Usuario` (
   `ID_Persona` int NOT NULL,
   `Fecha_nacimiento` date DEFAULT NULL,
   `Fecha_ingreso` date DEFAULT NULL,
-  `Foto` varchar(255) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 --

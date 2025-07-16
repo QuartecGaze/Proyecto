@@ -11,3 +11,9 @@ export function registrarUsuario(datos) {
 export function iniciarSesion(datos) {
     return apiRequest('/APIUsuarios/ApiUsuarios.php?accion=login', 'POST', datos);
 }
+export function subirFoto(foto){
+    return apiRequest('/APIUsuarios/ApiUsuarios.php?accion=subirFoto', 'POST', foto);
+}
+export function verificarSesion(){
+    return apiRequest('/APIUsuarios/ApiUsuarios.php?accion=verificarSesion', 'GET')
+}

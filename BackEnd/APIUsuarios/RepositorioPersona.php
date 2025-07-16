@@ -100,7 +100,7 @@
 
         //Funciones
         
-        //recibe un objeto tipo persona y devuelve la id        
+        //recibe un objeto tipo persona y devuelve la id, ya que el dato id es creado por la base de datos.
         public function getIdPersona($persona){
             $ci = $persona->getCi();
             $consulta = "SELECT ID_Persona FROM Persona WHERE CI = '$ci'";

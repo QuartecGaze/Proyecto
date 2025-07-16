@@ -60,6 +60,16 @@
                     respuesta($e->getMessage(), "error", $e->getCode());
                 }
 
+            } 
+            elseif ($accion === "subirFoto"){
+                session_start();
+                $nombreArchivo = $_FILES['foto']['name'];
+                $nombreTemp = $_FILES['foto']['tmp_name'];
+                try{
+               $this->servicio->subirFoto($nombreArchivo, $nombreTemp);
+                }catch(Exception $e){
+                    respuesta($e->getMessage(), "error", $e->getCode());
+                }
             }
         break;
 
@@ -100,6 +110,8 @@
                     respuesta("No se ha encontrado una variable de sesion", "error", 404);
                 }
             }
+
+   
         break;
 
         default:

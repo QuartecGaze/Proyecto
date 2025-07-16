@@ -59,13 +59,42 @@
                 throw new Exception("El interesado no existe", 404);
             }
         }
+
+        public function subirFoto($nombreArchivo, $nombreTemp){
+                session_start();
+                $rutaFotosPerfil = "http://localhost/Proyecto/Fotos/FotosPerfil/";
+                $extension = pathinfo($nombreArchivo, PATHINFO_EXTENSION);
+                $nuevaFoto =  $_SESSION['id'] . '.' . $extension;
+                $nuevaRuta = $rutaFotosPerfil . $nuevaFoto;
+                $crearFoto = false;
+                $archivoExiste = glob( $rutaFotosPerfil . $_SESSION['id'] . '.*');
+
+                if (count($archivoExiste) > 0) {
+                    foreach($archivoExiste as $file){
+                        if(unlink($file)){
+                            $crearFoto=true;
+                         }else {
+                            $crearFoto=false;
+                        }
+                    }
+                } else{
+                    $crearFoto = true;
+                }
+
+        if($crearFoto){
+            if(move_uploaded_file($nombreTemp, $nuevaRuta)){
+            return(true);
+        } else{
+             throw new Exception("No se pudo cargar el archivo", 500);
+        }
+        }
         
         
 
 
         
     }
-
+}
 
     
 ?>
