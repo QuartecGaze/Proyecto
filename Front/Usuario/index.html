@@ -5,7 +5,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Cooperativa Nombre - Dashboard</title>
-    <link rel="stylesheet" href="../Css/estilosAdmin.css">
+    <link rel="stylesheet" href="../Css/estilosUsuario.css">
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap"
         rel="stylesheet">
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
@@ -28,7 +28,10 @@
                         <a href="index.html"><i class="material-icons">home</i> Inicio</a>
                     </li>
                     <li class="item-menu">
-                        <a href="#Socios"><i class="material-icons">people</i> Socios</a>
+                        <a href="#Reuniones"><i class="material-icons">event</i> Reuniones</a>
+                    </li>
+                    <li class="item-menu">
+                        <a href="#HorasTrabajadas"><i class="material-icons">punch_clock</i> Horas Trabajadas</a>
                     </li>
                     <li class="item-menu">
                         <a href="#Proyectos"><i class="material-icons">apartment</i> Proyectos</a>
@@ -37,13 +40,10 @@
                         <a href="#Finanzas"><i class="material-icons">payments</i> Finanzas</a>
                     </li>
                     <li class="item-menu">
-                        <a href="#Reuniones"><i class="material-icons">event</i> Reuniones</a>
-                    </li>
-                    <li class="item-menu">
                         <a href="solicitudes.html"><i class="material-icons">email</i> Solicitudes</a>
                     </li>
                     <li class="item-menu">
-                        <a href="#Configuracion"><i class="material-icons">settings</i> Configuración</a>
+                        <a href="configuracion.html"><i class="material-icons">settings</i> Configuración</a>
                     </li>
                 </ul>
             </nav>
@@ -52,8 +52,8 @@
                 <div class="info-usuario">
                     <img src="https://via.placeholder.com/40" alt="Foto perfil">
                     <div>
-                        <p class="nombre-usuario">Admin User</p>
-                        <p class="rol-usuario">Administrador</p>
+                        <p class="nombre-usuario">Nombre User</p>
+                        <p class="rol-usuario">Usuario</p>
                     </div>
                 </div>
                 <button class="boton-cerrar-sesion">
@@ -70,59 +70,52 @@
 
             <div class="contenedor-tarjetas">
                 <!-- Tarjeta de resumen de horas trabajadas -->
-                <a href="solicitudes.html">
-                    <div class="tarjeta-dashboard">
-                        <div class="tarjeta-icono">
-                            <i class="material-icons">pending_actions</i>
-                        </div>
-                        <div class="tarjeta-contenido">
-                            <h3>Solicitudes Pendientes</h3>
-                            <p class="tarjeta-valor">10 <span>Solicitudes</span></p>
-                        </div>
+                <div class="tarjeta-dashboard">
+                    <div class="tarjeta-icono">
+                        <i class="material-icons">punch_clock</i>
                     </div>
-                </a>
+                    <div class="tarjeta-contenido">
+                        <h3>Horas trabajadas</h3>
+                        <p class="tarjeta-valor">45 <span>horas</span></p>
+                        <p class="tarjeta-subtexto">Este mes</p>
+                    </div>
+                </div>
 
                 <!-- Tarjeta de proyectos activos -->
-                <a href="">
-                    <div class="tarjeta-dashboard">
-                        <div class="tarjeta-icono">
-                            <i class="material-icons">apartment</i>
-                        </div>
-                        <div class="tarjeta-contenido">
-                            <h3>Proyectos activos</h3>
-                            <p class="tarjeta-valor">3</p>
-                            <p class="tarjeta-subtexto">Participando</p>
-                        </div>
+                <div class="tarjeta-dashboard">
+                    <div class="tarjeta-icono">
+                        <i class="material-icons">apartment</i>
                     </div>
-                </a>
+                    <div class="tarjeta-contenido">
+                        <h3>Proyectos activos</h3>
+                        <p class="tarjeta-valor">3</p>
+                        <p class="tarjeta-subtexto">Participando</p>
+                    </div>
+                </div>
 
                 <!-- Tarjeta de reuniones pendientes -->
-                <a href="">
-                    <div class="tarjeta-dashboard">
-                        <div class="tarjeta-icono">
-                            <i class="material-icons">event</i>
-                        </div>
-                        <div class="tarjeta-contenido">
-                            <h3>Reuniones</h3>
-                            <p class="tarjeta-valor">2</p>
-                            <p class="tarjeta-subtexto">Próximas</p>
-                        </div>
+                <div class="tarjeta-dashboard">
+                    <div class="tarjeta-icono">
+                        <i class="material-icons">event</i>
                     </div>
-                </a>
+                    <div class="tarjeta-contenido">
+                        <h3>Reuniones</h3>
+                        <p class="tarjeta-valor">2</p>
+                        <p class="tarjeta-subtexto">Próximas</p>
+                    </div>
+                </div>
 
                 <!-- Tarjeta de estado financiero -->
-                <a href="">
-                    <div class="tarjeta-dashboard">
-                        <div class="tarjeta-icono">
-                            <i class="material-icons">payments</i>
-                        </div>
-                        <div class="tarjeta-contenido">
-                            <h3>Balance</h3>
-                            <p class="tarjeta-valor">$1,250</p>
-                            <p class="tarjeta-subtexto">Disponible</p>
-                        </div>
+                <div class="tarjeta-dashboard">
+                    <div class="tarjeta-icono">
+                        <i class="material-icons">payments</i>
                     </div>
-                </a>
+                    <div class="tarjeta-contenido">
+                        <h3>Balance</h3>
+                        <p class="tarjeta-valor">$1,250</p>
+                        <p class="tarjeta-subtexto">Disponible</p>
+                    </div>
+                </div>
             </div>
 
             <div class="contenedor-secciones">
@@ -183,6 +176,8 @@
             </div>
         </main>
     </div>
+
+    <!--script src="script.js"></script-->
 </body>
 
 </html>
