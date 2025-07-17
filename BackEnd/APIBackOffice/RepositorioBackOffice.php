@@ -86,13 +86,7 @@
             mysqli_query($this->conn, $consulta); 
         }
         
-        public function getInteresados(){
-            $consulta = "
-            SELECT * 
-            FROM Interesado 
-        ";
-        mysqli_query($this->conn, $consulta); 
-        }
+        
 
         //Usuario
 

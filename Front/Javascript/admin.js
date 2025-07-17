@@ -1,9 +1,10 @@
-import { Interesados } from '../../BackEnd/APIFetchs/APIBackOffice.js';
+import { getInteresados } from '../../BackEnd/APIFetchs/APIUsuario.js';
 try {
-    const data = await Interesados();
+    const data = await getInteresados();
 
     if (data.status === "exito") {
-        datos.data.forEach(interesado => {
+        const interesados = Object.values(data.message);
+        interesados.forEach(interesado => {
             const div = document.createElement("div");
             div.innerHTML = `
             <div class="contenedor-solicitud">
@@ -22,10 +23,10 @@ try {
                     <div class="solicitud-info">
                         <div class="info-card" id="info-card-id">
                             <h3>Información Personal</h3>
-                            <p><strong>Nombre: </strong> Alain Arce</p>
-                            <p><strong>CI: </strong> 5.555.555 - 5</p>
-                            <p><strong>Mail: </strong>alain@gmail.com</p>
-                            <p><strong>Telefono: </strong> (+598) 099 000 000</p>
+                            <p><strong>Nombre: </strong>${interesado.nombre} ${interesado.apellido}</p>
+                            <p><strong>CI: </strong>${interesado.ci}</p>
+                            <p><strong>Mail: </strong>${interesado.email}</p>s
+                            <p><strong>Telefono: </strong>${interesado.telefono}</p>
                         </div>
                         <div class="date info-card">
                             <h3>Asignar Fecha de Entrevista</h3>
@@ -107,7 +108,8 @@ try {
                 </div>
             </div>
             `;
-            document.body.appendChild(div);
+            const contenedor = document.getElementById("contenedor-solicitudes");
+            contenedor.appendChild(div);
           });
         } else {
 

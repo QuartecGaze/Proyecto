@@ -87,4 +87,23 @@ public function setEstadoPagoInicial($estadoPagoInicial) {
 public function setMontoPagoInicial($montoPagoInicial) {
     $this->montoPagoInicial = $montoPagoInicial;
 }
+public function toArray() {
+    return [
+
+        "idPersona"   => $this->getIdPersona(),
+        "ci"          => $this->getCi(),
+        "nombre"      => $this->getNombre(),
+        "apellido"    => $this->getApellido(),
+        "email"       => $this->getEmail(),
+        "rol"         => $this->getRol(),
+        "antecedentes"        => $this->getAntecedentes(),
+        "estadoAntecedentes"  => $this->getEstadoAntecedentes(),
+        "estadoEntrevista"    => $this->getEstadoEntrevista(),
+        "fechaEntrevista"     => $this->getFechaEntrevista(),
+        "horaEntrevista"      => $this->getHoraEntrevista(),
+        "pagoInicial"         => $this->getPagoInicial(),
+        "estadoPagoInicial"   => $this->getEstadoPagoInicial(),
+        "montoPagoInicial"    => $this->getMontoPagoInicial(),
+    ];
+}
 }

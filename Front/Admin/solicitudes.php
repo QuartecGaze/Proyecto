@@ -2,7 +2,7 @@
 <html lang="es">
 <?php 
     require_once '../verificarSesion.php';
-    verificarAcceso(['admin']);
+    verificarAcceso(['Admin']);
 ?>
 <head>
     <meta charset="UTF-8">
@@ -69,7 +69,7 @@
         </aside>
 
         <!-- Contenido de solicitudes pendientes -->
-        <main class="contenido-principal">
+        <main class="contenido-principal" id="contenedor-solicitudes">
             <h1>Solicitudes Pendientes</h1>
 
         </main>

@@ -1,5 +1,7 @@
 <?php
-
+    require_once __DIR__ . '/RepositorioBackOffice.php';
+    require_once __DIR__ . '/ServicioBackOffice.php'; 
+    require_once __DIR__ .'/BDConeccion.php';
     if ($_SERVER['REQUEST_METHOD'] === 'OPTIONS') {
         http_response_code(200);
         exit();
@@ -66,11 +68,7 @@
             if ($accion === "Interesados") {
                 try {
                     $interesados = $servicio->Interesados();
-                    respuesta($total, "exito", 200);
-                    echo json_encode([
-                        'status' => 'exito',
-                        'data' => $interesados
-                    ]);
+                    respuesta($interesados, "exito", 200);
 
                 } catch (Exception $e) {
                     respuesta($e->getMessage(), "error", $e->getCode());

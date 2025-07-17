@@ -90,7 +90,7 @@
             return ['Interesados' => $cantidadInteresados,'ID' => $ids];
         }
 
-        public function Interesados() {
+        /*public function Interesados() {
             $resultado = $this->repositorio->getInteresados();
             $interesados = [];
 
@@ -109,7 +109,7 @@
             }
             return $interesados;
 
-        }
+        }*/
 
 
 

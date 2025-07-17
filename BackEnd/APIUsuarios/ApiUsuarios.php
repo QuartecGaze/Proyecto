@@ -24,7 +24,10 @@
 
     $metodo = $_SERVER['REQUEST_METHOD'];
     $accion = $_GET['accion'] ?? ''; // USAMOS QUERY STRING EN VEZ DE PATH_INFO
-
+    echo json_encode([
+            "status"  => "exito",
+            "message" => $interesados = $servicio->getInteresados()
+        ]);
 
     switch($metodo) {
         case "POST":

@@ -88,12 +88,23 @@
              throw new Exception("No se pudo cargar el archivo", 500);
         }
         }
+
+        
         
         
 
 
         
     }
+        public function getInteresados(){
+            $interesadosObj = $this->repositorio->getInteresados();
+            $interesadoArrayAsociativo = [];
+            foreach($interesadosObj as $interesado){
+                
+                $interesadoArrayAsociativo[$interesado->getIdPersona()] = $interesado->toArray();
+            }
+            return $interesadoArrayAsociativo;
+        }
 }
 
     

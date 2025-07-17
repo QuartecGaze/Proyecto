@@ -17,3 +17,6 @@ export function subirFoto(foto){
 export function verificarSesion(){
     return apiRequest('/APIUsuarios/ApiUsuarios.php?accion=verificarSesion', 'GET')
 }
+export function getInteresados() {
+    return apiRequest('/APIUsuarios/ApiUsuarios.php?accion=Interesados', 'GET');
+}
