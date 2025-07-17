@@ -2,7 +2,6 @@
     const inputCi = document.getElementById("cedula");
     const inputContraseña = document.getElementById("password");
     const divError = document.getElementById("mensajeError");
-    const mostrarContraseña = document.getElementById("mostrarContraseña")
     import { iniciarSesion } from '../../BackEnd/APIFetchs/APIUsuario.js';
     import { getIdioma } from '../../BackEnd/APIFetchs/APITraduccion.js';
     import { aplicarIdioma } from '../../BackEnd/APIFetchs/APITraduccion.js';
@@ -18,11 +17,11 @@
 
             if (data.status === "exito") {
                     if (data.rol === "Admin") {
-                        window.location.href = "../Admin/index.html";
+                        window.location.href = "../Admin/index.php";
                     } else if (data.rol === "Usuario") {
-                        window.location.href = "../Usuario/index.html";
+                        window.location.href = "../Usuario/index.php";
                     } else if (data.rol === "Interesado") {
-                        window.location.href = "../Interesado/index.html";
+                        window.location.href = "../Interesado/index.php";
                     } else {
                         alert("Rol no reconocido: " + data.rol);
                     }
@@ -104,5 +103,5 @@
         }
     }
     //CONSEGUIR EL IDIOMA YA ASIGNADO
-    const data = await getIdioma("registro");
+    const data = await getIdioma("login");
     aplicarIdioma(data);

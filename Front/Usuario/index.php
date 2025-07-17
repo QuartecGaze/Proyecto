@@ -1,6 +1,9 @@
 <!DOCTYPE html>
 <html lang="es">
-
+<?php 
+    require_once '../verificarSesion.php';
+    verificarAcceso(['Usuario', 'Admin']);
+?>
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -55,9 +58,11 @@
                         </div>
                     </div>
                 </a>
+                <form action="../cerrarSesion.php">
                 <button class="boton-cerrar-sesion">
                     <i class="material-icons">logout</i> Cerrar sesión
                 </button>
+                </form>
             </div>
         </aside>
 

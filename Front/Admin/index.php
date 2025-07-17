@@ -1,7 +1,11 @@
 <!DOCTYPE html>
 <html lang="es">
-
+   
 <head>
+     <?php 
+    require_once '../verificarSesion.php';
+    verificarAcceso(['admin']);
+?>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Cooperativa Nombre - Dashboard</title>
@@ -56,9 +60,11 @@
                         <p class="rol-usuario">Administrador</p>
                     </div>
                 </div>
+                <form action="../cerrarSesion.php">
                 <button class="boton-cerrar-sesion">
                     <i class="material-icons">logout</i> Cerrar sesión
                 </button>
+                </form>
             </div>
         </aside>
 

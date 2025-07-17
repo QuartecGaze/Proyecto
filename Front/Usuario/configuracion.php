@@ -1,6 +1,9 @@
 <!DOCTYPE html>
 <html lang="es">
-
+<?php 
+    require_once '../verificarSesion.php';
+    verificarAcceso(['Usuario', 'Admin']);
+?>
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -31,16 +34,13 @@
                         <a href="#Reuniones"><i class="material-icons">event</i> Reuniones</a>
                     </li>
                     <li class="item-menu">
-                        <a href="#Socios"><i class="material-icons">people</i> Socios</a>
+                        <a href="#HorasTrabajadas"><i class="material-icons">punch_clock</i> Horas Trabajadas</a>
                     </li>
                     <li class="item-menu">
                         <a href="#Proyectos"><i class="material-icons">apartment</i> Proyectos</a>
                     </li>
                     <li class="item-menu">
                         <a href="#Finanzas"><i class="material-icons">payments</i> Finanzas</a>
-                    </li>
-                    <li class="item-menu">
-                        <a href="solicitudes.html"><i class="material-icons">email</i> Solicitudes</a>
                     </li>
                     <li class="item-menu activo">
                         <a href="configuracion.html"><i class="material-icons">settings</i> Configuración</a>
@@ -58,9 +58,11 @@
                         </div>
                     </div>
                 </a>
+                <form action="../cerrarSesion.php">
                 <button class="boton-cerrar-sesion">
                     <i class="material-icons">logout</i> Cerrar sesión
                 </button>
+                </form>
             </div>
         </aside>
 
