@@ -189,6 +189,7 @@
             </div>
         </main>
     </div>
+    <script src="../Javascript/admin.js" type="module"></script>
 </body>
 
 </html>

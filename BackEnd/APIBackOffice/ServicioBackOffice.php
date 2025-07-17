@@ -90,6 +90,27 @@
             return ['Interesados' => $cantidadInteresados,'ID' => $ids];
         }
 
+        public function Interesados() {
+            $resultado = $this->repositorio->getInteresados();
+            $interesados = [];
+
+            foreach ($resultado as $fila) {
+                $interesados[] = [
+                'id_persona' => $fila['ID_Persona'],
+                'antecedentes' => $fila['Antecedentes'],
+                'estado_entrevista' => $fila['Estado_entrevista'],
+                'estado_antecedentes' => $fila['Estado_antecedentes'],
+                'fecha_entrevista' => $fila['Fecha_entrevista'],
+                'hora_entrevista' => $fila['Hora_entrevista'],
+                'pago_inicial' => $fila['Pago_inicial'],
+                'estado_pago_inicial' => $fila['Estado_pago_inicial'],
+                'monto_pago_inicial' => $fila['Monto_pago_inicial']
+                ];
+            }
+            return $interesados;
+
+        }
+
 
 
 

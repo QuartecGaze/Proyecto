@@ -101,10 +101,10 @@
                         </div>
                         <div class="campo-perfil">
                             <label>Dirección</label>
-                            <p class="valor-perfil">Av.Gral Rivera 3729, Buceo, Montevideo</p>
+                            <p class="valor-perfil">Pasaje 2 unidad 31</p>
                         </div>
                         <div class="campo-perfil">
-                            <label>Fecha de ingreso</label>
+                            <label>Fecha de Nacimiento</label>
                             <p class="valor-perfil">15 de Enero, 2020</p>
                         </div>
                     </div>

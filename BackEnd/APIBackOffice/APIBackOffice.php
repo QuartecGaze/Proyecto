@@ -63,6 +63,21 @@
                 }
             }
             
+            if ($accion === "Interesados") {
+                try {
+                    $interesados = $servicio->Interesados();
+                    respuesta($total, "exito", 200);
+                    echo json_encode([
+                        'status' => 'exito',
+                        'data' => $interesados
+                    ]);
+
+                } catch (Exception $e) {
+                    respuesta($e->getMessage(), "error", $e->getCode());
+                }
+            }
+
+
             if ($accion === "contarInteresados") {
                 try {
                     $total = $servicio->contarInteresados();

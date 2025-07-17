@@ -58,7 +58,7 @@
                         <img src="https://via.placeholder.com/40" alt="Foto perfil">
                         <div>
                             <p class="nombre-usuario">Nombre User</p>
-                            <p class="rol-usuario">Usuario</p>
+                            <p class="rol-usuario">Administrador</p>
                         </div>
                     </div>
                 </a>
@@ -143,5 +143,6 @@
             </div>
         </main>
     </div>
+    <script src="../Javascript/admin.js" type="module"></script>
 </body>
 </html>
