@@ -10,8 +10,7 @@ try {
             <div class="contenedor-solicitud">
                 <div class="contenido">
                     <div class="solicitud-header">
-                        <h2>Solicitud Nr #0001 <span class="estado-badge pendiente">PENDIENTE</span> </h2>
-                        <p>Fecha de solicitud 00/00/0000</p>
+                        <h2>Solicitud Nr# ${interesado.id_persona}  </h2>
                         <button class="btn-solicitud" id="btn-rechazar-solicitud">
                             <i class="material-icons">block</i> Rechazar Solicitud
                         </button>
@@ -31,11 +30,11 @@ try {
                         <div class="date info-card">
                             <h3>Asignar Fecha de Entrevista</h3>
                             <div class="calendario">
-                                <p><strong>Fecha: </strong> </p>
+                                <p><strong>Fecha: </strong> ${interesado.fecha_entrevista}</p>
                                 <input type="date">
                             </div>
                             <div class="hora">
-                                <p><strong>Hora: </strong></p>
+                                <p><strong>Hora: </strong> ${interesado.hora_entrevista}</p>
                                 <input type="time">
                             </div>
                             <div class="direccion">
@@ -62,7 +61,7 @@ try {
                         <div class="documento-card">
                             <div class="documento-info">
                                 <h4>Antecedentes Penales</h4>
-                                <p>Documento PDF - <span class="estado-badge pendiente">PENDIENTE</span></p>
+                                <p>Documento PDF - <span class="estado-badge ${interesado.estado_antecedentes}">${interesado.estado_antecedentes}</span></p>
                             </div>
                             <div class="documento-acciones">
                                 <a href="#">
@@ -83,7 +82,7 @@ try {
                         <div class="documento-card">
                             <div class="documento-info">
                                 <h4>Comprobante de Pago Inicial</h4>
-                                <p>Documento PDF - <span class="estado-badge pendiente">PENDIENTE</span></p>
+                                <p>Documento PDF - <span class="estado-badge ${interesado.estado_pago_inicial}">${interesado.estado_pago_inicial}</span></p>
                             </div>
                             <div class="documento-acciones">
                                 <a href="#">
@@ -102,9 +101,9 @@ try {
                     </div>
                 </div>
                 <div class="contador">
-                    <div class="segmento" id="seg-1"></div>
-                    <div class="segmento" id="seg-2"></div>
-                    <div class="segmento" id="seg-3"></div>
+                    <div class="segmento" id="seg-1 ${interesado.estado_entrevista}"></div>
+                    <div class="segmento" id="seg-2 ${interesado.estado_antecedentes}"></div>
+                    <div class="segmento" id="seg-3 ${interesado.estado_pago_inicial}"></div>
                 </div>
             </div>
             `;

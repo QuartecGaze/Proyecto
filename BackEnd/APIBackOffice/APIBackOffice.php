@@ -65,15 +65,6 @@
                 }
             }
             
-            if ($accion === "Interesados") {
-                try {
-                    $interesados = $servicio->Interesados();
-                    respuesta($interesados, "exito", 200);
-
-                } catch (Exception $e) {
-                    respuesta($e->getMessage(), "error", $e->getCode());
-                }
-            }
 
 
             if ($accion === "contarInteresados") {
