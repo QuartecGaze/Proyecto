@@ -10,7 +10,7 @@
         public function cargarUsuario($idPersona){
             $fechaIngreso = date("Y-m-d"); //asigna la fecha del momento en el que se ejecuta el metodo
             $persona = $this->repositorio->getPersona($idPersona);
-            $usuario = new Usuario($persona->getCi(), $persona->getEmail(), $idPersona, $persona->getNombre(), $persona->getApellido(), $persona->getContraseña(), "Usuario",//Asigna el rol Usuario
+            $usuario = new Usuario($persona->getCi(), $persona->getEmail(), $telefono->getTelefono(), $idPersona, $persona->getNombre(), $persona->getApellido(), $persona->getContraseña(), "Usuario",//Asigna el rol Usuario
                     null, 
                     null,
                     $fechaIngreso

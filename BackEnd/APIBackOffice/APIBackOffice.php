@@ -66,6 +66,44 @@
             }
             
 
+            if ($accion === "asignarPagoInicial"){
+                $data = json_decode(file_get_contents("php://input"), true);
+
+                if (!isset($data['idPersona']) || !isset($data['montoPagoInicial'])) {
+                    respuesta("Datos insuficientes", "error", 400);
+                }
+
+                $idPersona = $data['idPersona'];
+                $montoPagoInicial = $data['montoPagoInicial'];
+
+                try {
+                    $controlador->asignarPagoInicial($idPersona, $montoPagoInicial);
+                    respuesta("Pago inicial asignado correctamente", "exito", 200);
+                } catch (Exception $e) {
+                    respuesta($e->getMessage(), "error", $e->getCode());
+                }
+            }
+
+            if ($accion === "asignarEntrevista") {
+                $data = json_decode(file_get_contents("php://input"), true);
+
+                if (!isset($data['idPersona']) || !isset($data['fechaEntrevista']) || !isset($data['horaEntrevista'])) {
+                    respuesta("Datos insuficientes", "error", 400);
+                }
+
+                $idPersona = $data['idPersona'];
+                $fechaEntrevista = $data['fechaEntrevista'];
+                $horaEntrevista = $data['horaEntrevista'];
+
+                try {
+                    $controlador->asignarEntrevista($idPersona, $fechaEntrevista, $horaEntrevista);
+                    respuesta("Entrevista asignada correctamente", "exito", 200);
+                } catch (Exception $e) {
+                    respuesta($e->getMessage(), "error", $e->getCode());
+                }
+            }
+
+
 
             if ($accion === "contarInteresados") {
                 try {
