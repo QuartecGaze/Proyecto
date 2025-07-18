@@ -12,7 +12,7 @@
     --color-hover: #3498db;
     --color-exito: #27ae60;
     --color-alerta: #e74c3c;
-    --color-espera: #f39c12;
+    --color-pendiente: #f39c12;
 }
 
 /* Estilos generales */
@@ -204,18 +204,18 @@ h1 {
     grid-template-rows: 2fr 1fr 1fr;
 }
 
-#seg-1{
+#Aprobado{
 background-color: var(--color-exito);
-border-radius: 7px 7px 0 0;
+/*border-radius: 7px 7px 0 0;*/
 }
 
-#seg-2{
-    background-color: var(--color-espera);
+#Pendiente{
+    background-color: var(--color-pendiente);
 }
 
-#seg-3{
+#Rechazado{
     background-color: var(--color-alerta);
-    border-radius: 0 0 7px 7px;
+    /*border-radius: 0 0 7px 7px;*/
 }
 
 .solicitud-header {
@@ -394,7 +394,15 @@ strong {
 }
 
 .Pendiente {
-    background-color: var(--color-espera);
+    background-color: var(--color-pendiente);
+    color: white;
+}
+.Rechazado {
+    background-color: var(--color-alerta);
+    color: white;
+}
+.Aprobado {
+    background-color: var(--color-exito);
     color: white;
 }
 
@@ -506,12 +514,11 @@ a {
 .btn-aprobar-solicitud {
     background-color: var(--color-exito);
 }
-.btn-Pendiente{
+.espera {
     background-color: gray;
+    pointer-events: none;
 }
-.btn-Pendiente {
-  pointer-events: none;
-}
+
 
 
 

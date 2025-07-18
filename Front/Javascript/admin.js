@@ -10,7 +10,7 @@ try {
             <div class="contenedor-solicitud">
                 <div class="contenido">
                     <div class="solicitud-header">
-                        <h2>Solicitud Nr# ${interesado.id_persona}  </h2>
+                        <h2>Solicitud Nr#${interesado.idPersona}  </h2>
                         <button class="btn-solicitud btn-rechazar-solicitud">
                             <i class="material-icons">block</i> Rechazar Solicitud
                         </button>
@@ -30,11 +30,11 @@ try {
                         <div class="date info-card">
                             <h3>Asignar Fecha de Entrevista</h3>
                             <div class="calendario">
-                                <p><strong>Fecha: </strong> ${interesado.fecha_entrevista}</p>
+                                <p><strong>Fecha: </strong> ${interesado.fechaEntrevista  ?? 'Sin asignar'}</p>
                                 <input type="date">
                             </div>
                             <div class="hora">
-                                <p><strong>Hora: </strong> ${interesado.hora_entrevista}</p>
+                                <p><strong>Hora: </strong> ${interesado.horaEntrevista ?? 'Sin asignar'}</p>
                                 <input type="time">
                             </div>
                             <div class="direccion">
@@ -47,10 +47,10 @@ try {
                         </div>
                     </div>
                     <div class="acciones">
-                        <button class="btn-rechazar btn-${interesado.estadoPagoInicial}">
+                        <button class="btn-rechazar btn-${interesado.estadoEntrevista}">
                             <i class="material-icons">close</i> Rechazar
                         </button>
-                        <button class="btn-aprobar btn-${interesado.estadoPagoInicial}">
+                        <button class="btn-aprobar btn-${interesado.estadoEntrevista}">
                             <i class="material-icons">check</i> Aprobar
                         </button>
                     </div>
@@ -91,6 +91,9 @@ try {
                             </div>
                         </div>
                         <div class="acciones">
+                        <button class="btn-asignar-entrevista">     <!--Corregir hacerlo boton que haga esto no copiado y pegado de arriba=================================== --!>
+                                <i class="material-icons">event_available</i> Asignar Monto
+                            </button>
                             <button class="btn-rechazar btn-${interesado.estadoPagoInicial}">
                                 <i class="material-icons">close</i> Rechazar
                             </button>
@@ -101,9 +104,9 @@ try {
                     </div>
                 </div>
                 <div class="contador">
-                    <div class="segmento" id="seg-1 ${interesado.estado_entrevista}"></div>
-                    <div class="segmento" id="seg-2 ${interesado.estado_antecedentes}"></div>
-                    <div class="segmento" id="seg-3 ${interesado.estado_pago_inicial}"></div>
+                    <div class="segmento" id="${interesado.estadoEntrevista}"></div>
+                    <div class="segmento" id="${interesado.estadoAntecedentes}"></div>
+                    <div class="segmento" id="${interesado.estadoPagoInicial}"></div>
                 </div>
             </div>
             `;
