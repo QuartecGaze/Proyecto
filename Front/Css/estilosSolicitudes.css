@@ -337,15 +337,15 @@ input[type="time"] {
     margin: 20px 0;
 }
 
-#btn-aprobar{
+.btn-aprobar{
     background-color: var(--color-exito);
 }
 
-#btn-rechazar{
+.btn-rechazar{
     background-color: var(--color-alerta);
 }
 
-#btn-aprobar, #btn-rechazar {
+.btn-aprobar, .btn-rechazar {
     color: white;
     border: none;
     padding: 10px 25px;
@@ -358,7 +358,7 @@ input[type="time"] {
     transition: all 0.3s;
 }
 
-#btn-aprobar:hover, #btn-rechazar:hover{
+.btn-aprobar:hover, .btn-rechazar:hover{
     transform: translateY(-3px);
 }
 
@@ -393,7 +393,7 @@ strong {
     font-weight: 600;
 }
 
-.pendiente {
+.Pendiente {
     background-color: var(--color-espera);
     color: white;
 }
@@ -499,13 +499,22 @@ a {
     font-size: 1.1rem;
 }
 
-#btn-rechazar-solicitud {
+.btn-rechazar-solicitud {
     background-color: var(--color-alerta);
 }
 
-#btn-aprobar-solicitud {
+.btn-aprobar-solicitud {
     background-color: var(--color-exito);
 }
+.btn-Pendiente{
+    background-color: gray;
+}
+.btn-Pendiente {
+  pointer-events: none;
+}
+
+
+
 
 
 

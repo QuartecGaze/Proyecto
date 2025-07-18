@@ -11,10 +11,10 @@ try {
                 <div class="contenido">
                     <div class="solicitud-header">
                         <h2>Solicitud Nr# ${interesado.id_persona}  </h2>
-                        <button class="btn-solicitud" id="btn-rechazar-solicitud">
+                        <button class="btn-solicitud btn-rechazar-solicitud">
                             <i class="material-icons">block</i> Rechazar Solicitud
                         </button>
-                        <button class="btn-solicitud" id="btn-aprobar-solicitud">
+                        <button class="btn-solicitud btn-aprobar-solicitud">
                             <i class="material-icons">check_circle</i> Aprobar Solicitud
                         </button>
                     </div>
@@ -47,10 +47,10 @@ try {
                         </div>
                     </div>
                     <div class="acciones">
-                        <button id="btn-rechazar">
+                        <button class="btn-rechazar btn-${interesado.estadoPagoInicial}">
                             <i class="material-icons">close</i> Rechazar
                         </button>
-                        <button id="btn-aprobar">
+                        <button class="btn-aprobar btn-${interesado.estadoPagoInicial}">
                             <i class="material-icons">check</i> Aprobar
                         </button>
                     </div>
@@ -61,7 +61,7 @@ try {
                         <div class="documento-card">
                             <div class="documento-info">
                                 <h4>Antecedentes Penales</h4>
-                                <p>Documento PDF - <span class="estado-badge ${interesado.estado_antecedentes}">${interesado.estado_antecedentes}</span></p>
+                                <p>Documento PDF - <span class="estado-badge ${interesado.estadoAntecedentes}">${interesado.estadoAntecedentes}</span></p>
                             </div>
                             <div class="documento-acciones">
                                 <a href="#">
@@ -70,10 +70,10 @@ try {
                             </div>
                         </div>
                         <div class="acciones">
-                            <button id="btn-rechazar">
+                            <button class="btn-rechazar btn-${interesado.estadoAntecedentes}">
                                 <i class="material-icons">close</i> Rechazar
                             </button>
-                            <button id="btn-aprobar">
+                            <button class="btn-aprobar btn-${interesado.estadoAntecedentes}">
                                 <i class="material-icons">check</i> Aprobar
                             </button>
                         </div>
@@ -82,7 +82,7 @@ try {
                         <div class="documento-card">
                             <div class="documento-info">
                                 <h4>Comprobante de Pago Inicial</h4>
-                                <p>Documento PDF - <span class="estado-badge ${interesado.estado_pago_inicial}">${interesado.estado_pago_inicial}</span></p>
+                                <p>Documento PDF - <span class="estado-badge ${interesado.estadoPagoInicial}">${interesado.estadoPagoInicial}</span></p>
                             </div>
                             <div class="documento-acciones">
                                 <a href="#">
@@ -91,10 +91,10 @@ try {
                             </div>
                         </div>
                         <div class="acciones">
-                            <button id="btn-rechazar">
+                            <button class="btn-rechazar btn-${interesado.estadoPagoInicial}">
                                 <i class="material-icons">close</i> Rechazar
                             </button>
-                            <button id="btn-aprobar">
+                            <button class="btn-aprobar btn-${interesado.estadoPagoInicial}">
                                 <i class="material-icons">check</i> Aprobar
                             </button>
                         </div>

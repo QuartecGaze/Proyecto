@@ -59,7 +59,7 @@
         }
 
 
-        public function getTelefonosDePersona($idPersona) {
+        public function getTelefonosPersona($idPersona) {
             $consulta = "
                 SELECT Telefono FROM numero_de_telefono WHERE ID_Persona = $idPersona
             ";
@@ -93,7 +93,7 @@
         $resultado = mysqli_query($this->conn, $consulta); 
        
         while ($fila = mysqli_fetch_assoc($resultado)) {
-            $telefonos = $this->getTelefonosDePersona($fila['ID_Persona']);
+            $telefonos = $this->getTelefonosPersona($fila['ID_Persona']);
             $interesados[] = new Interesado(
             $fila['CI'], 
             $fila['Email'], 

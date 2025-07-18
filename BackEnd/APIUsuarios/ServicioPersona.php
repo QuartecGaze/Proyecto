@@ -96,13 +96,11 @@
         }
 
         $datos = $this->repositorio->getDatosInteresado($id);
-        $telefonos = $this->repositorio->getTelefonosDePersona($id);
         $telefono = $telefonos[0] ?? null;
 
         return new Interesado(
             $datos['CI'], 
-            $datos['Email'],
-            $telefonos, 
+            $datos['Email'], 
             $datos['ID_Persona'], 
             $datos['Nombre'], 
             $datos['Apellido'], 
