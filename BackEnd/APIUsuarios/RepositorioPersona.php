@@ -85,6 +85,37 @@
             return mysqli_fetch_assoc($resultado); // devuelve los datos crudos
         }
 
+        public function getInteresados(){
+        $consulta = "
+                SELECT * FROM Persona JOIN Interesado ON Persona.ID_Persona = Interesado.ID_Persona
+                ;
+            ";
+        $resultado = mysqli_query($this->conn, $consulta); 
+       
+        while ($fila = mysqli_fetch_assoc($resultado)) {
+            $telefonos = $this->getTelefonosDePersona($fila['ID_Persona']);
+            $interesados[] = new Interesado(
+            $fila['CI'], 
+            $fila['Email'], 
+            $telefonos,
+            $fila['ID_Persona'], 
+            $fila['Nombre'], 
+            $fila['Apellido'], 
+            $fila['Contraseña'], 
+            $fila['Rol'],
+            $fila['Antecedentes'], 
+            $fila['Estado_antecedentes'], 
+            $fila['Estado_entrevista'], 
+            $fila['Fecha_entrevista'], 
+            $fila['Hora_entrevista'], 
+            $fila['Pago_inicial'], 
+            $fila['Estado_pago_inicial'], 
+            $fila['Monto_pago_inicial']
+        );
+        }
+        return $interesados;
+        }
+
 
 
 

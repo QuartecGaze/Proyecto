@@ -116,7 +116,7 @@
                 $interesados = $servicio->getInteresados();
                 respuesta($interesados, "exito", 200);
             }
-   
+    
         break;
 
         default:

@@ -2,7 +2,7 @@
     class Persona {
         private $ci;
         private $email;
-        private $telefono; //posible telefono secundario agregar si es necesario
+        private $telefono; 
         private $idPersona;
         private $nombre;
         private $apellido;

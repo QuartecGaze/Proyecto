@@ -3,7 +3,7 @@
     Class Admin extends Persona {
         private $nivelPermisos;
 
-    public function __construct($ci, $email, $telefono, $idPersona, $nombre, $apellido, $contraseña, $rol, $nivelPermisos) {
+    public function __construct($ci, $email, $idPersona, $nombre, $apellido, $contraseña, $rol, $nivelPermisos) {
         parent::__construct($ci, $email, $telefono, $idPersona, $nombre, $apellido, $contraseña, $rol);
         $this->nivelPermisos = $nivelPermisos;
     }

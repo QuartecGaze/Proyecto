@@ -86,8 +86,6 @@
 
         
         
-        
-
 
         
     }
@@ -103,8 +101,8 @@
 
         return new Interesado(
             $datos['CI'], 
-            $datos['Email'], 
-            $telefono, 
+            $datos['Email'],
+            $telefonos, 
             $datos['ID_Persona'], 
             $datos['Nombre'], 
             $datos['Apellido'], 
@@ -122,37 +120,17 @@
     }
 
     public function getInteresados(){
-        $datos = $this->repositorio->getDatosInteresados(); // ← nuevo método que hace el SELECT
-        $interesadoArrayAsociativo = [];
+            $interesadosObj = $this->repositorio->getInteresados();
+            $interesadoArrayAsociativo = [];
+            foreach($interesadosObj as $interesado){
+                
+                $interesadoArrayAsociativo[$interesado->getIdPersona()] = $interesado->toArray();
+            }
+            return $interesadoArrayAsociativo;
+        }
 
-        foreach($datos as $fila){
-            $telefonos = $this->repositorio->getTelefonosDePersona($fila['ID_Persona']);
-            $telefono = $telefonos[0] ?? null;
-
-                $interesado = new Interesado(
-                    $fila['CI'],
-                    $fila['Email'],
-                    $telefono,
-                    $fila['ID_Persona'],
-                    $fila['Nombre'],
-                    $fila['Apellido'],
-                    $fila['Contraseña'],
-                    $fila['Rol'],
-                    $fila['Antecedentes'],
-                    $fila['Estado_antecedentes'],
-                    $fila['Estado_entrevista'],
-                    $fila['Fecha_entrevista'],
-                    $fila['Hora_entrevista'],
-                    $fila['Pago_inicial'],
-                    $fila['Estado_pago_inicial'],
-                    $fila['Monto_pago_inicial']
-            );
-
-        $interesadoArrayAsociativo[$interesado->getIdPersona()] = $interesado->toArray();
     }
-
-    return $interesadoArrayAsociativo;
-    }
+    
 
 
 
@@ -170,7 +148,7 @@
 
 
 
-}
+
 
     
 ?>
