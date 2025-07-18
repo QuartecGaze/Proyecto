@@ -24,10 +24,7 @@
 
     $metodo = $_SERVER['REQUEST_METHOD'];
     $accion = $_GET['accion'] ?? ''; // USAMOS QUERY STRING EN VEZ DE PATH_INFO
-    echo json_encode([
-            "status"  => "exito",
-            "message" => $interesados = $servicio->getInteresados()
-        ]);
+
 
     switch($metodo) {
         case "POST":
@@ -38,6 +35,7 @@
                     $servicio->registro(
                         $datos['ci'], 
                         $datos['email'], 
+                        $datos['telefono'], 
                         $datos['nombre'],
                         $datos['apellido'], 
                         $datos['contraseña'], 
@@ -113,7 +111,11 @@
                     respuesta("No se ha encontrado una variable de sesion", "error", 404);
                 }
             }
-
+            
+            if ($accion == "getInteresados"){ /*TERMINAR HACER FETCH<<<<<=================================================================================== */
+                $interesados = $servicio->getInteresados();
+                respuesta($interesados, "exito", 200);
+            }
    
         break;
 

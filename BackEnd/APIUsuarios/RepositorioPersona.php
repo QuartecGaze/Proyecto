@@ -24,13 +24,21 @@
             mysqli_query($this->conn, $consulta);
         }
 
+        public function cargarTelefono($id, $telefono){
+            $consulta = "
+                INSERT INTO numero_de_telefono (ID_Persona, Telefono)
+                VALUES ('$id', '$telefono')
+                ";
+            mysqli_query($this->conn, $consulta);
+        }
+
         public function getPersona($id){
             $consulta = "
                 SELECT * FROM Persona WHERE ID_Persona=$id
             ";
             $resultado = mysqli_query($this->conn, $consulta);
             $fila = mysqli_fetch_assoc($resultado);
-            $persona = new Persona($fila['CI'], $fila['Email'], $fila['ID_Persona'], $fila['Nombre'], $fila['Apellido'], $fila['Contraseña'], $fila['Rol']);
+            $persona = new Persona($fila['CI'], $fila['Email'], $fila['Telefono'] ,$fila['ID_Persona'], $fila['Nombre'], $fila['Apellido'], $fila['Contraseña'], $fila['Rol']);
             return $persona;
         }
 
@@ -49,59 +57,37 @@
             ";
             mysqli_query($this->conn, $consulta);
         }
-          public function getInteresado($id){
+
+
+        public function getTelefonosDePersona($idPersona) {
             $consulta = "
-                SELECT * FROM Persona JOIN Interesado ON Persona.ID_Persona = Interesado.ID_Persona
-                WHERE Persona.ID_Persona = '$id' ;
+                SELECT Telefono FROM numero_de_telefono WHERE ID_Persona = $idPersona
+            ";
+    
+            $resultado = mysqli_query($this->conn, $consulta);
+
+            $telefonos = [];
+
+            while ($fila = mysqli_fetch_assoc($resultado)) {
+                $telefonos[] = $fila['Telefono'];
+            }
+
+            return $telefonos;
+        }
+
+        public function getDatosInteresado($id) {
+            $consulta = "
+                SELECT * FROM Persona 
+                JOIN Interesado ON Persona.ID_Persona = Interesado.ID_Persona
+                WHERE Persona.ID_Persona = '$id';
             ";
             $resultado = mysqli_query($this->conn, $consulta);
-            $fila = mysqli_fetch_assoc($resultado);
-            $interesado = new Interesado(
-                $fila['CI'], 
-                $fila['Email'], 
-                $fila['ID_Persona'], 
-                $fila['Nombre'], 
-                $fila['Apellido'], 
-                $fila['Contraseña'], 
-                $fila['Rol'],
-                $fila['Antecedentes'], 
-                $fila['Estado_antecedentes'], 
-                $fila['Estado_entrevista'], 
-                $fila['Fecha_entrevista'], 
-                $fila['Hora_entrevista'], 
-                $fila['Pago_inicial'], 
-                $fila['Estado_pago_inicial'], 
-                $fila['Monto_pago_inicial']
-            ); 
-            return $interesado;
+            return mysqli_fetch_assoc($resultado); // devuelve los datos crudos
         }
-        public function getInteresados(){
-        $consulta = "
-                SELECT * FROM Persona JOIN Interesado ON Persona.ID_Persona = Interesado.ID_Persona
-                ;
-            ";
-        $resultado = mysqli_query($this->conn, $consulta); 
-        while ($fila = mysqli_fetch_assoc($resultado)) {
-            $interesados[] = new Interesado(
-            $fila['CI'], 
-            $fila['Email'], 
-            $fila['ID_Persona'], 
-            $fila['Nombre'], 
-            $fila['Apellido'], 
-            $fila['Contraseña'], 
-            $fila['Rol'],
-            $fila['Antecedentes'], 
-            $fila['Estado_antecedentes'], 
-            $fila['Estado_entrevista'], 
-            $fila['Fecha_entrevista'], 
-            $fila['Hora_entrevista'], 
-            $fila['Pago_inicial'], 
-            $fila['Estado_pago_inicial'], 
-            $fila['Monto_pago_inicial']
-        );
-        }
-        return $interesados;
-        }
+
+
+
+
 
         
         //CRUD Usuario

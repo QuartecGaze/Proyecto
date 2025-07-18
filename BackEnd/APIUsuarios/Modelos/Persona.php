@@ -2,15 +2,17 @@
     class Persona {
         private $ci;
         private $email;
+        private $telefono; //posible telefono secundario agregar si es necesario
         private $idPersona;
         private $nombre;
         private $apellido;
         private $contraseña;
         private $rol; 
 
-        public function __construct($ci, $email, $idPersona, $nombre, $apellido, $contraseña, $rol){
+        public function __construct($ci, $email, $telefono, $idPersona, $nombre, $apellido, $contraseña, $rol){
             $this->ci = $ci;
             $this->email = $email;
+            $this->telefono = $telefono;
             $this->idPersona = $idPersona;
             $this->nombre = $nombre;
             $this->apellido = $apellido;
@@ -24,6 +26,10 @@
 
     public function getEmail() {
         return $this->email;
+    }
+
+    public function getTelefono() {
+        return $this->telefono;
     }
 
     public function getIdPersona() {
@@ -54,6 +60,10 @@
 
     public function setEmail($email) {
         $this->email = $email;
+    }
+
+        public function setTelefono($telefono) {
+        $this->email = $telefono;
     }
 
     public function setNombre($nombre) {

@@ -29,7 +29,7 @@
             <nav id="NavegacionDashboard">
                 <ul class="menu-dashboard">
                     <li class="item-menu">
-                        <a href="index.html"><i class="material-icons">home</i> Inicio</a>
+                        <a href="index.php"><i class="material-icons">home</i> Inicio</a>
                     </li>
                     <li class="item-menu">
                         <a href="#Reuniones"><i class="material-icons">event</i> Reuniones</a>
@@ -44,10 +44,10 @@
                         <a href="#Finanzas"><i class="material-icons">payments</i> Finanzas</a>
                     </li>
                     <li class="item-menu activo">
-                        <a href="solicitudes.html"><i class="material-icons">email</i> Solicitudes</a>
+                        <a href="solicitudes.php"><i class="material-icons">email</i> Solicitudes</a>
                     </li>
                     <li class="item-menu">
-                        <a href="configuracion.html"><i class="material-icons">settings</i> Configuración</a>
+                        <a href="configuracion.php"><i class="material-icons">settings</i> Configuración</a>
                     </li>
                 </ul>
             </nav>

@@ -180,35 +180,40 @@
         actualizarEstado(estadoPago, data.message.estadoPagoInicial);
         actualizarEstado(estadoAntecedentes, data.message.estadoAntecedentes);
         
-        document.getElementById("fechaEntrevista").textContent = `Fecha: ${data.message.fechaEntrevista} a las ${data.message.horaEntrevista}`;
-        document.getElementById("montoPago").textContent = `Monto a abonar: $${data.message.montoPagoInicial}`;
+        //usando el operador logico OR, al ser null logramos que se muestre como (vacio)
+        const fecha = data.message.fechaEntrevista || "";
+        const hora = data.message.horaEntrevista || "";
+        const monto = data.message.montoPagoInicial || "";
+
+        document.getElementById("fechaEntrevista").textContent = `Fecha: ${fecha} a las ${hora}`;
+        document.getElementById("montoPago").textContent = `Monto a abonar: $${monto}`;
     }
 
-// Función para actualizar el estado de cada div
-function actualizarEstado(element, estado) {
-    switch (estado.toLowerCase()) {
-        case 'pendiente':
-            element.textContent = 'Pendiente';
-            element.classList.add('pendiente');
+    // Función para actualizar el estado de cada div
+    function actualizarEstado(element, estado) {
+        switch (estado.toLowerCase()) {
+            case 'pendiente':
+                element.textContent = 'Pendiente';
+                element.classList.add('pendiente');
             break;
-        case 'rechazado':
-            element.textContent = 'Rechazado';
-            element.classList.add('rechazado');
+            case 'rechazado':
+                element.textContent = 'Rechazado';
+                element.classList.add('rechazado');
             break;
-        case 'aprobado':
-            element.textContent = 'Aprobado';
-            element.classList.add('aprobado');
+            case 'aprobado':
+                element.textContent = 'Aprobado';
+                element.classList.add('aprobado');
             break;
-        case 'en espera':
-            element.textContent = 'En espera';
-            element.classList.add('espera');
+            case 'en espera':
+                element.textContent = 'En espera';
+                element.classList.add('espera');
             break;
-        default:
-            element.textContent = 'Desconocido';
-            element.style.backgroundColor = 'gray';  // Color predeterminado
+            default:
+                element.textContent = 'Desconocido';
+                element.style.backgroundColor = 'gray';  // Color predeterminado
             break;
+        }
     }
-}
 
 </script>
 </html>

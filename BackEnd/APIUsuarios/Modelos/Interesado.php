@@ -10,8 +10,8 @@
         private $estadoPagoInicial;
         private $montoPagoInicial;
 
-        public function __construct($ci, $email, $idPersona, $nombre, $apellido, $contraseña, $rol, $antecedentes, $estadoAntecedentes, $estadoEntrevista, $fechaEntrevista, $horaEntrevista, $pagoInicial, $estadoPagoInicial, $montoPagoInicial) {
-            parent::__construct($ci, $email, $idPersona, $nombre, $apellido, $contraseña, $rol);
+        public function __construct($ci, $email, $telefono, $idPersona, $nombre, $apellido, $contraseña, $rol, $antecedentes, $estadoAntecedentes, $estadoEntrevista, $fechaEntrevista, $horaEntrevista, $pagoInicial, $estadoPagoInicial, $montoPagoInicial) {
+            parent::__construct($ci, $email, $telefono, $idPersona, $nombre, $apellido, $contraseña, $rol);
             $this->antecedentes = $antecedentes;
             $this->estadoAntecedentes = $estadoAntecedentes;
             $this->estadoEntrevista = $estadoEntrevista;
@@ -95,6 +95,7 @@ public function toArray() {
         "nombre"      => $this->getNombre(),
         "apellido"    => $this->getApellido(),
         "email"       => $this->getEmail(),
+        "telefono"    => $this->getTelefono(),
         "rol"         => $this->getRol(),
         "antecedentes"        => $this->getAntecedentes(),
         "estadoAntecedentes"  => $this->getEstadoAntecedentes(),
