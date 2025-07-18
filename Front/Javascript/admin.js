@@ -49,10 +49,12 @@ try {
                         </div>
                     </div>
                     <div class="acciones">
+
                         <button class="btn-rechazar btn-${interesado.estadoEntrevista}" data-id="${interesado.idPersona}" data-campo="Estado_entrevista">
                             <i class="material-icons">close</i> Rechazar
                         </button>
                         <button class="btn-aprobar btn-${interesado.estadoEntrevista}" data-id="${interesado.idPersona}" data-campo="Estado_entrevista">
+
                             <i class="material-icons">check</i> Aprobar
                         </button>
                     </div>
@@ -96,7 +98,9 @@ try {
                         <button class="btn-asignar-entrevista">     <!--Corregir hacerlo boton que haga esto no copiado y pegado de arriba=================================== --!>
                                 <i class="material-icons">event_available</i> Asignar Monto
                             </button>
+
                             <button class="btn-rechazar btn-${interesado.estadoPagoInicial}" data-id="${interesado.idPersona}" data-campo="Estado_pago_inicial">
+
                                 <i class="material-icons">close</i> Rechazar
                             </button>
                             <button class="btn-aprobar btn-${interesado.estadoPagoInicial}" data-id="${interesado.idPersona}" data-campo="Estado_pago_inicial">
