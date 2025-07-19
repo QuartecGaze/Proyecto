@@ -1,12 +1,34 @@
 import { getInteresados } from '../../BackEnd/APIFetchs/APIUsuario.js';
 import { aprobarEstado } from '../../BackEnd/APIFetchs/APIBackOffice.js';
 import { rechazarEstado } from '../../BackEnd/APIFetchs/APIBackOffice.js';
+const contenedor = document.getElementById("contenedor-solicitudes");
 try {
     const data = await getInteresados();
+    let interesados = Object.values(data.message);
+       if (data.status === "exito") {
+            actualizarSolicitudes(interesados);
+        }
+     
+} catch (error){
+    throw new Error("error en la api: " + error.message);
+}
 
-    if (data.status === "exito") {
-        const interesados = Object.values(data.message);
-        interesados.forEach(interesado => {
+
+function snakeCamel(snakeStr) {
+  return snakeStr.toLowerCase().replace(/_([a-z])/g, (_, letra) => letra.toUpperCase());
+}
+
+function actualizarEstadoArray(array, idPersona, campo, nuevoValor) {
+            const interesado = array.find(i => i.idPersona === idPersona);
+            if (interesado) {
+                interesado[campo] = nuevoValor;
+            }
+            return array;
+        }
+
+function actualizarSolicitudes(interesados){
+     contenedor.innerHTML= "";
+     interesados.forEach(interesado => {
             const div = document.createElement("div");
             div.innerHTML = `
             <div class="contenedor-solicitud">
@@ -116,14 +138,9 @@ try {
                 </div>
             </div>
             `;
-
-            const contenedor = document.getElementById("contenedor-solicitudes");
             contenedor.appendChild(div);
             });
-            
-            
-            
-            const botonesAprobar = document.querySelectorAll(".btn-aprobar");
+             const botonesAprobar = document.querySelectorAll(".btn-aprobar");
             const botonesRechazar = document.querySelectorAll(".btn-rechazar");
             botonesAprobar.forEach(boton =>{
             boton.addEventListener("click", async () => {
@@ -137,11 +154,16 @@ try {
 
             try {
                 const respuesta = await aprobarEstado(datos);
+                 if(respuesta.status == "exito"){
+                    interesados = actualizarEstadoArray(interesados, idPersona, snakeCamel(campo), "Aprobado");
+                    actualizarSolicitudes(interesados);
+                }
             } catch (error) {
                 console.error("Error al aprobar estado:", error);
             }
-        });
+                });
             });
+            
             botonesRechazar.forEach(boton =>{
             boton.addEventListener("click", async () => {
             const idPersona = boton.dataset.id;
@@ -154,14 +176,13 @@ try {
 
             try {
                 const respuesta = await rechazarEstado(datos);
+                if(respuesta.status == "exito"){
+                    interesados = actualizarEstadoArray(interesados, idPersona, snakeCamel(campo), "Rechazado");
+                    actualizarSolicitudes(interesados);
+                }
             } catch (error) {
                 console.error("Error al aprobar estado:", error);
             }
         });
             });
-        } else {
-
-        }
-} catch (error){
-    throw new Error("error en la api: " + error.message);
-}
+} 
