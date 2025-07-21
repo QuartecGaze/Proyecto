@@ -53,13 +53,15 @@
             </nav>
 
             <div class="perfil-usuario">
-                <div class="info-usuario">
-                    <img src="https://via.placeholder.com/40" alt="Foto perfil">
+                <a href="configuracion.php">
+                    <div class="info-usuario">
+                    <img src="../../Fotos/account-admin.webp" alt="Foto perfil">
                     <div>
-                        <p class="nombre-usuario">Admin Admin</p>
+                        <p class="nombre-usuario">Nombre Admin</p>
                         <p class="rol-usuario">Administrador</p>
                     </div>
                 </div>
+                </a>
                 <form action="../cerrarSesion.php">
                 <button class="boton-cerrar-sesion">
                     <i class="material-icons">logout</i> Cerrar sesión

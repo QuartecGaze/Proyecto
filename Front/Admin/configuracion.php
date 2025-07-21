@@ -55,7 +55,7 @@
             <div class="perfil-usuario">
                 <a href="configuracion.php">
                     <div class="info-usuario">
-                        <img src="https://via.placeholder.com/40" alt="Foto perfil">
+                        <img src="../../Fotos/account-admin.webp" alt="Foto perfil">
                         <div>
                             <p class="nombre-usuario">Nombre Admin</p>
                             <p class="rol-usuario">Administrador</p>

@@ -51,7 +51,7 @@
             <div class="perfil-usuario">
                 <a href="configuracion.html">
                     <div class="info-usuario">
-                        <img src="https://via.placeholder.com/40" alt="Foto perfil">
+                        <img src="../../Fotos/account-admin.webp" alt="Foto perfil">
                         <div>
                             <p class="nombre-usuario">Nombre User</p>
                             <p class="rol-usuario">Usuario</p>

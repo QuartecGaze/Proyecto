@@ -132,6 +132,15 @@ body {
     border-top: 1px solid var(--color-borde);
 }
 
+.perfil-usuario a {
+    color: var(--color-primario);
+    transition: all .3s;
+}
+
+.perfil-usuario a:hover {
+    color: var(--color-destacado);
+}
+
 .info-usuario {
     display: flex;
     align-items: center;

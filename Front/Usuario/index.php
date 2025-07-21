@@ -49,7 +49,7 @@
             </nav>
 
             <div class="perfil-usuario">
-                <a href="configuracion.html">
+                <a href="configuracion.php">
                     <div class="info-usuario">
                         <img src="https://via.placeholder.com/40" alt="Foto perfil">
                         <div>
