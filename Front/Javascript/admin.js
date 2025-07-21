@@ -48,7 +48,7 @@ function actualizarSolicitudes(interesados){
                             <h3>Información Personal</h3>
                             <p><strong>Nombre: </strong>${interesado.nombre} ${interesado.apellido}</p>
                             <p><strong>CI: </strong>${interesado.ci}</p>
-                            <p><strong>Mail: </strong>${interesado.email}</p>s
+                            <p><strong>Mail: </strong>${interesado.email}</p>
                             <p><strong>Telefono: </strong>${interesado.telefono}</p>
                         </div>
                         <div class="date info-card">
@@ -118,7 +118,7 @@ function actualizarSolicitudes(interesados){
                         </div>
                         <div class="acciones">
                         <button class="btn-asignar-entrevista">     <!--Corregir hacerlo boton que haga esto no copiado y pegado de arriba=================================== --!>
-                                <i class="material-icons">event_available</i> Asignar Monto
+                                <i class="material-icons">price_check</i> Asignar Monto
                             </button>
 
                             <button class="btn-rechazar btn-${interesado.estadoPagoInicial}" data-id="${interesado.idPersona}" data-campo="Estado_pago_inicial">
