@@ -20,3 +20,9 @@ export function verificarSesion(){
 export function getInteresados() {
     return apiRequest('/APIUsuarios/ApiUsuarios.php?accion=getInteresados', 'GET');
 }
+export function getInteresado(id){
+    return apiRequest(`/APIUsuarios/ApiUsuarios.php?accion=getInteresado&id=` + id), 'GET';
+}
+export function getIdSesion(){
+    return apiRequest(`/APIUsuarios/ApiUsuarios.php?accion=getIdSesion`);
+}
