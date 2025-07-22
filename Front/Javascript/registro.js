@@ -5,6 +5,7 @@
     const inputPassword = document.getElementById("password");
     const inputConfirmarPass = document.getElementById("confirmar-password");
     const inputTelefono = document.getElementById("telefono");
+    const togglePassword = document.querySelectorAll(".toggle-password");
     const divError = document.getElementById("mensajeError");
     import { registrarUsuario } from '../../BackEnd/APIFetchs/APIUsuario.js';
     import { getIdioma } from '../../BackEnd/APIFetchs/APITraduccion.js';
@@ -37,18 +38,24 @@
 
     })
 
-    function togglePassword(fieldId) {
-        const passwordField = document.getElementById(fieldId);
-        const toggleIcon = passwordField.nextElementSibling;
-        
-        if (passwordField.type === "password") {
-            passwordField.type = "text";
-            toggleIcon.textContent = "visibility_off";
-        } else {
-            passwordField.type = "password";
-            toggleIcon.textContent = "visibility";
+    togglePassword.forEach(toggle => {
+        toggle.addEventListener("click", () => {
+            const input = toggle.previousElementSibling;
+            if (input.type === "password") {
+                input.type = "text";
+                toggle.textContent = "visibility_off";
+            } else {
+                passwordField.type = "password";
+                toggleIcon.textContent = "visibility";
+                input.type = "password";
+                toggle.textContent = "visibility";
+            }
         }
+        );
     }
+);
+    
+
     //CONSEGUIR EL IDIOMA YA ASIGNADO
     const data = await getIdioma("registro");
     aplicarIdioma(data);

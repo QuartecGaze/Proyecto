@@ -7,7 +7,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Cooperativa Nombre - Solicitudes</title>
+    <title>Senda Firme - Solicitudes</title>
     <link rel="stylesheet" href="../Css/estilosSolicitudes.css">
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap"
         rel="stylesheet">
@@ -21,8 +21,8 @@
         <!-- Sidebar -->
         <aside class="sidebar">
             <div class="logo-dashboard">
-                <img src="../../Fotos/Logo-1.png" alt="Logo Cooperativa">
-                <span>Cooperativa Nombre</span>
+                <img src="../../Fotos/LogoNegro.webp" alt="Logo Cooperativa">
+                <span>Senda Firme</span>
                 <p>Construyendo oportunidades juntos</p>
             </div>
 

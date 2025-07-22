@@ -24,8 +24,9 @@
                     $datos = json_decode(file_get_contents('php://input'), true);
                     $servicio->asignarEntrevista(
                         $datos['idPersona'],
-                        $datos['fechaEntrevista'],
-                        $datos['horaEntrevista']
+                        $datos['fecha'],
+                        $datos['hora']
+
                     );
                     respuesta("La entrevista se asigno con exito", "exito", 201);
                 } catch(Exception $e) {
@@ -103,8 +104,6 @@
                 }
             }
 
-
-
             if ($accion === "contarInteresados") {
                 try {
                     $total = $servicio->contarInteresados();
@@ -113,7 +112,19 @@
                     respuesta($e->getMessage(), "error", $e->getCode());
                 }
             }
+
+            if($accion === "rechazarInteresado") {
+                $datos = json_decode(file_get_contents('php://input'), true);
+                $servicio->rechazarInteresado($datos['idPersona']);
+                respuesta("Interesado rechazado exitosamente", "exito", 200);
+            }
             
+            if($accion === "aprobarInteresado") {
+                $datos = json_decode(file_get_contents('php://input'), true);
+                $servicio->cargarUsuario($datos['idPersona']);
+                respuesta("Interesado aprobado exitosamente", "exito", 200);
+            }
+
         break;
 
         case "GET":

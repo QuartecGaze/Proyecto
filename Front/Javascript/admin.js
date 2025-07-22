@@ -1,6 +1,10 @@
 import { getInteresados } from '../../BackEnd/APIFetchs/APIUsuario.js';
-import { aprobarEstado } from '../../BackEnd/APIFetchs/APIBackOffice.js';
+import { aprobarEstado, aprobarInteresado } from '../../BackEnd/APIFetchs/APIBackOffice.js';
 import { rechazarEstado } from '../../BackEnd/APIFetchs/APIBackOffice.js';
+import { rechazarInteresado } from '../../BackEnd/APIFetchs/APIBackOffice.js'; 
+import { asignarEntrevista } from '../../BackEnd/APIFetchs/APIBackOffice.js';
+
+
 const contenedor = document.getElementById("contenedor-solicitudes");
 try {
     const data = await getInteresados();
@@ -26,6 +30,7 @@ function actualizarEstadoArray(array, idPersona, campo, nuevoValor) {
             return array;
         }
 
+
 function actualizarSolicitudes(interesados){
      contenedor.innerHTML= "";
      interesados.forEach(interesado => {
@@ -35,10 +40,10 @@ function actualizarSolicitudes(interesados){
                 <div class="contenido">
                     <div class="solicitud-header">
                         <h2>Solicitud Nr#${interesado.idPersona}  </h2>
-                        <button class="btn-solicitud btn-rechazar-solicitud">
+                        <button class="btn-solicitud btn-rechazar-solicitud" data-id="${interesado.idPersona}">
                             <i class="material-icons">block</i> Rechazar Solicitud
                         </button>
-                        <button class="btn-solicitud btn-aprobar-solicitud">
+                        <button class="btn-solicitud btn-aprobar-solicitud" data-id="${interesado.idPersona}">
                             <i class="material-icons">check_circle</i> Aprobar Solicitud
                         </button>
                     </div>
@@ -55,17 +60,18 @@ function actualizarSolicitudes(interesados){
                             <h3>Asignar Fecha de Entrevista</h3>
                             <div class="calendario">
                                 <p><strong>Fecha: </strong> ${interesado.fechaEntrevista  ?? 'Sin asignar'}</p>
-                                <input type="date">
+                                <input type="date" id="fecha${interesado.idPersona}">
                             </div>
                             <div class="hora">
+                            
                                 <p><strong>Hora: </strong> ${interesado.horaEntrevista ?? 'Sin asignar'}</p>
-                                <input type="time">
+                                <input type="time" id="hora${interesado.idPersona}">
                             </div>
                             <div class="direccion">
                                 <p><strong>Direccion: </strong></p>
                                 Av.Gral Rivera 3729 bis, 11600 Montevideo
                             </div>
-                            <button class="btn-asignar-entrevista">
+                            <button class="btn-asignar-entrevista" data-id="${interesado.idPersona}">
                                 <i class="material-icons">event_available</i> Asignar Entrevista
                             </button>
                         </div>
@@ -140,8 +146,89 @@ function actualizarSolicitudes(interesados){
             `;
             contenedor.appendChild(div);
             });
-             const botonesAprobar = document.querySelectorAll(".btn-aprobar");
+            const botonesAprobar = document.querySelectorAll(".btn-aprobar");
             const botonesRechazar = document.querySelectorAll(".btn-rechazar");
+            const botonAsignarEntrevista = document.querySelectorAll(".btn-asignar-entrevista");
+
+            botonAsignarEntrevista.forEach(boton => {
+                boton.addEventListener("click", async () => { 
+                    const idPersona = boton.dataset.id;
+                    const fecha = document.getElementById('fecha' + idPersona).value;
+                    const hora = document.getElementById('hora' + idPersona).value;
+            
+                    if (!fecha || !hora) {
+                        alert("Por favor completa la fecha y hora antes de asignar.");
+                        return;
+                    }
+            
+                    const datos = {
+                        idPersona: idPersona,
+                        fecha: fecha,
+                        hora: hora,
+                    };
+            
+                    try {
+                        const respuesta = await asignarEntrevista(datos);
+            
+                        if (respuesta.status === "exito") {
+                            alert("Entrevista asignada con exito.");
+
+                        } else {
+                            alert("Error " + respuesta.message);
+                        }
+                    } catch (error) {
+                        console.error("Error al asignar la entrevista", error);
+                        alert("Error del servidor");
+                    }
+                });
+            });
+            
+
+            const botonAprobarInteresado = document.querySelectorAll(".btn-aprobar-solicitud");
+            botonAprobarInteresado.forEach(boton =>{boton.addEventListener("click", async () => { 
+                const idPersona = boton.dataset.id;
+                const datos = {
+                    idPersona: idPersona
+                };
+
+                try {
+                    const respuesta = await aprobarInteresado(datos);
+        
+                    if (respuesta.status === "exito") {
+                        alert("Interesado aprobado con exito.");
+
+                    } else {
+                        alert("Error " + respuesta.message);
+                    }
+                } catch (error) {
+                    console.error("Error al aprobar el interesado", error)
+                    alert("Error del servidor");
+                }
+            });
+        });
+            const botonRechazarInteresado = document.querySelectorAll(".btn-rechazar-solicitud");
+            botonRechazarInteresado.forEach(boton =>{boton.addEventListener("click", async () => { 
+                const idPersona = boton.dataset.id;
+                
+                const datos = {
+                    idPersona: idPersona
+                };
+
+                try {
+                    const respuesta = await rechazarInteresado(datos);
+        
+                    if (respuesta.status === "exito") {
+                        alert("Interesado rechazado y eliminado con exito.");
+
+                    } else {
+                        alert("Error " + respuesta.message);
+                    }
+                } catch (error) {
+                    console.error("Error al eliminar el interesado", error)
+                    alert("Error del servidor");
+                }
+            });
+        });
             botonesAprobar.forEach(boton =>{
             boton.addEventListener("click", async () => {
             const idPersona = boton.dataset.id;

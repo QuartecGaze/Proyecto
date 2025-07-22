@@ -44,7 +44,7 @@
                     $this->repositorio->cargarTelefono($idPersona, $telefono);
                     //Las cosas en null se asignan posteriormente en el backoffice ademas de cambiar el estado "En espera" etc
                     $interesado = new Interesado($ci, $email, $telefono, $idPersona, $nombre, $apellido, $contraseña, "Interesado", //datos heredados de persona
-                    null, "En espera", "En espera", null, null, null, "En espera", null); //datos de Interesado
+                    null, "Pendiente", "En espera", null, null, null, "En espera", null); //datos de Interesado
                     $this->repositorio->cargarInteresado($interesado);
                 }else{
                     throw new Exception("Las contraseñas no coinciden", 400);
@@ -57,7 +57,7 @@
 
         public function subirFoto($nombreArchivo, $nombreTemp){
                 session_start();
-                $rutaFotosPerfil = "http://localhost/Proyecto/Fotos/FotosPerfil/";
+                $rutaFotosPerfil = "Proyecto/Fotos/FotosPerfil/";
                 $extension = pathinfo($nombreArchivo, PATHINFO_EXTENSION);
                 $nuevaFoto =  $_SESSION['id'] . '.' . $extension;
                 $nuevaRuta = $rutaFotosPerfil . $nuevaFoto;
@@ -83,11 +83,8 @@
              throw new Exception("No se pudo cargar el archivo", 500);
         }
         }
-
-        
         
 
-        
     }
 
     public function getInteresado($id) {

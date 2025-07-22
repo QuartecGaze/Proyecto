@@ -21,7 +21,7 @@
                 <a href="../Landing Page/index.html">
                     <img src="../../Fotos/logo.webp" alt="Logo Cooperativa">
                 </a>
-                <span>Cooperativa Nombre</span>
+                <span>Senda Firme</span>
             </div>
         </div>
     </header>
@@ -70,7 +70,7 @@
     </main>
 
     <footer class="footer-registro">
-        <p>&copy; 2025 Cooperativa Nombre. Todos los derechos reservados.</p>
+        <p>&copy; 2025 Senda Firme. Todos los derechos reservados.</p>
     </footer>
 </body>
 <script src="../Javascript/interesado.js" type="module"></script>

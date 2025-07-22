@@ -108,8 +108,11 @@
 
         public function getInteresados(){
         $consulta = "
-                SELECT * FROM Persona JOIN Interesado ON Persona.ID_Persona = Interesado.ID_Persona
-                ;
+        SELECT * 
+        FROM Persona 
+        JOIN Interesado ON Persona.ID_Persona = Interesado.ID_Persona 
+        WHERE Rol = 'Interesado';
+        
             ";
         $resultado = mysqli_query($this->conn, $consulta); 
        

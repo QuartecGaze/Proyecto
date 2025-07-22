@@ -63,9 +63,27 @@
 
             } 
             elseif ($accion === "subirFoto"){
-                session_start();
                 $nombreArchivo = $_FILES['foto']['name'];
                 $nombreTemp = $_FILES['foto']['tmp_name'];
+                try{
+               $this->servicio->subirFoto($nombreArchivo, $nombreTemp);
+                }catch(Exception $e){
+                    respuesta($e->getMessage(), "error", $e->getCode());
+                }
+            }
+            elseif ($accion === "subirCompobante"){
+                session_start();
+                $nombreArchivo = $_FILES['compbante']['name'];
+                $nombreTemp = $_FILES['comprobante']['tmp_name'];
+                try{
+               $this->servicio->subirFoto($nombreArchivo, $nombreTemp);
+                }catch(Exception $e){
+                    respuesta($e->getMessage(), "error", $e->getCode());
+                }
+            }elseif ($accion === "subirAntecedentes"){
+                session_start();
+                $nombreArchivo = $_FILES['comprobante']['name'];
+                $nombreTemp = $_FILES['comprobante']['tmp_name'];
                 try{
                $this->servicio->subirFoto($nombreArchivo, $nombreTemp);
                 }catch(Exception $e){
