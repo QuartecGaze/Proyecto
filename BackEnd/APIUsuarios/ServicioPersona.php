@@ -57,7 +57,7 @@
 
         public function subirFoto($nombreArchivo, $nombreTemp){
                 session_start();
-                $rutaFotosPerfil = "http://localhost/Proyecto/Fotos/FotosPerfil/";
+                $rutaFotosPerfil = "Proyecto/Fotos/FotosPerfil/";
                 $extension = pathinfo($nombreArchivo, PATHINFO_EXTENSION);
                 $nuevaFoto =  $_SESSION['id'] . '.' . $extension;
                 $nuevaRuta = $rutaFotosPerfil . $nuevaFoto;
@@ -83,11 +83,8 @@
              throw new Exception("No se pudo cargar el archivo", 500);
         }
         }
-
-        
         
 
-        
     }
 
     public function getInteresado($id) {
