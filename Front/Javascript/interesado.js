@@ -11,7 +11,7 @@
 
     
     const idSesion = await getIdSesion();
-    const data = await getInteresado(idSesion);
+    const data = await getInteresado(idSesion.message);
     setDatos(data);
 
 

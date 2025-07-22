@@ -44,7 +44,7 @@
                     $this->repositorio->cargarTelefono($idPersona, $telefono);
                     //Las cosas en null se asignan posteriormente en el backoffice ademas de cambiar el estado "En espera" etc
                     $interesado = new Interesado($ci, $email, $telefono, $idPersona, $nombre, $apellido, $contraseña, "Interesado", //datos heredados de persona
-                    null, "En espera", "En espera", null, null, null, "En espera", null); //datos de Interesado
+                    null, "Pendiente", "En espera", null, null, null, "En espera", null); //datos de Interesado
                     $this->repositorio->cargarInteresado($interesado);
                 }else{
                     throw new Exception("Las contraseñas no coinciden", 400);

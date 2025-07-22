@@ -21,6 +21,13 @@
             }
             
         }
+        
+        public function borrarTelefono($id){
+            $consulta = "
+                DELETE FROM Numero_de_telefono WHERE ID_Persona=$id
+            ";
+            mysqli_query($this->conn, $consulta);
+        }
 
         public function borrarPersona($id){
             $consulta = "
@@ -28,6 +35,56 @@
             ";
             mysqli_query($this->conn, $consulta);
         }
+
+        public function getPersona($id){
+            $consulta = "
+            SELECT Telefono FROM numero_de_telefono WHERE ID_Persona = $id
+        ";
+
+        $resultado = mysqli_query($this->conn, $consulta);
+
+        $telefonos = [];
+
+        while ($fila = mysqli_fetch_assoc($resultado)) {
+            $telefonos[] = $fila['Telefono'];
+        }
+
+            $consulta = "
+                SELECT * FROM Persona WHERE ID_Persona=$id
+            ";
+            $resultado = mysqli_query($this->conn, $consulta);
+            $fila = mysqli_fetch_assoc($resultado);
+            $persona = new Persona($fila['CI'], $fila['Email'], $telefonos ,$fila['ID_Persona'], $fila['Nombre'], $fila['Apellido'], $fila['Contraseña'], $fila['Rol']);
+            return $persona;
+
+        }
+/*
+            $consulta = "
+            SELECT * FROM Persona 
+            JOIN Usuario ON Persona.ID_Persona = Usuario.ID_Persona
+            WHERE Persona.ID_Persona = '$id';
+        ";
+        $resultado = mysqli_query($this->conn, $consulta); 
+        $fila = mysqli_fetch_assoc($resultado);
+        $telefonos = $this->getTelefonosPersona($fila['CI']);
+        $usuario = new Usuario(
+        $fila['CI'], 
+        $fila['Email'], 
+        $telefonos,
+        $fila['ID_Persona'], 
+        $fila['Nombre'], 
+        $fila['Apellido'], 
+        $fila['Contraseña'], 
+        $fila['Rol'],
+        $fila['Fecha_nacimiento'],
+        $fila['Fecha_ingreso'],
+        $fila['Foto']
+    
+        );
+
+        return $usuario;
+        */
+        
 
 
         //Interesado
@@ -94,7 +151,7 @@
             $idPersona = $Usuario->getIdPersona();
             $fechaIngreso = $Usuario->getFechaIngreso();
             $consulta = "
-                INSERT INTO Usuario (ID_Persona Fecha_ingreso)
+                INSERT INTO Usuario (ID_Persona, Fecha_ingreso)
                 VALUES ('$idPersona','$fechaIngreso')
             ";
             mysqli_query($this->conn, $consulta);
@@ -105,6 +162,15 @@
                 DELETE FROM Usuario WHERE ID_Persona=$id
             ";
             mysqli_query($this->conn, $consulta);
+        }
+        
+        public function cambiarRol($id){
+            $consulta = "
+            UPDATE Persona
+            SET Rol = 'Usuario'
+            WHERE ID_Persona = $id
+        ";
+        mysqli_query($this->conn, $consulta);
         }
 
         //CRUD Admin

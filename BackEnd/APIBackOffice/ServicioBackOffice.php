@@ -1,4 +1,9 @@
 <?php
+    require_once __DIR__ .'../../APIUsuarios/Modelos/Usuario.php';
+    require_once __DIR__ .'../../APIUsuarios/Modelos/Persona.php'; 
+    require_once __DIR__ .'../../APIUsuarios/Modelos/Admin.php';
+    require_once __DIR__ .'../../APIUsuarios/Modelos/Interesado.php';
+
     Class ServicioBackOffice {
         //no se especifica el tipo porque cada servicio tiene un repositorio
         private $repositorio;
@@ -10,12 +15,14 @@
         public function cargarUsuario($idPersona){
             $fechaIngreso = date("Y-m-d"); //asigna la fecha del momento en el que se ejecuta el metodo
             $persona = $this->repositorio->getPersona($idPersona);
-            $usuario = new Usuario($persona->getCi(), $persona->getEmail(), $telefono->getTelefono(), $idPersona, $persona->getNombre(), $persona->getApellido(), $persona->getContraseña(), "Usuario",//Asigna el rol Usuario
+            $this->repositorio->cambiarRol($idPersona);
+            $usuario = new Usuario($persona->getCi(), $persona->getEmail(), $persona->getTelefono(), $idPersona, $persona->getNombre(), $persona->getApellido(), $persona->getContraseña(), $persona->getRol(),
                     null, 
-                    null,
-                    $fechaIngreso
+                    $fechaIngreso,
+                    null
                 );
             $this->repositorio->cargarUsuario($usuario);
+
         }
 
 
@@ -37,10 +44,10 @@
 
         public function rechazarInteresado($idPersona){
             if($this->repositorio->personaExiste($idPersona)){
-
+                $this->repositorio->borrarTelefono($idPersona);
                 $this->repositorio->borrarInteresado($idPersona);
                 $this->repositorio->borrarPersona($idPersona);
-
+                //opcional podria quedar un antecedente de que ya fue rechazado
             }else{
                 throw new Exception("Esa persona no existe", 404);
             }

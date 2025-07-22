@@ -1,6 +1,8 @@
 import { getInteresados } from '../../BackEnd/APIFetchs/APIUsuario.js';
-import { aprobarEstado } from '../../BackEnd/APIFetchs/APIBackOffice.js';
+import { aprobarEstado, aprobarInteresado } from '../../BackEnd/APIFetchs/APIBackOffice.js';
 import { rechazarEstado } from '../../BackEnd/APIFetchs/APIBackOffice.js';
+import { rechazarInteresado } from '../../BackEnd/APIFetchs/APIBackOffice.js'; 
+
 const contenedor = document.getElementById("contenedor-solicitudes");
 try {
     const data = await getInteresados();
@@ -26,6 +28,7 @@ function actualizarEstadoArray(array, idPersona, campo, nuevoValor) {
             return array;
         }
 
+
 function actualizarSolicitudes(interesados){
      contenedor.innerHTML= "";
      interesados.forEach(interesado => {
@@ -35,10 +38,10 @@ function actualizarSolicitudes(interesados){
                 <div class="contenido">
                     <div class="solicitud-header">
                         <h2>Solicitud Nr#${interesado.idPersona}  </h2>
-                        <button class="btn-solicitud btn-rechazar-solicitud">
+                        <button class="btn-solicitud btn-rechazar-solicitud" data-id="${interesado.idPersona}">
                             <i class="material-icons">block</i> Rechazar Solicitud
                         </button>
-                        <button class="btn-solicitud btn-aprobar-solicitud">
+                        <button class="btn-solicitud btn-aprobar-solicitud" data-id="${interesado.idPersona}">
                             <i class="material-icons">check_circle</i> Aprobar Solicitud
                         </button>
                     </div>
@@ -142,6 +145,37 @@ function actualizarSolicitudes(interesados){
             });
              const botonesAprobar = document.querySelectorAll(".btn-aprobar");
             const botonesRechazar = document.querySelectorAll(".btn-rechazar");
+            const botonAprobarInteresado = document.querySelectorAll(".btn-aprobar-solicitud");
+            botonAprobarInteresado.forEach(boton =>{boton.addEventListener("click", async () => { 
+                const idPersona = boton.dataset.id;
+                const datos = {
+                    idPersona: idPersona
+                };
+                try {
+                    const respuesta = await aprobarInteresado(datos);
+                    
+                }catch (error) {
+                    console.error("Error al aprobar el interesado", error)
+                }
+
+            });
+        });
+            const botonRechazarInteresado = document.querySelectorAll(".btn-rechazar-solicitud");
+            botonRechazarInteresado.forEach(boton =>{boton.addEventListener("click", async () => { 
+                const idPersona = boton.dataset.id;
+                
+                const datos = {
+                    idPersona: idPersona
+                };
+                try {
+                    const respuesta = await rechazarInteresado(datos);
+                    
+                }catch (error) {
+                    console.error("Error al eliminar el interesado", error)
+                }
+
+            });
+        });
             botonesAprobar.forEach(boton =>{
             boton.addEventListener("click", async () => {
             const idPersona = boton.dataset.id;

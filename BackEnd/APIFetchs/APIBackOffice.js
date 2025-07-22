@@ -16,3 +16,11 @@ export function aprobarEstado(data) {
 export function rechazarEstado(data) {
     return apiRequest('/APIBackOffice/ApiBackOffice.php?accion=rechazarEstado', 'POST', data);
 }
+
+export function rechazarInteresado(data) {
+    return apiRequest('/APIBackOffice/ApiBackOffice.php?accion=rechazarInteresado', 'POST', data);
+}
+
+export function aprobarInteresado(data) {
+    return apiRequest('/APIBackOffice/ApiBackOffice.php?accion=aprobarInteresado', 'POST', data);
+}
