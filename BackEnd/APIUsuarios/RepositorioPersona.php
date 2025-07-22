@@ -81,8 +81,29 @@
                 JOIN Interesado ON Persona.ID_Persona = Interesado.ID_Persona
                 WHERE Persona.ID_Persona = '$id';
             ";
-            $resultado = mysqli_query($this->conn, $consulta);
-            return mysqli_fetch_assoc($resultado); // devuelve los datos crudos
+            $resultado = mysqli_query($this->conn, $consulta); 
+            $fila = mysqli_fetch_assoc($resultado);
+            $telefonos = $this->getTelefonosPersona($fila['CI']);
+            $interesado = new Interesado(
+            $fila['CI'], 
+            $fila['Email'], 
+            $telefonos,
+            $fila['ID_Persona'], 
+            $fila['Nombre'], 
+            $fila['Apellido'], 
+            $fila['Contraseña'], 
+            $fila['Rol'],
+            $fila['Antecedentes'], 
+            $fila['Estado_antecedentes'], 
+            $fila['Estado_entrevista'], 
+            $fila['Fecha_entrevista'], 
+            $fila['Hora_entrevista'], 
+            $fila['Pago_inicial'], 
+            $fila['Estado_pago_inicial'], 
+            $fila['Monto_pago_inicial']
+        );
+        
+        return $interesado;
         }
 
         public function getInteresados(){

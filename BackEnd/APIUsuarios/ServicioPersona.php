@@ -93,28 +93,11 @@
     public function getInteresado($id) {
         if (!$this->repositorio->interesadoExisteID($id)) {
             throw new Exception("El interesado no existe", 404);
+        } else {
+            return $this->repositorio->getDatosInteresado($id);
         }
 
-        $datos = $this->repositorio->getDatosInteresado($id);
-        $telefono = $telefonos[0] ?? null;
-
-        return new Interesado(
-            $datos['CI'], 
-            $datos['Email'], 
-            $datos['ID_Persona'], 
-            $datos['Nombre'], 
-            $datos['Apellido'], 
-            $datos['Contraseña'], 
-            $datos['Rol'],
-            $datos['Antecedentes'], 
-            $datos['Estado_antecedentes'], 
-            $datos['Estado_entrevista'], 
-            $datos['Fecha_entrevista'], 
-            $datos['Hora_entrevista'], 
-            $datos['Pago_inicial'], 
-            $datos['Estado_pago_inicial'], 
-            $datos['Monto_pago_inicial']
-        );
+        
     }
 
     public function getInteresados(){

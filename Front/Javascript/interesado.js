@@ -6,12 +6,16 @@
     const nombrePersona = document.getElementById("nombre");
     import { getIdSesion } from '../../BackEnd/APIFetchs/APIUsuario.js';
     import { getInteresado } from '../../BackEnd/APIFetchs/APIUsuario.js';
-   
-    const idSesion = await getIdSesion()
-    const data = await getInteresado(idSesion.message);
+    
+
+
+    
+    const idSesion = await getIdSesion();
+    const data = await getInteresado(idSesion);
     setDatos(data);
 
-//CONSEGUIR EL IDIOMA YA ASIGNADO
+
+
   
     //Funcion para asignar los valores correspondientes
     function setDatos(data) {
