@@ -1,11 +1,42 @@
+-- phpMyAdmin SQL Dump
+-- version 5.2.1
+-- https://www.phpmyadmin.net/
+--
+-- Host: localhost:8889
+-- Generation Time: Jul 12, 2025 at 05:56 PM
+-- Server version: 8.0.40
+-- PHP Version: 8.3.14
 
+SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
+START TRANSACTION;
+SET time_zone = "+00:00";
+
+
+/*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
+/*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
+/*!40101 SET @OLD_COLLATION_CONNECTION=@@COLLATION_CONNECTION */;
+/*!40101 SET NAMES utf8mb4 */;
+
+--
+-- Database: `cooperativa`
+--
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `Admin`
+--
 
 CREATE TABLE `Admin` (
   `ID_Persona` int NOT NULL,
   `Nivel_permisos` enum('Operador','Admin') DEFAULT NULL
-) 
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
+-- --------------------------------------------------------
 
+--
+-- Table structure for table `Comprobante_pago`
+--
 
 CREATE TABLE `Comprobante_pago` (
   `ID_Comprobante_pago` int NOT NULL,
@@ -15,17 +46,26 @@ CREATE TABLE `Comprobante_pago` (
   `Mes` date DEFAULT NULL,
   `Foto` varchar(255) DEFAULT NULL,
   `Monto` int DEFAULT NULL
-)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `Falta`
+--
 
 CREATE TABLE `Falta` (
   `ID_Falta` int NOT NULL,
   `ID_Persona` int DEFAULT NULL,
   `ID_Semana_trabajo` int DEFAULT NULL,
   `Motivo_falta` varchar(255) DEFAULT NULL
-) 
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
+-- --------------------------------------------------------
 
+--
+-- Table structure for table `Horas_trabajadas`
+--
 
 CREATE TABLE `Horas_trabajadas` (
   `ID_Horas_trabajadas` int NOT NULL,
@@ -33,8 +73,13 @@ CREATE TABLE `Horas_trabajadas` (
   `Fecha_registro_horas` date DEFAULT NULL,
   `ID_Persona` int DEFAULT NULL,
   `ID_Semana_trabajo` int DEFAULT NULL
-) 
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `Interesado`
+--
 
 CREATE TABLE `Interesado` (
   `ID_Persona` int NOT NULL,
@@ -46,17 +91,25 @@ CREATE TABLE `Interesado` (
   `Pago_inicial` varchar(255) DEFAULT NULL,
   `Estado_pago_inicial` enum('En espera','Pendiente','Aprobado','Rechazado') DEFAULT NULL,
   `Monto_pago_inicial` int DEFAULT NULL
-) 
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
+-- --------------------------------------------------------
 
+--
+-- Table structure for table `Numero_de_telefono`
+--
 
 CREATE TABLE `Numero_de_telefono` (
   `ID_Telefono` int NOT NULL,
   `ID_Persona` int DEFAULT NULL,
   `Telefono` int DEFAULT NULL
-) 
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
+-- --------------------------------------------------------
 
+--
+-- Table structure for table `Persona`
+--
 
 CREATE TABLE `Persona` (
   `ID_Persona` int NOT NULL,
@@ -66,23 +119,32 @@ CREATE TABLE `Persona` (
   `Rol` enum('Usuario','Interesado','Admin') DEFAULT NULL,
   `Nombre` varchar(100) NOT NULL,
   `Apellido` varchar(100) NOT NULL
-)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `Semana_trabajo`
+--
 
 CREATE TABLE `Semana_trabajo` (
   `ID_Semana_trabajo` int NOT NULL,
   `Horas_semanales` int DEFAULT NULL,
   `Fecha_semana` date DEFAULT NULL
-) 
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
+-- --------------------------------------------------------
 
+--
+-- Table structure for table `Traducciones`
+--
 
 CREATE TABLE `Traducciones` (
   `pagina` varchar(100) NOT NULL,
   `clave` varchar(100) NOT NULL,
   `idioma` varchar(10) NOT NULL,
   `texto` text NOT NULL
-)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 --
 -- Dumping data for table `Traducciones`
@@ -201,7 +263,7 @@ CREATE TABLE `Unidad_habitacional` (
   `Pasillo` varchar(20) DEFAULT NULL,
   `Estado_unidad` enum('En espera','En pausa','En construcción','Finalizada') DEFAULT NULL,
   `Cantidad_habitaciones` int DEFAULT NULL
-) 
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 -- --------------------------------------------------------
 
@@ -212,7 +274,7 @@ CREATE TABLE `Unidad_habitacional` (
 CREATE TABLE `Unidad_habitacional_Semana_trabajo` (
   `ID_Semana_trabajo` int NOT NULL,
   `ID_Unidad_habitacional` int NOT NULL
-)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 -- --------------------------------------------------------
 
@@ -224,7 +286,7 @@ CREATE TABLE `Usuario` (
   `ID_Persona` int NOT NULL,
   `Fecha_nacimiento` date DEFAULT NULL,
   `Fecha_ingreso` date DEFAULT NULL
-)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 --
 -- Indexes for dumped tables
@@ -400,10 +462,13 @@ ALTER TABLE `Unidad_habitacional_Semana_trabajo`
   ADD CONSTRAINT `unidad_habitacional_semana_trabajo_ibfk_1` FOREIGN KEY (`ID_Semana_trabajo`) REFERENCES `Semana_trabajo` (`ID_Semana_trabajo`),
   ADD CONSTRAINT `unidad_habitacional_semana_trabajo_ibfk_2` FOREIGN KEY (`ID_Unidad_habitacional`) REFERENCES `Unidad_habitacional` (`ID_Unidad_habitacional`);
 
---ssssssss
+--
 -- Constraints for table `Usuario`
 --
 ALTER TABLE `Usuario`
   ADD CONSTRAINT `usuario_ibfk_1` FOREIGN KEY (`ID_Persona`) REFERENCES `Persona` (`ID_Persona`);
 COMMIT;
 
+/*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
+/*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
+/*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
