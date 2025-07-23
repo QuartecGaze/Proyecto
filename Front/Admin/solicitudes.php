@@ -32,16 +32,16 @@
                         <a href="index.php"><i class="material-icons">home</i> Inicio</a>
                     </li>
                     <li class="item-menu">
-                        <a href="configuraciones.php"><i class="material-icons">event</i> Reuniones</a>
+                        <a href="#"><i class="material-icons">event</i> Reuniones</a>
                     </li>
                     <li class="item-menu">
                         <a href="#Socios"><i class="material-icons">people</i> Socios</a>
                     </li>
                     <li class="item-menu">
-                        <a href="configuraciones.php"><i class="material-icons">apartment</i> Proyectos</a>
+                        <a href="#"><i class="material-icons">apartment</i> Proyectos</a>
                     </li>
                     <li class="item-menu">
-                        <a href="configuraciones.php"><i class="material-icons">payments</i> Finanzas</a>
+                        <a href="#"><i class="material-icons">payments</i> Finanzas</a>
                     </li>
                     <li class="item-menu activo">
                         <a href="solicitudes.php"><i class="material-icons">email</i> Solicitudes</a>
