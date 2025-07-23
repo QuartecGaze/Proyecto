@@ -35,16 +35,14 @@ export function aplicarIdioma(data){
           }
 
           else if (el.tagName.toLowerCase() === 'form') {
-            const divs = el.querySelectorAll('div');
+            const labels = el.querySelectorAll('.fieldInfo > label'); 
             const items = valor.split(';');
-
-            divs.forEach((div, index) => {
-              const label = div.querySelector('label');
-              if (label) {
-                label.innerHTML = items[index] ?? '';
-              }
+          
+            labels.forEach((label, index) => {
+              label.innerHTML = items[index] ?? '';
             });
           }
+          
 
           else {
             el.innerHTML = valor;

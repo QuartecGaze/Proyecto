@@ -2,6 +2,7 @@
     const inputCi = document.getElementById("cedula");
     const inputContraseña = document.getElementById("password");
     const divError = document.getElementById("mensajeError");
+    const togglePassword = document.querySelectorAll(".toggle-password");
     import { iniciarSesion } from '../../BackEnd/APIFetchs/APIUsuario.js';
     import { getIdioma } from '../../BackEnd/APIFetchs/APITraduccion.js';
     import { aplicarIdioma } from '../../BackEnd/APIFetchs/APITraduccion.js';
@@ -90,18 +91,21 @@
       console.error('Error en la solicitud GET:', error.message);
     });
 
-    function togglePassword(fieldId) {
-        const passwordField = document.getElementById(fieldId);
-        const toggleIcon = passwordField.nextElementSibling;
 
-        if (passwordField.type === "password") {
-            passwordField.type = "text";
-            toggleIcon.textContent = "visibility_off";
-        } else {
-            passwordField.type = "password";
-            toggleIcon.textContent = "visibility";
-        }
-    }
+    togglePassword.forEach(toggle => {
+      toggle.addEventListener("click", () => {
+          const input = toggle.previousElementSibling;
+          
+          if (input.type === "password") {
+              input.type = "text";
+              toggle.textContent = "visibility_off";
+          } else {
+              input.type = "password";
+              toggle.textContent = "visibility";
+          }
+      });
+  });
+
     //CONSEGUIR EL IDIOMA YA ASIGNADO
     const data = await getIdioma("login");
     aplicarIdioma(data);

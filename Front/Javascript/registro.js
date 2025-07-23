@@ -16,13 +16,14 @@
         event.preventDefault();
         const datos = {
             ci: inputCi.value,
-                email: email.value,
+                email: inputEmail.value,
                 nombre: nombreCompleto[0],
                 apellido: nombreCompleto[1],
                 contraseña: inputPassword.value,
                 confirmarContraseña: inputConfirmarPass.value,
                 telefono: inputTelefono.value
-        }
+        };
+        
         try{
         const data = await registrarUsuario(datos);
 
@@ -41,19 +42,16 @@
     togglePassword.forEach(toggle => {
         toggle.addEventListener("click", () => {
             const input = toggle.previousElementSibling;
+            
             if (input.type === "password") {
                 input.type = "text";
                 toggle.textContent = "visibility_off";
             } else {
-                passwordField.type = "password";
-                toggleIcon.textContent = "visibility";
                 input.type = "password";
                 toggle.textContent = "visibility";
             }
-        }
-        );
-    }
-);
+        });
+    });
     
 
     //CONSEGUIR EL IDIOMA YA ASIGNADO
