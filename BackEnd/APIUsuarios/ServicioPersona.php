@@ -44,7 +44,7 @@
                     $this->repositorio->cargarTelefono($idPersona, $telefono);
                     //Las cosas en null se asignan posteriormente en el backoffice ademas de cambiar el estado "En espera" etc
                     $interesado = new Interesado($ci, $email, $telefono, $idPersona, $nombre, $apellido, $contraseña, "Interesado", //datos heredados de persona
-                    null, "Pendiente", "En espera", null, null, null, "En espera", null); //datos de Interesado
+                    null, "En espera", "En espera", null, null, null, "En espera", null); //datos de Interesado
                     $this->repositorio->cargarInteresado($interesado);
                 }else{
                     throw new Exception("Las contraseñas no coinciden", 400);
@@ -54,38 +54,64 @@
             }
         }
 
-
+        //HACER QUE SE BORRE FOTO ANTERIOR
         public function subirFoto($nombreArchivo, $nombreTemp){
                 session_start();
-                $rutaFotosPerfil = "Proyecto/Fotos/FotosPerfil/";
+                $rutaFotosPerfil = "../../Fotos/FotosPerfil/";
                 $extension = pathinfo($nombreArchivo, PATHINFO_EXTENSION);
                 $nuevaFoto =  $_SESSION['id'] . '.' . $extension;
                 $nuevaRuta = $rutaFotosPerfil . $nuevaFoto;
                 $crearFoto = false;
                 $archivoExiste = glob( $rutaFotosPerfil . $_SESSION['id'] . '.*');
-
                 if (count($archivoExiste) > 0) {
-                    foreach($archivoExiste as $file){
-                        if(unlink($file)){
-                            $crearFoto=true;
-                         }else {
-                            $crearFoto=false;
-                        }
-                    }
+                    throw new Exception("Ya existe un archivo con el mismo nombre en el sistema", 500);
                 } else{
-                    $crearFoto = true;
+                   if(move_uploaded_file($nombreTemp, $nuevaRuta)){
+                    return(true);
+                } else{
+                    throw new Exception("No se pudo cargar el archivo", 500);
                 }
+            }
+        }
 
-        if($crearFoto){
-            if(move_uploaded_file($nombreTemp, $nuevaRuta)){
-            return(true);
-        } else{
-             throw new Exception("No se pudo cargar el archivo", 500);
-        }
-        }
         
 
-    }
+        public function subirComprobante($nombreArchivo, $nombreTemp){
+                session_start();
+                $rutaComprobantes = "../../Recursos/Comprobantes/";
+                $extension = pathinfo($nombreArchivo, PATHINFO_EXTENSION);
+                $nuevaRuta = $rutaComprobantes . $nombreArchivo;
+                $archivoExiste = glob($nuevaRuta);
+                if (count($archivoExiste) > 0) {
+                    throw new Exception("Ya existe un archivo con el mismo nombre en el sistema", 500);
+                } else{
+                   if(move_uploaded_file($nombreTemp, $nuevaRuta)){
+                    $this->repositorio->subirComprobante($nombreArchivo, $_SESSION['id']);
+                    return(true);
+                } else{
+                    throw new Exception("No se pudo cargar el archivo", 500);
+                }
+            }
+        }
+
+        public function subirAntecedentes ($nombreArchivo, $nombreTemp){
+                session_start();
+                $rutaAntecedentes = "../../Recursos/Antecedentes/";
+                $extension = pathinfo($nombreArchivo, PATHINFO_EXTENSION);
+                $nuevaRuta = $rutaAntecedentes . $nombreArchivo;
+                $archivoExiste = glob($nuevaRuta);
+                if (count($archivoExiste) > 0) {
+                    throw new Exception("Ya existe un archivo con el mismo nombre en el sistema", 500);
+                } else{
+                   if(move_uploaded_file($nombreTemp, $nuevaRuta)){
+                    $this->repositorio->subirAntecedentes($nombreArchivo, $_SESSION['id']);
+                    return(true);
+                } else{
+                    throw new Exception("No se pudo cargar el archivo", 500);
+                }
+            }
+        }
+        
 
     public function getInteresado($id) {
         if (!$this->repositorio->interesadoExisteID($id)) {
@@ -95,7 +121,7 @@
         }
 
         
-    }
+    }   
 
     public function getInteresados(){
             $interesadosObj = $this->repositorio->getInteresados();
@@ -108,6 +134,8 @@
         }
 
     }
+
+    
     
 
 

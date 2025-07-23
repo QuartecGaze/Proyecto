@@ -63,33 +63,60 @@
 
             } 
             elseif ($accion === "subirFoto"){
+                if(!isset($_FILES['foto'])){
+                    respuesta("debe cargar un archivo", "error", 400);
+                }
                 $nombreArchivo = $_FILES['foto']['name'];
                 $nombreTemp = $_FILES['foto']['tmp_name'];
                 try{
-               $this->servicio->subirFoto($nombreArchivo, $nombreTemp);
+               if($servicio->subirFoto($nombreArchivo, $nombreTemp)){
+                    respuesta("archivo cargado correctamente", "exito", 200);
+               }else{
+                    respuesta("error al cargar al archivo", "error", 400);
+               }
                 }catch(Exception $e){
                     respuesta($e->getMessage(), "error", $e->getCode());
-                }
             }
-            elseif ($accion === "subirCompobante"){
-                session_start();
-                $nombreArchivo = $_FILES['compbante']['name'];
-                $nombreTemp = $_FILES['comprobante']['tmp_name'];
-                try{
-               $this->servicio->subirFoto($nombreArchivo, $nombreTemp);
-                }catch(Exception $e){
-                    respuesta($e->getMessage(), "error", $e->getCode());
+            }
+
+            elseif ($accion === "subirComprobante"){
+                if(!isset($_FILES['comprobante'])){
+                    respuesta("debe cargar un archivo", "error", 400);
                 }
-            }elseif ($accion === "subirAntecedentes"){
-                session_start();
                 $nombreArchivo = $_FILES['comprobante']['name'];
                 $nombreTemp = $_FILES['comprobante']['tmp_name'];
                 try{
-               $this->servicio->subirFoto($nombreArchivo, $nombreTemp);
+               if($servicio->subirComprobante($nombreArchivo, $nombreTemp)){
+                    respuesta("archivo cargado correctamente", "exito", 200);
+               }else{
+                    respuesta("error al cargar al archivo", "error", 400);
+               }
                 }catch(Exception $e){
                     respuesta($e->getMessage(), "error", $e->getCode());
                 }
+
+
             }
+
+             elseif ($accion === "subirAntecedentes"){
+                if(!isset($_FILES['antecedentes'])){
+                    respuesta("debe cargar un archivo", "error", 400);
+                }
+                $nombreArchivo = $_FILES['antecedentes']['name'];
+                $nombreTemp = $_FILES['antecedentes']['tmp_name'];
+                try{
+               if($servicio->subirAntecedentes($nombreArchivo, $nombreTemp)){
+                    respuesta("archivo cargado correctamente", "exito", 200);
+               }else{
+                    respuesta("error al cargar al archivo", "error", 400);
+               }
+                }catch(Exception $e){
+                    respuesta($e->getMessage(), "error", $e->getCode());
+            }
+
+
+            }
+
         break;
 
         case "GET":

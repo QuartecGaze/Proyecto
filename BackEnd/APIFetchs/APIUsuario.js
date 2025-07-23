@@ -14,6 +14,12 @@ export function iniciarSesion(datos) {
 export function subirFoto(foto){
     return apiRequest('/APIUsuarios/ApiUsuarios.php?accion=subirFoto', 'POST', foto);
 }
+export function subirComprobante(comprobante){
+    return apiRequest(`/APIUsuarios/ApiUsuarios.php?accion=subirComprobante`, "POST", comprobante);
+}
+export function subirAntecedentes(Antecedentes){
+    return apiRequest(`/APIUsuarios/ApiUsuarios.php?accion=subirAntecedentes`, "POST", Antecedentes);
+}
 export function verificarSesion(){
     return apiRequest('/APIUsuarios/ApiUsuarios.php?accion=verificarSesion', 'GET')
 }

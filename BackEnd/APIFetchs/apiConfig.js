@@ -9,25 +9,21 @@ const baseUrl = 'http://localhost/Proyecto/BackEnd';
  * @returns {Promise<Object>} - Devuelve la respuesta JSON o lanza un error
  */
 export async function apiRequest(endpoint, method = 'GET', body = null) {
-    // Arma la configuración de la solicitud
     const config = {
-        method, // 'GET', 'POST', etc.
-        headers: { 'Content-Type': 'application/json' }, // Tipo de datos enviados
+        method,
+        headers: {},
     };
 
-    // Si hay datos para enviar (como en POST), los convierte a JSON
-    if (body) {
+    if (body && !(body instanceof FormData)) {
+        config.headers['Content-Type'] = 'application/json';
         config.body = JSON.stringify(body);
+    } else if (body instanceof FormData) {
+        config.body = body;
+        
     }
 
-    // Llama a fetch usando la URL base + el endpoint específico
     const response = await fetch(`${baseUrl}${endpoint}`, config);
-
-    // Intenta leer la respuesta como JSON (puede fallar si no es JSON válido)
-    const data = await response.json().catch(() => null);
+    const data = await response.json(); 
     console.log(data);
-
-    // Si todo fue bien, devuelve los datos
     return data;
-
 }

@@ -96,7 +96,7 @@ function actualizarSolicitudes(interesados){
                                 <p>Documento PDF - <span class="estado-badge ${interesado.estadoAntecedentes}">${interesado.estadoAntecedentes}</span></p>
                             </div>
                             <div class="documento-acciones">
-                                <a href="#">
+                                <a href="../../Recursos/Antecedentes/${interesado.antecedentes}" download>
                                     <li class="material-icons">download</li> Descargar
                                 </a>
                             </div>
@@ -117,7 +117,7 @@ function actualizarSolicitudes(interesados){
                                 <p>Documento PDF - <span class="estado-badge ${interesado.estadoPagoInicial}">${interesado.estadoPagoInicial}</span></p>
                             </div>
                             <div class="documento-acciones">
-                                <a href="#">
+                                <a href="../../Recursos/Comprobantes/${interesado.pagoInicial}" download>
                                     <li class="material-icons">download</li> Descargar
                                 </a>
                             </div>

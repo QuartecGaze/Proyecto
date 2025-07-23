@@ -140,6 +140,29 @@
         return $interesados;
         }
 
+        public function subirComprobante($nombre, $id) {
+        $consulta = "
+        UPDATE Interesado
+            SET 
+            Pago_inicial = '$nombre',
+            Estado_pago_inicial = 'Pendiente'
+            WHERE ID_Persona = $id
+        ";
+        mysqli_query($this->conn, $consulta);
+        }
+
+        public function subirAntecedentes($nombre, $id) {
+        $consulta = "
+            UPDATE Interesado
+            SET 
+            Antecedentes = '$nombre',
+            Estado_antecedentes = 'Pendiente'
+            WHERE ID_Persona = $id
+        ";
+        mysqli_query($this->conn, $consulta);
+        }
+
+
 
 
 
@@ -163,6 +186,8 @@
         ";
         mysqli_query($this->conn, $consulta);
         }
+
+
         //ediar datos usuario
        
 
@@ -241,7 +266,7 @@
                 throw new Exception("No se encontro una persona con la CI $ci");
             }
         }
-        
+    
         
     }
     ?>
