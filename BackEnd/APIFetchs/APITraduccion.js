@@ -35,18 +35,14 @@ export function aplicarIdioma(data){
           }
 
           else if (el.tagName.toLowerCase() === 'form') {
-            const labels = el.querySelectorAll('.fieldInfo > label'); 
             const items = valor.split(';');
-          
+            const labels = el.querySelectorAll('label[for]');
             labels.forEach((label, index) => {
               label.innerHTML = items[index] ?? '';
-            });
-          }
-          
-
-          else {
+              });
+          } else {
             el.innerHTML = valor;
           }
         });
-      }
-}
+    }
+  }

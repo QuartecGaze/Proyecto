@@ -2,6 +2,7 @@
     const inputEmail = document.getElementById("email")
     const inputCi = document.getElementById("cedula");
     const inputNombre = document.getElementById("nombre");
+    const inputApellido = document.getElementById("apellido");
     const inputPassword = document.getElementById("password");
     const inputConfirmarPass = document.getElementById("confirmar-password");
     const inputTelefono = document.getElementById("telefono");
@@ -12,13 +13,12 @@
     import { aplicarIdioma } from '../../BackEnd/APIFetchs/APITraduccion.js';
     
     formRegistro.addEventListener("submit", async function (event) {
-        const nombreCompleto = inputNombre.value.trim().split(/\s+/);
         event.preventDefault();
         const datos = {
             ci: inputCi.value,
                 email: inputEmail.value,
-                nombre: nombreCompleto[0],
-                apellido: nombreCompleto[1],
+                nombre: inputNombre.value,
+                apellido: inputApellido.value,
                 contraseña: inputPassword.value,
                 confirmarContraseña: inputConfirmarPass.value,
                 telefono: inputTelefono.value

@@ -69,11 +69,13 @@
         </aside>
 
         <!-- Contenido de solicitudes pendientes -->
-        <main class="contenido-principal" id="contenedor-solicitudes">
+        <main class="contenido-principal">
             <h1>Solicitudes Pendientes</h1>
-
+            <div id="contenedor-solicitudes"></div>
         </main>
     </div>
+
+    
 
     <!-- Modal de confirmación -->
     <div class="modal-confirmacion" id="modalConfirmacion">

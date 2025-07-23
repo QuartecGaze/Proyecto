@@ -114,11 +114,9 @@
         
 
         public function cargarEntrevista($id, $fechaEntrevista, $horaEntrevista){
-            $estadoEntrevista = "Pendiente"; 
             $consulta = "
                 UPDATE Interesado
-                SET Estado_entrevista = '$estadoEntrevista',
-                    Fecha_entrevista = '$fechaEntrevista',
+                SET Fecha_entrevista = '$fechaEntrevista',
                     Hora_entrevista = '$horaEntrevista'
                 WHERE ID_Persona = $id
             ";

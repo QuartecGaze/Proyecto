@@ -171,8 +171,8 @@ INSERT INTO `Traducciones` (`pagina`, `clave`, `idioma`, `texto`) VALUES
 ('landing', 'faqs-texto1', 'es', 'Una vez completado tu registro, nuestro equipo se pondrá en contacto para programar una entrevista y explicarte los próximos pasos.'),
 ('landing', 'faqs-texto2', 'en', 'We require commitment to cooperative values, active participation in assemblies, and contribution to the common project.'),
 ('landing', 'faqs-texto2', 'es', 'Requerimos compromiso con los valores cooperativos, participación activa en las asambleas y contribución al proyecto común.'),
-('landing', 'faqs-texto3', 'en', 'Work varies depending on the project, but all members contribute at least 8 hours per month to community activities.'),
-('landing', 'faqs-texto3', 'es', 'El trabajo varía según el proyecto, pero todos los miembros contribuyen con al menos 8 horas mensuales a las actividades comunitarias.'),
+('landing', 'faqs-texto3', 'en', 'Work varies depending on the project, but all members contribute at least 21 hours per week to community activities.'),
+('landing', 'faqs-texto3', 'es', 'El trabajo varía según el proyecto, pero todos los miembros contribuyen con al menos 21 horas semanales a las actividades comunitarias.'),
 ('landing', 'faqs-texto4', 'en', 'Contact us through the form, and we will get back to you shortly.'),
 ('landing', 'faqs-texto4', 'es', 'Contactanos a través del formulario y te responderemos a la brevedad.'),
 ('landing', 'faqs-titulo-4', 'es', '¿Tenes más preguntas?'),
@@ -286,6 +286,7 @@ CREATE TABLE `Usuario` (
   `ID_Persona` int NOT NULL,
   `Fecha_nacimiento` date DEFAULT NULL,
   `Fecha_ingreso` date DEFAULT NULL
+  `Foto` varchar(100) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 --

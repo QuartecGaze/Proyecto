@@ -60,6 +60,7 @@
 
         public function asignarEntrevista($idPersona, $fechaEntrevista, $horaEntrevista){
             $this->repositorio->cargarEntrevista($idPersona, $fechaEntrevista, $horaEntrevista);
+            $this->repositorio->revisarEstado($idPersona, "Estado_entrevista", "Pendiente");
         }
 
 
