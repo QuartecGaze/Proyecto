@@ -2,10 +2,10 @@
 <html lang="es">
 
 <head>
-    <?php 
+    <?php
     require_once '../verificarSesion.php';
     verificarAcceso(['Interesado', 'Admin']);
-?>
+    ?>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Proceso de Registro</title>
@@ -27,7 +27,9 @@
     </header>
 
     <main>
-        <h1>Formulario de ingreso a la cooperativa <br> <p id="nombre">- Nombre</p></h1>
+        <h1>Formulario de ingreso a la cooperativa <br>
+            <p id="nombre">- Nombre</p>
+        </h1>
 
         <h2>1. Entrevista Agendada</h2>
         <div class="tarjeta">
@@ -36,7 +38,8 @@
                 <span class="estado-badge" id="entrevista">Estado-Entrevista</span>
             </div>
             <div id="fechaEntrevista">Fecha y hora de la entrevista</div>
-            <div id="Observaciones">Observaciones: Entrevista presencial en sede cooperativa. Dirección Av.Gral Rivera 3729 bis, 11600 Montevideo</div>
+            <div id="Observaciones">Observaciones: Entrevista presencial en sede cooperativa. Dirección Av.Gral Rivera
+                3729 bis, 11600 Montevideo</div>
         </div>
 
         <div class="divider"></div>
@@ -47,9 +50,10 @@
                 <span class="estado-label">Estado:</span>
                 <span class="estado-badge" id="antecedentes">Estado-Antecedentes</span>
             </div>
-            <div class="upload-section">
+            <div class="upload-section" onclick="document.getElementById('file-antecedentes').click()">
                 <div>Haz clic para subir PDF de antecedentes</div>
-                <div class="file-info">Ningún archivo seleccionado</div>
+                <div class="file-info" id="file-info-antecedentes">Ningún archivo seleccionado</div>
+                <input type="file" id="file-antecedentes" accept=".pdf" style="display: none;">
             </div>
         </div>
 
@@ -62,9 +66,10 @@
                 <span class="estado-badge" id="pago-inicial">Estado-PagoInicial</span>
             </div>
             <div class="cantidad" id="montoPago">Monto-PagoInicial</div>
-            <div class="upload-section">
+            <div class="upload-section" onclick="document.getElementById('file-pago').click()">
                 <div>Haz clic para subir tu comprobante</div>
-                <div class="file-info">Ningún archivo seleccionado</div>
+                <div class="file-info" id="file-info-pago">Ningún archivo seleccionado</div>
+                <input type="file" id="file-pago" accept=".pdf,.jpg,.jpeg,.png" style="display: none;">
             </div>
         </div>
     </main>
@@ -74,4 +79,5 @@
     </footer>
 </body>
 <script src="../Javascript/interesado.js" type="module"></script>
+
 </html>

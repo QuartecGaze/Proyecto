@@ -1,65 +1,90 @@
- //Conseguir la id de sesion
-    const estadoEntrevista = document.getElementById("entrevista");
-    const estadoPago= document.getElementById("pago-inicial");
-    const estadoAntecedentes = document.getElementById("antecedentes");
-    const fechaEntrevista = document.getElementById("fecha-entrevista");
-    const nombrePersona = document.getElementById("nombre");
-    import { getIdSesion } from '../../BackEnd/APIFetchs/APIUsuario.js';
-    import { getInteresado } from '../../BackEnd/APIFetchs/APIUsuario.js';
-    
-
-
-    
-    const idSesion = await getIdSesion();
-    const data = await getInteresado(idSesion.message);
-    setDatos(data);
+//Conseguir la id de sesion
+const estadoEntrevista = document.getElementById("entrevista");
+const estadoPago = document.getElementById("pago-inicial");
+const estadoAntecedentes = document.getElementById("antecedentes");
+const fechaEntrevista = document.getElementById("fecha-entrevista");
+const nombrePersona = document.getElementById("nombre");
+import { getIdSesion } from '../../BackEnd/APIFetchs/APIUsuario.js';
+import { getInteresado } from '../../BackEnd/APIFetchs/APIUsuario.js';
 
 
 
-  
-    //Funcion para asignar los valores correspondientes
-    function setDatos(data) {
-        estadoEntrevista.classList.remove('aprobado', 'rechazado', 'pendiente');
-        estadoPago.classList.remove('aprobado', 'rechazado', 'pendiente');
-        estadoAntecedentes.classList.remove('aprobado', 'rechazado', 'pendiente');
 
-        nombrePersona.textContent = "- " + data.message.nombre + " " + data.message.apellido;
-        // Cambiar los estados de cada div según el estado correspondiente
-        actualizarEstado(estadoEntrevista, data.message.estadoEntrevista);
-        actualizarEstado(estadoPago, data.message.estadoPagoInicial);
-        actualizarEstado(estadoAntecedentes, data.message.estadoAntecedentes);
-        
-        //usando el operador logico OR, al ser null logramos que se muestre como (vacio)
-        const fecha = data.message.fechaEntrevista || "";
-        const hora = data.message.horaEntrevista || "";
-        const monto = data.message.montoPagoInicial || "";
+const idSesion = await getIdSesion();
+const data = await getInteresado(idSesion.message);
+setDatos(data);
 
-        document.getElementById("fechaEntrevista").textContent = `Fecha: ${fecha} a las ${hora}`;
-        document.getElementById("montoPago").textContent = `Monto a abonar: $${monto}`;
+
+
+
+//Funcion para asignar los valores correspondientes
+function setDatos(data) {
+    estadoEntrevista.classList.remove('aprobado', 'rechazado', 'pendiente');
+    estadoPago.classList.remove('aprobado', 'rechazado', 'pendiente');
+    estadoAntecedentes.classList.remove('aprobado', 'rechazado', 'pendiente');
+
+    nombrePersona.textContent = "- " + data.message.nombre + " " + data.message.apellido;
+    // Cambiar los estados de cada div según el estado correspondiente
+    actualizarEstado(estadoEntrevista, data.message.estadoEntrevista);
+    actualizarEstado(estadoPago, data.message.estadoPagoInicial);
+    actualizarEstado(estadoAntecedentes, data.message.estadoAntecedentes);
+
+    //usando el operador logico OR, al ser null logramos que se muestre como (vacio)
+    const fecha = data.message.fechaEntrevista || "";
+    const hora = data.message.horaEntrevista || "";
+    const monto = data.message.montoPagoInicial || "";
+
+    document.getElementById("fechaEntrevista").textContent = `Fecha: ${fecha} a las ${hora}`;
+    document.getElementById("montoPago").textContent = `Monto a abonar: $${monto}`;
+}
+
+// Función para actualizar el estado de cada div
+function actualizarEstado(element, estado) {
+    switch (estado.toLowerCase()) {
+        case 'pendiente':
+            element.textContent = 'Pendiente';
+            element.classList.add('pendiente');
+            break;
+        case 'rechazado':
+            element.textContent = 'Rechazado';
+            element.classList.add('rechazado');
+            break;
+        case 'aprobado':
+            element.textContent = 'Aprobado';
+            element.classList.add('aprobado');
+            break;
+        case 'en espera':
+            element.textContent = 'En espera';
+            element.classList.add('espera');
+            break;
+        default:
+            element.textContent = 'Desconocido';
+            element.style.backgroundColor = 'gray';  // Color predeterminado
+            break;
     }
+}
 
-    // Función para actualizar el estado de cada div
-    function actualizarEstado(element, estado) {
-        switch (estado.toLowerCase()) {
-            case 'pendiente':
-                element.textContent = 'Pendiente';
-                element.classList.add('pendiente');
-            break;
-            case 'rechazado':
-                element.textContent = 'Rechazado';
-                element.classList.add('rechazado');
-            break;
-            case 'aprobado':
-                element.textContent = 'Aprobado';
-                element.classList.add('aprobado');
-            break;
-            case 'en espera':
-                element.textContent = 'En espera';
-                element.classList.add('espera');
-            break;
-            default:
-                element.textContent = 'Desconocido';
-                element.style.backgroundColor = 'gray';  // Color predeterminado
-            break;
+
+
+document.addEventListener('DOMContentLoaded', function () {
+
+    const fileInputAntecedentes = document.getElementById('file-antecedentes');
+    const fileInfoAntecedentes = document.getElementById('file-info-antecedentes');
+
+    fileInputAntecedentes.addEventListener('change', function (e) {
+        if (this.files.length > 0) {
+            fileInfoAntecedentes.textContent = this.files[0].name;
+            fileInfoAntecedentes.parentElement.classList.add('has-file');
         }
-    }
+    });
+
+    const fileInputPago = document.getElementById('file-pago');
+    const fileInfoPago = document.getElementById('file-info-pago');
+
+    fileInputPago.addEventListener('change', function (e) {
+        if (this.files.length > 0) {
+            fileInfoPago.textContent = this.files[0].name;
+            fileInfoPago.parentElement.classList.add('has-file');
+        }
+    });
+});

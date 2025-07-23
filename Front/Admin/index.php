@@ -32,16 +32,16 @@
                         <a href="index.php"><i class="material-icons">home</i> Inicio</a>
                     </li>
                     <li class="item-menu">
-                        <a href="#Reuniones"><i class="material-icons">event</i> Reuniones</a>
+                        <a href="configuraciones.php"><i class="material-icons">event</i> Reuniones</a>
                     </li>
                     <li class="item-menu">
-                        <a href="#Socios"><i class="material-icons">people</i> Socios</a>
+                        <a href="configuraciones.php"><i class="material-icons">people</i> Socios</a>
                     </li>
                     <li class="item-menu">
-                        <a href="#Proyectos"><i class="material-icons">apartment</i> Proyectos</a>
+                        <a href="configuraciones.php"><i class="material-icons">apartment</i> Proyectos</a>
                     </li>
                     <li class="item-menu">
-                        <a href="#Finanzas"><i class="material-icons">payments</i> Finanzas</a>
+                        <a href="configuraciones.php"><i class="material-icons">payments</i> Finanzas</a>
                     </li>
                     <li class="item-menu">
                         <a href="solicitudes.php"><i class="material-icons">email</i> Solicitudes</a>
@@ -72,7 +72,7 @@
 
         <main class="contenido-principal">
             <header class="header-principal">
-                <h1>Bienvenido, <span class="nombre-usuario-destacado">Nombre User</span></h1>
+                <h1>Bienvenido, <span class="nombre-usuario-destacado">Nombre Admin</span></h1>
                 <p>Aquí puedes gestionar todas tus actividades en la cooperativa</p>
             </header>
 
@@ -125,9 +125,9 @@
                             <i class="material-icons">payments</i>
                         </div>
                         <div class="tarjeta-contenido">
-                            <h3>Balance</h3>
+                            <h3>Cuota</h3>
                             <p class="tarjeta-valor">$1,250</p>
-                            <p class="tarjeta-subtexto">Disponible</p>
+                            <p class="tarjeta-subtexto">A pagar</p>
                         </div>
                     </div>
                 </a>

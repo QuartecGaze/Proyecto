@@ -85,18 +85,6 @@
                     </div>
                 </div>
 
-                <!-- Tarjeta de proyectos activos -->
-                <div class="tarjeta-dashboard">
-                    <div class="tarjeta-icono">
-                        <i class="material-icons">apartment</i>
-                    </div>
-                    <div class="tarjeta-contenido">
-                        <h3>Proyectos activos</h3>
-                        <p class="tarjeta-valor">3</p>
-                        <p class="tarjeta-subtexto">Participando</p>
-                    </div>
-                </div>
-
                 <!-- Tarjeta de reuniones pendientes -->
                 <div class="tarjeta-dashboard">
                     <div class="tarjeta-icono">
@@ -115,9 +103,9 @@
                         <i class="material-icons">payments</i>
                     </div>
                     <div class="tarjeta-contenido">
-                        <h3>Balance</h3>
+                        <h3>Cuota</h3>
                         <p class="tarjeta-valor">$1,250</p>
-                        <p class="tarjeta-subtexto">Disponible</p>
+                        <p class="tarjeta-subtexto">A pagar</p>
                     </div>
                 </div>
             </div>
