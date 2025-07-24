@@ -4,8 +4,14 @@ const estadoPago = document.getElementById("pago-inicial");
 const estadoAntecedentes = document.getElementById("antecedentes");
 const fechaEntrevista = document.getElementById("fecha-entrevista");
 const nombrePersona = document.getElementById("nombre");
+const comprobanteBtn = document.getElementById("comprobante");
+const antecedentesBtn = document.getElementById("antecedentesBtn");
+const inputComprobante = document.getElementById("file-pago");
+const inputAntecedentes = document.getElementById("file-antecedentes");
 import { getIdSesion } from '../../BackEnd/APIFetchs/APIUsuario.js';
 import { getInteresado } from '../../BackEnd/APIFetchs/APIUsuario.js';
+import { subirAntecedentes } from '../../BackEnd/APIFetchs/APIUsuario.js';
+import { subirComprobante } from '../../BackEnd/APIFetchs/APIUsuario.js';
 
 
 
@@ -63,7 +69,24 @@ function actualizarEstado(element, estado) {
             break;
     }
 }
+//Event lisener pasa subir los archivos
 
+antecedentesBtn.addEventListener("click", async function (){
+        const antecedentes = inputAntecedentes.files[0];
+        const formData = new FormData();
+        formData.append('antecedentes', antecedentes);
+        subirAntecedentes(formData)
+    } );
+
+  comprobanteBtn.addEventListener("click", async function (){
+        const comprobante = inputComprobante.files[0];
+        const formData = new FormData();
+        formData.append('comprobante', comprobante);
+        subirComprobante(formData)
+    } );
+
+    
+///////////////////////////////////
 
 
 document.addEventListener('DOMContentLoaded', function () {

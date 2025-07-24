@@ -57,8 +57,7 @@
             </div>
         </div>
         <div class="acciones">
-            <button class="btn-aprobar btn-${interesado.estadoAntecedentes}" data-id="${interesado.idPersona}"
-                data-campo="Estado_antecedentes">
+            <button class="btn-aprobar" id="antecedentesBtn">
                 <i class="material-icons">check</i> Confirmar Subida
             </button>
         </div>
@@ -79,8 +78,7 @@
             </div>
         </div>
         <div class="acciones">
-            <button class="btn-aprobar btn-${interesado.estadoAntecedentes}" data-id="${interesado.idPersona}"
-                data-campo="Estado_antecedentes">
+            <button class="btn-aprobar" id="comprobante">
                 <i class="material-icons">check</i> Confirmar Subida
             </button>
         </div>
