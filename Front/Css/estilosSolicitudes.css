@@ -181,7 +181,8 @@ h1 {
     padding: 30px;
     flex-grow: 1;
     margin-left: 280px;
-    width: calc(100% - 280px); /* Calcula el ancho restante */
+    width: calc(100% - 280px);
+    /* Calcula el ancho restante */
 }
 
 .contenedor-solicitud {
@@ -196,7 +197,7 @@ h1 {
     grid-template-columns: 95% 5%;
 }
 
-.contador{
+.contador {
     border-radius: 7px;
     width: 20px;
     margin-left: 50%;
@@ -204,16 +205,16 @@ h1 {
     grid-template-rows: 2fr 1fr 1fr;
 }
 
-#Aprobado{
-background-color: var(--color-exito);
-/*border-radius: 7px 7px 0 0;*/
+#Aprobado {
+    background-color: var(--color-exito);
+    /*border-radius: 7px 7px 0 0;*/
 }
 
-#Pendiente{
+#Pendiente {
     background-color: var(--color-pendiente);
 }
 
-#Rechazado{
+#Rechazado {
     background-color: var(--color-alerta);
     /*border-radius: 0 0 7px 7px;*/
 }
@@ -253,7 +254,8 @@ background-color: var(--color-exito);
     transform: translateY(-2px);
 }
 
-input[type="date"], input[type="time"] {
+input[type="date"],
+input[type="time"] {
     background-color: var(--color-secundario);
     padding: 10px;
     color: white;
@@ -267,30 +269,30 @@ input[type="time"] {
     margin-left: 10px;
 }
 
-.date p{
+.date p {
     margin-right: 10px;
 }
 
-::-webkit-calendar-picker-indicator{
+::-webkit-calendar-picker-indicator {
     color: white;
     background-color: var(--color-secundario);
     margin-left: 3px;
     cursor: pointer;
 }
 
-.calendario{
+.calendario {
     display: flex;
     align-items: center;
     margin-bottom: 5px;
 }
 
-.hora{
+.hora {
     display: flex;
     align-items: center;
     margin-bottom: 5px;
 }
 
-.direccion{
+.direccion {
     display: flex;
     align-items: center;
 }
@@ -316,7 +318,7 @@ input[type="time"] {
     padding: 15px;
 }
 
-#info-card-id p{
+#info-card-id p {
     margin-top: 16px;
 }
 
@@ -338,15 +340,16 @@ input[type="time"] {
     margin: 20px 0;
 }
 
-.btn-aprobar{
+.btn-aprobar {
     background-color: var(--color-exito);
 }
 
-.btn-rechazar{
+.btn-rechazar {
     background-color: var(--color-alerta);
 }
 
-.btn-aprobar, .btn-rechazar {
+.btn-aprobar,
+.btn-rechazar {
     color: white;
     border: none;
     padding: 10px 25px;
@@ -359,7 +362,8 @@ input[type="time"] {
     transition: all 0.3s;
 }
 
-.btn-aprobar:hover, .btn-rechazar:hover{
+.btn-aprobar:hover,
+.btn-rechazar:hover {
     transform: translateY(-3px);
 }
 
@@ -398,10 +402,12 @@ strong {
     background-color: var(--color-pendiente);
     color: white;
 }
+
 .Rechazado {
     background-color: var(--color-alerta);
     color: white;
 }
+
 .Aprobado {
     background-color: var(--color-exito);
     color: white;
@@ -482,7 +488,8 @@ a {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    position: relative; /* Para posicionar el botón */
+    position: relative;
+    /* Para posicionar el botón */
 }
 
 .btn-solicitud {
@@ -496,7 +503,8 @@ a {
     align-items: center;
     gap: 8px;
     transition: all 0.3s;
-    margin-left: auto; /* Lo coloca a la derecha */
+    margin-left: auto;
+    /* Lo coloca a la derecha */
 }
 
 .btn-solicitud:hover {
@@ -510,16 +518,11 @@ a {
 .btn-aprobar-solicitud {
     background-color: var(--color-exito);
 }
+
 .espera {
     background-color: gray;
     pointer-events: none;
 }
-
-
-
-
-
-
 
 /* Contenedor de título y estado */
 .solicitud-header .titulo-estado {
@@ -586,7 +589,7 @@ a {
     left: 0;
     width: 100%;
     height: 100%;
-    background-color: rgba(0,0,0,0.5);
+    background-color: rgba(0, 0, 0, 0.5);
     z-index: 1000;
     justify-content: center;
     align-items: center;
@@ -602,7 +605,7 @@ a {
     border-radius: 10px;
     width: 90%;
     max-width: 400px;
-    box-shadow: 0 4px 20px rgba(0,0,0,0.2);
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
 }
 
 .modal-acciones {
@@ -632,4 +635,32 @@ a {
     background-color: var(--color-alerta);
     color: white;
     border: none;
+}
+
+@media (max-width: 1030px) {
+    .btn-aprobar-solicitud {
+        border-radius: 0px 5px 5px 0px;
+    }
+
+    .btn-rechazar-solicitud {
+        border-radius: 5px 0px 0px 5px;
+    }
+}
+
+@media (max-width: 1089px) {
+    .solicitud-info{
+        grid-template-columns: 1fr;
+    }
+}
+
+@media (max-width: 769px) {
+    .acciones button{
+        width: 100px;
+        font-size: 10px;
+        padding: 5px 10px;
+    }
+
+    .documento-card {
+        font-size: 12px;
+    }
 }
