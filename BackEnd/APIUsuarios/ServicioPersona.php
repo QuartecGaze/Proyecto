@@ -112,26 +112,24 @@
             }
         }
         
-
-    public function getInteresado($id) {
-        if (!$this->repositorio->interesadoExisteID($id)) {
-            throw new Exception("El interesado no existe", 404);
-        } else {
-            return $this->repositorio->getDatosInteresado($id);
-        }
-
-        
-    }   
-
-    public function getInteresados(){
-            $interesadosObj = $this->repositorio->getInteresados();
-            $interesadoArrayAsociativo = [];
-            foreach($interesadosObj as $interesado){
-                
-                $interesadoArrayAsociativo[$interesado->getIdPersona()] = $interesado->toArray();
+        public function getInteresado($id) {
+            if (!$this->repositorio->interesadoExisteID($id)) {
+                throw new Exception("El interesado no existe", 404);
+            } else {
+                return $this->repositorio->getDatosInteresado($id);
             }
-            return $interesadoArrayAsociativo;
         }
+
+        public function getUsuario($id) {
+            if (!$this->repositorio->usuarioExisteID($id)) {
+                throw new Exception("El usuario no existe", 404);
+            } else {
+                return $this->repositorio->getDatosUsuario($id);
+            }
+        
+        }   
+
+
 
     }
 

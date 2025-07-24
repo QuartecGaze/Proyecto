@@ -156,11 +156,33 @@
                     respuesta("No se ha encontrado una variable de sesion", "error", 404);
                 }
             }
-            
-            if ($accion == "getInteresados"){ /*TERMINAR HACER FETCH<<<<<=================================================================================== */
-                $interesados = $servicio->getInteresados();
-                respuesta($interesados, "exito", 200);
+
+            if($accion === "getUsuario"){
+                $id = $_GET['id'];
+                if($id != null){
+                    try{
+                    $interesado = $servicio->getUsuario($id);
+                    $respuesta = [
+                    'ci' => $usuario->getCi(),
+                    'email' => $usuario->getEmail(),
+                    'telefono' => $usuario->getTelefonosPersona(),
+                    'idPersona' => $usuario->getIdPersona(),
+                    'nombre' => $usuario->getNombre(),
+                    'apellido' => $usuario->getApellido(),
+                    'fechaNacimiento' => $usuario->getFechaNacimiento(),
+                    'fechaIngreso' => $usuario->getFechaIngreso(),
+                    'foto' => $usuario->getFoto()
+                    ];
+                        respuesta($respuesta, "exito", 200);
+                    }
+                    catch(Exception $e) {
+                    respuesta($e->getMessage(), "error", $e->getCode());
+                }
+
+            } else{
+                respuesta("No se encontro una id para buscar", "error", 0);
             }
+        }
     
         break;
 

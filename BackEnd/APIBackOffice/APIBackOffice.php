@@ -125,10 +125,15 @@
                 respuesta("Interesado aprobado exitosamente", "exito", 200);
             }
 
+
+
         break;
 
         case "GET":
-
+            if ($accion == "getInteresados"){ 
+                $interesados = $servicio->getInteresados();
+                respuesta($interesados, "exito", 200);
+            }
         break;
 
         default:

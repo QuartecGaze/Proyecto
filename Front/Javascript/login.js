@@ -36,76 +36,7 @@
     })
 
 
-    //CONSEGUIR EL IDIOMA YA ASIGNADO
-    fetch('http://localhost/Proyecto/BackEnd/APITraduccion/ApiTraduccion.php?accion=getIdioma&pagina=login', {
-    method: 'GET',
-  })
-  .then(async response => {
-    const data = await response.json().catch(() => null);
-    if (!response.ok) {
-      throw new Error(data?.message || `Error HTTP ${response.status}`);
-    }
-    return data;
-  })
-  .then(data => {
-      console.log('Respuesta del servidor:', data);
-
-      for (const [clave, valor] of Object.entries(data.message)) {
-        const elementos = document.querySelectorAll(`.${clave}`);
-
-        elementos.forEach(el => {
-          if (el.tagName.toLowerCase() === 'nav') {
-            const ul = el.querySelector('ul');
-            if (ul) {
-              const items = valor.split(';');
-              const lis = ul.querySelectorAll('li');
-
-              lis.forEach((li, index) => {
-                const a = li.querySelector('a');
-                if (a) {
-                  a.innerHTML = items[index] ?? '';
-                }
-              });
-            }
-          }
-
-          else if (el.tagName.toLowerCase() === 'form') {
-            const divs = el.querySelectorAll('div');
-            const items = valor.split(';');
-
-            divs.forEach((div, index) => {
-              const label = div.querySelector('label');
-              if (label) {
-                label.innerHTML = items[index] ?? '';
-              }
-            });
-          }
-
-          else {
-            el.innerHTML = valor;
-          }
-        });
-      }
-    })
-    .catch(error => {
-      console.error('Error en la solicitud GET:', error.message);
-    });
-
-
-    togglePassword.forEach(toggle => {
-      toggle.addEventListener("click", () => {
-          const input = toggle.previousElementSibling;
-          
-          if (input.type === "password") {
-              input.type = "text";
-              toggle.textContent = "visibility_off";
-          } else {
-              input.type = "password";
-              toggle.textContent = "visibility";
-          }
-      });
-  });
-
+   
     //CONSEGUIR EL IDIOMA YA ASIGNADO
     const data = await getIdioma("login");
     aplicarIdioma(data);

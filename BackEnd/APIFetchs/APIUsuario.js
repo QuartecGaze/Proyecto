@@ -23,12 +23,15 @@ export function subirAntecedentes(Antecedentes){
 export function verificarSesion(){
     return apiRequest('/APIUsuarios/ApiUsuarios.php?accion=verificarSesion', 'GET')
 }
-export function getInteresados() {
-    return apiRequest('/APIUsuarios/ApiUsuarios.php?accion=getInteresados', 'GET');
-}
+
 export function getInteresado(id){
     return apiRequest(`/APIUsuarios/ApiUsuarios.php?accion=getInteresado&id=` + id, 'GET');
 }
+
+export function getUsuario(id){
+    return apiRequest(`/APIUsuarios/ApiUsuarios.php?accion=getUsuario&id=` + id, 'GET');
+}
+
 export function getIdSesion(){
     return apiRequest(`/APIUsuarios/ApiUsuarios.php?accion=getIdSesion`, "GET");
 }

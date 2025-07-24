@@ -90,12 +90,18 @@
             $resultado = $this->repositorio->obtenerTodosLosInteresados();
             $cantidadInteresados = mysqli_num_rows($resultado);
         
- 
-        
             return $cantidadInteresados;
         }
 
-
+        public function getInteresados(){
+            $interesadosObj = $this->repositorio->getInteresados();
+            $interesadoArrayAsociativo = [];
+            foreach($interesadosObj as $interesado){
+                
+                $interesadoArrayAsociativo[$interesado->getIdPersona()] = $interesado->toArray();
+            }
+            return $interesadoArrayAsociativo;
+        }
 
 
 

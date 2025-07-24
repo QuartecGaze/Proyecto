@@ -106,39 +106,6 @@
         return $interesado;
         }
 
-        public function getInteresados(){
-        $consulta = "
-        SELECT * 
-        FROM Persona 
-        JOIN Interesado ON Persona.ID_Persona = Interesado.ID_Persona 
-        WHERE Rol = 'Interesado';
-        
-            ";
-        $resultado = mysqli_query($this->conn, $consulta); 
-       
-        while ($fila = mysqli_fetch_assoc($resultado)) {
-            $telefonos = $this->getTelefonosPersona($fila['ID_Persona']);
-            $interesados[] = new Interesado(
-            $fila['CI'], 
-            $fila['Email'], 
-            $telefonos,
-            $fila['ID_Persona'], 
-            $fila['Nombre'], 
-            $fila['Apellido'], 
-            $fila['Contraseña'], 
-            $fila['Rol'],
-            $fila['Antecedentes'], 
-            $fila['Estado_antecedentes'], 
-            $fila['Estado_entrevista'], 
-            $fila['Fecha_entrevista'], 
-            $fila['Hora_entrevista'], 
-            $fila['Pago_inicial'], 
-            $fila['Estado_pago_inicial'], 
-            $fila['Monto_pago_inicial']
-        );
-        }
-        return $interesados;
-        }
 
         public function subirComprobante($nombre, $id) {
         $consulta = "
@@ -187,6 +154,32 @@
         mysqli_query($this->conn, $consulta);
         }
 
+        public function getDatosUsuario($id) {
+            $consulta = "
+                SELECT * FROM Persona 
+                JOIN Usuario ON Persona.ID_Persona = Usuario.ID_Persona
+                WHERE Persona.ID_Persona = '$id';
+            ";
+            $resultado = mysqli_query($this->conn, $consulta); 
+            $fila = mysqli_fetch_assoc($resultado);
+            $telefonos = $this->getTelefonosPersona($fila['CI']);
+            $usuario = new Usuario(
+            $fila['CI'], 
+            $fila['Email'], 
+            $telefonos,
+            $fila['ID_Persona'], 
+            $fila['Nombre'], 
+            $fila['Apellido'], 
+            $fila['Contraseña'], 
+            $fila['Rol'],
+            $fila['Fecha_nacimiento'],
+            $fila['Fecha_ingreso'],
+            $fila['Foto']
+    
+            );
+
+        return $usuario;
+        }
 
         //ediar datos usuario
        
@@ -265,6 +258,18 @@
             } else{
                 throw new Exception("No se encontro una persona con la CI $ci");
             }
+        }
+
+        public function usuarioExisteID($id){
+            $consulta = "SELECT * FROM Usuario WHERE ID_Persona = '$id'";
+            $resultado = mysqli_query($this->conn, $consulta);
+            if(mysqli_num_rows($resultado) > 0){
+                return true;
+            }else
+            {
+                return false;
+            }
+            
         }
     
         

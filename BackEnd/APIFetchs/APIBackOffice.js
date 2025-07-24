@@ -17,6 +17,10 @@ export function rechazarEstado(data) {
     return apiRequest('/APIBackOffice/ApiBackOffice.php?accion=rechazarEstado', 'POST', data);
 }
 
+export function getInteresados() {
+    return apiRequest('/APIBackOffice/ApiBackOffice.php?accion=getInteresados', 'GET');
+}
+
 export function rechazarInteresado(data) {
     return apiRequest('/APIBackOffice/ApiBackOffice.php?accion=rechazarInteresado', 'POST', data);
 }
