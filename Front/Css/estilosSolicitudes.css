@@ -331,6 +331,7 @@ input[type="time"] {
 }
 
 .acciones {
+    height: 44px;
     display: flex;
     justify-content: flex-end;
     gap: 15px;
@@ -499,16 +500,11 @@ a {
 }
 
 .btn-solicitud:hover {
-    background-color: #c0392b; /* Un rojo más oscuro para hover */
     transform: translateY(-2px);
 }
 
 .btn-solicitud i {
     font-size: 1.1rem;
-}
-
-.btn-rechazar-solicitud {
-    background-color: var(--color-alerta);
 }
 
 .btn-aprobar-solicitud {

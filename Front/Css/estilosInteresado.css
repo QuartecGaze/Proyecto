@@ -1,3 +1,20 @@
+:root {
+    --color-primario: #2c3e50;
+    --color-secundario: #3498db;
+    --color-fondo-claro: #ecf0f1;
+    --color-fondo-header: #1a2b3c;
+    --color-texto-oscuro: #2c3e50;
+    --color-texto-claro: #fdfdfd00;
+    --color-borde: #bdc3c7;
+    --color-destacado: #e74c3c;
+    --color-sombra: rgba(0, 0, 0, 0.171);
+    --color-hover: #3498db;
+    --color-exito: #27ae60;
+    --color-alerta: #e74c3c;
+    --color-pendiente: #f39c12;
+}
+
+
 /* Estilos del header del login */
 .header-registro {
     background: linear-gradient(135deg, #1E2344, #00B4FF);
@@ -114,7 +131,7 @@ h2 {
 }
 
 .upload-section:hover {
-    background-color: #f0f0f0;
+    background-color: #e3e3e3;
 }
 
 .file-info {
@@ -133,6 +150,36 @@ h2 {
     font-style: normal;
     margin-top: 5px;
     font-weight: 500;
+}
+
+.acciones {
+    display: flex;
+    justify-content: flex-end;
+    gap: 15px;
+    margin: 20px 0;
+}
+
+.btn-aprobar{
+    background-color: var(--color-exito);
+    box-shadow: 0 4px 6px var(--color-sombra);
+}
+
+.btn-aprobar {
+    color: white;
+    border: none;
+    padding: 10px 25px;
+    border-radius: 5px;
+    cursor: pointer;
+    font-weight: bold;
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    transition: all 0.3s;
+}
+
+.btn-aprobar:hover{
+    transform: translateY(-5px);
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
 }
 
 .divider {

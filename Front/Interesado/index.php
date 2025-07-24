@@ -56,6 +56,12 @@
                 <input type="file" id="file-antecedentes" accept=".pdf" style="display: none;">
             </div>
         </div>
+        <div class="acciones">
+            <button class="btn-aprobar btn-${interesado.estadoAntecedentes}" data-id="${interesado.idPersona}"
+                data-campo="Estado_antecedentes">
+                <i class="material-icons">check</i> Confirmar Subida
+            </button>
+        </div>
 
         <div class="divider"></div>
 
@@ -71,6 +77,12 @@
                 <div class="file-info" id="file-info-pago">Ningún archivo seleccionado</div>
                 <input type="file" id="file-pago" accept=".pdf,.jpg,.jpeg,.png" style="display: none;">
             </div>
+        </div>
+        <div class="acciones">
+            <button class="btn-aprobar btn-${interesado.estadoAntecedentes}" data-id="${interesado.idPersona}"
+                data-campo="Estado_antecedentes">
+                <i class="material-icons">check</i> Confirmar Subida
+            </button>
         </div>
     </main>
 
