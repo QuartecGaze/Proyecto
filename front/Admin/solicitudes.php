@@ -98,6 +98,22 @@
             </div>
         </div>
     </div>
+    <!-- Modal de Asignar Pago Inicial -->
+<div class="modal-confirmacion" id="modalPagoInicial" style="display:none;">
+  <div class="modal-contenido">
+    <h3>Asignar Pago Inicial</h3>
+    <p>¿Cuánto querés asignar de pago inicial?</p>
+    <input type="number" id="inputPagoInicial" placeholder="Monto en $">
+    <div class="modal-acciones">
+      <button class="btn-cancelar-pago">
+        <i class="material-icons">arrow_back</i> Cancelar
+      </button>
+      <button class="btn-confirmar-pago">
+        <i class="material-icons">payment</i> Confirmar Pago
+      </button>
+    </div>
+  </div>
+</div>
     <script src="../Javascript/BackOffice/generalidades.js" type="module"></script>
     <script src="../Javascript/BackOffice/solicitudes.js" type="module"></script>
 </body>

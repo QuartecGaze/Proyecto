@@ -165,7 +165,15 @@
             }
             return $interesados;
             }
-            
+        public function soloInteresados(){
+            $consulta = "
+                SELECT ID_Persona
+                FROM Persona
+                WHERE Rol = 'Interesado';
+            ";
+            $resultado = mysqli_query($this->conn, $consulta); 
+            return $resultado;
+        }    
         //Usuario
 
         public function cargarUsuario($Usuario) {
@@ -234,7 +242,7 @@
             ";
             $resultado = mysqli_query($this->conn, $consulta); 
             $fila = mysqli_fetch_assoc($resultado);
-            $telefonos = $this->getTelefonosPersona($fila['CI']);
+            $telefonos = $this->getTelefonosPersona($fila['ID_Persona']);
             $admin = new Admin(
             $fila['CI'], 
             $fila['Email'], 

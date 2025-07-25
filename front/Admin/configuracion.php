@@ -78,7 +78,7 @@
             <div class="contenedor-perfil">
                 <section class="seccion-info-personal">
                     <div class="foto-perfil-container">
-                        <img src="https://via.placeholder.com/150" alt="Foto de perfil" class="foto-perfil">
+                        <img src="https://via.placeholder.com/150" alt="Foto de perfil" class="foto-perfil fotoPerfil">
                         <button class="boton-cambiar-foto">
                             <i class="material-icons">image_search</i> Cambiar foto
                         </button>
@@ -91,23 +91,23 @@
                         <h2>Información personal</h2>
                         <div class="campo-perfil">
                             <label>Nombre completo</label>
-                            <p class="valor-perfil">Diego Luis Charlo Arce</p>
+                            <p class="valor-perfil nombreAdmin">Diego Luis Charlo Arce</p>
                         </div>
                         <div class="campo-perfil">
                             <label>Correo electrónico</label>
-                            <p class="valor-perfil">alainarce39@gmail.com</p>
+                            <p class="valor-perfil" id="emailAdmin">alainarce39@gmail.com</p>
                         </div>
                         <div class="campo-perfil">
                             <label>Teléfono</label>
-                            <p class="valor-perfil">+598 92 343 168</p>
+                            <p class="valor-perfil" id="telefonoAdmin">+598 92 343 168</p>
                         </div>
                         <div class="campo-perfil">
-                            <label>Dirección</label>
-                            <p class="valor-perfil">Av.Gral Rivera 3729, Buceo, Montevideo</p>
+                            <label>Creacion Admin</label>
+                            <p class="valor-perfil" id="creacionAdmin">15 de Enero, 2020</p>
                         </div>
                         <div class="campo-perfil">
-                            <label>Fecha de ingreso</label>
-                            <p class="valor-perfil">15 de Enero, 2020</p>
+                            <label>Rol Admin</label>
+                            <p class="valor-perfil" id="nivelPermisosAdmin">Administrador</p>
                         </div>
                     </div>
                 </section>

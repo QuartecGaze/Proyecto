@@ -68,7 +68,7 @@
 
         public function asignarPagoInicial($idPersona, $montoPagoInicial){
             $this->repositorio->setMontoPagoInicial($idPersona, $montoPagoInicial);
-            $this->repositorio->revisarPagoInicial($idPersona, "Pendiente");
+            $this->repositorio->revisarEstado($idPersona, "Estado_pago_inicial", "Pendiente");
         }
 
         public function asignarEntrevista($idPersona, $fechaEntrevista, $horaEntrevista){
@@ -100,7 +100,7 @@
         }
 
         public function contarInteresados() {
-            $resultado = $this->repositorio->obtenerTodosLosInteresados();
+            $resultado = $this->repositorio->soloInteresados();
             $cantidadInteresados = mysqli_num_rows($resultado);
         
             return $cantidadInteresados;

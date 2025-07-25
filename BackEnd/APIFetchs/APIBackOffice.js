@@ -32,10 +32,18 @@ export function asignarEntrevista(data) {
     return apiRequest('/APIBackOffice/ApiBackOffice.php?accion=asignarEntrevista', 'POST', data);
 }
 
+export function asignarPagoInicial(data) {
+    return apiRequest('/APIBackOffice/ApiBackOffice.php?accion=asignarPagoInicial', 'POST', data);
+}
+
 export function getAdmin(id){
     return apiRequest(`/APIBackOffice/ApiBackOffice.php?accion=getAdmin&id=` + id, 'GET');
 }
 
 export function getIdSesion(){
     return apiRequest(`/APIBackOffice/ApiBackOffice.php?accion=getIdSesion`, "GET");
+}
+
+export function contarInteresados(){
+    return apiRequest(`/APIBackOffice/ApiBackOffice.php?accion=contarInteresados`, "GET");
 }

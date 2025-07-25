@@ -304,7 +304,7 @@ strong {
 }
 
 /* Botones */
-.btn-asignar-entrevista {
+.btn-asignar-entrevista, .btn-asignar-pago-inicial{
     background-color: var(--color-secundario);
     color: white;
     border: none;
@@ -320,7 +320,7 @@ strong {
     transition: all 0.3s;
 }
 
-.btn-asignar-entrevista:hover {
+.btn-asignar-entrevista:hover, .btn-asignar-pago-inicial:hover{
     background-color: #2980b9;
     transform: translateY(-2px);
 }

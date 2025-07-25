@@ -78,36 +78,8 @@
                 $montoPagoInicial = $data['montoPagoInicial'];
 
                 try {
-                    $controlador->asignarPagoInicial($idPersona, $montoPagoInicial);
+                    $servicio->asignarPagoInicial($idPersona, $montoPagoInicial);
                     respuesta("Pago inicial asignado correctamente", "exito", 200);
-                } catch (Exception $e) {
-                    respuesta($e->getMessage(), "error", $e->getCode());
-                }
-            }
-
-            if ($accion === "asignarEntrevista") {
-                $data = json_decode(file_get_contents("php://input"), true);
-
-                if (!isset($data['idPersona']) || !isset($data['fechaEntrevista']) || !isset($data['horaEntrevista'])) {
-                    respuesta("Datos insuficientes", "error", 400);
-                }
-
-                $idPersona = $data['idPersona'];
-                $fechaEntrevista = $data['fechaEntrevista'];
-                $horaEntrevista = $data['horaEntrevista'];
-
-                try {
-                    $controlador->asignarEntrevista($idPersona, $fechaEntrevista, $horaEntrevista);
-                    respuesta("Entrevista asignada correctamente", "exito", 200);
-                } catch (Exception $e) {
-                    respuesta($e->getMessage(), "error", $e->getCode());
-                }
-            }
-
-            if ($accion === "contarInteresados") {
-                try {
-                    $total = $servicio->contarInteresados();
-                    respuesta($total, "exito", 200);
                 } catch (Exception $e) {
                     respuesta($e->getMessage(), "error", $e->getCode());
                 }
@@ -168,6 +140,15 @@
                     respuesta($_SESSION['id'], "exito", 200);
                 } else {
                     respuesta("No se ha encontrado una variable de sesion", "error", 404);
+                }
+            }
+
+            if ($accion === "contarInteresados") {
+                try {
+                    $total = $servicio->contarInteresados();
+                    respuesta($total, "exito", 200);
+                } catch (Exception $e) {
+                    respuesta($e->getMessage(), "error", $e->getCode());
                 }
             }
 
