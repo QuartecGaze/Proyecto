@@ -53,26 +53,24 @@
             </nav>
 
             <div class="perfil-usuario">
-                <a href="configuracion.php">
-                    <div class="info-usuario">
-                    <img src="../../Fotos/account-admin.webp" alt="Foto perfil">
+                <div class="info-usuario">
+                    <img src="https://via.placeholder.com/40" alt="Foto perfil" class="fotoPerfil">
                     <div>
-                        <p class="nombre-usuario">Nombre Admin</p>
-                        <p class="rol-usuario">Administrador</p>
+                        <p class="nombre-usuario nombreAdmin">Admin User</p>
+                        <p class="rol-usuario" id="rolAdmin">Administrador</p>
                     </div>
                 </div>
-                </a>
                 <form action="../cerrarSesion.php">
-                <button class="boton-cerrar-sesion">
-                    <i class="material-icons">logout</i> Cerrar sesión
-                </button>
+                    <button class="boton-cerrar-sesion">
+                        <i class="material-icons">logout</i> Cerrar sesión
+                    </button>
                 </form>
             </div>
         </aside>
 
         <main class="contenido-principal">
             <header class="header-principal">
-                <h1>Bienvenido, <span class="nombre-usuario-destacado">Nombre Admin</span></h1>
+                <h1>Bienvenido, <span class="nombre-usuario-destacado nombreAdmin">Nombre Admin</span></h1>
                 <p>Aquí puedes gestionar todas tus actividades en la cooperativa</p>
             </header>
 
@@ -85,7 +83,7 @@
                         </div>
                         <div class="tarjeta-contenido">
                             <h3>Solicitudes Pendientes</h3>
-                            <p class="tarjeta-valor">10 <span>Solicitudes</span></p>
+                            <p class="tarjeta-valor" id="solicitudesPendientes">10 <span>Solicitudes</span></p>
                         </div>
                     </div>
                 </a>
@@ -191,7 +189,8 @@
             </div>
         </main>
     </div>
-    <script src="../Javascript/admin.js" type="module"></script>
+    <script src="../Javascript/BackOffice/index.js" type="module"></script>
+    <script src="../Javascript/BackOffice/generalidades.js" type="module"></script>
 </body>
 
 </html>

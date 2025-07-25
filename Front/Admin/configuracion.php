@@ -53,19 +53,17 @@
             </nav>
 
             <div class="perfil-usuario">
-                <a href="configuracion.php">
-                    <div class="info-usuario">
-                        <img src="../../Fotos/account-admin.webp" alt="Foto perfil">
-                        <div>
-                            <p class="nombre-usuario">Nombre Admin</p>
-                            <p class="rol-usuario">Administrador</p>
-                        </div>
+                <div class="info-usuario">
+                    <img src="https://via.placeholder.com/40" alt="Foto perfil" class="fotoPerfil">
+                    <div>
+                        <p class="nombre-usuario nombreAdmin">Admin User</p>
+                        <p class="rol-usuario" id="rolAdmin">Administrador</p>
                     </div>
-                </a>
+                </div>
                 <form action="../cerrarSesion.php">
-                <button class="boton-cerrar-sesion">
-                    <i class="material-icons">logout</i> Cerrar sesión
-                </button>
+                    <button class="boton-cerrar-sesion">
+                        <i class="material-icons">logout</i> Cerrar sesión
+                    </button>
                 </form>
             </div>
         </aside>
@@ -80,7 +78,7 @@
             <div class="contenedor-perfil">
                 <section class="seccion-info-personal">
                     <div class="foto-perfil-container">
-                        <img src="https://via.placeholder.com/150" alt="Foto de perfil" class="foto-perfil">
+                        <img src="https://via.placeholder.com/150" alt="Foto de perfil" class="foto-perfil fotoPerfil">
                         <button class="boton-cambiar-foto">
                             <i class="material-icons">image_search</i> Cambiar foto
                         </button>
@@ -93,23 +91,23 @@
                         <h2>Información personal</h2>
                         <div class="campo-perfil">
                             <label>Nombre completo</label>
-                            <p class="valor-perfil">Diego Luis Charlo Arce</p>
+                            <p class="valor-perfil nombreAdmin">Diego Luis Charlo Arce</p>
                         </div>
                         <div class="campo-perfil">
                             <label>Correo electrónico</label>
-                            <p class="valor-perfil">alainarce39@gmail.com</p>
+                            <p class="valor-perfil" id="emailAdmin">alainarce39@gmail.com</p>
                         </div>
                         <div class="campo-perfil">
                             <label>Teléfono</label>
-                            <p class="valor-perfil">+598 92 343 168</p>
+                            <p class="valor-perfil" id="telefonoAdmin">+598 92 343 168</p>
                         </div>
                         <div class="campo-perfil">
-                            <label>Dirección</label>
-                            <p class="valor-perfil">Av.Gral Rivera 3729, Buceo, Montevideo</p>
+                            <label>Creacion Admin</label>
+                            <p class="valor-perfil" id="creacionAdmin">15 de Enero, 2020</p>
                         </div>
                         <div class="campo-perfil">
-                            <label>Fecha de ingreso</label>
-                            <p class="valor-perfil">15 de Enero, 2020</p>
+                            <label>Rol Admin</label>
+                            <p class="valor-perfil" id="nivelPermisosAdmin">Administrador</p>
                         </div>
                     </div>
                 </section>
@@ -143,6 +141,7 @@
             </div>
         </main>
     </div>
-    <script src="../Javascript/admin.js" type="module"></script>
+    <script src="../Javascript/BackOffice/perfil.js" type="module"></script>
+
 </body>
 </html>

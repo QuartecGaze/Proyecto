@@ -28,19 +28,32 @@
 
 
         public function cargarAdmin($idPersona, $nivelPermisos){
+            $fechaIngreso = date("Y-m-d"); //asigna la fecha del momento en el que se ejecuta el metodo
             $persona = $this->repositorio->getPersona($idPersona);
             $admin = new Admin(
                     $persona->getCi(),
                     $persona->getEmail(),
+                    $persona->getTelefono(),
                     $persona->getIdPersona(),
                     $persona->getNombre(),
                     $persona->getApellido(),
                     $persona->getContraseña(),
                     "Admin",          //Asigna el rol Admin
-                    $nivelPermisos
+                    $nivelPermisos,
+                    null,
+                    $fechaIngreso
                 );
             $this->repositorio->cargarAdmin($admin);
         }
+
+        public function getAdmin($id) {
+            if (!$this->repositorio->adminExisteID($id)) {
+                throw new Exception("El admin no existe", 404);
+            } else {
+                return $this->repositorio->getDatosAdmin($id);
+            }
+        
+        }  
 
         public function rechazarInteresado($idPersona){
             if($this->repositorio->personaExiste($idPersona)){
@@ -55,7 +68,7 @@
 
         public function asignarPagoInicial($idPersona, $montoPagoInicial){
             $this->repositorio->setMontoPagoInicial($idPersona, $montoPagoInicial);
-            $this->repositorio->revisarPagoInicial($idPersona, "Pendiente");
+            $this->repositorio->revisarEstado($idPersona, "Estado_pago_inicial", "Pendiente");
         }
 
         public function asignarEntrevista($idPersona, $fechaEntrevista, $horaEntrevista){
@@ -87,7 +100,7 @@
         }
 
         public function contarInteresados() {
-            $resultado = $this->repositorio->obtenerTodosLosInteresados();
+            $resultado = $this->repositorio->soloInteresados();
             $cantidadInteresados = mysqli_num_rows($resultado);
         
             return $cantidadInteresados;

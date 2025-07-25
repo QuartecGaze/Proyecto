@@ -58,10 +58,10 @@
 
             <div class="perfil-usuario">
                 <div class="info-usuario">
-                    <img src="https://via.placeholder.com/40" alt="Foto perfil">
+                    <img src="https://via.placeholder.com/40" alt="Foto perfil" class="fotoPerfil">
                     <div>
-                        <p class="nombre-usuario">Admin User</p>
-                        <p class="rol-usuario">Administrador</p>
+                        <p class="nombre-usuario nombreAdmin">Admin User</p>
+                        <p class="rol-usuario" id="rolAdmin">Administrador</p>
                     </div>
                 </div>
                 <form action="../cerrarSesion.php">
@@ -98,7 +98,24 @@
             </div>
         </div>
     </div>
-    <script src="../Javascript/admin.js" type="module"></script>
+    <!-- Modal de Asignar Pago Inicial -->
+<div class="modal-confirmacion" id="modalPagoInicial" style="display:none;">
+  <div class="modal-contenido">
+    <h3>Asignar Pago Inicial</h3>
+    <p>¿Cuánto querés asignar de pago inicial?</p>
+    <input type="number" id="inputPagoInicial" placeholder="Monto en $">
+    <div class="modal-acciones">
+      <button class="btn-cancelar-pago">
+        <i class="material-icons">arrow_back</i> Cancelar
+      </button>
+      <button class="btn-confirmar-pago">
+        <i class="material-icons">payment</i> Confirmar Pago
+      </button>
+    </div>
+  </div>
+</div>
+    <script src="../Javascript/BackOffice/generalidades.js" type="module"></script>
+    <script src="../Javascript/BackOffice/solicitudes.js" type="module"></script>
 </body>
 
 </html>

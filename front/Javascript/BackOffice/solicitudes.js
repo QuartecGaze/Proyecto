@@ -1,11 +1,37 @@
-import { getInteresados } from '../../BackEnd/APIFetchs/APIBackOffice.js';
-import { aprobarEstado, aprobarInteresado } from '../../BackEnd/APIFetchs/APIBackOffice.js';
-import { rechazarEstado } from '../../BackEnd/APIFetchs/APIBackOffice.js';
-import { rechazarInteresado } from '../../BackEnd/APIFetchs/APIBackOffice.js'; 
-import { asignarEntrevista } from '../../BackEnd/APIFetchs/APIBackOffice.js';
+import { getInteresados } from '../../../BackEnd/APIFetchs/APIBackOffice.js';
+import { aprobarEstado, aprobarInteresado } from '../../../BackEnd/APIFetchs/APIBackOffice.js';
+import { rechazarEstado } from '../../../BackEnd/APIFetchs/APIBackOffice.js';
+import { rechazarInteresado } from '../../../BackEnd/APIFetchs/APIBackOffice.js'; 
+import { asignarEntrevista } from '../../../BackEnd/APIFetchs/APIBackOffice.js';
+import { asignarPagoInicial } from '../../../BackEnd/APIFetchs/APIBackOffice.js';
 
 
-const contenedor = document.getElementById("contenedor-solicitudes");
+const contenedor  = document.getElementById("contenedor-solicitudes");
+const modalConfirm = document.getElementById('modalConfirmacion');
+const btnCancelar  = modalConfirm.querySelector('.btn-cancelar');
+const modalPago    = document.getElementById('modalPagoInicial');
+const btnCancelarPago  = modalPago.querySelector('.btn-cancelar-pago');
+const btnConfirmarPago = modalPago.querySelector('.btn-confirmar-pago');
+
+
+//cerrar modal rechazar Interesado
+btnCancelar.addEventListener('click', function() {
+  modalConfirm.style.display = 'none';
+  const confirmar = modalConfirm.querySelector('.btn-confirmar-rechazo');
+  delete confirmar.dataset.id;
+});
+
+//cerrar modal de pago inicial
+btnCancelarPago.addEventListener('click', function() {
+  modalPago.style.display = 'none';
+  delete btnConfirmarPago.dataset.id;
+});
+
+
+
+
+
+
 try {
     const data = await getInteresados();
     let interesados = Object.values(data.message);
@@ -115,11 +141,24 @@ function actualizarSolicitudes(interesados){
                         </div>
 
 
+                            <div class="documento-card">
+                                <div class="documento-info">
+                                    <h4>Monto de Pago Inicial</h4>
+                                        <p><strong>Asignado:</strong> ${interesado.montoPagoInicial != null && interesado.montoPagoInicial !== "" ? `$${interesado.montoPagoInicial}` : '<em>No asignado</em>'}</p>
+                                </div>
+                                    <div class="documento-acciones">
+                                        <button class="btn-asignar-pago-inicial" data-id="${interesado.idPersona}">
+                                            <i class="material-icons">payment</i> Asignar / Editar Monto
+                                        </button>
+                                    </div>
+                                </div>
+
                         <div class="documento-card">
                             <div class="documento-info">
-                                <h4>Comprobante de Pago Inicial</h4>
+                                <h4>Comprobante de Pago Inicial </h4> 
                                 <p>Documento PDF - <span class="estado-badge ${interesado.estadoPagoInicial}">${interesado.estadoPagoInicial}</span></p>
                             </div>
+
                             <div class="documento-acciones">
                                 ${interesado.pagoInicial != null && interesado.pagoInicial !== "" ? `
                         <a href="../../Recursos/Antecedentes/${interesado.pagoInicial}" download>
@@ -131,9 +170,6 @@ function actualizarSolicitudes(interesados){
                             </div>
                         </div>
                         <div class="acciones">
-                        <button class="btn-asignar-entrevista">     <!--Corregir hacerlo boton que haga esto no copiado y pegado de arriba=================================== --!>
-                                <i class="material-icons">price_check</i> Asignar Monto
-                            </button>
 
                             <button class="btn-rechazar btn-${interesado.estadoPagoInicial}" data-id="${interesado.idPersona}" data-campo="Estado_pago_inicial">
 
@@ -214,29 +250,40 @@ function actualizarSolicitudes(interesados){
                 }
             });
         });
-            const botonRechazarInteresado = document.querySelectorAll(".btn-rechazar-solicitud");
-            botonRechazarInteresado.forEach(boton =>{boton.addEventListener("click", async () => { 
-                const idPersona = boton.dataset.id;
-                
+
+
+        //abrir modal rechazar Interesado
+        document.querySelectorAll('.btn-rechazar-solicitud').forEach(boton => {
+        boton.addEventListener('click', () => {
+            const confirmar = modalConfirm.querySelector('.btn-confirmar-rechazo');
+            confirmar.dataset.id = boton.dataset.id;
+            modalConfirm.style.display = 'flex';
+        });
+        });
+            const botonRechazarInteresado = modalConfirm.querySelectorAll('.btn-confirmar-rechazo');
+            botonRechazarInteresado.forEach(boton => {boton.addEventListener('click', async () => {
+                modalConfirm.style.display = 'none'; 
+                const idPersona = boton.dataset.id;//trae el id la persona al boton del modal para poder ejecutar el metodo
+                delete boton.dataset.id;
+
                 const datos = {
                     idPersona: idPersona
                 };
 
                 try {
-                    const respuesta = await rechazarInteresado(datos);
-        
-                    if (respuesta.status === "exito") {
-                        alert("Interesado rechazado y eliminado con exito.");
-
-                    } else {
-                        alert("Error " + respuesta.message);
-                    }
+                const respuesta = await rechazarInteresado(datos);
+                if (respuesta.status === 'exito') {
+                    alert('Interesado rechazado y eliminado con exito.');
+                } else {
+                    alert('Error: ' + respuesta.message);
+                }
                 } catch (error) {
-                    console.error("Error al eliminar el interesado", error)
-                    alert("Error del servidor");
+                console.error('Error al eliminar el interesado', error);
+                alert('Error del servidor');
                 }
             });
         });
+       
             botonesAprobar.forEach(boton =>{
             boton.addEventListener("click", async () => {
             const idPersona = boton.dataset.id;
@@ -280,4 +327,39 @@ function actualizarSolicitudes(interesados){
             }
         });
             });
+
+
+
+            // abrir modal de pago inicial
+        document.querySelectorAll('.btn-asignar-pago-inicial').forEach(boton => {
+        boton.addEventListener('click', function() {
+            // le paso el idPersona al boton de confirmar pago
+            btnConfirmarPago.dataset.id = this.dataset.id;
+            modalPago.style.display = 'flex';
+        });
+        });
+            btnConfirmarPago.addEventListener('click', async () => {
+            modalPago.style.display = 'none';
+            const idPersona = btnConfirmarPago.dataset.id;
+            delete btnConfirmarPago.dataset.id;
+
+            const montoPagoInicial = document.getElementById('inputPagoInicial').value;
+            const datos = {
+                idPersona: idPersona, 
+                montoPagoInicial: montoPagoInicial
+            };
+
+            try {
+                const respuesta = await asignarPagoInicial(datos);
+                if (respuesta.status === 'exito') {
+                  alert('Pago inicial asignado correctamente.');
+                } else {
+                  alert('Error: ' + respuesta.message);
+                }
+            } catch (error) {
+                console.error('Error al asignar pago inicial', error);
+                alert('Error del servidor');
+            }
+            });
+
 } 
