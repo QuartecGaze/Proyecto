@@ -34,7 +34,7 @@ function setDatos(data) {
     actualizarEstado(estadoEntrevista, data.message.estadoEntrevista);
     actualizarEstado(estadoPago, data.message.estadoPagoInicial);
     actualizarEstado(estadoAntecedentes, data.message.estadoAntecedentes);
-
+    
     //usando el operador logico OR, al ser null logramos que se muestre como (vacio)
     const fecha = data.message.fechaEntrevista || "";
     const hora = data.message.horaEntrevista || "";
@@ -79,6 +79,7 @@ function actualizarEstado(element, estado) {
             break;
     }
 }
+
 //Event lisener pasa subir los archivos
 
 antecedentesBtn.addEventListener("click", async function (){
@@ -95,19 +96,20 @@ antecedentesBtn.addEventListener("click", async function (){
         const comprobante = inputComprobante.files[0];
         const formData = new FormData();
         formData.append('comprobante', comprobante);
+
         subirComprobante(formData)
+
         if(respuesta.status = "exito"){
             
         }
     } );
 
-    
-///////////////////////////////////
 
 
 
 
      inputAntecedentes.addEventListener('change', function (e) {
+
         if (this.files.length > 0) {
             fileInfoAntecedentes.textContent = this.files[0].name;
             fileInfoAntecedentes.parentElement.classList.add('tiene-archivo');

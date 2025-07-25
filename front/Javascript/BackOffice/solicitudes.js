@@ -4,6 +4,7 @@ import { rechazarEstado } from '../../../BackEnd/APIFetchs/APIBackOffice.js';
 import { rechazarInteresado } from '../../../BackEnd/APIFetchs/APIBackOffice.js'; 
 import { asignarEntrevista } from '../../../BackEnd/APIFetchs/APIBackOffice.js';
 
+
 const contenedor = document.getElementById("contenedor-solicitudes");
 try {
     const data = await getInteresados();
