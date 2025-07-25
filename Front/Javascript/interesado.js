@@ -8,6 +8,8 @@ const comprobanteBtn = document.getElementById("comprobante");
 const antecedentesBtn = document.getElementById("antecedentesBtn");
 const inputComprobante = document.getElementById("file-pago");
 const inputAntecedentes = document.getElementById("file-antecedentes");
+const fileInfoPago = document.getElementById('file-info-pago');
+const fileInfoAntecedentes = document.getElementById('file-info-antecedentes');
 import { getIdSesion } from '../../BackEnd/APIFetchs/APIUsuario.js';
 import { getInteresado } from '../../BackEnd/APIFetchs/APIUsuario.js';
 import { subirAntecedentes } from '../../BackEnd/APIFetchs/APIUsuario.js';
@@ -32,11 +34,22 @@ function setDatos(data) {
     actualizarEstado(estadoEntrevista, data.message.estadoEntrevista);
     actualizarEstado(estadoPago, data.message.estadoPagoInicial);
     actualizarEstado(estadoAntecedentes, data.message.estadoAntecedentes);
-
+    
     //usando el operador logico OR, al ser null logramos que se muestre como (vacio)
     const fecha = data.message.fechaEntrevista || "";
     const hora = data.message.horaEntrevista || "";
     const monto = data.message.montoPagoInicial || "";
+
+    fileInfoPago.classList.remove('tiene-archivo');
+    fileInfoAntecedentes.classList.remove('tiene-archivo');
+
+    fileInfoPago.parentElement.classList.add("input" + data.message.estadoPagoInicial);
+    fileInfoAntecedentes.parentElement.classList.add("input" + data.message.estadoAntecedentes);
+
+    if(estado.message.pagoInicial == "Aprobado" || estado.message.pagoInicial == "Pendiente"){
+        fileInfoPago.textContent = "Comprobante subido";
+    }
+    
 
     document.getElementById("fechaEntrevista").textContent = `Fecha: ${fecha} a las ${hora}`;
     document.getElementById("montoPago").textContent = `Monto a abonar: $${monto}`;
@@ -67,6 +80,7 @@ function actualizarEstado(element, estado) {
             break;
     }
 }
+
 //Event lisener pasa subir los archivos
 
 antecedentesBtn.addEventListener("click", async function (){
@@ -74,38 +88,39 @@ antecedentesBtn.addEventListener("click", async function (){
         const formData = new FormData();
         formData.append('antecedentes', antecedentes);
         subirAntecedentes(formData)
+        if(respuesta.status = "exito"){
+            
+        }
     } );
 
   comprobanteBtn.addEventListener("click", async function (){
         const comprobante = inputComprobante.files[0];
         const formData = new FormData();
         formData.append('comprobante', comprobante);
-        subirComprobante(formData)
+        const respuesta = subirComprobante(formData)
+        if(respuesta.status = "exito"){
+            
+        }
     } );
 
     
 ///////////////////////////////////
 
 
-document.addEventListener('DOMContentLoaded', function () {
+ 
 
-    const fileInputAntecedentes = document.getElementById('file-antecedentes');
-    const fileInfoAntecedentes = document.getElementById('file-info-antecedentes');
-
-    fileInputAntecedentes.addEventListener('change', function (e) {
+    inputAntecedentes.addEventListener('change', function (e) {
         if (this.files.length > 0) {
             fileInfoAntecedentes.textContent = this.files[0].name;
-            fileInfoAntecedentes.parentElement.classList.add('has-file');
+            fileInfoAntecedentes.parentElement.classList.add('tiene-archivo');
         }
     });
 
-    const fileInputPago = document.getElementById('file-pago');
-    const fileInfoPago = document.getElementById('file-info-pago');
+    
 
-    fileInputPago.addEventListener('change', function (e) {
+    inputComprobante.addEventListener('change', function (e) {
         if (this.files.length > 0) {
             fileInfoPago.textContent = this.files[0].name;
-            fileInfoPago.parentElement.classList.add('has-file');
+            fileInfoPago.parentElement.classList.add('tiene-archivo');
         }
     });
-});
