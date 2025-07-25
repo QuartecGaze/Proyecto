@@ -3,6 +3,38 @@ import { aprobarEstado, aprobarInteresado } from '../../BackEnd/APIFetchs/APIBac
 import { rechazarEstado } from '../../BackEnd/APIFetchs/APIBackOffice.js';
 import { rechazarInteresado } from '../../BackEnd/APIFetchs/APIBackOffice.js'; 
 import { asignarEntrevista } from '../../BackEnd/APIFetchs/APIBackOffice.js';
+import { getAdmin } from '../../BackEnd/APIFetchs/APIBackOffice.js';
+import { getIdSesion } from '../../BackEnd/APIFetchs/APIBackOffice.js';
+
+const nombre = document.querySelectorAll(".nombreAdmin");
+const foto = document.querySelectorAll(".fotoPerfil");
+const email = document.getElementById("emailAdmin");
+const telefono = document.getElementById("telefonoAdmin");
+const permisos = document.getElementById("permisosAdmin");
+const creacion = document.getElementById("creacionAdmin");
+
+const fotoruta = "../../Recursos/FotosDePerfil/";
+const idSesion = await getIdSesion();
+const data = await getAdmin(idSesion.message);
+setDatos(data.message);
+
+
+function setDatos(data) {
+    nombre.forEach(nombreDiv => {
+        nombreDiv.textContent=data.nombre+" "+data.apellido;
+    });
+    
+    foto.forEach(fotoDiv => {
+        fotoDiv.src = fotoruta+data.foto;
+    });
+
+    email.textContent = data.email;
+    telefono.textContent = data.telefono;
+    permisos.textContent = data.permisos; //revisar si esta bien el nombre de data.
+    creacion.textContent = data.creacion; //revisar si esta bien el nombre de data.
+}
+
+
 
 
 const contenedor = document.getElementById("contenedor-solicitudes");
