@@ -233,24 +233,108 @@ body {
 
 
 /* Responsive */
+@media (max-width: 1024px) {
+    .contenedor-registro {
+        max-width: 90%;
+    }
+}
+
 @media (max-width: 768px) {
+    .contenedor-registro {
+        grid-template-columns: 1fr;
+        grid-template-rows: auto auto;
+        max-width: 95%;
+        margin: 1rem auto;
+        gap: 1rem;
+    }
 
     .divForm {
-        border-radius: 0 0 15px 15px;
+        border-radius: 15px;
+        margin-bottom: 2rem;
+        padding: 1.5rem;
     }
 
     .infoSide {
-        border-radius: 15px 15px 0 0;
-        order: -1;
+        display: none; /* Oculto el sidebar */
     }
 
-    .contenedor-registro {
-        grid-template-columns: 1fr;
+    .divForm h1 {
+        font-size: 2rem;
+        text-align: center;
+    }
+
+    .fieldInfo input {
+        padding: 0.7rem 1rem;
+    }
+
+    .btnRegistro {
+        padding: 0.8rem;
+        margin-bottom: 2rem;
+    }
+
+    .login-link {
+        flex-direction: column;
+        gap: 5px;
+    }
+
+    .footer-registro {
+        margin-top: 3rem;
+        padding: 1rem;
+        
+    }
+}
+
+@media (max-width: 480px) {
+    .header-registro {
+        padding: 1rem;
+    }
+
+    .logo {
+        font-size: 1rem;
+    }
+
+    .logo img {
+        height: 30px;
+    }
+
+    .divForm {
+        padding: 1.2rem;
+    }
+
+    .divForm h1 {
+        font-size: 1.8rem;
+        margin-bottom: 1.5rem;
+    }
+
+    .fieldInfo {
+        margin-bottom: 1.2rem;
+    }
+
+    .terminos label {
+        font-size: 0.8rem;
+    }
+
+    .footer-registro {
+        font-size: 0.8rem;
+    }
+}
+
+/* Mejora del toggle de contraseña para celulares */
+@media (max-width: 768px) {
+    .password-container {
+        display: flex;
         align-items: center;
-        grid-template-rows: 60% 40%;
     }
-
+    
     .toggle-password {
-        top: 2.4rem;
+        position: static;
+        transform: none;
+        margin-left: -35px;
+        z-index: 1;
+    }
+    
+    .fieldInfo input[type="password"],
+    .fieldInfo input[type="text"] {
+        padding-right: 35px;
     }
 }
