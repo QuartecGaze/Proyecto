@@ -43,7 +43,7 @@
                         <a href="#Finanzas"><i class="material-icons">payments</i> Finanzas</a>
                     </li>
                     <li class="item-menu">
-                        <a href="configuracion.html"><i class="material-icons">settings</i> Configuración</a>
+                        <a href="configuracion.php"><i class="material-icons">settings</i> Configuración</a>
                     </li>
                 </ul>
             </nav>
@@ -51,9 +51,9 @@
             <div class="perfil-usuario">
                 <a href="configuracion.php">
                     <div class="info-usuario">
-                        <img src="https://via.placeholder.com/40" alt="Foto perfil">
+                        <img src="https://via.placeholder.com/40" alt="Foto perfil" class="fotoPerfil">
                         <div>
-                            <p class="nombre-usuario">Nombre User</p>
+                            <p class="nombre-usuario nombreUsuario">Nombre User</p>
                             <p class="rol-usuario">Usuario</p>
                         </div>
                     </div>
@@ -68,7 +68,7 @@
 
         <main class="contenido-principal">
             <header class="header-principal">
-                <h1>Bienvenido, <span class="nombre-usuario-destacado">Nombre User</span></h1>
+                <h1>Bienvenido, <span class="nombre-usuario-destacado nombreUsuario">Nombre User</span></h1>
                 <p>Aquí puedes gestionar todas tus actividades en la cooperativa</p>
             </header>
 
@@ -169,7 +169,8 @@
         </main>
     </div>
 
-    <!--script src="script.js"></script-->
+    <script src="../Javascript/usuario.js" type="module"></script>
+
 </body>
 
 </html>

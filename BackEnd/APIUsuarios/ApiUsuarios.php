@@ -161,11 +161,11 @@
                 $id = $_GET['id'];
                 if($id != null){
                     try{
-                    $interesado = $servicio->getUsuario($id);
+                    $usuario = $servicio->getUsuario($id);
                     $respuesta = [
                     'ci' => $usuario->getCi(),
                     'email' => $usuario->getEmail(),
-                    'telefono' => $usuario->getTelefonosPersona(),
+                    'telefono' => $usuario->getTelefono(),
                     'idPersona' => $usuario->getIdPersona(),
                     'nombre' => $usuario->getNombre(),
                     'apellido' => $usuario->getApellido(),

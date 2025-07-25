@@ -96,10 +96,14 @@ function actualizarSolicitudes(interesados){
                                 <p>Documento PDF - <span class="estado-badge ${interesado.estadoAntecedentes}">${interesado.estadoAntecedentes}</span></p>
                             </div>
                             <div class="documento-acciones">
-                                <a href="../../Recursos/Antecedentes/${interesado.antecedentes}" download>
-                                    <li class="material-icons">download</li> Descargar
-                                </a>
-                            </div>
+                            ${interesado.antecedentes != null && interesado.antecedentes !== "" ? `
+                        <a href="../../Recursos/Antecedentes/${interesado.antecedentes}" download>
+                            <li class="material-icons">download</li> Descargar
+                            </a>
+                            ` : `
+                            <p><em>No se adjuntó archivo</em></p>
+                            `}
+                        </div>
                         </div>
                         <div class="acciones">
                             <button class="btn-rechazar btn-${interesado.estadoAntecedentes}" data-id="${interesado.idPersona}" data-campo="Estado_antecedentes">
@@ -117,9 +121,13 @@ function actualizarSolicitudes(interesados){
                                 <p>Documento PDF - <span class="estado-badge ${interesado.estadoPagoInicial}">${interesado.estadoPagoInicial}</span></p>
                             </div>
                             <div class="documento-acciones">
-                                <a href="../../Recursos/Comprobantes/${interesado.pagoInicial}" download>
-                                    <li class="material-icons">download</li> Descargar
-                                </a>
+                                ${interesado.pagoInicial != null && interesado.pagoInicial !== "" ? `
+                        <a href="../../Recursos/Antecedentes/${interesado.pagoInicial}" download>
+                            <li class="material-icons">download</li> Descargar
+                            </a>
+                            ` : `
+                            <p><em>No se adjuntó archivo</em></p>
+                            `}
                             </div>
                         </div>
                         <div class="acciones">

@@ -22,8 +22,6 @@ setDatos(data);
 
 
 
-
-//Funcion para asignar los valores correspondientes
 function setDatos(data) {
     estadoEntrevista.classList.remove('aprobado', 'rechazado', 'pendiente');
     estadoPago.classList.remove('aprobado', 'rechazado', 'pendiente');

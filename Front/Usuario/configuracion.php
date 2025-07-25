@@ -28,7 +28,7 @@
             <nav id="NavegacionDashboard">
                 <ul class="menu-dashboard">
                     <li class="item-menu">
-                        <a href="index.html"><i class="material-icons">home</i> Inicio</a>
+                        <a href="index.php"><i class="material-icons">home</i> Inicio</a>
                     </li>
                     <li class="item-menu">
                         <a href="#Reuniones"><i class="material-icons">event</i> Reuniones</a>
@@ -43,17 +43,17 @@
                         <a href="#Finanzas"><i class="material-icons">payments</i> Finanzas</a>
                     </li>
                     <li class="item-menu activo">
-                        <a href="configuracion.html"><i class="material-icons">settings</i> Configuración</a>
+                        <a href="configuracion.php"><i class="material-icons">settings</i> Configuración</a>
                     </li>
                 </ul>
             </nav>
 
             <div class="perfil-usuario">
-                <a href="configuracion.html">
-                    <div class="info-usuario">
-                        <img src="../../Fotos/account-admin.webp" alt="Foto perfil">
+                <a href="configuracion.php">
+                <div class="info-usuario">
+                        <img src="https://via.placeholder.com/40" alt="Foto perfil" class="fotoPerfil">
                         <div>
-                            <p class="nombre-usuario">Nombre User</p>
+                            <p class="nombre-usuario nombreUsuario">Nombre User</p>
                             <p class="rol-usuario">Usuario</p>
                         </div>
                     </div>
@@ -76,7 +76,7 @@
             <div class="contenedor-perfil">
                 <section class="seccion-info-personal">
                     <div class="foto-perfil-container">
-                        <img src="https://via.placeholder.com/150" alt="Foto de perfil" class="foto-perfil">
+                        <img src="https://via.placeholder.com/150" alt="Foto de perfil" class="foto-perfil fotoPerfil">
                         <button class="boton-cambiar-foto">
                             <i class="material-icons">image_search</i> Cambiar foto
                         </button>
@@ -89,23 +89,23 @@
                         <h2>Información personal</h2>
                         <div class="campo-perfil">
                             <label>Nombre completo</label>
-                            <p class="valor-perfil">Diego Luis Charlo Arce</p>
+                            <p class="valor-perfil nombreUsuario">Nombre User</p>
                         </div>
                         <div class="campo-perfil">
                             <label>Correo electrónico</label>
-                            <p class="valor-perfil">alainarce39@gmail.com</p>
+                            <p class="valor-perfil" id="emailUsuario">alainarce39@gmail.com</p>
                         </div>
                         <div class="campo-perfil">
                             <label>Teléfono</label>
-                            <p class="valor-perfil">+598 92 343 168</p>
+                            <p class="valor-perfil" id="telefonoUsuario">+598 92 343 168</p>
                         </div>
                         <div class="campo-perfil">
                             <label>Dirección</label>
-                            <p class="valor-perfil">Pasaje 2 unidad 31</p>
+                            <p class="valor-perfil" id="direccionUsuario">Pasaje 2 unidad 31</p>
                         </div>
                         <div class="campo-perfil">
                             <label>Fecha de Nacimiento</label>
-                            <p class="valor-perfil">15 de Enero, 2020</p>
+                            <p class="valor-perfil" id="cumpleUsuario">15 de Enero, 2020</p>
                         </div>
                     </div>
                 </section>
@@ -139,5 +139,8 @@
             </div>
         </main>
     </div>
+
+    <script src="../Javascript/usuario.js" type="module"></script>
+    
 </body>
 </html>
