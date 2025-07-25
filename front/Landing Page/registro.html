@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Registro - Senda Firme</title>
+    <link rel="stylesheet" href="../Css/estilosRegistro.css">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+</head>
+
+<body>
+    <header class="header-registro">
+        <div class="contenedor-header">
+            <div class="logo">
+                <a href="../Landing Page/index.html">
+                    <img src="../../Fotos/logo.webp" alt="Logo Cooperativa">
+                </a>
+                <span>Senda Firme</span>
+            </div>
+        </div>
+    </header>
+
+    <main class="contenedor-registro">
+        <div class="divForm">
+            <h1 class="registro-titulo">Crea tu cuenta</h1>
+
+            <div id="mensajeError" class="mensaje-error" style="display: none;">
+            </div>
+
+            <form action="#" id="formRegistro" class="registro-form">
+                <div class="fieldInfo">
+                    <label for="nombre">Nombre</label>
+                    <input type="text" id="nombre" name="nombre" required title="Ingresa tu nombre completo">
+                </div>
+
+                <div class="fieldInfo">
+                    <label for="apellido">Apellido</label>
+                    <input type="text" id="apellido" name="apellido" required title="Ingresa tu apellido completo">
+                </div>
+
+                <div class="fieldInfo">
+                    <label for="email">Correo electrónico</label>
+                    <input type="email" id="email" name="email" required title="Ingresa un correo electrónico válido">
+                </div>
+
+                <div class="fieldInfo">
+                    <label for="telefono">Teléfono Móvil</label>
+                    <input type="tel" id="telefono" name="telefono" pattern="[0-9]{9,12}" required
+                        title="Ingresa tu número de teléfono (9 a 12 dígitos sin espacios)">
+                </div>
+
+                <div class="fieldInfo">
+                    <label for="cedula">Cédula de Identidad</label>
+                    <input type="text" id="cedula" name="cedula" required pattern="^\d{7,8}$"
+                        title="Debe contener 7 u 8 dígitos numéricos sin puntos ni guiones">
+                </div>
+
+                <div class="fieldInfo">
+                    <label for="password">Contraseña</label>
+                    <div class="password-container">
+                        <input type="password" id="password" name="password" required minlength="8"
+                            pattern="(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}"
+                            title="Debe tener al menos 8 caracteres, incluyendo mayúscula, minúscula, número y símbolo especial">
+                        <span class="toggle-password material-icons">visibility</span>
+                    </div>
+                </div>
+
+                <div class="fieldInfo">
+                    <label for="confirmar-password">Confirmar Contraseña</label>
+                    <div class="password-container">
+                        <input type="password" id="confirmar-password" name="confirmar-password" required
+                            title="Repite la contraseña exactamente como la escribiste arriba">
+                        <span class="toggle-password material-icons">visibility</span>
+                    </div>
+                </div>
+
+                <div class="terminos">
+                    <input type="checkbox" id="terminos" name="terminos" required
+                        title="Debes aceptar los términos y condiciones">
+                    <label for="terminos">Acepto los <a href="#">Términos de servicio</a> y <a href="#">Política de
+                            privacidad</a></label>
+                </div>
+
+                <button type="submit" class="btnRegistro registro-btn">Registrarse</button>
+            </form>
+            <div class="login-link">
+                <p class="cuenta-text">¿Ya tienes una cuenta? </p><a href="../Landing Page/login.html" class="cuenta-link">Inicia sesión aquí</a>
+            </div>
+        </div>
+        <div class="infoSide">
+            <h1>hola</h1>
+        </div>
+
+    </main>
+
+    <footer class="footer-registro">
+        <p>&copy; 2025 Senda Firme. Todos los derechos reservados.</p>
+    </footer>
+
+    <script type="module" src="../Javascript/registro.js"></script>
+</body>
+</html>
