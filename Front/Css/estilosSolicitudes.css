@@ -28,6 +28,25 @@ body {
     color: var(--color-texto);
 }
 
+a {
+    text-decoration: none;
+}
+
+h1 {
+    color: var(--color-primario);
+    margin: 0px 0px 30px;
+}
+
+h3 {
+    color: var(--color-secundario);
+    margin-bottom: 10px;
+    font-size: 1.1rem;
+}
+
+strong {
+    font-weight: 600;
+}
+
 /* Contenedor principal */
 .contenedor-dashboard {
     position: relative;
@@ -170,21 +189,15 @@ body {
     margin-right: 5px;
 }
 
-/* Contenedor de secciones */
-
-h1 {
-    color: var(--color-primario);
-    margin: 0px 0px 30px;
-}
-
+/* Contenido principal */
 .contenido-principal {
     padding: 30px;
     flex-grow: 1;
     margin-left: 280px;
     width: calc(100% - 280px);
-    /* Calcula el ancho restante */
 }
 
+/* Solicitudes */
 .contenedor-solicitud {
     box-sizing: content-box;
     position: static;
@@ -207,7 +220,6 @@ h1 {
 
 #Aprobado {
     background-color: var(--color-exito);
-    /*border-radius: 7px 7px 0 0;*/
 }
 
 #Pendiente {
@@ -216,13 +228,29 @@ h1 {
 
 #Rechazado {
     background-color: var(--color-alerta);
-    /*border-radius: 0 0 7px 7px;*/
 }
 
 .solicitud-header {
     margin-bottom: 20px;
     padding-bottom: 15px;
     border-bottom: 1px solid var(--color-borde);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    position: relative;
+}
+
+.solicitud-header h2 {
+    font-size: 1.3rem;
+    font-weight: 600;
+    color: var(--color-primario);
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.titulo-estado {
+    flex-grow: 1;
 }
 
 .solicitud-info {
@@ -232,7 +260,50 @@ h1 {
     margin-bottom: 25px;
 }
 
-/* Estilo botón Asignar */
+.info-card {
+    border: 1px solid var(--color-borde);
+    border-radius: 8px;
+    padding: 15px;
+}
+
+#info-card-id p {
+    margin-top: 16px;
+}
+
+/* Documentos */
+.solicitud-documentos {
+    margin: 30px 0;
+}
+
+.documento-card {
+    border: 1px solid var(--color-borde);
+    border-radius: 8px;
+    padding: 15px;
+    margin-bottom: 15px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    transition: all 0.3s;
+}
+
+.documento-acciones {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin-left: auto;
+    padding: 6px 12px;
+}
+
+.documento-acciones a {
+    color: var(--color-secundario);
+    text-decoration: none;
+    margin-left: 15px;
+    display: inline-flex;
+    align-items: center;
+    gap: 5px;
+}
+
+/* Botones */
 .btn-asignar-entrevista {
     background-color: var(--color-secundario);
     color: white;
@@ -254,8 +325,92 @@ h1 {
     transform: translateY(-2px);
 }
 
-input[type="date"],
-input[type="time"] {
+.acciones {
+    height: 44px;
+    display: flex;
+    justify-content: flex-end;
+    gap: 15px;
+    margin: 20px 0;
+}
+
+.btn-aprobar, .btn-rechazar {
+    color: white;
+    border: none;
+    padding: 10px 25px;
+    border-radius: 5px;
+    cursor: pointer;
+    font-weight: bold;
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    transition: all 0.3s;
+}
+
+.btn-aprobar {
+    background-color: var(--color-exito);
+}
+
+.btn-rechazar {
+    background-color: var(--color-alerta);
+}
+
+.btn-aprobar:hover, .btn-rechazar:hover {
+    transform: translateY(-3px);
+}
+
+.btn-solicitud {
+    color: white;
+    border: none;
+    padding: 8px 20px;
+    border-radius: 5px;
+    cursor: pointer;
+    font-weight: bold;
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    transition: all 0.3s;
+    margin-left: auto;
+}
+
+.btn-solicitud:hover {
+    transform: translateY(-2px);
+}
+
+.btn-solicitud i {
+    font-size: 1.1rem;
+}
+
+.btn-aprobar-solicitud {
+    background-color: var(--color-exito);
+}
+
+.btn-rechazar-solicitud {
+    background-color: var(--color-alerta);
+    color: white;
+    border: none;
+    padding: 8px 20px;
+    border-radius: 5px;
+    cursor: pointer;
+    font-weight: bold;
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    transition: all 0.3s;
+    margin-left: 15px;
+}
+
+.btn-rechazar-solicitud:hover {
+    background-color: #c0392b;
+    transform: translateY(-2px);
+}
+
+.espera {
+    background-color: gray;
+    pointer-events: none;
+}
+
+/* Inputs */
+input[type="date"], input[type="time"] {
     background-color: var(--color-secundario);
     padding: 10px;
     color: white;
@@ -267,10 +422,6 @@ input[type="time"] {
 
 input[type="time"] {
     margin-left: 10px;
-}
-
-.date p {
-    margin-right: 10px;
 }
 
 ::-webkit-calendar-picker-indicator {
@@ -297,105 +448,17 @@ input[type="time"] {
     align-items: center;
 }
 
-.solicitud-documentos {
-    margin: 30px 0;
+.date p {
+    margin-right: 10px;
 }
 
-.documento-card {
-    border: 1px solid var(--color-borde);
-    border-radius: 8px;
-    padding: 15px;
-    margin-bottom: 15px;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    transition: all 0.3s;
-}
-
-.info-card {
-    border: 1px solid var(--color-borde);
-    border-radius: 8px;
-    padding: 15px;
-}
-
-#info-card-id p {
-    margin-top: 16px;
-}
-
-.documento-acciones {
-    display: flex;
-    align-items: center;
-    /* Centra verticalmente ícono y texto */
-    gap: 8px;
-    margin-left: auto;
-    /* Fuerza alineación a la derecha */
-    padding: 6px 12px;
-}
-
-.acciones {
-    height: 44px;
-    display: flex;
-    justify-content: flex-end;
-    gap: 15px;
-    margin: 20px 0;
-}
-
-.btn-aprobar {
-    background-color: var(--color-exito);
-}
-
-.btn-rechazar {
-    background-color: var(--color-alerta);
-}
-
-.btn-aprobar,
-.btn-rechazar {
-    color: white;
-    border: none;
-    padding: 10px 25px;
-    border-radius: 5px;
-    cursor: pointer;
-    font-weight: bold;
-    display: inline-flex;
-    align-items: center;
-    gap: 8px;
-    transition: all 0.3s;
-}
-
-.btn-aprobar:hover,
-.btn-rechazar:hover {
-    transform: translateY(-3px);
-}
-
-.documento-acciones a {
-    color: var(--color-secundario);
-    text-decoration: none;
-    margin-left: 15px;
-    display: inline-flex;
-    align-items: center;
-    gap: 5px;
-}
-
-h3 {
-    color: var(--color-secundario);
-    margin-bottom: 10px;
-    font-size: 1.1rem;
-}
-
-.title {
-    color: var(--color-secundario);
-}
-
+/* Estados */
 .estado-badge {
     display: inline-block;
     padding: 4px 12px;
     border-radius: 20px;
     font-size: 0.8rem;
     font-weight: bold;
-}
-
-strong {
-    font-weight: 600;
 }
 
 .Pendiente {
@@ -413,175 +476,7 @@ strong {
     color: white;
 }
 
-.solicitud-header h2 {
-    font-size: 1.3rem;
-    font-weight: 600;
-    color: var(--color-primario);
-    display: flex;
-    align-items: center;
-    gap: 10px;
-}
-
-.icon-pending {
-    color: black;
-    margin-bottom: 20px;
-}
-
-.icon-pending img {
-    width: 80px;
-}
-
-a {
-    text-decoration: none;
-}
-
-.texto-solicitud {
-    font-size: 1.4rem;
-    color: var(--color-texto-oscuro);
-    margin-bottom: 15px;
-    font-weight: 500;
-}
-
-.numero-solicitud {
-    font-size: 2.5rem;
-    font-weight: 700;
-    color: var(--color-secundario);
-}
-
-
-/* Responsive */
-@media (max-width: 992px) {
-    .contenedor-secciones {
-        grid-template-columns: 1fr;
-    }
-
-    .sidebar {
-        width: 250px;
-    }
-}
-
-@media (max-width: 768px) {
-    .contenedor-dashboard {
-        flex-direction: column;
-        height: auto;
-    }
-
-    .sidebar {
-        width: 100%;
-        padding: 10px;
-        position: relative;
-    }
-
-    .seccion-estadisticas {
-        grid-template-columns: 1fr 1fr;
-    }
-
-    .contenido-principal {
-        margin-left: 0;
-        width: 100%;
-        padding: 15px;
-    }
-}
-
-/* Estilos para el botón de rechazo en el header */
-.solicitud-header {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    position: relative;
-    /* Para posicionar el botón */
-}
-
-.btn-solicitud {
-    color: white;
-    border: none;
-    padding: 8px 20px;
-    border-radius: 5px;
-    cursor: pointer;
-    font-weight: bold;
-    display: inline-flex;
-    align-items: center;
-    gap: 8px;
-    transition: all 0.3s;
-    margin-left: auto;
-    /* Lo coloca a la derecha */
-}
-
-.btn-solicitud:hover {
-    transform: translateY(-2px);
-}
-
-.btn-solicitud i {
-    font-size: 1.1rem;
-}
-
-.btn-aprobar-solicitud {
-    background-color: var(--color-exito);
-}
-
-.espera {
-    background-color: gray;
-    pointer-events: none;
-}
-
-/* Contenedor de título y estado */
-.solicitud-header .titulo-estado {
-    flex-grow: 1;
-}
-
-/* Estilos para el botón de rechazo en header */
-.btn-rechazar-solicitud {
-    background-color: var(--color-alerta);
-    color: white;
-    border: none;
-    padding: 8px 20px;
-    border-radius: 5px;
-    cursor: pointer;
-    font-weight: bold;
-    display: inline-flex;
-    align-items: center;
-    gap: 8px;
-    transition: all 0.3s;
-    margin-left: 15px;
-}
-
-.btn-rechazar-solicitud:hover {
-    background-color: #c0392b;
-    transform: translateY(-2px);
-}
-
-/* Estilos para el botón de rechazo en header */
-.btn-rechazar-solicitud {
-    background-color: var(--color-alerta);
-    color: white;
-    border: none;
-    padding: 8px 20px;
-    border-radius: 5px;
-    cursor: pointer;
-    font-weight: bold;
-    display: inline-flex;
-    align-items: center;
-    gap: 8px;
-    transition: all 0.3s;
-    margin-left: 15px;
-}
-
-.btn-rechazar-solicitud:hover {
-    background-color: #c0392b;
-    transform: translateY(-2px);
-}
-
-.solicitud-header {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-}
-
-.titulo-estado {
-    flex-grow: 1;
-}
-
-/* Estilos para la modal de confirmación */
+/* Modal */
 .modal-confirmacion {
     display: none;
     position: fixed;
@@ -637,30 +532,127 @@ a {
     border: none;
 }
 
-@media (max-width: 1030px) {
-    .btn-aprobar-solicitud {
-        border-radius: 0px 5px 5px 0px;
-    }
-
-    .btn-rechazar-solicitud {
-        border-radius: 5px 0px 0px 5px;
-    }
+/* Textos */
+.texto-solicitud {
+    font-size: 1.4rem;
+    color: var(--color-texto-oscuro);
+    margin-bottom: 15px;
+    font-weight: 500;
 }
 
-@media (max-width: 1089px) {
-    .solicitud-info{
+.numero-solicitud {
+    font-size: 2.5rem;
+    font-weight: 700;
+    color: var(--color-secundario);
+}
+
+.title {
+    color: var(--color-secundario);
+}
+
+.icon-pending {
+    color: black;
+    margin-bottom: 20px;
+}
+
+.icon-pending img {
+    width: 80px;
+}
+
+
+
+.hamburger-btn {
+    display: none;
+    position: fixed;
+    top: 15px;
+    left: 15px;
+    z-index: 101;
+    background: var(--color-primario);
+    color: white;
+    border: none;
+    border-radius: 5px;
+    padding: 10px;
+    cursor: pointer;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+}
+
+/* Media Queries */
+@media (max-width: 992px) {
+    .sidebar {
+        transform: translateX(-100%);
+        transition: transform 0.3s ease;
+        z-index: 100;
+    }
+    
+    .sidebar.mostrar {
+        transform: translateX(0);
+    }
+    
+    .hamburger-btn {
+        display: block;
+    }
+    
+    .contenido-principal {
+        margin-left: 0;
+        width: 100%;
+    }
+    
+    .contenedor-solicitud {
         grid-template-columns: 1fr;
     }
+    
+    .contador {
+        display: none;
+    }
 }
 
-@media (max-width: 769px) {
-    .acciones button{
-        width: 100px;
-        font-size: 10px;
-        padding: 5px 10px;
+@media (max-width: 768px) {
+    .solicitud-info {
+        grid-template-columns: 1fr;
+        gap: 15px;
     }
+    
+    .solicitud-header {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 15px;
+    }
+    
+    .btn-solicitud {
+        width: 100%;
+    }
+    
+    .acciones {
+        flex-direction: column;
+        height: auto;
+        gap: 10px;
+    }
+    
+    .btn-aprobar, 
+    .btn-rechazar {
+        width: 100%;
+    }
+}
 
+@media (max-width: 576px) {
+    .contenedor-solicitud {
+        padding: 15px;
+    }
+    
     .documento-card {
-        font-size: 12px;
+        flex-direction: column;
+        gap: 10px;
+    }
+    
+    .documento-acciones {
+        margin-left: 0;
+        width: 100%;
+        justify-content: flex-end;
+    }
+    
+    input[type="date"],
+    input[type="time"] {
+        width: 100%;
+        margin-left: 0;
     }
 }

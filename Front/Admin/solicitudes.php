@@ -1,8 +1,8 @@
 <!DOCTYPE html>
 <html lang="es">
 <?php
-require_once '../verificarSesion.php';
-verificarAcceso(['Admin']);
+//require_once '../verificarSesion.php';
+//verificarAcceso(['Admin']);
 ?>
 
 <head>
@@ -18,6 +18,9 @@ verificarAcceso(['Admin']);
 </head>
 
 <body>
+    <button class="hamburger-btn">
+        <span class="material-icons">menu</span>
+    </button>
     <div class="contenedor-dashboard">
         <!-- Sidebar -->
         <aside class="sidebar">
@@ -73,7 +76,6 @@ verificarAcceso(['Admin']);
         <main class="contenido-principal">
             <h1>Solicitudes Pendientes</h1>
             <div id="contenedor-solicitudes">
-
             </div>
         </main>
     </div>

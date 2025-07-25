@@ -1,4 +1,4 @@
-const baseUrl = 'http://localhost:8888/Proyecto/BackEnd';
+const baseUrl = 'http://localhost/Proyecto/BackEnd';
 
 /**
  * apiRequest realiza una solicitud HTTP a la API PHP.
@@ -27,3 +27,22 @@ export async function apiRequest(endpoint, method = 'GET', body = null) {
     console.log(data);
     return data;
 }
+
+document.addEventListener('DOMContentLoaded', () => {
+    const hamburgerBtn = document.querySelector('.hamburger-btn');
+    const sidebar = document.querySelector('.sidebar');
+    
+    hamburgerBtn.addEventListener('click', () => {
+        sidebar.classList.toggle('mostrar');
+    });
+    
+    // Cerrar sidebar al hacer clic fuera de él
+    document.addEventListener('click', (e) => {
+        if (window.innerWidth <= 992 && 
+            !sidebar.contains(e.target) && 
+            e.target !== hamburgerBtn && 
+            !hamburgerBtn.contains(e.target)) {
+            sidebar.classList.remove('mostrar');
+        }
+    });
+});
