@@ -75,32 +75,6 @@
             return $telefonos;
         }
         
-/*
-            $consulta = "
-            SELECT * FROM Persona 
-            JOIN Usuario ON Persona.ID_Persona = Usuario.ID_Persona
-            WHERE Persona.ID_Persona = '$id';
-        ";
-        $resultado = mysqli_query($this->conn, $consulta); 
-        $fila = mysqli_fetch_assoc($resultado);
-        $telefonos = $this->getTelefonosPersona($fila['CI']);
-        $usuario = new Usuario(
-        $fila['CI'], 
-        $fila['Email'], 
-        $telefonos,
-        $fila['ID_Persona'], 
-        $fila['Nombre'], 
-        $fila['Apellido'], 
-        $fila['Contraseña'], 
-        $fila['Rol'],
-        $fila['Fecha_nacimiento'],
-        $fila['Fecha_ingreso'],
-        $fila['Foto']
-    
-        );
-
-        return $usuario;
-        */
         
 
 
@@ -225,9 +199,10 @@
         public function cargarAdmin($admin){
             $idPersona = $admin->getIdPersona();
             $nivelPermisos = $admin->getNivelPermisos();
+            $fechaIngreso = $admin->getFechaIngreso();
             $consulta = "
-                INSERT INTO Admin (ID_Persona, Nivel_permisos) 
-                VALUES ('$idPersona', '$nivelPermisos')
+                INSERT INTO Admin (ID_Persona, Nivel_permisos, Fecha_ingreso) 
+                VALUES ('$idPersona', '$nivelPermisos', '$fechaIngreso')
             ";
             mysqli_query($this->conn, $consulta);
         }
@@ -239,6 +214,43 @@
             mysqli_query($this->conn, $consulta);
         }
 
+        public function adminExisteID($id){
+            $consulta = "SELECT * FROM Admin WHERE ID_Persona = '$id'";
+            $resultado = mysqli_query($this->conn, $consulta);
+            if(mysqli_num_rows($resultado) > 0){
+                return true;
+            }else
+            {
+                return false;
+            }
+            
+        }
+
+        public function getDatosAdmin($id) {
+            $consulta = "
+                SELECT * FROM Persona 
+                JOIN Admin ON Persona.ID_Persona = Admin.ID_Persona
+                WHERE Persona.ID_Persona = '$id';
+            ";
+            $resultado = mysqli_query($this->conn, $consulta); 
+            $fila = mysqli_fetch_assoc($resultado);
+            $telefonos = $this->getTelefonosPersona($fila['CI']);
+            $admin = new Admin(
+            $fila['CI'], 
+            $fila['Email'], 
+            $telefonos,
+            $fila['ID_Persona'], 
+            $fila['Nombre'], 
+            $fila['Apellido'], 
+            $fila['Contraseña'], 
+            $fila['Rol'],
+            $fila['Nivel_permisos'],
+            $fila['Foto'],
+            $fila['Fecha_ingreso']
+            );
+
+        return $admin;
+        }
 
 
 

@@ -29,7 +29,10 @@ SET time_zone = "+00:00";
 
 CREATE TABLE `Admin` (
   `ID_Persona` int NOT NULL,
-  `Nivel_permisos` enum('Operador','Admin') DEFAULT NULL
+  `Nivel_permisos` enum('Operador','Admin') DEFAULT NULL,
+  `Foto` varchar(100) DEFAULT NULL,
+  `Fecha_ingreso` date DEFAULT NULL
+
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 -- --------------------------------------------------------

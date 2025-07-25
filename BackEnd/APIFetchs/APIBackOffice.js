@@ -32,3 +32,11 @@ export function aprobarInteresado(data) {
 export function asignarEntrevista(data) {
     return apiRequest('/APIBackOffice/ApiBackOffice.php?accion=asignarEntrevista', 'POST', data);
 }
+
+export function getAdmin(id){
+    return apiRequest(`/APIBackOffice/ApiBackOffice.php?accion=getAdmin&id=` + id, 'GET');
+}
+
+export function getIdSesion(){
+    return apiRequest(`/APIBackOffice/ApiBackOffice.php?accion=getIdSesion`, "GET");
+}
