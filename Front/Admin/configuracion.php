@@ -53,19 +53,17 @@
             </nav>
 
             <div class="perfil-usuario">
-                <a href="configuracion.php">
-                    <div class="info-usuario">
-                        <img src="../../Fotos/account-admin.webp" alt="Foto perfil">
-                        <div>
-                            <p class="nombre-usuario">Nombre Admin</p>
-                            <p class="rol-usuario">Administrador</p>
-                        </div>
+                <div class="info-usuario">
+                    <img src="https://via.placeholder.com/40" alt="Foto perfil" class="fotoPerfil">
+                    <div>
+                        <p class="nombre-usuario nombreAdmin">Admin User</p>
+                        <p class="rol-usuario" id="rolAdmin">Administrador</p>
                     </div>
-                </a>
+                </div>
                 <form action="../cerrarSesion.php">
-                <button class="boton-cerrar-sesion">
-                    <i class="material-icons">logout</i> Cerrar sesión
-                </button>
+                    <button class="boton-cerrar-sesion">
+                        <i class="material-icons">logout</i> Cerrar sesión
+                    </button>
                 </form>
             </div>
         </aside>
@@ -143,6 +141,7 @@
             </div>
         </main>
     </div>
-    <script src="../Javascript/admin.js" type="module"></script>
+    <script src="../Javascript/BackOffice/perfil.js" type="module"></script>
+
 </body>
 </html>

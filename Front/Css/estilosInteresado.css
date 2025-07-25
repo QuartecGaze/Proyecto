@@ -140,9 +140,14 @@ h2 {
     margin-top: 5px;
 }
 
-.upload-section.has-file {
+.upload-section.tiene-archivo {
     background-color: #e8f5e9;
     border: 1px solid #4caf50;
+}
+
+.upload-section.inputAprobado, .upload-section.inputPendiente{
+    background-color: #27ae5fa8;
+    pointer-events: none;
 }
 
 .file-info {

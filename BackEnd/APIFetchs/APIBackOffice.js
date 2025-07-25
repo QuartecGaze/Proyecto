@@ -8,7 +8,6 @@ export function Interesados() {
     return apiRequest('/APIBackOffice/ApiBackOffice.php?accion=Interesados', 'GET');
 }
 
-
 export function aprobarEstado(data) {
     return apiRequest('/APIBackOffice/ApiBackOffice.php?accion=aprobarEstado', 'POST', data);
 }
@@ -31,4 +30,12 @@ export function aprobarInteresado(data) {
 
 export function asignarEntrevista(data) {
     return apiRequest('/APIBackOffice/ApiBackOffice.php?accion=asignarEntrevista', 'POST', data);
+}
+
+export function getAdmin(id){
+    return apiRequest(`/APIBackOffice/ApiBackOffice.php?accion=getAdmin&id=` + id, 'GET');
+}
+
+export function getIdSesion(){
+    return apiRequest(`/APIBackOffice/ApiBackOffice.php?accion=getIdSesion`, "GET");
 }

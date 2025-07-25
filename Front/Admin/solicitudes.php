@@ -58,10 +58,10 @@
 
             <div class="perfil-usuario">
                 <div class="info-usuario">
-                    <img src="https://via.placeholder.com/40" alt="Foto perfil">
+                    <img src="https://via.placeholder.com/40" alt="Foto perfil" class="fotoPerfil">
                     <div>
-                        <p class="nombre-usuario">Admin User</p>
-                        <p class="rol-usuario">Administrador</p>
+                        <p class="nombre-usuario nombreAdmin">Admin User</p>
+                        <p class="rol-usuario" id="rolAdmin">Administrador</p>
                     </div>
                 </div>
                 <form action="../cerrarSesion.php">
@@ -98,7 +98,8 @@
             </div>
         </div>
     </div>
-    <script src="../Javascript/admin.js" type="module"></script>
+    <script src="../Javascript/BackOffice/generalidades.js" type="module"></script>
+    <script src="../Javascript/BackOffice/solicitudes.js" type="module"></script>
 </body>
 
 </html>

@@ -57,8 +57,8 @@
                     <div class="info-usuario">
                     <img src="../../Fotos/account-admin.webp" alt="Foto perfil">
                     <div>
-                        <p class="nombre-usuario">Nombre Admin</p>
-                        <p class="rol-usuario">Administrador</p>
+                        <p class="nombre-usuario nombreAdmin">Nombre Admin</p>
+                        <p class="rol-usuario" id="rolAdmin">Administrador</p>
                     </div>
                 </div>
                 </a>
@@ -72,7 +72,7 @@
 
         <main class="contenido-principal">
             <header class="header-principal">
-                <h1>Bienvenido, <span class="nombre-usuario-destacado">Nombre Admin</span></h1>
+                <h1>Bienvenido, <span class="nombre-usuario-destacado nombreAdmin">Nombre Admin</span></h1>
                 <p>Aquí puedes gestionar todas tus actividades en la cooperativa</p>
             </header>
 
@@ -191,7 +191,8 @@
             </div>
         </main>
     </div>
-    <script src="../Javascript/admin.js" type="module"></script>
+    
+    <script src="../Javascript/BackOffice/generalidades.js" type="module"></script>
 </body>
 
 </html>

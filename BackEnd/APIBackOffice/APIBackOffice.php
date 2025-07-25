@@ -134,6 +134,43 @@
                 $interesados = $servicio->getInteresados();
                 respuesta($interesados, "exito", 200);
             }
+
+            if($accion === "getAdmin"){
+                $id = $_GET['id'];
+                if($id != null){
+                    try{
+                    $admin = $servicio->getAdmin($id);
+                    $respuesta = [
+                    'ci' => $admin->getCi(),
+                    'email' => $admin->getEmail(),
+                    'telefono' => $admin->getTelefono(),
+                    'idPersona' => $admin->getIdPersona(),
+                    'nombre' => $admin->getNombre(),
+                    'apellido' => $admin->getApellido(),
+                    'nivelPermisos' => $admin->getNivelPermisos(),
+                    'foto' => $admin->getFoto(),
+                    'fechaIngreso' => $admin->getFechaIngreso()
+                    ];
+                        respuesta($respuesta, "exito", 200);
+                    }
+                    catch(Exception $e) {
+                    respuesta($e->getMessage(), "error", $e->getCode());
+                }
+
+            } else{
+                respuesta("No se encontro una id para buscar", "error", 0);
+            }
+        }
+
+            if($accion == "getIdSesion"){
+                session_start();
+                if(isset($_SESSION['id'])){
+                    respuesta($_SESSION['id'], "exito", 200);
+                } else {
+                    respuesta("No se ha encontrado una variable de sesion", "error", 404);
+                }
+            }
+
         break;
 
         default:
