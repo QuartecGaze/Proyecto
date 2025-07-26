@@ -54,19 +54,19 @@
             }
         }
 
-        //HACER QUE SE BORRE FOTO ANTERIOR
         public function subirFoto($nombreArchivo, $nombreTemp){
                 session_start();
-                $rutaFotosPerfil = "../../Fotos/FotosPerfil/";
+                $rutaFotosPerfil = "../../Recursos/FotosPerfil/";
                 $extension = pathinfo($nombreArchivo, PATHINFO_EXTENSION);
-                $nuevaFoto =  $_SESSION['id'] . '.' . $extension;
-                $nuevaRuta = $rutaFotosPerfil . $nuevaFoto;
-                $crearFoto = false;
-                $archivoExiste = glob( $rutaFotosPerfil . $_SESSION['id'] . '.*');
+                $nuevoNombre =  $_SESSION['id'] . '.' . $extension;
+                $nuevaRuta = $rutaFotosPerfil . $nuevoNombre;
+                $nombre = $this->repositorio->getFoto($_SESSION['id']);
+                $archivoExiste = glob( $rutaFotosPerfil . $nombre . '.*');//usar el que traiga de la bd
                 if (count($archivoExiste) > 0) {
-                    throw new Exception("Ya existe un archivo con el mismo nombre en el sistema", 500);
+                    $this->repositorio->borrarFoto($_SESSION['id']);
                 } else{
                    if(move_uploaded_file($nombreTemp, $nuevaRuta)){
+                    $this->repositorio->subirFoto($nuevoNombre, $_SESSION['id']);
                     return(true);
                 } else{
                     throw new Exception("No se pudo cargar el archivo", 500);
@@ -80,13 +80,14 @@
                 session_start();
                 $rutaComprobantes = "../../Recursos/Comprobantes/";
                 $extension = pathinfo($nombreArchivo, PATHINFO_EXTENSION);
-                $nuevaRuta = $rutaComprobantes . $nombreArchivo;
+                $nuevoNombre =  $_SESSION['id'] . '.' . $extension;
+                $nuevaRuta = $rutaComprobantes . $nuevoNombre;
                 $archivoExiste = glob($nuevaRuta);
                 if (count($archivoExiste) > 0) {
                     throw new Exception("Ya existe un archivo con el mismo nombre en el sistema", 500);
                 } else{
                    if(move_uploaded_file($nombreTemp, $nuevaRuta)){
-                    $this->repositorio->subirComprobante($nombreArchivo, $_SESSION['id']);
+                    $this->repositorio->subirComprobante($nuevoNombre, $_SESSION['id']);
                     return(true);
                 } else{
                     throw new Exception("No se pudo cargar el archivo", 500);
@@ -98,13 +99,14 @@
                 session_start();
                 $rutaAntecedentes = "../../Recursos/Antecedentes/";
                 $extension = pathinfo($nombreArchivo, PATHINFO_EXTENSION);
-                $nuevaRuta = $rutaAntecedentes . $nombreArchivo;
+                $nuevoNombre =  $_SESSION['id'] . '.' . $extension;
+                $nuevaRuta = $rutaAntecedentes . $nuevoNombre;
                 $archivoExiste = glob($nuevaRuta);
                 if (count($archivoExiste) > 0) {
                     throw new Exception("Ya existe un archivo con el mismo nombre en el sistema", 500);
                 } else{
                    if(move_uploaded_file($nombreTemp, $nuevaRuta)){
-                    $this->repositorio->subirAntecedentes($nombreArchivo, $_SESSION['id']);
+                    $this->repositorio->subirAntecedentes($nuevoNombre, $_SESSION['id']);
                     return(true);
                 } else{
                     throw new Exception("No se pudo cargar el archivo", 500);

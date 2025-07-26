@@ -47,3 +47,7 @@ export function getIdSesion(){
 export function contarInteresados(){
     return apiRequest(`/APIBackOffice/ApiBackOffice.php?accion=contarInteresados`, "GET");
 }
+
+export function subirFoto(foto){
+    return apiRequest('/APIBackOffice/ApiBackOffice.php?accion=subirFoto', 'POST', foto);
+}

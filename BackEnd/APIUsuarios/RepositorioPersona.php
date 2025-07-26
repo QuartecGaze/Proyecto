@@ -129,6 +129,9 @@
         mysqli_query($this->conn, $consulta);
         }
 
+       
+
+
 
 
 
@@ -137,14 +140,39 @@
         
         //CRUD Usuario
 
-        public function cargarFotoUsuario($id, $foto){
-            $consulta = "
-            INSERT INTO Usuario WHERE ID_Persona=$id (Foto) 
-            VALUES ('$foto')
-
+        public function subirFoto($nombre, $id) {
+        $consulta = "
+            UPDATE Usuario
+            SET Foto = '$nombre'
+            WHERE ID_Persona = $id
         ";
         mysqli_query($this->conn, $consulta);
         }
+
+        public function getFoto($id) {
+            $consulta = "
+                SELECT Foto FROM Usuario
+                WHERE ID_Persona = $id
+            ";
+
+            $resultado = mysqli_query($this->conn, $consulta);
+            if ($resultado && mysqli_num_rows($resultado) > 0) {
+                $fila = mysqli_fetch_assoc($resultado);
+                return $fila['Foto'] === null ? null : $fila['Foto']; //verifica que la foto no sea null, porque en la bd se carga como default null
+            }
+            return null;
+        }
+
+        public function borrarFoto($id) {
+            $consulta = "
+                UPDATE Usuario
+                SET Foto = NULL
+                WHERE ID_Persona = $id
+            ";
+            return mysqli_query($this->conn, $consulta);
+        }
+
+
 
         public function cargarFechaNacimientoUsuario($id, $fechaNacimiento){
             $consulta = "

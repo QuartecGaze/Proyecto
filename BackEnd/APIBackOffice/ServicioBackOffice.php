@@ -115,7 +115,26 @@
             return $interesadoArrayAsociativo;
         }
 
-
+        public function subirFoto($nombreArchivo, $nombreTemp){
+                session_start();
+                $rutaFotosPerfil = "../../Recursos/FotosPerfil/";
+                $extension = pathinfo($nombreArchivo, PATHINFO_EXTENSION);
+                $nuevoNombre =  $_SESSION['id'] . '.' . $extension;
+                $nuevaRuta = $rutaFotosPerfil . $nuevoNombre;
+                $nombreviejo = $this->repositorio->getFoto($_SESSION['id']);
+                $extensionviejo = pathinfo($nombreviejo, PATHINFO_EXTENSION);
+                $archivoExiste = glob( $rutaFotosPerfil . $nombreviejo . $extensionviejo);//usar el que traiga de la bd
+                if (count($archivoExiste) > 0) {
+                    $this->repositorio->borrarFoto($_SESSION['id']);
+                } else{
+                   if(move_uploaded_file($nombreTemp, $nuevaRuta)){
+                    $this->repositorio->subirFoto($nuevoNombre, $_SESSION['id']);
+                    return(true);
+                } else{
+                    throw new Exception("No se pudo cargar el archivo", 500);
+                }
+            }
+        }
 
 
     }
