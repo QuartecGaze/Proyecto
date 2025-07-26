@@ -1,8 +1,8 @@
 <!DOCTYPE html>
 <html lang="es">
 <?php
-//require_once '../verificarSesion.php';
-//verificarAcceso(['Admin']);
+require_once '../verificarSesion.php';
+verificarAcceso(['Admin']);
 ?>
 
 <head>
