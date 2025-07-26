@@ -43,12 +43,17 @@ function setDatos(data) {
     fileInfoPago.classList.remove('tiene-archivo');
     fileInfoAntecedentes.classList.remove('tiene-archivo');
 
-    fileInfoPago.parentElement.classList.add("input" + data.message.estadoPagoInicial);
-    fileInfoAntecedentes.parentElement.classList.add("input" + data.message.estadoAntecedentes);
-
-    if(estado.message.pagoInicial == "Aprobado" || estado.message.pagoInicial == "Pendiente"){
-        fileInfoPago.textContent = "Comprobante subido";
+    if(data.message.estadoPagoInicial != "En espera"){
+        fileInfoPago.parentElement.classList.add("cargado");
+        fileInfoPago.textContent = "Archivo ya cargado";
+        comprobanteBtn.style.display = "none";
     }
+    if(data.message.estadoAntecedentes != "En espera"){
+          fileInfoAntecedentes.parentElement.classList.add("cargado");
+          fileInfoAntecedentes.textContent = "Archivo ya cargado";
+          antecedentesBtn.style.display = "none";
+    }
+    
 
     document.getElementById("fechaEntrevista").textContent = `Fecha: ${fecha} a las ${hora}`;
     document.getElementById("montoPago").textContent = `Monto a abonar: $${monto}`;
@@ -85,9 +90,9 @@ antecedentesBtn.addEventListener("click", async function (){
         const antecedentes = inputAntecedentes.files[0];
         const formData = new FormData();
         formData.append('antecedentes', antecedentes);
-        subirAntecedentes(formData)
-        if(respuesta.status = "exito"){
-            
+        const data = subirAntecedentes(formData);
+        if(data.status = "exito"){
+            fileInfoAntecedentes.parentElement.classList.add("cargado");
         }
     } );
 
@@ -95,26 +100,20 @@ antecedentesBtn.addEventListener("click", async function (){
         const comprobante = inputComprobante.files[0];
         const formData = new FormData();
         formData.append('comprobante', comprobante);
-        subirComprobante(formData)
-        if(respuesta.status = "exito"){
-            
+        const data = subirComprobante(formData)
+        if(data.status = "exito"){
+            fileInfoPago.parentElement.classList.add("cargado");
         }
     } );
 
     
 ///////////////////////////////////
-
-
-
-
-     inputAntecedentes.addEventListener('change', function (e) {
+    inputAntecedentes.addEventListener('change', function (e) {
         if (this.files.length > 0) {
             fileInfoAntecedentes.textContent = this.files[0].name;
             fileInfoAntecedentes.parentElement.classList.add('tiene-archivo');
         }
     });
-
-
     inputComprobante.addEventListener('change', function (e) {
         if (this.files.length > 0) {
             fileInfoPago.textContent = this.files[0].name;
