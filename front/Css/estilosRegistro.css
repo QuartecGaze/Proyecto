@@ -79,8 +79,15 @@ body {
 }
 
 @keyframes fadeIn {
-    from { opacity: 0; transform: translateY(-10px); }
-    to { opacity: 1; transform: translateY(0); }
+    from {
+        opacity: 0;
+        transform: translateY(-10px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
 }
 
 /* Formulario */
@@ -180,7 +187,7 @@ body {
 
 .fieldInfo input[type="password"],
 .fieldInfo input[type="text"] {
-    padding-right: 40px; 
+    padding-right: 40px;
 }
 
 
@@ -200,7 +207,7 @@ body {
 
 .btnRegistro:hover {
     transform: translateY(-2px);
-    box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 }
 
 .login-link {
@@ -219,6 +226,70 @@ body {
 
 .login-link a:hover {
     text-decoration: underline;
+}
+
+.infoSide {
+    height: 88%;
+    background-color: #2F2F3F;
+    border-radius: 0 10px 10px 0;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding: 2rem;
+    color: white;
+    text-align: center;
+    background-image: linear-gradient(rgba(47, 47, 63, 0.9), rgba(47, 47, 63, 0.9)),
+        url('../../Fotos/Foto-Registro.webp');
+    background-size: cover;
+    background-position: center;
+}
+
+.contenidoInfo {
+    max-width: 80%;
+}
+
+.infoSide h2 {
+    font-size: 1.8rem;
+    margin-bottom: 1.5rem;
+    color: var(--secundario);
+}
+
+.textoInfo {
+    margin-bottom: 2rem;
+    font-size: 1.1rem;
+    line-height: 1.6;
+}
+
+.beneficios {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 1.5rem;
+    margin-top: 2rem;
+}
+
+.beneficiosItem {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.5rem;
+    min-width: 120px;
+    transition: transform 0.3s ease;
+}
+
+.beneficiosItem:hover {
+    transform: translateY(-5px);
+}
+
+.beneficiosItem .material-icons {
+    font-size: 2.5rem;
+    color: var(--secundario);
+}
+
+.beneficiosItem p {
+    font-size: 0.9rem;
+    text-align: center;
 }
 
 /* Footer */
@@ -246,16 +317,19 @@ body {
         max-width: 95%;
         margin: 1rem auto;
         gap: 1rem;
+        he
     }
 
     .divForm {
         border-radius: 15px;
         margin-bottom: 2rem;
         padding: 1.5rem;
+        height: 100%;
     }
 
     .infoSide {
-        display: none; /* Oculto el sidebar */
+        display: none;
+        /* Oculto el sidebar */
     }
 
     .divForm h1 {
@@ -280,7 +354,7 @@ body {
     .footer-registro {
         margin-top: 3rem;
         padding: 1rem;
-        
+
     }
 }
 
@@ -299,6 +373,7 @@ body {
 
     .divForm {
         padding: 1.2rem;
+        height: 100%;
     }
 
     .divForm h1 {
@@ -325,14 +400,14 @@ body {
         display: flex;
         align-items: center;
     }
-    
+
     .toggle-password {
         position: static;
         transform: none;
         margin-left: -35px;
         z-index: 1;
     }
-    
+
     .fieldInfo input[type="password"],
     .fieldInfo input[type="text"] {
         padding-right: 35px;
