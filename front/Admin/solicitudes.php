@@ -111,7 +111,7 @@ verificarAcceso(['Admin']);
                     <i class="material-icons">arrow_back</i> Cancelar
                 </button>
                 <button class="btn-confirmar-pago">
-                    <i class="material-icons">delete_forever</i> Confirmar Rechazo
+                    <i class="material-icons">check_circle</i> Confirmar Monto
                 </button>
             </div>
         </div>

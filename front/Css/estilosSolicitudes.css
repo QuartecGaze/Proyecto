@@ -304,7 +304,8 @@ strong {
 }
 
 /* Botones */
-.btn-asignar-entrevista, .btn-asignar-pago-inicial{
+.btn-asignar-entrevista,
+.btn-asignar-pago-inicial {
     background-color: var(--color-secundario);
     color: white;
     border: none;
@@ -320,7 +321,8 @@ strong {
     transition: all 0.3s;
 }
 
-.btn-asignar-entrevista:hover, .btn-asignar-pago-inicial:hover{
+.btn-asignar-entrevista:hover,
+.btn-asignar-pago-inicial:hover {
     background-color: #2980b9;
     transform: translateY(-2px);
 }
@@ -333,7 +335,8 @@ strong {
     margin: 20px 0;
 }
 
-.btn-aprobar, .btn-rechazar {
+.btn-aprobar,
+.btn-rechazar {
     color: white;
     border: none;
     padding: 10px 25px;
@@ -354,7 +357,8 @@ strong {
     background-color: var(--color-alerta);
 }
 
-.btn-aprobar:hover, .btn-rechazar:hover {
+.btn-aprobar:hover,
+.btn-rechazar:hover {
     transform: translateY(-3px);
 }
 
@@ -410,7 +414,8 @@ strong {
 }
 
 /* Inputs */
-input[type="date"], input[type="time"] {
+input[type="date"],
+input[type="time"] {
     background-color: var(--color-secundario);
     padding: 10px;
     color: white;
@@ -541,11 +546,10 @@ input[type="time"] {
 }
 
 .modal-monto {
-    background-color: white;
+    background-color: rgba(0, 0, 0, 0.5);
     padding: 25px;
     border-radius: 10px;
-    width: 90%;
-    max-width: 400px;
+    width: 100%;
     box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
 }
 
@@ -568,6 +572,31 @@ input[type="time"] {
     gap: 5px;
 }
 
+.modal-contenido input {
+    background-color: rgb(229, 229, 229);
+    padding: 6px;
+    margin: 4px;
+    transition: all 0.3s;
+    border: 2px solid var(--borde);
+    border-radius: 8px;
+}
+
+.modal-contenido input:focus {
+    border-color: var(--fondo-blanco);
+    outline: none;
+    box-shadow: 0 0 0 2px rgba(0, 145, 207, 0.271);
+}
+
+.modal-contenido input:focus-visible {
+    border: ;
+}
+
+input[type="number"]::-webkit-outer-spin-button,
+input[type="number"]::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+}
+
 .btn-cancelar {
     background-color: var(--color-borde);
     border: none;
@@ -575,6 +604,17 @@ input[type="time"] {
 
 .btn-confirmar-rechazo {
     background-color: var(--color-alerta);
+    color: white;
+    border: none;
+}
+
+.btn-cancelar-pago {
+    background-color: var(--color-borde);
+    border: none;
+}
+
+.btn-confirmar-pago {
+    background-color: var(--color-exito);
     color: white;
     border: none;
 }
@@ -620,7 +660,7 @@ input[type="time"] {
     border-radius: 5px;
     padding: 10px;
     cursor: pointer;
-    box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
 }
 
 /* Media Queries */
@@ -630,24 +670,24 @@ input[type="time"] {
         transition: transform 0.3s ease;
         z-index: 100;
     }
-    
+
     .sidebar.mostrar {
         transform: translateX(0);
     }
-    
+
     .hamburger-btn {
         display: block;
     }
-    
+
     .contenido-principal {
         margin-left: 0;
         width: 100%;
     }
-    
+
     .contenedor-solicitud {
         grid-template-columns: 1fr;
     }
-    
+
     .contador {
         display: none;
     }
@@ -658,24 +698,24 @@ input[type="time"] {
         grid-template-columns: 1fr;
         gap: 15px;
     }
-    
+
     .solicitud-header {
         flex-direction: column;
         align-items: flex-start;
         gap: 15px;
     }
-    
+
     .btn-solicitud {
         width: 100%;
     }
-    
+
     .acciones {
         flex-direction: column;
         height: auto;
         gap: 10px;
     }
-    
-    .btn-aprobar, 
+
+    .btn-aprobar,
     .btn-rechazar {
         width: 100%;
     }
@@ -685,18 +725,18 @@ input[type="time"] {
     .contenedor-solicitud {
         padding: 15px;
     }
-    
+
     .documento-card {
         flex-direction: column;
         gap: 10px;
     }
-    
+
     .documento-acciones {
         margin-left: 0;
         width: 100%;
         justify-content: flex-end;
     }
-    
+
     input[type="date"],
     input[type="time"] {
         width: 100%;

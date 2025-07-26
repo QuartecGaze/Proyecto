@@ -35,7 +35,19 @@
         }
     })
 
-
+    togglePassword.forEach(toggle => {
+        toggle.addEventListener("click", () => {
+            const input = toggle.previousElementSibling;
+            
+            if (input.type === "password") {
+                input.type = "text";
+                toggle.textContent = "visibility_off";
+            } else {
+                input.type = "password";
+                toggle.textContent = "visibility";
+            }
+        });
+    });
    
     //CONSEGUIR EL IDIOMA YA ASIGNADO
     const data = await getIdioma("login");
