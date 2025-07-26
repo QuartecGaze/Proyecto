@@ -85,7 +85,7 @@
             </div>
             
             <!-- Nueva sección de métodos de pago -->
-            <div class="metodos-pago">
+            <div id="metodos-pago">
                 <h3>Métodos de pago disponibles:</h3>
                 <div class="metodos-container">
                     <div class="metodo">

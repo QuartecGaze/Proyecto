@@ -10,6 +10,7 @@ const inputComprobante = document.getElementById("file-pago");
 const inputAntecedentes = document.getElementById("file-antecedentes");
 const fileInfoPago = document.getElementById('file-info-pago');
 const fileInfoAntecedentes = document.getElementById('file-info-antecedentes');
+const metodosPago = document.getElementById('metodos-pago')
 import { getIdSesion } from '../../BackEnd/APIFetchs/APIUsuario.js';
 import { getInteresado } from '../../BackEnd/APIFetchs/APIUsuario.js';
 import { subirAntecedentes } from '../../BackEnd/APIFetchs/APIUsuario.js';
@@ -52,6 +53,13 @@ function setDatos(data) {
           fileInfoAntecedentes.parentElement.classList.add("cargado");
           fileInfoAntecedentes.textContent = "Archivo ya cargado";
           antecedentesBtn.style.display = "none";
+    }
+
+    if(monto == ""){
+        metodosPago.style.display = "none";
+        comprobanteBtn.style.display = "none";
+        fileInfoPago.parentElement.classList.add("espera");
+        fileInfoPago.textContent = "Monto aun no asignado, espere a que un administrador se lo asigne";
     }
     
 

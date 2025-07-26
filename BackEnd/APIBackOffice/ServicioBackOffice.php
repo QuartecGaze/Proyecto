@@ -68,7 +68,6 @@
 
         public function asignarPagoInicial($idPersona, $montoPagoInicial){
             $this->repositorio->setMontoPagoInicial($idPersona, $montoPagoInicial);
-            $this->repositorio->revisarEstado($idPersona, "Estado_pago_inicial", "Pendiente");
         }
 
         public function asignarEntrevista($idPersona, $fechaEntrevista, $horaEntrevista){
