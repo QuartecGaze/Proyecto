@@ -83,6 +83,21 @@
                 <div class="file-info" id="file-info-pago">Ningún archivo seleccionado</div>
                 <input type="file" id="file-pago" accept=".pdf,.jpg,.jpeg,.png" style="display: none;">
             </div>
+            
+            <!-- Nueva sección de métodos de pago -->
+            <div class="metodos-pago">
+                <h3>Métodos de pago disponibles:</h3>
+                <div class="metodos-container">
+                    <div class="metodo">
+                        <img src="https://upload.wikimedia.org/wikipedia/commons/b/b5/PayPal.svg" alt="PayPal" class="logo-pago">
+                        <p>PayPal: pagos@senda-firme.com</p>
+                    </div>
+                    <div class="metodo">
+                        <img src="../../Fotos/BROU.webp" alt="BROU" class="logo-pago">
+                        <p>Transferencia BROU: 123456789-12345</p>
+                    </div>
+                </div>
+            </div>
         </div>
         <div class="acciones">
             <button class="btn-aprobar" id="comprobante">
