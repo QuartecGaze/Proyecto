@@ -23,6 +23,13 @@
                 </a>
                 <span>Senda Firme</span>
             </div>
+            <div class="cerrar-sesion">
+                <form action="../cerrarSesion.php">
+                    <button class="boton-cerrar-sesion">
+                        <i class="material-icons">logout</i> Cerrar sesión
+                    </button>
+                </form> 
+            </div>
         </div>
     </header>
 

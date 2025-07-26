@@ -203,3 +203,28 @@ h2 {
     border-radius: 5px;
     box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
 }
+
+.boton-cerrar-sesion {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: none;
+    width: 100%;
+    padding: 8px;
+    background-color: var(--color-fondo-claro);
+    border-radius: 4px;
+    color: var(--color-texto);
+    cursor: pointer;
+    transition: all 0.3s ease;
+    box-shadow: rgba(0, 0, 0, 0.167) 0px 5px 15px;
+    color: #005275;
+}
+
+.boton-cerrar-sesion:hover {
+    background-color: white;
+    box-shadow: rgba(17, 12, 46, 0.15) 0px 48px 100px 0px;
+}
+
+.boton-cerrar-sesion i {
+    margin-right: 5px;
+}
