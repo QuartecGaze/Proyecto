@@ -54,23 +54,26 @@
             }
         }
 
-        //HACER QUE SE BORRE FOTO ANTERIOR
-        public function subirFoto($nombreArchivo, $nombreTemp){
-                session_start();
-                $rutaFotosPerfil = "../../Fotos/FotosPerfil/";
-                $extension = pathinfo($nombreArchivo, PATHINFO_EXTENSION);
-                $nuevaFoto =  $_SESSION['id'] . '.' . $extension;
-                $nuevaRuta = $rutaFotosPerfil . $nuevaFoto;
-                $crearFoto = false;
-                $archivoExiste = glob( $rutaFotosPerfil . $_SESSION['id'] . '.*');
-                if (count($archivoExiste) > 0) {
-                    throw new Exception("Ya existe un archivo con el mismo nombre en el sistema", 500);
-                } else{
-                   if(move_uploaded_file($nombreTemp, $nuevaRuta)){
-                    return(true);
-                } else{
-                    throw new Exception("No se pudo cargar el archivo", 500);
-                }
+        public function subirFoto($nombreArchivo, $nombreTemp) {
+            session_start();
+            $rutaCarpeta = "../../Recursos/FotosPerfil/";
+            $extension = pathinfo($nombreArchivo, PATHINFO_EXTENSION);
+            $nuevoNombre = $_SESSION['id'] . '.' . $extension;
+            $rutaFoto = $rutaCarpeta . $nuevoNombre;
+            $nombreViejo = $this->repositorio->getFoto($_SESSION['id']);
+            $rutaFotoVieja = $rutaCarpeta . $nombreViejo;
+            //Opcional a futuro, podriamos agregar algo que verifique las extensiones para que no nos suban cualquier cosa y 
+            //sobrecarguen el servidor ademas de verificador de tama;o o pixeles para que no sean muy pesados los archivos
+            if (!empty($nombreViejo) && file_exists($rutaFotoVieja)) {
+                unlink($rutaFotoVieja);
+                $this->repositorio->borrarFoto($_SESSION['id']);
+            }
+
+            if (move_uploaded_file($nombreTemp, $rutaFoto)) {
+                $this->repositorio->subirFoto($_SESSION['id'], $nuevoNombre);
+                return true;
+            } else {
+                throw new Exception("No se pudo cargar el archivo", 500);
             }
         }
 
@@ -80,13 +83,14 @@
                 session_start();
                 $rutaComprobantes = "../../Recursos/Comprobantes/";
                 $extension = pathinfo($nombreArchivo, PATHINFO_EXTENSION);
-                $nuevaRuta = $rutaComprobantes . $nombreArchivo;
+                $nuevoNombre =  $_SESSION['id'] . '.' . $extension;
+                $nuevaRuta = $rutaComprobantes . $nuevoNombre;
                 $archivoExiste = glob($nuevaRuta);
                 if (count($archivoExiste) > 0) {
                     throw new Exception("Ya existe un archivo con el mismo nombre en el sistema", 500);
                 } else{
                    if(move_uploaded_file($nombreTemp, $nuevaRuta)){
-                    $this->repositorio->subirComprobante($nombreArchivo, $_SESSION['id']);
+                    $this->repositorio->subirComprobante($nuevoNombre, $_SESSION['id']);
                     return(true);
                 } else{
                     throw new Exception("No se pudo cargar el archivo", 500);
@@ -98,13 +102,14 @@
                 session_start();
                 $rutaAntecedentes = "../../Recursos/Antecedentes/";
                 $extension = pathinfo($nombreArchivo, PATHINFO_EXTENSION);
-                $nuevaRuta = $rutaAntecedentes . $nombreArchivo;
+                $nuevoNombre =  $_SESSION['id'] . '.' . $extension;
+                $nuevaRuta = $rutaAntecedentes . $nuevoNombre;
                 $archivoExiste = glob($nuevaRuta);
                 if (count($archivoExiste) > 0) {
                     throw new Exception("Ya existe un archivo con el mismo nombre en el sistema", 500);
                 } else{
                    if(move_uploaded_file($nombreTemp, $nuevaRuta)){
-                    $this->repositorio->subirAntecedentes($nombreArchivo, $_SESSION['id']);
+                    $this->repositorio->subirAntecedentes($nuevoNombre, $_SESSION['id']);
                     return(true);
                 } else{
                     throw new Exception("No se pudo cargar el archivo", 500);

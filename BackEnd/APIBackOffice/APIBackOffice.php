@@ -96,7 +96,23 @@
                 $servicio->cargarUsuario($datos['idPersona']);
                 respuesta("Interesado aprobado exitosamente", "exito", 200);
             }
-
+            
+            if ($accion === "subirFoto"){
+                if(!isset($_FILES['foto'])){
+                    respuesta("debe cargar un archivo", "error", 400);
+                }
+                $nombreArchivo = $_FILES['foto']['name'];
+                $nombreTemp = $_FILES['foto']['tmp_name'];
+                try{
+               if($servicio->subirFoto($nombreArchivo, $nombreTemp)){
+                    respuesta("archivo cargado correctamente", "exito", 200);
+               }else{
+                    respuesta("error al cargar al archivo", "error", 400);
+               }
+                }catch(Exception $e){
+                    respuesta($e->getMessage(), "error", $e->getCode());
+            }
+            }
 
 
         break;

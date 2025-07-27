@@ -115,7 +115,28 @@
             return $interesadoArrayAsociativo;
         }
 
+        public function subirFoto($nombreArchivo, $nombreTemp) {
+            session_start();
+            $rutaCarpeta = "../../Recursos/FotosPerfil/";
+            $extension = pathinfo($nombreArchivo, PATHINFO_EXTENSION);
+            $nuevoNombre = $_SESSION['id'] . '.' . $extension;
+            $rutaFoto = $rutaCarpeta . $nuevoNombre;
+            $nombreViejo = $this->repositorio->getFoto($_SESSION['id']);
+            $rutaFotoVieja = $rutaCarpeta . $nombreViejo;
+            //Opcional a futuro, podriamos agregar algo que verifique las extensiones para que no nos suban cualquier cosa y 
+            //sobrecarguen el servidor ademas de verificador de tama;o o pixeles para que no sean muy pesados los archivos
+            if (!empty($nombreViejo) && file_exists($rutaFotoVieja)) {
+                unlink($rutaFotoVieja);
+                $this->repositorio->borrarFoto($_SESSION['id']);
+            }
 
+            if (move_uploaded_file($nombreTemp, $rutaFoto)) {
+                $this->repositorio->subirFoto($_SESSION['id'], $nuevoNombre);
+                return true;
+            } else {
+                throw new Exception("No se pudo cargar el archivo", 500);
+            }
+        }
 
 
     }

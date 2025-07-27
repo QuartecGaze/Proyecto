@@ -4,7 +4,7 @@ import { getIdSesion } from '../../../BackEnd/APIFetchs/APIBackOffice.js';
 const nombre = document.querySelectorAll(".nombreAdmin");
 const foto = document.querySelectorAll(".fotoPerfil");
 const rol = document.getElementById("rolAdmin");
-const fotoruta = "../../Recursos/FotosDePerfil/";
+const fotoruta = "../../Recursos/FotosPerfil/";
 const idSesion = await getIdSesion();
 const data = await getAdmin(idSesion.message);
 setDatos(data.message);

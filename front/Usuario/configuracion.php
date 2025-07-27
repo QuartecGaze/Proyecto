@@ -77,7 +77,8 @@
                 <section class="seccion-info-personal">
                     <div class="foto-perfil-container">
                         <img src="https://via.placeholder.com/150" alt="Foto de perfil" class="foto-perfil fotoPerfil">
-                        <button class="boton-cambiar-foto">
+                        <button class="boton-cambiar-foto" onclick="document.getElementById('subir-foto').click()">
+                            <input type="file" style="display: none;" id="subir-foto">
                             <i class="material-icons">image_search</i> Cambiar foto
                         </button>
                         <button class="boton-cambiar-datos">

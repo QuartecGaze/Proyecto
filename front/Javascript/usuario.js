@@ -1,13 +1,17 @@
 import { getUsuario } from '../../BackEnd/APIFetchs/APIUsuario.js';
 import { getIdSesion } from '../../BackEnd/APIFetchs/APIUsuario.js';
+import { subirFoto } from '../../BackEnd/APIFetchs/APIUsuario.js';
+
 const nombre = document.querySelectorAll(".nombreUsuario");
 const foto = document.querySelectorAll(".fotoPerfil");
 const email = document.getElementById("emailUsuario");
 const telefono = document.getElementById("telefonoUsuario");
 const direccion = document.getElementById("direccionUsuario");
 const cumple = document.getElementById("cumpleUsuario");
+const editarDatos = document.querySelectorAll("boton-cambiar-datos");
+const inputFoto = document.getElementById("subir-foto");
 
-const fotoruta = "../../Recursos/FotosDePerfil/";
+const fotoruta = "../../Recursos/FotosPerfil/";
 const idSesion = await getIdSesion();
 const data = await getUsuario(idSesion.message);
 setDatos(data.message);
@@ -30,3 +34,12 @@ function setDatos(data) {
 
 
 }
+
+inputFoto.addEventListener('change', function (e) {
+        if (this.files.length > 0) {
+            const foto = inputFoto.files[0];
+            const formData = new FormData();
+            formData.append('foto', foto);
+            const data = subirFoto(formData);
+        }
+    });
