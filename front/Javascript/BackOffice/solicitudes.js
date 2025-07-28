@@ -182,9 +182,9 @@ function actualizarSolicitudes(interesados) {
                     </div>
                 </div>
                 <div class="contador">
-                    <div class="segmento" id="${interesado.estadoEntrevista}"></div>
-                    <div class="segmento" id="${interesado.estadoAntecedentes}"></div>
-                    <div class="segmento" id="${interesado.estadoPagoInicial}"></div>
+                    <div class="segmento s1" id="${interesado.estadoEntrevista}"></div>
+                    <div class="segmento s2" id="${interesado.estadoAntecedentes}"></div>
+                    <div class="segmento s3" id="${interesado.estadoPagoInicial}"></div>
                 </div>
             </div>
             `;

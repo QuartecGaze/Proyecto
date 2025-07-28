@@ -230,6 +230,15 @@ strong {
     background-color: var(--color-alerta);
 }
 
+.s1 {
+    border-radius: 5px 5px 0px 0px ;
+}
+
+.s3 {
+    border-radius: 0px 0px 5px 5px ;
+}
+
+
 .solicitud-header {
     margin-bottom: 20px;
     padding-bottom: 15px;
@@ -719,6 +728,10 @@ input[type="number"]::-webkit-inner-spin-button {
     .btn-rechazar {
         width: 100%;
     }
+
+    .btn-rechazar-solicitud {
+        margin: 0;
+    }
 }
 
 @media (max-width: 576px) {
@@ -741,5 +754,8 @@ input[type="number"]::-webkit-inner-spin-button {
     input[type="time"] {
         width: 100%;
         margin-left: 0;
+    }
+    .btn-rechazar-solicitud {
+        margin: 0;
     }
 }
