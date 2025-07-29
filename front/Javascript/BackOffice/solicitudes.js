@@ -161,7 +161,7 @@ function actualizarSolicitudes(interesados) {
 
                             <div class="documento-acciones">
                                 ${interesado.pagoInicial != null && interesado.pagoInicial !== "" ? `
-                        <a href="../../Recursos/Antecedentes/${interesado.pagoInicial}" download>
+                        <a href="../../Recursos/Comprobantes/${interesado.pagoInicial}" download>
                             <li class="material-icons">download</li> Descargar
                             </a>
                             ` : `
