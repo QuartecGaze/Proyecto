@@ -58,7 +58,7 @@ verificarAcceso(['Admin']);
 
             <div class="perfil-usuario">
                 <div class="info-usuario">
-                    <img src="https://via.placeholder.com/40" alt="Foto perfil" class="fotoPerfil">
+                    <img src="" alt="Foto perfil" class="fotoPerfil">
                     <div>
                         <p class="nombre-usuario nombreAdmin">Admin User</p>
                         <p class="rol-usuario" id="rolAdmin">Administrador</p>

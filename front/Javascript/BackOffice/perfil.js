@@ -8,10 +8,12 @@ const creacion = document.getElementById("creacionAdmin");
 const nivelPermisos = document.getElementById("nivelPermisosAdmin");
 const nombre = document.querySelectorAll(".nombreAdmin");
 const foto = document.querySelectorAll(".fotoPerfil");
+const rol = document.getElementById("rolAdmin");
 const editarDatos = document.querySelectorAll("boton-cambiar-datos");
 const inputFoto = document.getElementById("subir-foto");
 
 const fotoruta = "../../Recursos/FotosPerfil/";
+const fotoUsuario = 'usuario.webp'; //asignamos una foto basica a los usuarios que aun no han registrado una propia
 const idSesion = await getIdSesion();
 const data = await getAdmin(idSesion.message);
 setDatos(data.message);
@@ -23,8 +25,13 @@ function setDatos(data) {
     });
     
     foto.forEach(fotoDiv => {
-        fotoDiv.src = fotoruta+data.foto;
+        if (data.foto == null || data.foto === '') {
+          fotoDiv.src = fotoruta + fotoUsuario;
+        } else {
+          fotoDiv.src = fotoruta + data.foto;
+        }
     });
+    rol.textContent = data.nivelPermisos; 
     nivelPermisos.textContent = data.nivelPermisos;
     creacion.textContent = data.fechaIngreso; 
     telefono.textContent = data.telefono;

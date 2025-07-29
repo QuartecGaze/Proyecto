@@ -83,7 +83,7 @@
             ";
             $resultado = mysqli_query($this->conn, $consulta); 
             $fila = mysqli_fetch_assoc($resultado);
-            $telefonos = $this->getTelefonosPersona($fila['CI']);
+            $telefonos = $this->getTelefonosPersona($fila['ID_Persona']);
             $interesado = new Interesado(
             $fila['CI'], 
             $fila['Email'], 
@@ -190,7 +190,7 @@
             ";
             $resultado = mysqli_query($this->conn, $consulta); 
             $fila = mysqli_fetch_assoc($resultado);
-            $telefonos = $this->getTelefonosPersona($fila['CI']);
+            $telefonos = $this->getTelefonosPersona($fila['ID_Persona']);
             $usuario = new Usuario(
             $fila['CI'], 
             $fila['Email'], 

@@ -197,7 +197,7 @@ INSERT INTO `Traducciones` (`pagina`, `clave`, `idioma`, `texto`) VALUES
 ('landing', 'hero-btn', 'es', 'RESERVA TU LUGAR'),
 ('landing', 'hero-texto', 'en', 'In a world that divides, we choose to unite—to share, support, and build opportunities through cooperation.'),
 ('landing', 'hero-texto', 'es', 'En un mundo que divide, elegimos unirnos para compartir, apoyarnos y construir oportunidades desde la cooperación.'),
-('landing', 'hero-titulo', 'es', 'Cooperativa<br>nombre'),
+('landing', 'hero-titulo', 'es', 'Senda<br>Firme'),
 ('landing', 'iniciarsesion-btn', 'en', 'Sign Up'),
 ('landing', 'iniciarsesion-btn', 'es', 'Iniciar Sesion'),
 ('landing', 'localizacion-texto', 'en', 'We are located at Av. Perú and Magallanes'),
@@ -248,8 +248,8 @@ INSERT INTO `Traducciones` (`pagina`, `clave`, `idioma`, `texto`) VALUES
 ('registro', 'cuenta-text', 'es', '¿Ya tienes una cuenta?'),
 ('registro', 'registro-btn', 'en', 'Sign In'),
 ('registro', 'registro-btn', 'es', 'Registrarse'),
-('registro', 'registro-form', 'en', 'Full Name;Email Address;Phone number;National ID;Password;Confirm Password;I accept the <a href=\"#\">Terms of Service</a> and <a href=\"#\">Privacy Policy</a>'),
-('registro', 'registro-form', 'es', 'Nombre completo;Correo electrónico;Teléfono Móvil;Cédula de Identidad;Contraseña;Confirmar Contraseña;Acepto los <a href=\"#\">Términos de servicio</a> y <a href=\"#\">Política de\n                            privacidad'),
+('registro', 'registro-form', 'en', 'Name;Last Name;Email Address;Phone number;National ID;Password;Confirm Password;I accept the <a href=\"#\">Terms of Service</a> and <a href=\"#\">Privacy Policy</a>'),
+('registro', 'registro-form', 'es', 'Nombre;Apellido;Correo electrónico;Teléfono Móvil;Cédula de Identidad;Contraseña;Confirmar Contraseña;Acepto los <a href=\"#\">Términos de servicio</a> y <a href=\"#\">Política de\n                            privacidad'),
 ('registro', 'registro-titulo', 'en', 'Create your account'),
 ('registro', 'registro-titulo', 'es', 'Crea tu cuenta');
 

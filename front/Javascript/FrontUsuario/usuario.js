@@ -1,6 +1,6 @@
-import { getUsuario } from '../../BackEnd/APIFetchs/APIUsuario.js';
-import { getIdSesion } from '../../BackEnd/APIFetchs/APIUsuario.js';
-import { subirFoto } from '../../BackEnd/APIFetchs/APIUsuario.js';
+import { getUsuario } from '../../../BackEnd/APIFetchs/APIUsuario.js';
+import { getIdSesion } from '../../../BackEnd/APIFetchs/APIUsuario.js';
+import { subirFoto } from '../../../BackEnd/APIFetchs/APIUsuario.js';
 
 const nombre = document.querySelectorAll(".nombreUsuario");
 const foto = document.querySelectorAll(".fotoPerfil");
@@ -10,6 +10,7 @@ const direccion = document.getElementById("direccionUsuario");
 const cumple = document.getElementById("cumpleUsuario");
 const editarDatos = document.querySelectorAll("boton-cambiar-datos");
 const inputFoto = document.getElementById("subir-foto");
+const fotoUsuario = 'usuario.webp'; //asignamos una foto basica a los usuarios que aun no han registrado una propia
 
 const fotoruta = "../../Recursos/FotosPerfil/";
 const idSesion = await getIdSesion();
@@ -23,7 +24,11 @@ function setDatos(data) {
     });
     
     foto.forEach(fotoDiv => {
-        fotoDiv.src = fotoruta+data.foto;
+        if (data.foto == null || data.foto === '') {
+          fotoDiv.src = fotoruta + fotoUsuario;
+        } else {
+          fotoDiv.src = fotoruta + data.foto;
+        }
     });
 
     email.textContent = data.email;

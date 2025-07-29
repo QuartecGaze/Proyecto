@@ -51,7 +51,7 @@
             <div class="perfil-usuario">
                 <a href="configuracion.php">
                 <div class="info-usuario">
-                        <img src="https://via.placeholder.com/40" alt="Foto perfil" class="fotoPerfil">
+                        <img src="" alt="Foto perfil" class="fotoPerfil">
                         <div>
                             <p class="nombre-usuario nombreUsuario">Nombre User</p>
                             <p class="rol-usuario">Usuario</p>
@@ -76,7 +76,7 @@
             <div class="contenedor-perfil">
                 <section class="seccion-info-personal">
                     <div class="foto-perfil-container">
-                        <img src="https://via.placeholder.com/150" alt="Foto de perfil" class="foto-perfil fotoPerfil">
+                        <img src="" alt="Foto de perfil" class="foto-perfil fotoPerfil">
                         <button class="boton-cambiar-foto" onclick="document.getElementById('subir-foto').click()">
                             <input type="file" style="display: none;" id="subir-foto">
                             <i class="material-icons">image_search</i> Cambiar foto
@@ -141,7 +141,7 @@
         </main>
     </div>
 
-    <script src="../Javascript/usuario.js" type="module"></script>
+    <script src="../Javascript/FrontUsuario/usuario.js" type="module"></script>
     
 </body>
 </html>

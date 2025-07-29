@@ -1,14 +1,13 @@
-import { getAdmin } from '../../../BackEnd/APIFetchs/APIBackOffice.js';
-import { getIdSesion } from '../../../BackEnd/APIFetchs/APIBackOffice.js';
+import { getUsuario } from '../../../BackEnd/APIFetchs/APIUsuario.js';
+import { getIdSesion } from '../../../BackEnd/APIFetchs/APIUsuario.js';
 
-const nombre = document.querySelectorAll(".nombreAdmin");
+const nombre = document.querySelectorAll(".nombreUsuario");
 const foto = document.querySelectorAll(".fotoPerfil");
-const rol = document.getElementById("rolAdmin");
-const fotoruta = "../../Recursos/FotosPerfil/";
 const fotoUsuario = 'usuario.webp'; //asignamos una foto basica a los usuarios que aun no han registrado una propia
-const idSesion = await getIdSesion();
-const data = await getAdmin(idSesion.message);
 
+const fotoruta = "../../Recursos/FotosPerfil/";
+const idSesion = await getIdSesion();
+const data = await getUsuario(idSesion.message);
 setDatos(data.message);
 
 
@@ -24,5 +23,4 @@ function setDatos(data) {
           fotoDiv.src = fotoruta + data.foto;
         }
     });
-    rol.textContent = data.nivelPermisos; 
 }

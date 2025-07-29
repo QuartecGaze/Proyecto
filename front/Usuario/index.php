@@ -51,7 +51,7 @@
             <div class="perfil-usuario">
                 <a href="configuracion.php">
                     <div class="info-usuario">
-                        <img src="https://via.placeholder.com/40" alt="Foto perfil" class="fotoPerfil">
+                        <img src="" alt="Foto perfil" class="fotoPerfil">
                         <div>
                             <p class="nombre-usuario nombreUsuario">Nombre User</p>
                             <p class="rol-usuario">Usuario</p>
@@ -169,7 +169,7 @@
         </main>
     </div>
 
-    <script src="../Javascript/usuario.js" type="module"></script>
+    <script src="../Javascript/FrontUsuario/generalidades.js" type="module"></script>
 
 </body>
 

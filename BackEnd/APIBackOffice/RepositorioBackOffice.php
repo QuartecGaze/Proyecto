@@ -38,25 +38,12 @@
 
         public function getPersona($id){
             $consulta = "
-            SELECT Telefono FROM numero_de_telefono WHERE ID_Persona = $id
-        ";
-
-        $resultado = mysqli_query($this->conn, $consulta);
-
-        $telefonos = [];
-
-        while ($fila = mysqli_fetch_assoc($resultado)) {
-            $telefonos[] = $fila['Telefono'];
-        }
-
-            $consulta = "
                 SELECT * FROM Persona WHERE ID_Persona=$id
             ";
             $resultado = mysqli_query($this->conn, $consulta);
             $fila = mysqli_fetch_assoc($resultado);
-            $persona = new Persona($fila['CI'], $fila['Email'], $telefonos ,$fila['ID_Persona'], $fila['Nombre'], $fila['Apellido'], $fila['Contraseña'], $fila['Rol']);
+            $persona = new Persona($fila['CI'], $fila['Email'], $fila['Telefono'] ,$fila['ID_Persona'], $fila['Nombre'], $fila['Apellido'], $fila['Contraseña'], $fila['Rol']);
             return $persona;
-
         }
 
         public function getTelefonosPersona($idPersona) {
