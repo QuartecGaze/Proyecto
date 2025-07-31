@@ -2,7 +2,7 @@
     require_once __DIR__ . '/RepositorioTraduccion.php';
     require_once __DIR__ . '/ServicioTraduccion.php'; 
     require_once __DIR__ .'/Traduccion.php';
-    require_once __DIR__ .'/BDConeccion.php';
+    require_once __DIR__ .'/../BDConeccion.php';
     header("Access-Control-Allow-Origin: *");
 header("Access-Control-Allow-Methods: GET, POST, OPTIONS");
 header("Access-Control-Allow-Headers: Content-Type, Authorization");

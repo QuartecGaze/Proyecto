@@ -1,7 +1,7 @@
 <?php
     require_once __DIR__ . '/RepositorioBackOffice.php';
     require_once __DIR__ . '/ServicioBackOffice.php'; 
-    require_once __DIR__ .'/BDConeccion.php';
+    require_once __DIR__ .'/../BDConeccion.php';
     if ($_SERVER['REQUEST_METHOD'] === 'OPTIONS') {
         http_response_code(200);
         exit();

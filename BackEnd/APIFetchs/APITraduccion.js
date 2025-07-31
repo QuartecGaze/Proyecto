@@ -1,7 +1,7 @@
 import { apiRequest } from './apiConfig.js';
 /**
  * Llama a la API para iniciar sesión.
- * @param {Object} datos - Contiene `ci` y `contraseña`
+ * @param {Object} datos 
  * @returns {Promise<Object>} - Respuesta de la API
  */
 export function setIdioma(datos) {
