@@ -69,33 +69,31 @@
                 $nombreArchivo = $_FILES['foto']['name'];
                 $nombreTemp = $_FILES['foto']['tmp_name'];
                 try{
-               if($servicio->subirFoto($nombreArchivo, $nombreTemp)){
+                if($servicio->subirFoto($nombreArchivo, $nombreTemp)){
                     respuesta("archivo cargado correctamente", "exito", 200);
-               }else{
+                }else{
                     respuesta("error al cargar al archivo", "error", 400);
-               }
+                }
                 }catch(Exception $e){
                     respuesta($e->getMessage(), "error", $e->getCode());
             }
             }
 
-            elseif ($accion === "subirComprobante"){
+            elseif ($accion === "subirComprobante"){ //PAGO INICIAL
                 if(!isset($_FILES['comprobante'])){
                     respuesta("debe cargar un archivo", "error", 400);
                 }
                 $nombreArchivo = $_FILES['comprobante']['name'];
                 $nombreTemp = $_FILES['comprobante']['tmp_name'];
                 try{
-               if($servicio->subirComprobante($nombreArchivo, $nombreTemp)){
+                if($servicio->subirComprobante($nombreArchivo, $nombreTemp)){
                     respuesta("archivo cargado correctamente", "exito", 200);
-               }else{
+                }else{
                     respuesta("error al cargar al archivo", "error", 400);
-               }
+                }
                 }catch(Exception $e){
                     respuesta($e->getMessage(), "error", $e->getCode());
                 }
-
-
             }
 
              elseif ($accion === "subirAntecedentes"){

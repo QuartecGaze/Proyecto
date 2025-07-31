@@ -108,6 +108,10 @@
                             <label>Fecha de Nacimiento</label>
                             <p class="valor-perfil" id="cumpleUsuario">15 de Enero, 2020</p>
                         </div>
+                        <div class="campo-perfil">
+                            <label>Fecha de Ingreso a la cooperativa</label>
+                            <p class="valor-perfil" id="fechaIngreso">15 de Enero, 2020</p>
+                        </div>
                     </div>
                 </section>
 

@@ -137,7 +137,28 @@
                 throw new Exception("No se pudo cargar el archivo", 500);
             }
         }
+        //API Cooperativa
+        public function crearPagoMensual($montoPagoMensual){
+            $IDUsuariosArray = $this->repositorio->getIDUsuarios();
+            $fecha = date("Y-m-d");
+            $this->repositorio->crearPagoMensual($montoPagoMensual, $IDUsuariosArray, $fecha);
+        }
 
+        public function crearPagoPersonalizado($motivoPago, $ci , $montoPagoPersonalizado){
+            $idPersona = $this->repositorio->getIDPersonaConCi($ci);
+            $fecha = date("Y-m-d");
+            $this->repositorio->crearPagoPersonalizado($idPersona, $motivoPago, $montoPagoPersonalizado, $fecha);
+        }
+
+        public function rechazarPago($idComprobantePago){
+            $pagoViejo = $this->repositorio->getComprobantePago($idComprobantePago);
+            $this->repositorio->rechazarPago($idComprobantePago);
+            $this->repositorio->crearPagoPersonalizado($pagoViejo['idPersona'], "Pago Rechazado", $pagoViejo['montoPago'], $pagoViejo['fecha']);
+        }
+
+        public function aprobarPago($idComprobantePago){
+            $this->repositorio->aprobarPago($idComprobantePago);
+        }
 
     }
 ?>

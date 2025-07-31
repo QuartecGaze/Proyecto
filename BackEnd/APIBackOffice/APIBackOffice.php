@@ -113,6 +113,46 @@
                     respuesta($e->getMessage(), "error", $e->getCode());
             }
             }
+            //API Cooperativa
+            if($accion === "asignarPagoMensual"){
+                try {
+                    $datos = json_decode(file_get_contents('php://input'), true);
+                    $servicio->crearPagoMensual($montoPagoMensual); //traer el montoPagoMensual del front (lo va a ingresar el admin en un modal)
+                    respuesta("Pago mensual asignado con exito", "exito", 201);
+                } catch(Exception $e) {
+                    respuesta($e->getMessage(), "error", $e->getCode());
+                }
+            }
+
+            if($accion === "asignarPagoPersonalizado"){
+                try {
+                    $datos = json_decode(file_get_contents('php://input'), true);
+                    $servicio->crearPagoPersonalizado($motivoPago, $ci , $montoPagoPersonalizado); //traer el montoPagoMensual del front (lo va a ingresar el admin en un modal)
+                    respuesta("Pago personalizado asignado con exito", "exito", 201);
+                } catch(Exception $e) {
+                    respuesta($e->getMessage(), "error", $e->getCode());
+                }
+            }
+
+            if($accion === "rechazarPago"){
+                try {
+                    $datos = json_decode(file_get_contents('php://input'), true);
+                    $servicio->rechazarPago($idComprobantePago); //traer el idcomprobante pago del boton
+                    respuesta("Pago rechazado con exito", "exito", 201);
+                } catch(Exception $e) {
+                    respuesta($e->getMessage(), "error", $e->getCode());
+                }
+            }
+
+            if($accion === "aprobarPago"){
+                try {
+                    $datos = json_decode(file_get_contents('php://input'), true);
+                    $servicio->aprobarPago($idComprobantePago); //traer el idcomprobante pago del boton
+                    respuesta("Pago aprobado con exito", "exito", 201);
+                } catch(Exception $e) {
+                    respuesta($e->getMessage(), "error", $e->getCode());
+                }
+            }
 
 
         break;

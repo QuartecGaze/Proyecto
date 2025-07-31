@@ -278,7 +278,96 @@
         return $admin;
         }
 
+        //APICooperativa
+        public function getIDUsuarios(){
+            $consulta = "
+                SELECT ID_Persona 
+                FROM Persona 
+                WHERE Rol = 'Usuario'
+            ";
+            mysqli_query($this->conn, $consulta); 
+            
+        }
 
+        public function crearPagoMensual($montoPagoMensual, $IDUsuariosArray, $fecha) {
+            $totalUsuarios = count($IDUsuariosArray);
+            $valoresConsulta = '';
+            for ($i = 0; $i < $totalUsuarios; $i++) {
+                $idPersona = $IDUsuariosArray[$i];
+
+                if($i > 0){ //aca se a;ade una , al final de cada iteracion para no romper la consulta el operador .= a;ade al final es como el mas += que usabamos en java
+                    $valoresConsulta .= ','; 
+                }
+                $valoresConsulta .= "($idPersona , 'Aportes mensuales' , 'En espera', $fecha, $montoPagoMensual)"; 
+            } //haciendo esto nos evitamos sobrecargar el servidor haciendo 100 consultas para 100 usuarios, lo hacemos todo en una un insert gigante como el de cuando creamos la tabla traducciones
+            $consulta = "
+                    INSERT INTO Comprobante_pago (ID_Persona, Motivo_pago, Estado_pago, Mes, Monto)
+                    VALUES $valoresConsulta;
+                ";
+            mysqli_query($this->conn, $consulta); 
+        }
+
+        public function getIDPersonaConCi($ci){
+            $consulta = "
+                SELECT ID_Persona FROM Persona WHERE CI = '$ci'
+            ";
+            $resultado = mysqli_query($this->conn, $consulta);
+            if(mysqli_num_rows($resultado) > 0) {
+            $fila = mysqli_fetch_assoc($resultado);
+            $idPersona = $fila['ID_Persona']; 
+            return $idPersona;
+            }else{
+                throw new Exception("No se encontro una persona con la CI $ci");
+            }
+        }
+
+        public function cargarPagoPersonalizado($idPersona, $motivoPago, $montoPagoPersonalizado, $fecha) {
+            $consulta = "
+                INSERT INTO Comprobante_pago (ID_Persona, Motivo_pago, Estado_pago, Mes, Monto)
+                VALUES ($idPersona , $motivoPago , 'En Espera' , $fecha , $montoPagoPersonalizado);
+            ";
+            mysqli_query($this->conn, $consulta); 
+        }
+
+
+        public function getComprobantePago($idComprobante) {
+            $consulta = "
+                SELECT ID_Persona, Monto, Mes
+                FROM   Comprobante_pago
+                WHERE  ID_Comprobante_pago = '$idComprobante'
+            ";
+
+            $resultado = mysqli_query($this->conn, $consulta);
+
+            if (mysqli_num_rows($resultado) > 0) {
+                $fila = mysqli_fetch_assoc($resultado);
+                return [
+                    'idPersona' => $fila['ID_Persona'],
+                    'montoPago' => $fila['Monto'],
+                    'fecha'     => $fila['Mes'],
+                ];
+            } else {
+                throw new Exception("No se encontró un comprobante con el ID $idComprobante");
+            }
+        }
+        
+        public function rechazarPago($idComprobantePago){
+            $consulta = "
+                UPDATE Comprobante_pago
+                SET    Estado_pago = 'Rechazado'
+                WHERE  ID_Comprobante_pago = '$idComprobantePago'
+            ";
+            $resultado = mysqli_query($this->conn, $consulta);
+        }
+
+        public function aprobarPago($idComprobantePago){
+            $consulta = "
+                UPDATE Comprobante_pago
+                SET    Estado_pago = 'Aprobado'
+                WHERE  ID_Comprobante_pago = '$idComprobantePago'
+            ";
+            $resultado = mysqli_query($this->conn, $consulta);
+        }
 
     }
 ?>

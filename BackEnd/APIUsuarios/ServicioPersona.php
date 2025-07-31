@@ -83,7 +83,7 @@
                 session_start();
                 $rutaComprobantes = "../../Recursos/Comprobantes/";
                 $extension = pathinfo($nombreArchivo, PATHINFO_EXTENSION);
-                $nuevoNombre =  'COMPROBANTE' . $_SESSION['id'] . '.' . $extension;
+                $nuevoNombre =  'COMPROBANTEPAGOINICIAL' . $_SESSION['id'] . '.' . $extension;
                 $nuevaRuta = $rutaComprobantes . $nuevoNombre;
                 $archivoExiste = glob($nuevaRuta);
                 if (count($archivoExiste) > 0) {

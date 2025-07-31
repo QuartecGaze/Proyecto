@@ -8,6 +8,7 @@ const email = document.getElementById("emailUsuario");
 const telefono = document.getElementById("telefonoUsuario");
 const direccion = document.getElementById("direccionUsuario");
 const cumple = document.getElementById("cumpleUsuario");
+const fechaIngreso = document.getElementById("fechaIngreso");
 const editarDatos = document.querySelectorAll("boton-cambiar-datos");
 const inputFoto = document.getElementById("subir-foto");
 const fotoUsuario = 'usuario.webp'; //asignamos una foto basica a los usuarios que aun no han registrado una propia
@@ -32,9 +33,10 @@ function setDatos(data) {
     });
 
     email.textContent = data.email;
-    telefono.textContent = data.telefono;
+    telefono.textContent = data.telefono; 
     direccion.textContent = data.direccion; //todavia no se trae hay que traerlo de unidad habitacional
     cumple.textContent = data.fechaNacimiento;
+    fechaIngreso.textContent = data.fechaIngreso;
 
 
 

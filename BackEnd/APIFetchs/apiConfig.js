@@ -1,4 +1,4 @@
-const baseUrl = '';
+const baseUrl = 'http://localhost/Proyecto/BackEnd';
 
 /**
  * apiRequest realiza una solicitud HTTP a la API PHP.
