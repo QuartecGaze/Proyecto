@@ -39,12 +39,29 @@
                     respuesta($e->getMessage(), "error", $e->getCode());
                 }
             }
+            elseif ($accion === "subirComprobante"){
+                if(!isset($_FILES['comprobante'])){
+                    respuesta("debe cargar un archivo", "error", 400);
+                }
+                $nombreArchivo = $_FILES['comprobante']['name'];
+                $nombreTemp = $_FILES['comprobante']['tmp_name'];
+                //traer idComprobante y motivo del pago del boton front
+                try{
+                if($servicio->subirComprobante($nombreArchivo, $nombreTemp, $idComprobante)){
+                    respuesta("archivo cargado correctamente", "exito", 200);
+                }else{
+                    respuesta("error al cargar al archivo", "error", 400);
+                }
+                }catch(Exception $e){
+                    respuesta($e->getMessage(), "error", $e->getCode());
+                }
+            }
         break;
         case "GET":
-            if($accion == "getComprobantes"){
+            if($accion == "getComprobantesPendientes"){
                 try {
                     $idPersona = $_GET['id'];
-                    $comprobantes = $servicio->getComprobantes($idPersona);
+                    $comprobantes = $servicio->getComprobantesPendientes($idPersona);
                     respuesta($comprobantes, "exito", 201);
                 } catch(Exception $e) {
                     respuesta($e->getMessage(), "error", $e->getCode());
