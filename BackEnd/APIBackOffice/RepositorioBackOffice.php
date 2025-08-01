@@ -369,5 +369,50 @@
             $resultado = mysqli_query($this->conn, $consulta);
         }
 
+        public function unidadHabitacionalAsignada($idUnidadHabitacional) {
+            $consulta = "
+                SELECT ID_Persona
+                FROM   Unidad_Habitacional
+                WHERE  ID_Unidad_Habitacional = '$idUnidadHabitacional'
+            ";
+            $resultado = mysqli_query($this->conn, $consulta);
+            $dato = mysqli_fetch_assoc($resultado);
+            $dato['ID_Persona'];
+            if($dato['ID_Persona'] == null){
+                return false;
+            }else{
+                throw new Exception('La unidad habitacional ya esta asignada '. $dato['ID_Persona'], 409);
+            }
+        }
+
+        public function unidadesHabitacionalesSinUsuario(){
+            $consulta = "
+                SELECT *
+                FROM   Unidad_Habitacional
+                WHERE  ID_Persona IS NULL
+            ";
+            $resultado = mysqli_query($this->conn, $consulta);
+            $UnidadesHabitacionalesSinAsignar = [];
+            while ($fila = mysqli_fetch_assoc($resultado)) {
+                $UnidadesHabitacionalesSinAsignar[$fila['ID_Unidad_Habitacional']] = $fila;
+            }
+            return $UnidadesHabitacionalesSinAsignar;
+        }
+
+        public function usuariosSinUnidadHabitacional(){
+            $consulta = "
+                SELECT *
+                FROM   Unidad_Habitacional
+                WHERE  ID_Persona IS NULL
+            ";
+            $resultado = mysqli_query($this->conn, $consulta);
+            $UsuariosSinUnidad = [];
+            while ($fila = mysqli_fetch_assoc($resultado)) {
+                $UsuariosSinUnidad[$fila['ID_Persona']] = $fila;
+            }
+            return $UsuariosSinUnidad;
+        }
+
+        
     }
 ?>

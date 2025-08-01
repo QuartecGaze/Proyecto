@@ -160,5 +160,12 @@
             $this->repositorio->aprobarPago($idComprobantePago);
         }
 
+        public function asignarUnidadHabitacional($ci, $idUnidadHabitacional) {
+            $idPersona = $this->repositorio->getIDPersonaConCi($ci);
+            if(!$this->repositorio->unidadHabitacionalAsignada($idUnidadHabitacional)){
+                $this->repositorio->asignarUnidadHabitacional($idPersona, $idUnidadHabitacional);
+            }
+        }
+        
     }
 ?>

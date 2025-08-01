@@ -154,6 +154,16 @@
                 }
             }
 
+            if($accion === "asignarUnidadHabitacional"){
+                try {
+                    $datos = json_decode(file_get_contents('php://input'), true);
+                    //tiene que recibir la cedula de la persona y el idunidadhabitacional
+                    $servicio->asignarUnidadHabitacional($ci, $idUnidadHabitacional);
+                    respuesta("Unidad Habitacional asignada con exito", "exito", 201);
+                } catch(Exception $e) {
+                    respuesta($e->getMessage(), "error", $e->getCode());
+                }
+            }
 
         break;
 

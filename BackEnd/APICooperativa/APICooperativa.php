@@ -56,6 +56,20 @@
                     respuesta($e->getMessage(), "error", $e->getCode());
                 }
             }
+            elseif ($accion === "subirHoras"){
+                //traer las horas del front
+                session_start();
+                $idPersona = $_SESSION['id'];
+                try{
+                    if($servicio->cargarHoras($idPersona, $horas)){
+                        respuesta("horas cargadas correctamente", "exito", 200);
+                    }else{
+                        respuesta("error al cargar las horas", "error", 400);
+                    }
+                    }catch(Exception $e){
+                        respuesta($e->getMessage(), "error", $e->getCode());
+                    }
+            }
         break;
         case "GET":
             if($accion == "getComprobantesPendientes"){

@@ -54,6 +54,14 @@
             mysqli_query($this->conn, $consulta);
         }
         
+        public function cargarHoras($idPersona, $horas, $fechaHoras){
+            $consulta = "
+                INSERT INTO Horas_Trabajadas 
+                (ID_Persona, Horas, Fecha_Registro_de_Horas)
+                VALUES ($idPersona, $horas, $fechaHoras);
+            ";
+            mysqli_query($this->conn, $consulta);
+        }
 
 
         //FUNCIONES
@@ -71,4 +79,6 @@
                 return false;
             }
         }
+
+    
     }

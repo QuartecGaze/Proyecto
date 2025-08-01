@@ -46,6 +46,10 @@
             }
         }
 
+        public function cargarHoras($idPersona, $horas){
+            $fechaHoras = date("Y-m-d");
+            $this->repositorio->cargarHoras($idPersona, $horas, $fechaHoras);
+        }
 
 
     }
