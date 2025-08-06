@@ -134,13 +134,38 @@
         
         }   
 
-
-
+        public function horasTrabajadasUsuario($idPersona){
+            $semana = $this->getSemanaNro(date('Y-m-d'));
+            if (!$this->repositorio->usuarioExisteID($id)) {
+                throw new Exception("El usuario no existe", 404);
+            } else {
+                return $this->repositorio->horasTrabajadas($idPersona, $semana);
+            }
     }
 
+        public function horasAtrasadasUsuario($idPersona){
+            $semanaActual = $this->getSemanaNro(date('Y-m-d'));
+            if (!$this->repositorio->usuarioExisteID($idPersona)) {
+                throw new Exception("El usuario no existe", 404);
+            } else {
+                for ($semana = 1; $semana < $semanaActual; $semana++) {
+
+                    $trabajadas = $this->repositorio->horasTrabajadas($idPersona, $semana);
+                    $necesarias = $this->repositorio->getHorasNecesariasSemana($semana);
+            
+                    $totalHorasPendientes += ($necesarias - $trabajadas); // saldo de esa semana porque puede variar
+                }
+            
+                return $totalHorasPendientes;
+            }
+        }
     
     
 
+            public function getSemanaNro($fechaSemana){
+                $semana = date('W', strtotime($fechaSemana));
+                return $semana;
+            }
 
 
 

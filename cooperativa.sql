@@ -133,7 +133,7 @@ CREATE TABLE `Persona` (
 CREATE TABLE `Semana_trabajo` (
   `ID_Semana_trabajo` int NOT NULL,
   `Horas_semanales` int DEFAULT NULL,
-  `Fecha_semana` date DEFAULT NULL
+  `Nro_semana` int DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 -- --------------------------------------------------------
