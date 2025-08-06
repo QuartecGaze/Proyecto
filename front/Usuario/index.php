@@ -1,9 +1,10 @@
 <!DOCTYPE html>
 <html lang="es">
-<?php 
-    require_once '../verificarSesion.php';
-    verificarAcceso(['Usuario', 'Admin']);
+<?php
+require_once '../verificarSesion.php';
+verificarAcceso(['Usuario', 'Admin']);
 ?>
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -59,9 +60,9 @@
                     </div>
                 </a>
                 <form action="../cerrarSesion.php">
-                <button class="boton-cerrar-sesion">
-                    <i class="material-icons">logout</i> Cerrar sesión
-                </button>
+                    <button class="boton-cerrar-sesion">
+                        <i class="material-icons">logout</i> Cerrar sesión
+                    </button>
                 </form>
             </div>
         </aside>
@@ -74,6 +75,18 @@
 
             <div class="contenedor-tarjetas">
                 <!-- Tarjeta de resumen de horas trabajadas -->
+                <!-- Tarjeta de pagos atrasados -->
+                <div class="tarjeta-dashboard atrasado">
+                    <div class="tarjeta-icono atrasado">
+                        <i class="material-icons">warning</i>
+                    </div>
+                    <div class="tarjeta-contenido">
+                        <h3>Pagos atrasados</h3>
+                        <p class="tarjeta-valor atrasado">2</p>
+                        <p class="tarjeta-subtexto">Total: $2,500</p>
+                    </div>
+                </div>
+
                 <div class="tarjeta-dashboard">
                     <div class="tarjeta-icono">
                         <i class="material-icons">punch_clock</i>

@@ -275,6 +275,33 @@ a{
     color: var(--color-texto-oscuro);
 }
 
+/* Agrega esto en la sección de tarjetas */
+.tarjeta-dashboard.atrasado {
+    border: 4px solid var(--color-alerta);
+    animation: pulse 2s infinite;
+}
+
+.tarjeta-icono.atrasado {
+    background-color: rgba(231, 76, 60, 0.1);
+    color: var(--color-alerta);
+}
+
+.tarjeta-valor.atrasado {
+    color: var(--color-alerta);
+}
+
+@keyframes pulse {
+    0% {
+        box-shadow: 0 0 0 0 rgba(231, 76, 60, 0.4);
+    }
+    70% {
+        box-shadow: 0 0 0 10px rgba(231, 76, 60, 0);
+    }
+    100% {
+        box-shadow: 0 0 0 0 rgba(231, 76, 60, 0);
+    }
+}
+
 /* Secciones de actividades y eventos */
 .seccion-actividades, .seccion-eventos {
     background-color: white;
