@@ -181,6 +181,12 @@
                 respuesta("No se encontro una id para buscar", "error", 0);
             }
         }
+/*
+        $resultado = $servicio->horasAtrasadasUsuario($idPersona);
+
+        echo "Pendientes: " . $resultado['horasPendientes'];
+        echo "A favor: "   . $resultado['horasAFavor'];
+*/
     
         break;
 
