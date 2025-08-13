@@ -202,7 +202,7 @@
 
     <script src="../Javascript/FrontUsuario/generalidades.js" type="module"></script>
     <script>
-        // Ejemplo de JavaScript para manejar el formulario
+
         document.querySelector('.formulario-horas').addEventListener('submit', function (e) {
             e.preventDefault();
 
@@ -226,17 +226,6 @@
                 document.querySelector('.mensaje-exito').style.display = 'none';
                 this.reset();
             }, 2000);
-        });
-
-        // Ejemplo de filtrado
-        document.getElementById('filtro-mes').addEventListener('change', function () {
-            console.log('Filtrar por mes:', this.value);
-            // Implementar lógica de filtrado aquí
-        });
-
-        document.getElementById('filtro-semana').addEventListener('change', function () {
-            console.log('Filtrar por semana:', this.value);
-            // Implementar lógica de filtrado aquí
         });
     </script>
 </body>
