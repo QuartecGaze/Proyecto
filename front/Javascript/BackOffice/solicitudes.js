@@ -190,6 +190,7 @@ function actualizarSolicitudes(interesados) {
             `;
         contenedor.appendChild(div);
     });
+    
     const botonesAprobar = document.querySelectorAll(".btn-aprobar");
     const botonesRechazar = document.querySelectorAll(".btn-rechazar");
     const botonAsignarEntrevista = document.querySelectorAll(".btn-asignar-entrevista");
@@ -336,7 +337,7 @@ function actualizarSolicitudes(interesados) {
     document.querySelectorAll('.btn-asignar-pago-inicial').forEach(boton => {
         boton.addEventListener('click', function () {
             console.log('Abriendo modal de pago');
-            btnConfirmarPago.dataset.id = this.dataset.id;
+            btnConfirmarPago.dataset.id = boton.dataset.id;
             modalPago.style.display = 'flex';
         });
     });
@@ -348,8 +349,10 @@ function actualizarSolicitudes(interesados) {
         delete btnConfirmarPago.dataset.id;
     });
 
-    // Confirmar pago inicial
-    btnConfirmarPago.addEventListener('click', async () => {
+    
+} 
+// Confirmar pago inicial
+    btnConfirmarPago.addEventListener('click', async function (){
         console.log('Confirmando pago');
         modalPago.style.display = 'none';
         const idPersona = btnConfirmarPago.dataset.id;
@@ -378,5 +381,3 @@ function actualizarSolicitudes(interesados) {
             alert('Error del servidor');
         }
     });
-
-} 
