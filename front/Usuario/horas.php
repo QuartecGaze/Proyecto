@@ -24,7 +24,7 @@
             <nav id="NavegacionDashboard">
                 <ul class="menu-dashboard">
                     <li class="item-menu">
-                        <a href="index.html"><i class="material-icons">home</i> Inicio</a>
+                        <a href="index.php"><i class="material-icons">home</i> Inicio</a>
                     </li>
                     <li class="item-menu">
                         <a href="#Reuniones"><i class="material-icons">event</i> Reuniones</a>

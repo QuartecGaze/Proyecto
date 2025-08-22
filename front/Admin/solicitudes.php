@@ -10,6 +10,7 @@ verificarAcceso(['Admin']);
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Senda Firme - Solicitudes</title>
     <link rel="stylesheet" href="../Css/estilosSolicitudes.css">
+    <link rel="stylesheet" href="../Css/backoffice.css">
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap"
         rel="stylesheet">
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
@@ -17,7 +18,7 @@ verificarAcceso(['Admin']);
         href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200&icon_names=event_available" />
 </head>
 
-<body>
+<body class="backoffice">
     <button class="hamburger-btn">
         <span class="material-icons">menu</span>
     </button>
@@ -25,7 +26,7 @@ verificarAcceso(['Admin']);
         <!-- Sidebar -->
         <aside class="sidebar">
             <div class="logo-dashboard">
-                <img src="../../Fotos/LogoNegro.webp" alt="Logo Cooperativa">
+                <img src="../../Fotos/logoBack.webp" alt="Logo Cooperativa">
                 <span>Senda Firme</span>
                 <p>Construyendo oportunidades juntos</p>
             </div>
