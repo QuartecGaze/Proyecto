@@ -14,7 +14,6 @@
 
 <body class="backoffice">
     <div class="contenedor-dashboard">
-        <!-- Sidebar -->
         <aside class="sidebar">
             <div class="logo-dashboard">
                 <img src="../../Fotos/logoBack.webp" alt="Logo Cooperativa">
@@ -28,34 +27,35 @@
                         <a href="index.php"><i class="material-icons">home</i> Inicio</a>
                     </li>
                     <li class="item-menu">
-                        <a href="#Reuniones"><i class="material-icons">event</i> Reuniones</a>
+                        <a href="#"><i class="material-icons">event</i> Reuniones</a>
                     </li>
                     <li class="item-menu">
-                        <a href="horasTrabajadas.html"><i class="material-icons">punch_clock</i> Horas Trabajadas</a>
+                        <a href="#"><i class="material-icons">people</i> Socios</a>
                     </li>
                     <li class="item-menu">
-                        <a href="#Proyectos"><i class="material-icons">apartment</i> Proyectos</a>
+                        <a href="#"><i class="material-icons">apartment</i> Proyectos</a>
                     </li>
                     <li class="item-menu activo">
-                        <a href="#Pagos"><i class="material-icons">payments</i> Pagos</a>
+                        <a href="pagos.php"><i class="material-icons">payments</i> Pagos</a>
                     </li>
                     <li class="item-menu">
-                        <a href="configuracion.html"><i class="material-icons">settings</i> Configuración</a>
+                        <a href="solicitudes.php"><i class="material-icons">email</i> Solicitudes</a>
+                    </li>
+                    <li class="item-menu">
+                        <a href="configuracion.php"><i class="material-icons">settings</i> Configuración</a>
                     </li>
                 </ul>
             </nav>
 
             <div class="perfil-usuario">
-                <a href="configuracion.html">
-                    <div class="info-usuario">
-                        <img src="" alt="Foto perfil" class="fotoPerfil">
-                        <div>
-                            <p class="nombre-usuario nombreUsuario">Nombre User</p>
-                            <p class="rol-usuario">Usuario</p>
-                        </div>
+                <div class="info-usuario">
+                    <img src="" alt="Foto perfil" class="fotoPerfil">
+                    <div>
+                        <p class="nombre-usuario nombreAdmin">Admin User</p>
+                        <p class="rol-usuario" id="rolAdmin">Administrador</p>
                     </div>
-                </a>
-                <form action="../cerrarSesion.html">
+                </div>
+                <form action="../cerrarSesion.php">
                     <button class="boton-cerrar-sesion">
                         <i class="material-icons">logout</i> Cerrar sesión
                     </button>
