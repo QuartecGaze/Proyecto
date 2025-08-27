@@ -81,6 +81,73 @@
                     respuesta($e->getMessage(), "error", $e->getCode());
                 }
             }
+
+
+            //esto me parece que va en apiUsuario
+
+            if($accion === "getCooperativa"){ //LLamar en el index de usuario
+                $id = $_GET['id'];
+                if($id != null){
+                    try{
+                        $respuesta = [
+                            //Hacer esto para traer
+                            //Horas trabajadas esta semana
+                            'horasTrabajadas' => $servicio->horasTrabajadasEstaSemana($id),
+                            //Total pagos atrasados
+                            'pagosAtrasados' => $servicio->getComprobantesPendientes($id),
+                            //total dinero de pagos atrasados?
+                            'pagosAtrasadosDinero' => $servicio->getComprobantesPendientes($id),
+                            //precio pago mensual
+                            'pagoMensual' => $servicio->getComprobantesPendientes($id)
+
+                            //el ultimo va sin coma
+                        ];
+
+                        respuesta($respuesta, "exito", 200);
+                    }
+                    catch(Exception $e) {
+                    respuesta($e->getMessage(), "error", $e->getCode());
+                }
+
+            } else{
+                respuesta("No se encontro una id para buscar", "error", 0);
+            }
+        }
+
+        if($accion === "getHorasTrabajadas"){ //LLamar en horas.php de Usuario
+                $id = $_GET['id'];
+                if($id != null){
+                    try{
+                        $respuesta = [
+                            
+                            //Hacer esto para traer
+                            //Horas trabajadas esta semana
+                            'horasTrabajadas' => $servicio->horasTrabajadasEstaSemana($id),
+                            //
+                            'horasAtrasadas' => $servicio->horasAtrasadasUsuario($id)
+                            //el ultimo va sin coma
+                        ];
+
+                        respuesta($respuesta, "exito", 200);
+                    }
+                    catch(Exception $e) {
+                    respuesta($e->getMessage(), "error", $e->getCode());
+                }
+
+            } else{
+                respuesta("No se encontro una id para buscar", "error", 0);
+            }
+        }
+
+
+
+/*
+        $resultado = $servicio->horasAtrasadasUsuario($idPersona);
+
+        echo "Pendientes: " . $resultado['horasPendientes'];
+        echo "A favor: "   . $resultado['horasAFavor'];
+*/
+
         break;
     }
 

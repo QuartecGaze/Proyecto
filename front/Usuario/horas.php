@@ -30,7 +30,7 @@
                         <a href="#Reuniones"><i class="material-icons">event</i> Reuniones</a>
                     </li>
                     <li class="item-menu activo">
-                        <a href="horasTrabajadas.html"><i class="material-icons">punch_clock</i> Horas Trabajadas</a>
+                        <a href="horasTrabajadas.php"><i class="material-icons">punch_clock</i> Horas Trabajadas</a>
                     </li>
                     <li class="item-menu">
                         <a href="#Proyectos"><i class="material-icons">apartment</i> Proyectos</a>
@@ -39,13 +39,13 @@
                         <a href="#Finanzas"><i class="material-icons">payments</i> Finanzas</a>
                     </li>
                     <li class="item-menu">
-                        <a href="configuracion.html"><i class="material-icons">settings</i> Configuración</a>
+                        <a href="configuracion.php"><i class="material-icons">settings</i> Configuración</a>
                     </li>
                 </ul>
             </nav>
 
             <div class="perfil-usuario">
-                <a href="configuracion.html">
+                <a href="configuracion.php">
                     <div class="info-usuario">
                         <img src="" alt="Foto perfil" class="fotoPerfil">
                         <div>
@@ -54,7 +54,7 @@
                         </div>
                     </div>
                 </a>
-                <form action="../cerrarSesion.html">
+                <form action="../cerrarSesion.php">
                     <button class="boton-cerrar-sesion">
                         <i class="material-icons">logout</i> Cerrar sesión
                     </button>
@@ -65,7 +65,7 @@
         <main class="contenido-principal">
             <header class="header-principal">
                 <h1>Horas Trabajadas</h1>
-                <p>Registra y consulta tus horas de trabajo en la cooperativa</p>
+                <p>Registra y consulta tus horas de trabajo Semanales en la cooperativa</p>
             </header>
 
             <!-- Fila con resumen y formulario -->
@@ -78,12 +78,12 @@
                             <i class="material-icons">punch_clock</i>
                         </div>
                         <div class="tarjeta-contenido">
-                            <h3>Horas este mes</h3>
+                            <h3>Horas Trabajadas</h3><!-- TRAER LAS HORAS TRABAJADAS EN ESTA SEMANA-->
                             <p class="tarjeta-valor">45 <span>horas</span></p>
                         </div>
                     </div>
                     <div>
-                        <p class="tarjeta-subtexto">Meta: 84 horas</p>
+                        <p class="tarjeta-subtexto">Meta: 21 horas</p> <!-- TRAER LA CANTIDAD DE HORAS QUE DEBE EL USUARIO NO LAS DE LA SEMANA PORQUE CAPAS QUE TIENE HORAS PREVIAS POR HACER-->
                         <div class="barra-progreso">
                             <div class="progreso" style="width: 53.57%"></div>
                         </div>

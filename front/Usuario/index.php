@@ -81,7 +81,7 @@ verificarAcceso(['Usuario', 'Admin']);
                         <i class="material-icons">warning</i>
                     </div>
                     <div class="tarjeta-contenido">
-                        <h3>Pagos atrasados</h3>
+                        <h3>Pagos Atrasados</h3>
                         <p class="tarjeta-valor atrasado">2</p>
                         <p class="tarjeta-subtexto">Total: $2,500</p>
                     </div>
@@ -92,9 +92,9 @@ verificarAcceso(['Usuario', 'Admin']);
                         <i class="material-icons">punch_clock</i>
                     </div>
                     <div class="tarjeta-contenido">
-                        <h3>Horas trabajadas</h3>
+                        <h3>Horas Trabajadas</h3>
                         <p class="tarjeta-valor">45 <span>horas</span></p>
-                        <p class="tarjeta-subtexto">Este mes</p>
+                        <p class="tarjeta-subtexto">Esta Semana</p>
                     </div>
                 </div>
 
@@ -116,7 +116,7 @@ verificarAcceso(['Usuario', 'Admin']);
                         <i class="material-icons">payments</i>
                     </div>
                     <div class="tarjeta-contenido">
-                        <h3>Cuota</h3>
+                        <h3>Aportes Mensuales</h3>
                         <p class="tarjeta-valor">$1,250</p>
                         <p class="tarjeta-subtexto">A pagar</p>
                     </div>

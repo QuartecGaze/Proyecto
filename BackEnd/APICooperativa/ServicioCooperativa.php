@@ -51,5 +51,10 @@
             $this->repositorio->cargarHoras($idPersona, $horas, $fechaHoras);
         }
 
+        public function horasTrabajadasEstaSemana($idPersona){
+            $semanaActual = date("W");
+            $resultado = $this->repositorio->horasTrabajadasEstaSemana($idPersona, $semanaActual);
+            //hacer el return devolviendo resultado=========================
+        }
 
     }
