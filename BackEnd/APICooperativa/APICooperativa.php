@@ -60,6 +60,11 @@
                 //traer las horas del front
                 session_start();
                 $idPersona = $_SESSION['id'];
+                $datos = json_decode(file_get_contents('php://input'), true);
+                $horas = $datos['horas'];
+                if ($horas === null || $horas < 1 || $horas > 12) {
+                    respuesta("Horas inválidas (1–12).", "error", 422);
+                }
                 try{
                     if($servicio->cargarHoras($idPersona, $horas)){
                         respuesta("horas cargadas correctamente", "exito", 200);
@@ -69,6 +74,23 @@
                     }catch(Exception $e){
                         respuesta($e->getMessage(), "error", $e->getCode());
                     }
+            }
+
+            elseif ($accion === "subirComprobante"){ //PAGOS USUARIO
+                if(!isset($_FILES['comprobante'])){
+                    respuesta("debe cargar un archivo", "error", 400);
+                }
+                $nombreArchivo = $_FILES['comprobante']['name'];
+                $nombreTemp = $_FILES['comprobante']['tmp_name'];
+                try{
+                if($servicio->subirComprobante($nombreArchivo, $nombreTemp, $idComprobante)){
+                    respuesta("archivo cargado correctamente", "exito", 200);
+                }else{
+                    respuesta("error al cargar al archivo", "error", 400);
+                }
+                }catch(Exception $e){
+                    respuesta($e->getMessage(), "error", $e->getCode());
+                }
             }
         break;
         case "GET":

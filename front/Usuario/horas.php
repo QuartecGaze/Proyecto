@@ -98,13 +98,8 @@
                         <div class="mensaje-error" style="display: none;">Error al registrar las horas.</div>
 
                         <div class="grupo-formulario">
-                            <label for="fecha">Fecha:</label>
-                            <input type="date" id="fecha" name="fecha" required value="2023-11-15">
-                        </div>
-
-                        <div class="grupo-formulario">
                             <label for="horas">Horas trabajadas:</label>
-                            <input type="number" id="horas" name="horas" min="1" max="12" required value="8">
+                            <input type="number" id="horas" name="horas" min="1" max="12" required placeholder="Ej: 3">
                         </div>
 
                         <button type="submit" name="registrar_horas" class="boton-primario">
@@ -201,6 +196,7 @@
     </div>
 
     <script src="../Javascript/FrontUsuario/generalidades.js" type="module"></script>
+    <script src="../Javascript/FrontUsuario/horas.js" type="module"></script>
     <script>
 
         document.querySelector('.formulario-horas').addEventListener('submit', function (e) {

@@ -129,50 +129,7 @@
             mysqli_query($this->conn, $consulta);
         }
 
-        public function cuantoDebo($idPersona){
-            $consulta = "
-                SELECT Monto 
-                FROM Comprobante_Pago
-                WHERE ID_Persona = $idPersona AND Estado_Pago = 'En Espera'
-            ";
-            $resultado = mysqli_query($this->conn, $consulta);
-
-            $total = 0;
-            while ($fila = mysqli_fetch_assoc($resultado)) {
-                $total +=  $fila['Monto'];
-            }
-            return $total;
-        }
-       
-        public function horasTrabajadas($idPersona, $semana){
-            $consulta = "
-                SELECT Horas
-                FROM Horas_Trabajadas
-                WHERE ID_Persona = $idPersona AND Nro_semana = $semana
-            ";
-            $resultado = mysqli_query($this->conn, $consulta);
-
-            $total = 0;
-            while ($fila = mysqli_fetch_assoc($resultado)) {
-                $total +=  $fila['Horas'];
-            }
-            return $total;
-
-        }
-
-        public function getHorasNecesariasSemana($semana){
-            $consulta = "
-                SELECT Horas_semanales
-                FROM   Semana_trabajo
-                WHERE  Nro_semana = $semana
-                LIMIT 1 
-            "; //para solo traer uno
-            $resultado = mysqli_query($this->conn, $consulta);
-            if ($fila = mysqli_fetch_assoc($resultado)) {
-                return $fila['Horas_semanales']; 
-            }
-            return null; //esa semana no existe
-    }
+        
         
 
 

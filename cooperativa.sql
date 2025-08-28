@@ -74,8 +74,7 @@ CREATE TABLE `Horas_trabajadas` (
   `ID_Horas_trabajadas` int NOT NULL,
   `Horas` int DEFAULT NULL,
   `Fecha_registro_horas` date DEFAULT NULL,
-  `ID_Persona` int DEFAULT NULL,
-  `ID_Semana_trabajo` int DEFAULT NULL
+  `ID_Persona` int DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- --------------------------------------------------------
@@ -322,8 +321,7 @@ ALTER TABLE `Falta`
 --
 ALTER TABLE `Horas_trabajadas`
   ADD PRIMARY KEY (`ID_Horas_trabajadas`),
-  ADD KEY `ID_Persona` (`ID_Persona`),
-  ADD KEY `ID_Semana_trabajo` (`ID_Semana_trabajo`);
+  ADD KEY `ID_Persona` (`ID_Persona`);
 
 --
 -- Indexes for table `Interesado`

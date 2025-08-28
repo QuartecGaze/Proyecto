@@ -134,46 +134,6 @@
         
         }   
 
-        public function horasTrabajadasUsuario($idPersona, $fecha){
-            $semana = $this->getSemanaNro($fecha);
-            if (!$this->repositorio->usuarioExisteID($idPersona)) {
-                throw new Exception("El usuario no existe", 404);
-            } else {
-                return $this->repositorio->horasTrabajadas($idPersona, $semana);
-            }
-        }
-
-        public function horasAtrasadasUsuario($idPersona){
-            $semanaActual = date('W');
-            if (!$this->repositorio->usuarioExisteID($idPersona)) {
-                throw new Exception("El usuario no existe", 404);
-            } else {
-                $totalHorasAFavor = 0;
-                $totalHorasPendientes = 0;
-                for ($semana = 1; $semana < $semanaActual; $semana++) {
-
-                    $trabajadas  = $this->repositorio->horasTrabajadas($idPersona, $semana);
-                    $necesarias  = $this->repositorio->getHorasNecesariasSemana($semana);
-    
-                    if ($trabajadas > 0 && $trabajadas < $necesarias) {
-                        $totalHorasPendientes += $necesarias - $trabajadas;
-    
-                    } elseif ($trabajadas > 0 && $trabajadas > $necesarias) {
-                        $totalHorasAFavor += $trabajadas - $necesarias;
-                    }
-                }
-                return [
-                    'horasPendientes' => $totalHorasPendientes,
-                    'horasAFavor'     => $totalHorasAFavor
-                ];
-                
-            }
-        }
-
-        public function getSemanaNro($fechaSemana){
-            $semana = date('W', strtotime($fechaSemana));
-            return $semana;
-        }
 
 
 
