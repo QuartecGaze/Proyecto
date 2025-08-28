@@ -279,15 +279,24 @@
         }
 
         //APICooperativa
-        public function getIDUsuarios(){
+        public function getIDUsuarios(): array {
             $consulta = "
                 SELECT ID_Persona 
                 FROM Persona 
                 WHERE Rol = 'Usuario'
             ";
-            mysqli_query($this->conn, $consulta); 
-            
+
+            $resultado = mysqli_query($this->conn, $consulta);
+
+            $ids = [];
+                if ($resultado && mysqli_num_rows($resultado) > 0) {
+                    while ($fila = mysqli_fetch_assoc($resultado)) {
+                        $ids[] = $fila['ID_Persona'];
+                    }
+                }
+            return $ids;
         }
+
 
         public function crearPagoMensual($montoPagoMensual, $IDUsuariosArray, $fecha) {
             $totalUsuarios = count($IDUsuariosArray);
@@ -298,7 +307,7 @@
                 if($i > 0){ //aca se a;ade una , al final de cada iteracion para no romper la consulta el operador .= a;ade al final es como el mas += que usabamos en java
                     $valoresConsulta .= ','; 
                 }
-                $valoresConsulta .= "($idPersona , 'Aportes mensuales' , 'En espera', $fecha, $montoPagoMensual)"; 
+                $valoresConsulta .= "($idPersona , 'Aportes mensuales' , 'En espera', '$fecha', $montoPagoMensual)"; 
             } //haciendo esto nos evitamos sobrecargar el servidor haciendo 100 consultas para 100 usuarios, lo hacemos todo en una un insert gigante como el de cuando creamos la tabla traducciones
             $consulta = "
                     INSERT INTO Comprobante_pago (ID_Persona, Motivo_pago, Estado_pago, Mes, Monto)
@@ -321,10 +330,10 @@
             }
         }
 
-        public function cargarPagoPersonalizado($idPersona, $motivoPago, $montoPagoPersonalizado, $fecha) {
+        public function crearPagoPersonalizado($idPersona, $motivoPago, $montoPagoPersonalizado, $fecha) {
             $consulta = "
                 INSERT INTO Comprobante_pago (ID_Persona, Motivo_pago, Estado_pago, Mes, Monto)
-                VALUES ($idPersona , $motivoPago , 'En Espera' , $fecha , $montoPagoPersonalizado);
+                VALUES ($idPersona , '$motivoPago' , 'En Espera' , '$fecha' , $montoPagoPersonalizado);
             ";
             mysqli_query($this->conn, $consulta); 
         }

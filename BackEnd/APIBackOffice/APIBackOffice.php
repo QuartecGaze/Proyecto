@@ -117,7 +117,14 @@
             if($accion === "asignarPagoMensual"){
                 try {
                     $datos = json_decode(file_get_contents('php://input'), true);
-                    $servicio->crearPagoMensual($montoPagoMensual); //traer el montoPagoMensual del front (lo va a ingresar el admin en un modal)
+                    if (!isset($datos['montoPagoMensual'])) {
+                        respuesta("Falta el monto", "error", 400);
+                    }
+                    $montoPagoMensual = $datos['montoPagoMensual'];
+                    if ($montoPagoMensual <= 0) {
+                        respuesta("El monto debe ser mayor a 0", "error", 422);
+                    }
+                    $servicio->crearPagoMensual($montoPagoMensual);
                     respuesta("Pago mensual asignado con exito", "exito", 201);
                 } catch(Exception $e) {
                     respuesta($e->getMessage(), "error", $e->getCode());
@@ -127,6 +134,15 @@
             if($accion === "asignarPagoPersonalizado"){
                 try {
                     $datos = json_decode(file_get_contents('php://input'), true);
+                    if (!isset($datos['montoPagoPersonalizado']) || !isset($datos['ci']) || !isset($datos['motivoPagoPersonalizado'])) {
+                        respuesta("Faltan datos", "error", 400);
+                    }
+                    $montoPagoPersonalizado = $datos['montoPagoPersonalizado'];
+                    if ($montoPagoPersonalizado <= 0) {
+                        respuesta("El monto debe ser mayor a 0", "error", 422);
+                    }
+                    $ci = $datos['ci'];
+                    $motivoPago = $datos['motivoPagoPersonalizado'];
                     $servicio->crearPagoPersonalizado($motivoPago, $ci , $montoPagoPersonalizado); //traer el montoPagoMensual del front (lo va a ingresar el admin en un modal)
                     respuesta("Pago personalizado asignado con exito", "exito", 201);
                 } catch(Exception $e) {

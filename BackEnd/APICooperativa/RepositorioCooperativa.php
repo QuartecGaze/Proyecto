@@ -63,6 +63,9 @@
             mysqli_query($this->conn, $consulta);
         }
 
+        public function horasTrabajadasEstaSemana($idPersona, $semanaActual){
+
+        }
 
         //FUNCIONES
         public function unidadHabitacionalExiste($numeroPuerta, $pasillo){

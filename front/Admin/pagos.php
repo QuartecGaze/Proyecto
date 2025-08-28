@@ -71,10 +71,10 @@
 
             <!-- Sección de formularios de pago -->
             <div class="contenedor-formularios-pagos">
-                <!-- Formulario de pago general -->
+                <!-- Formulario de pago Mensual -->
                 <section class="formulario-pago">
-                    <h3>Pago General</h3>
-                    <form method="POST" class="formulario-horas">
+                    <h3>Asignar Pago Mensual</h3>
+                    <form method="POST" class="formulario-horas" id="form-pago-mensual">
                         <div class="mensaje-exito" style="display: none;">Pago general registrado correctamente.</div>
                         <div class="mensaje-error" style="display: none;">Error al registrar el pago.</div>
 
@@ -84,22 +84,27 @@
                                 placeholder="Ej: 1500.00">
                         </div>
 
+
+                    <!--Hacer una seccion donde explique que hace el pago mensual osea lo que es basicamente y que se aplica a todos los usuarios    -->
+                        <div> *Explicar lo que hace el pago mensual</div>
+                    <!--
                         <div class="grupo-formulario">
                             <label for="concepto-general">Concepto:</label>
                             <input type="text" id="concepto-general" name="concepto_general" required
                                 placeholder="Ej: Pago por servicios">
                         </div>
+                    -->
 
                         <button type="submit" name="pago_general" class="boton-primario">
-                            <i class="material-icons">attach_money</i> Realizar Pago General
+                            <i class="material-icons">attach_money</i> Asignar Pago
                         </button>
                     </form>
                 </section>
 
                 <!-- Formulario de pago personalizado -->
                 <section class="formulario-pago">
-                    <h3>Pago Personalizado</h3>
-                    <form method="POST" class="formulario-horas">
+                    <h3>Asignar Pago Personalizado</h3>
+                    <form method="POST" class="formulario-horas" id="form-pago-personalizado">
                         <div class="mensaje-exito" style="display: none;">Pago personalizado registrado correctamente.
                         </div>
                         <div class="mensaje-error" style="display: none;">Error al registrar el pago.</div>
@@ -109,19 +114,14 @@
                             <input type="text" id="cedula" name="cedula" required placeholder="Ej: 12345678">
                         </div>
 
-                        <div class="grupo-formulario-doble">
+                        <div class="grupo-formulario">
                             <div class="grupo-formulario">
                                 <label for="monto-personalizado">Monto:</label>
                                 <input type="number" id="monto-personalizado" name="monto_personalizado" min="1"
                                     step="0.01" required placeholder="Ej: 2500.00">
                             </div>
-
-                            <div class="grupo-formulario">
-                                <label for="fecha-pago">Fecha:</label>
-                                <input type="date" id="fecha-pago" name="fecha_pago" required>
-                            </div>
                         </div>
-
+                        
                         <div class="grupo-formulario">
                             <label for="motivo">Motivo del pago:</label>
                             <textarea id="motivo" name="motivo" rows="3" required
@@ -129,7 +129,7 @@
                         </div>
 
                         <button type="submit" name="pago_personalizado" class="boton-primario">
-                            <i class="material-icons">person</i> Realizar Pago Personalizado
+                            <i class="material-icons">person</i> Asignar Pago Personalizado
                         </button>
                     </form>
                 </section>
@@ -224,6 +224,11 @@
             </section>
         </main>
     </div>
+
+    <script src="../Javascript/BackOffice/generalidades.js" type="module"></script>
+    <script src="../Javascript/BackOffice/pagos.js" type="module"></script>
+
+
 </body>
 
 </html>

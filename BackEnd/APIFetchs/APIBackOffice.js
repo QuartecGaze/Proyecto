@@ -51,3 +51,11 @@ export function contarInteresados(){
 export function subirFoto(foto){
     return apiRequest('/APIBackOffice/ApiBackOffice.php?accion=subirFoto', 'POST', foto);
 }
+
+export function asignarPagoMensual(data) {
+    return apiRequest('/APIBackOffice/ApiBackOffice.php?accion=asignarPagoMensual', 'POST', data);
+}
+
+export function asignarPagoPersonalizado(data) {
+    return apiRequest('/APIBackOffice/ApiBackOffice.php?accion=asignarPagoPersonalizado', 'POST', data);
+}

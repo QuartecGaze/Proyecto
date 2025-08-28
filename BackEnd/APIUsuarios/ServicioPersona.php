@@ -134,8 +134,8 @@
         
         }   
 
-        public function horasTrabajadasUsuario($idPersona){
-            $semana = $this->getSemanaNro(date('Y-m-d'));
+        public function horasTrabajadasUsuario($idPersona, $fecha){
+            $semana = $this->getSemanaNro($fecha);
             if (!$this->repositorio->usuarioExisteID($idPersona)) {
                 throw new Exception("El usuario no existe", 404);
             } else {
@@ -144,7 +144,7 @@
         }
 
         public function horasAtrasadasUsuario($idPersona){
-            $semanaActual = $this->getSemanaNro(date('Y-m-d'));
+            $semanaActual = date('W');
             if (!$this->repositorio->usuarioExisteID($idPersona)) {
                 throw new Exception("El usuario no existe", 404);
             } else {
