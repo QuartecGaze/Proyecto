@@ -15,6 +15,7 @@ const fotoUsuario = 'usuario.webp'; //asignamos una foto basica a los usuarios q
 
 const fotoruta = "../../Recursos/FotosPerfil/";
 const idSesion = await getIdSesion();
+localStorage.setItem("idSesion", idSesion.message);
 const data = await getUsuario(idSesion.message);
 setDatos(data.message);
 

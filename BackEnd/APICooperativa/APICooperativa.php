@@ -104,20 +104,20 @@
                 }
             }
 
-
-            //esto me parece que va en apiUsuario
-
             if($accion === "getCooperativa"){ //LLamar en el index de usuario
-                $idPersona = $_GET['id'];
+                $id = $_GET['id'];
                 if($id != null){
+                    $comprobantes = $servicio->getComprobantesPendientes($id);
                     try{
-                        $comprobantes = $servicio->getComprobantesPendientes($idPersona);
                         $respuesta = [
                             //Hacer esto para traer
-                            //Horas trabajadas esta semana
-                            'horasTrabajadas' => $servicio->horasTrabajadasEstaSemana($idPersona),
+                            //Horas trabajadas esta semana 
+                            
+                            'horasTrabajadas' => $servicio->horasTrabajadasEstaSemana($id),
+                            
                             //Total horas semanales requeridas
                             'horasObjetivo' => $servicio->horasSemanales(),
+                            
                             //Total pagos atrasados
                             'pagosAtrasados' => $comprobantes['cantidadPagosPendientes'],
                             //total dinero de pagos atrasados?
@@ -140,7 +140,16 @@
                 respuesta("No se encontro una id para buscar", "error", 0);
             }
         }
-
+        
+        if($accion == "getIdSesion"){
+            session_start();
+            if(isset($_SESSION['id'])){
+                respuesta($_SESSION['id'], "exito", 200);
+            } else {
+                respuesta("No se ha encontrado una variable de sesion", "error", 404);
+            }
+        }
+        
         if($accion === "getHorasTrabajadas"){ //LLamar en horas.php de Usuario
                 $id = $_GET['id'];
                 if($id != null){

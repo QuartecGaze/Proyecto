@@ -22,3 +22,6 @@ import { apiRequest } from './apiConfig.js';
         export function subirHoras(data){
                 return apiRequest(`/APICooperativa/ApiCooperativa.php?accion=subirHoras`, "POST", data);
         }
+        export function getCooperativa(id) {
+                return apiRequest('/APICooperativa/ApiCooperativa.php?accion=getCooperativa&id=' + id, 'GET');
+            }

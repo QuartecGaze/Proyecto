@@ -72,7 +72,9 @@
 
         public function horasTrabajadasEstaSemana($idPersona){
             $semanaActual = $this->lunesDeEstaSemana();
-            return $this->repositorio->horasTrabajadasXSemana($idPersona, $semanaActual);
+            $idSemana = $this->repositorio->getIdSemana($semanaActual);
+            //tengo que mandar id semana no semana
+            return $this->repositorio->horasTrabajadasXSemana($idPersona, $idSemana);
         }
 
 

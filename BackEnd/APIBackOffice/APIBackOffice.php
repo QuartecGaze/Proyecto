@@ -93,8 +93,12 @@
             
             if($accion === "aprobarInteresado") {
                 $datos = json_decode(file_get_contents('php://input'), true);
-                $servicio->cargarUsuario($datos['idPersona']);
-                respuesta("Interesado aprobado exitosamente", "exito", 200);
+                try{
+                    $servicio->cargarUsuario($datos['idPersona']);
+                    respuesta("Interesado aprobado exitosamente", "exito", 200);
+                } catch (Exception $e) {
+                    respuesta($e->getMessage(), "error", $e->getCode());
+                }
             }
             
             if ($accion === "subirFoto"){

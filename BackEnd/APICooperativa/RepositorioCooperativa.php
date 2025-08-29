@@ -18,31 +18,65 @@
             mysqli_query($this->conn, $consulta);
         }
 
-        public function getComprobantesMensuales($idPersona){
-            $consulta = "
-                SELECT * 
-                FROM comprobante_pago 
-                WHERE ID_Persona = '$idPersona'
-                AND Estado_pago IN ('En espera', 'Pendiente');
-            ";
-            $resultado = mysqli_query($this->conn, $consulta); 
-            if(mysqli_num_rows($resultado) > 0){
-                while ($fila = mysqli_fetch_assoc($resultado)) {
-                    $comprobantes[] = new ComprobantePago(
-                    $fila['ID_Persona'], 
-                    $fila['Motivo_pago'],
-                    $fila['Estado_pago'], 
-                    $fila['Mes'], 
-                    $fila['Foto'], 
-                    $fila['Monto'], 
-                    $fila['ID_Comprobante_pago']
-                    );
-                }
-            } else {
-                throw new Exception("No hay comprobantes en espera o pendiente asocioados a la id: " . $idPersona);
-            }
-                return $comprobantes;  
-            }
+public function getComprobantesMensuales($idPersona){
+    // 1) Validar el id (aceptar solo dígitos)
+    if (!is_numeric($idPersona) || !ctype_digit((string)$idPersona)) {
+        // Intento de recuperar si viene "null" o basura
+        error_log("getComprobantesMensuales: idPersona inválido = " . var_export($idPersona, true));
+        return []; // o lanzar Exception si preferís
+    }
+    $idPersona = (int)$idPersona;
+
+    // 2) Prepared statement
+    $sql = "
+        SELECT ID_Persona, Motivo_pago, Estado_pago, Mes, Foto, Monto, ID_Comprobante_pago
+        FROM comprobante_pago
+        WHERE ID_Persona = ?
+          AND TRIM(Estado_pago) IN ('En espera', 'Pendiente')
+    ";
+
+    $stmt = mysqli_prepare($this->conn, $sql);
+    if (!$stmt) {
+        throw new Exception("Error en prepare: " . mysqli_error($this->conn));
+    }
+
+    mysqli_stmt_bind_param($stmt, "i", $idPersona);
+
+    if (!mysqli_stmt_execute($stmt)) {
+        $err = mysqli_stmt_error($stmt);
+        mysqli_stmt_close($stmt);
+        throw new Exception("Error en execute: " . $err);
+    }
+
+    $resultado = mysqli_stmt_get_result($stmt);
+    if ($resultado === false) {
+        $err = mysqli_error($this->conn);
+        mysqli_stmt_close($stmt);
+        throw new Exception("Error al obtener resultado: " . $err);
+    }
+
+    $comprobantes = [];
+    while ($fila = mysqli_fetch_assoc($resultado)) {
+        // Opcional: normalizar espacios en Estado_pago
+        $fila['Estado_pago'] = trim($fila['Estado_pago']);
+
+        $comprobantes[] = new ComprobantePago(
+            $fila['ID_Persona'],
+            $fila['Motivo_pago'],
+            $fila['Estado_pago'],
+            $fila['Mes'],
+            $fila['Foto'],
+            $fila['Monto'],
+            $fila['ID_Comprobante_pago']
+        );
+    }
+
+    mysqli_stmt_close($stmt);
+
+    // 3) Si no hay filas, devolvés array vacío (no Exception)
+    return $comprobantes;
+}
+
 
         public function subirComprobante($nombre, $idComprobantePago) {
             $consulta = "
@@ -73,8 +107,8 @@
             $consulta = "
                 SELECT Horas
                 FROM Horas_Trabajadas
-                WHERE ID_Persona = $idPersona AND Fecha_semana = '$semana'
-            ";
+                WHERE ID_Persona = $idPersona AND Fecha_semana = '$semana' 
+            "; //error aca no deberia mandar semana sino id semana
             $resultado = mysqli_query($this->conn, $consulta);
 
             $total = 0;
@@ -119,7 +153,7 @@
             $consulta = "
                 SELECT Horas_semanales
                 FROM   Semana_trabajo
-                WHERE  ID_Semana_trabajo = $semana
+                WHERE  Fecha_semana = $semana
             ";
             $resultado = mysqli_query($this->conn, $consulta);
             if ($fila = mysqli_fetch_assoc($resultado)) {

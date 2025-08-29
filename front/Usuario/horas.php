@@ -197,6 +197,7 @@
 
     <script src="../Javascript/FrontUsuario/generalidades.js" type="module"></script>
     <script src="../Javascript/FrontUsuario/horas.js" type="module"></script>
+    <script src="../Javascript/FrontUsuario/cooperativa.js" type="module"></script>
     <script>
 
         document.querySelector('.formulario-horas').addEventListener('submit', function (e) {

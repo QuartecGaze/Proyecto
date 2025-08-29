@@ -1,6 +1,10 @@
 <?php
-
+require_once __DIR__ .'../../APIUsuarios/Modelos/Usuario.php';
+require_once __DIR__ .'../../APIUsuarios/Modelos/Persona.php'; 
+require_once __DIR__ .'../../APIUsuarios/Modelos/Admin.php';
+require_once __DIR__ .'../../APIUsuarios/Modelos/Interesado.php';
     Class RepositorioBackOffice {
+        
         private $conn;
 
         public function __construct($conn) {
@@ -42,7 +46,8 @@
             ";
             $resultado = mysqli_query($this->conn, $consulta);
             $fila = mysqli_fetch_assoc($resultado);
-            $persona = new Persona($fila['CI'], $fila['Email'], $fila['Telefono'] ,$fila['ID_Persona'], $fila['Nombre'], $fila['Apellido'], $fila['Contraseña'], $fila['Rol']);
+            $telefonos = $this->getTelefonosPersona($id);
+            $persona = new Persona($fila['CI'], $fila['Email'], $telefonos ,$id, $fila['Nombre'], $fila['Apellido'], $fila['Contraseña'], $fila['Rol']);
             return $persona;
         }
 
@@ -199,7 +204,7 @@
             $fechaIngreso = $Usuario->getFechaIngreso();
             $consulta = "
                 INSERT INTO Usuario (ID_Persona, Fecha_ingreso)
-                VALUES ('$idPersona','$fechaIngreso')
+                VALUES ($idPersona,'$fechaIngreso')
             ";
             mysqli_query($this->conn, $consulta);
         }

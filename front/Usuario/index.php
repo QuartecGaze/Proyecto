@@ -76,14 +76,14 @@ verificarAcceso(['Usuario', 'Admin']);
             <div class="contenedor-tarjetas">
                 <!-- Tarjeta de resumen de horas trabajadas -->
                 <!-- Tarjeta de pagos atrasados -->
-                <div class="tarjeta-dashboard atrasado">
-                    <div class="tarjeta-icono atrasado">
+                <div class="tarjeta-dashboard" id="cardPagosAtrasados">
+                    <div class="tarjeta-icono" id="iconPagosAtrasados">
                         <i class="material-icons">warning</i>
                     </div>
                     <div class="tarjeta-contenido">
                         <h3>Pagos Atrasados</h3>
-                        <p class="tarjeta-valor atrasado">2</p>
-                        <p class="tarjeta-subtexto">Total: $2,500</p>
+                        <p class="tarjeta-valor" id="pagosAtrasadosCantidad">0</p>
+                        <p class="tarjeta-subtexto" id="pagosAtrasadosTotal">Total: $0</p>
                     </div>
                 </div>
 
@@ -183,6 +183,7 @@ verificarAcceso(['Usuario', 'Admin']);
     </div>
 
     <script src="../Javascript/FrontUsuario/generalidades.js" type="module"></script>
+    <script src="../Javascript/FrontUsuario/cooperativa.js" type="module"></script>
 
 </body>
 
