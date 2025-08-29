@@ -54,11 +54,11 @@
             mysqli_query($this->conn, $consulta);
         }
         
-        public function cargarHoras($idPersona, $horas, $fechaHoras){
+        public function cargarHoras($idPersona, $horas, $fechaHoras, $idSemana){
             $consulta = "
                 INSERT INTO Horas_trabajadas 
-                (ID_Persona, Horas, Fecha_registro_horas)
-                VALUES ($idPersona, $horas, '$fechaHoras');
+                (ID_Persona, Horas, Fecha_registro_horas, ID_Semana_trabajo)
+                VALUES ($idPersona, $horas, '$fechaHoras', $idSemana);
             ";
             if(mysqli_query($this->conn, $consulta)){
                 return true;
@@ -69,8 +69,19 @@
             
         }
 
-        public function horasTrabajadasEstaSemana($idPersona, $semanaActual){
+        public function horasTrabajadasXSemana($idPersona, $semana){
+            $consulta = "
+                SELECT Horas
+                FROM Horas_Trabajadas
+                WHERE ID_Persona = $idPersona AND Fecha_semana = '$semana'
+            ";
+            $resultado = mysqli_query($this->conn, $consulta);
 
+            $total = 0;
+            while ($fila = mysqli_fetch_assoc($resultado)) {
+                $total +=  $fila['Horas'];
+            }
+            return $total;
         }
 
         public function cuantoDebo($idPersona){
@@ -88,11 +99,11 @@
             return $total;
         }
        
-        public function horasTrabajadas($idPersona, $semana){
+        public function horasTrabajadas($idPersona){
             $consulta = "
                 SELECT Horas
                 FROM Horas_Trabajadas
-                WHERE ID_Persona = $idPersona AND Nro_semana = $semana
+                WHERE ID_Persona = $idPersona
             ";
             $resultado = mysqli_query($this->conn, $consulta);
 
@@ -108,18 +119,27 @@
             $consulta = "
                 SELECT Horas_semanales
                 FROM   Semana_trabajo
-                WHERE  Nro_semana = $semana
-                LIMIT 1 
-            "; //para solo traer uno
+                WHERE  ID_Semana_trabajo = $semana
+            ";
             $resultado = mysqli_query($this->conn, $consulta);
             if ($fila = mysqli_fetch_assoc($resultado)) {
                 return $fila['Horas_semanales']; 
             }
-            return null; //esa semana no existe
+            return null; 
     }
 
-        public function getIdSemana(){
-            //terminar esto para agregar el id de la semana 
+        public function getIdSemana($fecha){
+            $consulta = "
+                SELECT ID_Semana_trabajo
+                FROM   Semana_trabajo
+                WHERE  Fecha_semana = '$fecha'
+                LIMIT 1 
+            "; //para solo traer uno
+            $resultado = mysqli_query($this->conn, $consulta);
+            if ($fila = mysqli_fetch_assoc($resultado)) {
+                return $fila['ID_Semana_trabajo']; 
+            }
+            return null;
         }
     
         //FUNCIONES
@@ -149,6 +169,28 @@
                 return false;
             }
         }
-
-    
+        
+        public function crearSemana($fecha){
+            $consulta = "
+                INSERT INTO 
+                Semana_trabajo
+                (Fecha_semana)
+                VALUES ('$fecha')
+            ";
+            mysqli_query($this->conn, $consulta);
+        }
+        
+        public function semanaExiste($fecha){
+            $consulta = "
+                SELECT ID_Semana_trabajo
+                FROM   Semana_trabajo
+                WHERE  Fecha_semana = '$fecha'
+                LIMIT 1 
+            "; //para solo traer uno
+            $resultado = mysqli_query($this->conn, $consulta);
+            if (mysqli_fetch_assoc($resultado)) {
+                return true; 
+            }
+            return null;
+        }
     }

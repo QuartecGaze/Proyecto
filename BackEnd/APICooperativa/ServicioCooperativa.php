@@ -21,10 +21,22 @@
         public function getComprobantesPendientes($idPersona){
             $comprobantesObj = $this->repositorio->getComprobantesMensuales($idPersona);
             $comprobantesAsociativo = [];
+            $comprobantesPendientes = 0;
+            $comprobantesMonto = 0;
+            $montoUltimoPagoPendiente = null;
             foreach($comprobantesObj as $comprobante){
+                $comprobantesPendientes++;
+                $monto = $comprobante->getMonto();
+                $comprobantesMonto += $monto;
                     $comprobantesAsociativo[$comprobante->getIdComprobantePago()] = $comprobante->toArray();
+                $montoUltimoPagoPendiente = $monto;
                 }
-            return $comprobantesAsociativo;
+            return [
+                'comprobantesPendientes'   => $comprobantesAsociativo,
+                'cantidadPagosPendientes'  => $comprobantesPendientes,
+                'montoPendiente'           => $comprobantesMonto,
+                'pagoMensual'              => $montoUltimoPagoPendiente,
+            ];
         }
 
         public function subirComprobante($nombreArchivo, $nombreTemp, $idComprobante){ //traer el idcomprobante del front
@@ -48,37 +60,44 @@
 
         public function cargarHoras($idPersona, $horas){
             $fechaHoras = date("Y-m-d");
-            $idSemana = $this->repositorio->getIdSemana();
+            $lunesSemana = $this->lunesDeEstaSemana();
+            if($this->repositorio->semanaExiste($lunesSemana)){
+                $idSemana = $this->repositorio->getIdSemana($lunesSemana);
+            }else{
+                $this->repositorio->crearSemana($lunesSemana);
+                $idSemana = $this->repositorio->getIdSemana($lunesSemana);
+            }
             return $this->repositorio->cargarHoras($idPersona, $horas, $fechaHoras, $idSemana);
         }
 
         public function horasTrabajadasEstaSemana($idPersona){
-            $semanaActual = date("W");
-            $resultado = $this->repositorio->horasTrabajadasEstaSemana($idPersona, $semanaActual);
-            //hacer el return devolviendo resultado=========================
+            $semanaActual = $this->lunesDeEstaSemana();
+            return $this->repositorio->horasTrabajadasXSemana($idPersona, $semanaActual);
         }
 
 
-        public function horasTrabajadasUsuario($idPersona, $fecha){
-            $semana = $this->getSemanaNro($fecha);
+        public function horasTrabajadasUsuario($idPersona){
             if (!$this->repositorio->usuarioExisteID($idPersona)) {
                 throw new Exception("El usuario no existe", 404);
             } else {
-                return $this->repositorio->horasTrabajadas($idPersona, $semana);
+                return $this->repositorio->horasTrabajadas($idPersona);
             }
         }
 
         public function horasAtrasadasUsuario($idPersona){
-            $semanaActual = date('W');
+            $fecha = $this->lunesdeestasemana();
+            $idSemanaActual =  $this->repositorio->getIdSemana($fecha); //traer el idsemana de esta semana
             if (!$this->repositorio->usuarioExisteID($idPersona)) {
                 throw new Exception("El usuario no existe", 404);
             } else {
                 $totalHorasAFavor = 0;
                 $totalHorasPendientes = 0;
-                for ($semana = 1; $semana < $semanaActual; $semana++) {
+                //traer el idsemana de la primera semana que registro horas
+                $primeraSemanaUsuario = $this->repositorio->primeraSemanaUsuario($idPersona);
+                for ($semana = $primeraSemanaUsuario; $semana < $idSemanaActual; $semana++) {
 
-                    $trabajadas  = $this->repositorio->horasTrabajadas($idPersona, $semana);
-                    $necesarias  = $this->repositorio->getHorasNecesariasSemana($semana);
+                    $trabajadas  = $this->repositorio->horasTrabajadasXSemana($idPersona, $semana); //semana es el idsemana
+                    $necesarias  = $this->repositorio->getHorasNecesariasSemana($semana); //semana es el idsemana
     
                     if ($trabajadas > 0 && $trabajadas < $necesarias) {
                         $totalHorasPendientes += $necesarias - $trabajadas;
@@ -95,11 +114,27 @@
             }
         }
 
-        public function getSemanaNro($fechaSemana){
-            $semana = date('W', strtotime($fechaSemana));
-            return $semana;
+
+        public function horasSemanales(){
+            $semana = $this->lunesDeEstaSemana();
+            return $this->repositorio->getHorasNecesariasSemana($semana);
+        }
+        
+        public function lunesDeXSemana($fecha){
+            $momento = new DateTime($fecha);
+            $diaSemana = $momento->format('N'); //Dependiendo de momento (que es un objeto) me va a dar 1 si es un lunes hasta 7 si es domingo
+            //entonces con un if 
+            if($diaSemana > 1){
+                //modifica el momento para que sea momento menos el dia de la semana menos 1 osea si es 7 hace 7-1=6 y hace 7-6
+                $momento->modify('-' . ($diaSemana - 1) . 'days');
+            }
+            //devuelve el lunes de la semana
+            return $momento->format('Y-m-d');
         }
 
+        public function lunesDeEstaSemana(){
+            return $this->lunesDeXSemana(date('Y-m-d'));
+        }
 
 
     }

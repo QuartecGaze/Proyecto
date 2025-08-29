@@ -98,7 +98,7 @@
                 try {
                     $idPersona = $_GET['id'];
                     $comprobantes = $servicio->getComprobantesPendientes($idPersona);
-                    respuesta($comprobantes, "exito", 201);
+                    respuesta($comprobantes['comprobantesPendientes'], "exito", 201);
                 } catch(Exception $e) {
                     respuesta($e->getMessage(), "error", $e->getCode());
                 }
@@ -108,19 +108,24 @@
             //esto me parece que va en apiUsuario
 
             if($accion === "getCooperativa"){ //LLamar en el index de usuario
-                $id = $_GET['id'];
+                $idPersona = $_GET['id'];
                 if($id != null){
                     try{
+                        $comprobantes = $servicio->getComprobantesPendientes($idPersona);
                         $respuesta = [
                             //Hacer esto para traer
                             //Horas trabajadas esta semana
-                            'horasTrabajadas' => $servicio->horasTrabajadasEstaSemana($id),
+                            'horasTrabajadas' => $servicio->horasTrabajadasEstaSemana($idPersona),
+                            //Total horas semanales requeridas
+                            'horasObjetivo' => $servicio->horasSemanales(),
                             //Total pagos atrasados
-                            'pagosAtrasados' => $servicio->getComprobantesPendientes($id),
+                            'pagosAtrasados' => $comprobantes['cantidadPagosPendientes'],
                             //total dinero de pagos atrasados?
-                            'pagosAtrasadosDinero' => $servicio->getComprobantesPendientes($id),
+                            'pagosAtrasadosDinero' => $comprobantes['montoPendiente'],
                             //precio pago mensual
-                            'pagoMensual' => $servicio->getComprobantesPendientes($id)
+                            'pagoMensual' => $comprobantes['pagoMensual'],
+                            //todos los comprobantespendientes con todos sus datos para usar en la zona de hacer los pagos
+                            'comprobantesPendientes' => $comprobantes['comprobantesPendientes']
 
                             //el ultimo va sin coma
                         ];
