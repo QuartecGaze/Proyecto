@@ -79,13 +79,13 @@
                         </div>
                         <div class="tarjeta-contenido">
                             <h3>Horas Trabajadas</h3><!-- TRAER LAS HORAS TRABAJADAS EN ESTA SEMANA-->
-                            <p class="tarjeta-valor">45 <span>horas</span></p>
+                            <p class="tarjeta-valor" id="horasTrabajadas"><span>horas</span></p>
                         </div>
                     </div>
                     <div>
-                        <p class="tarjeta-subtexto">Meta: 21 horas</p> <!-- TRAER LA CANTIDAD DE HORAS QUE DEBE EL USUARIO NO LAS DE LA SEMANA PORQUE CAPAS QUE TIENE HORAS PREVIAS POR HACER-->
+                        <p class="tarjeta-subtexto">Meta: <span id="horasObjetivo"></span> horas</p> <!-- TRAER LA CANTIDAD DE HORAS QUE DEBE EL USUARIO NO LAS DE LA SEMANA PORQUE CAPAS QUE TIENE HORAS PREVIAS POR HACER-->
                         <div class="barra-progreso">
-                            <div class="progreso" style="width: 53.57%"></div>
+                            <div class="progreso" id="progresoHoras" style="width:0%"></div>
                         </div>
                     </div>
                 </section>
@@ -195,9 +195,8 @@
         </main>
     </div>
 
-    <script src="../Javascript/FrontUsuario/generalidades.js" type="module"></script>
     <script src="../Javascript/FrontUsuario/horas.js" type="module"></script>
-    <script src="../Javascript/FrontUsuario/cooperativa.js" type="module"></script>
+
     <script>
 
         document.querySelector('.formulario-horas').addEventListener('submit', function (e) {

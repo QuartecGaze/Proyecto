@@ -93,7 +93,7 @@ verificarAcceso(['Usuario', 'Admin']);
                     </div>
                     <div class="tarjeta-contenido">
                         <h3>Horas Trabajadas</h3>
-                        <p class="tarjeta-valor">45 <span>horas</span></p>
+                        <p class="tarjeta-valor" id="horasTrabajadas"></p>
                         <p class="tarjeta-subtexto">Esta Semana</p>
                     </div>
                 </div>
@@ -116,9 +116,9 @@ verificarAcceso(['Usuario', 'Admin']);
                         <i class="material-icons">payments</i>
                     </div>
                     <div class="tarjeta-contenido">
-                        <h3>Aportes Mensuales</h3>
-                        <p class="tarjeta-valor">$1,250</p>
-                        <p class="tarjeta-subtexto">A pagar</p>
+                        <h3>Algo extra</h3>
+                        <p class="tarjeta-valor">ya estamos poniendo</p>
+                        <p class="tarjeta-subtexto"> lo que hay que pagar en el otro</p>
                     </div>
                 </div>
             </div>
@@ -182,7 +182,6 @@ verificarAcceso(['Usuario', 'Admin']);
         </main>
     </div>
 
-    <script src="../Javascript/FrontUsuario/generalidades.js" type="module"></script>
     <script src="../Javascript/FrontUsuario/cooperativa.js" type="module"></script>
 
 </body>

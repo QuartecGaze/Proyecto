@@ -103,12 +103,12 @@ public function getComprobantesMensuales($idPersona){
             
         }
 
-        public function horasTrabajadasXSemana($idPersona, $semana){
+        public function horasTrabajadasXSemana($idPersona, $idSemana){
             $consulta = "
                 SELECT Horas
                 FROM Horas_Trabajadas
-                WHERE ID_Persona = $idPersona AND Fecha_semana = '$semana' 
-            "; //error aca no deberia mandar semana sino id semana
+                WHERE ID_Persona = $idPersona AND ID_Semana_trabajo = $idSemana 
+            ";
             $resultado = mysqli_query($this->conn, $consulta);
 
             $total = 0;
@@ -153,7 +153,7 @@ public function getComprobantesMensuales($idPersona){
             $consulta = "
                 SELECT Horas_semanales
                 FROM   Semana_trabajo
-                WHERE  Fecha_semana = $semana
+                WHERE  Fecha_semana = '$semana'
             ";
             $resultado = mysqli_query($this->conn, $consulta);
             if ($fila = mysqli_fetch_assoc($resultado)) {

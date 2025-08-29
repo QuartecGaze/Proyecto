@@ -116,6 +116,16 @@
             }
         }
 
+        
+        public function semanaActualExiste(){
+            $lunesSemana = $this->lunesDeEstaSemana();
+            if($this->repositorio->semanaExiste($lunesSemana)){
+                return true;
+            }else{
+                $this->repositorio->crearSemana($lunesSemana);
+                return false;
+            }
+        }
 
         public function horasSemanales(){
             $semana = $this->lunesDeEstaSemana();

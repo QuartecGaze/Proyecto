@@ -108,6 +108,10 @@
                 $id = $_GET['id'];
                 if($id != null){
                     $comprobantes = $servicio->getComprobantesPendientes($id);
+                    if($servicio->semanaActualExiste()){
+                        
+                    }
+
                     try{
                         $respuesta = [
                             //Hacer esto para traer

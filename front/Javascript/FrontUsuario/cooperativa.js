@@ -1,23 +1,71 @@
 import { getCooperativa } from '../../../BackEnd/APIFetchs/APICooperativa.js';
+import { getUsuario, getIdSesion } from '../../../BackEnd/APIFetchs/APIUsuario.js';
 
-const pagosAtrasados = document.querySelectorAll(".pagosAtrasadosCantidad");
-const pagosAtrasadosMonto = document.querySelectorAll(".pagosAtrasadosTotal");
+/// --- DOM Generalidades (usuario) ---
+const nombre = document.querySelectorAll(".nombreUsuario");
+const foto = document.querySelectorAll(".fotoPerfil");
+const fotoruta = "../../Recursos/FotosPerfil/";
+const fotoUsuario = "usuario.webp"; // fallback
 
-const id = 3;
-const data = await getCooperativa(id);
+/// --- DOM Cooperativa (dashboard) ---
+const pagosAtrasadosCantidad = document.getElementById("pagosAtrasadosCantidad");
+const pagosAtrasadosTotal = document.getElementById("pagosAtrasadosTotal");
+const cardPagosAtrasados = document.getElementById("cardPagosAtrasados");
+const horasTrabajadas = document.getElementById("horasTrabajadas");
+const objetivoHoras = document.getElementById("horasObjetivo");
 
-setDatos(data.message);
+// opcional: barra de progreso si existe en index
+const barraDeProgreso = document.getElementById('progresoHoras');
+const barraEl = barraDeProgreso?.parentElement;
 
+// --- Obtener id persona desde sesión ---
+const sesion = await getIdSesion();               // {status:'exito', message:'3'}
+const id = Number(sesion.message);
 
-function setDatos(data) {
-    pagosAtrasados.textContent = data.pagosAtrasados;
-    pagosAtrasadosMonto.textContent = data.pagosAtrasadosDinero; 
-    /*
-    direccion.textContent = data.direccion; //todavia no se trae hay que traerlo de unidad habitacional
-    cumple.textContent = data.fechaNacimiento;
-    fechaIngreso.textContent = data.fechaIngreso;
+// --- Cargar usuario + cooperativa ---
+const usr = await getUsuario(id);
+setDatosUsuario(usr.message);
 
-*/
+const coop = await getCooperativa(id);
+setDatosCooperativa(coop.message);
 
+function setDatosUsuario(data) {
+  nombre.forEach(n => { n.textContent = `${data.nombre} ${data.apellido}`; });
+  foto.forEach(f => {
+    f.src = fotoruta + (data.foto && data.foto !== '' ? data.foto : fotoUsuario);
+  });
 }
 
+function setDatosCooperativa(data) {
+  if (horasTrabajadas) horasTrabajadas.textContent = data.horasTrabajadas;
+  if (objetivoHoras) objetivoHoras.textContent = data.horasObjetivo;
+
+  if (pagosAtrasadosCantidad) {
+    pagosAtrasadosCantidad.textContent = data.pagosAtrasados;
+    if (data.pagosAtrasados > 0) {
+      pagosAtrasadosCantidad.classList.add("atrasado");
+      cardPagosAtrasados?.classList.add("atrasado");
+    } else {
+      pagosAtrasadosCantidad.classList.remove("atrasado");
+      cardPagosAtrasados?.classList.remove("atrasado");
+    }
+  }
+  if (pagosAtrasadosTotal) {
+    pagosAtrasadosTotal.textContent = "Total: $" + data.pagosAtrasadosDinero;
+  }
+
+  // si hay barra de progreso en index, actualizarla
+  Progreso(data.horasObjetivo, data.horasTrabajadas);
+}
+
+function Progreso(objetivo, trabajadas) {
+  if (!barraDeProgreso) return;
+  const objetivoHorasNum = Number(objetivo) || 0;
+  const trabajadasHorasNum = Number(trabajadas) || 0;
+  const porcentaje = objetivoHorasNum > 0
+    ? Math.min(100, Math.max(0, (trabajadasHorasNum / objetivoHorasNum) * 100))
+    : 0;
+  const pct = porcentaje.toFixed(2);
+  barraDeProgreso.style.width = pct + '%';
+  barraEl?.setAttribute('aria-valuenow', pct);
+}
