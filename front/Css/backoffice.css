@@ -59,6 +59,11 @@
     box-shadow: 0 2px 8px rgba(4, 151, 255, 0.3);
 }
 
+.logo-dashboard img {
+    width: 130px;
+    height: 60px;
+    margin-bottom: 10px;
+}
 
 .backoffice .perfil-usuario {
     border-top: 1px solid rgba(4, 151, 255, 0.2);
