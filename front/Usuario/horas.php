@@ -36,7 +36,13 @@
                         <a href="#Proyectos"><i class="material-icons">apartment</i> Proyectos</a>
                     </li>
                     <li class="item-menu">
-                        <a href="#Finanzas"><i class="material-icons">payments</i> Finanzas</a>
+                        <a href="#">
+                            <i class="material-icons">payments</i> Pagos
+                        </a>
+                        <ul class="submenu">
+                            <li><a href="pagar.php">Enviar Comprobante</a></li>
+                            <li><a href="pagos.php">Pagos Pendientes</a></li>
+                        </ul>
                     </li>
                     <li class="item-menu">
                         <a href="configuracion.php"><i class="material-icons">settings</i> Configuración</a>
@@ -223,7 +229,18 @@
                 this.reset();
             }, 2000);
         });
+
+        document.querySelectorAll(".item-menu > a").forEach(boton => {
+            boton.addEventListener("click", function (e) {
+                // Evita que redireccione si tiene submenu
+                if (this.nextElementSibling && this.nextElementSibling.classList.contains("submenu")) {
+                    e.preventDefault();
+                    this.parentElement.classList.toggle("open");
+                }
+            });
+        });
     </script>
+
 </body>
 
 </html>
