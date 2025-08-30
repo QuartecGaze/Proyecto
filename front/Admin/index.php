@@ -42,7 +42,13 @@
                         <a href="#"><i class="material-icons">apartment</i> Proyectos</a>
                     </li>
                     <li class="item-menu">
-                        <a href="pagos.php"><i class="material-icons">payments</i> Pagos</a>
+                        <a href="#">
+                            <i class="material-icons">payments</i> Pagos
+                        </a>
+                        <ul class="submenu">
+                            <li><a href="confirmarPagos.php">Enviar Comprobante</a></li>
+                            <li><a href="pagos.php">Pagos Pendientes</a></li>
+                        </ul>
                     </li>
                     <li class="item-menu">
                         <a href="solicitudes.php"><i class="material-icons">email</i> Solicitudes</a>

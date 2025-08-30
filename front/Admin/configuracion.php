@@ -2,10 +2,10 @@
 <html lang="es">
 
 <head>
-    <?php 
+    <?php
     require_once '../verificarSesion.php';
     verificarAcceso(['Admin']);
-?>
+    ?>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Senda Firme - Perfil</title>
@@ -42,7 +42,13 @@
                         <a href="#"><i class="material-icons">apartment</i> Proyectos</a>
                     </li>
                     <li class="item-menu">
-                        <a href="pagos.php"><i class="material-icons">payments</i> Pagos</a>
+                        <a href="#">
+                            <i class="material-icons">payments</i> Pagos
+                        </a>
+                        <ul class="submenu">
+                            <li><a href="confirmarPagos.php">Enviar Comprobante</a></li>
+                            <li><a href="pagos.php">Pagos Pendientes</a></li>
+                        </ul>
                     </li>
                     <li class="item-menu">
                         <a href="solicitudes.php"><i class="material-icons">email</i> Solicitudes</a>
@@ -143,7 +149,9 @@
             </div>
         </main>
     </div>
+    <script src="../Javascript/BackOffice/generalidades.js" type="module"></script>
     <script src="../Javascript/BackOffice/perfil.js" type="module"></script>
 
 </body>
+
 </html>

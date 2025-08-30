@@ -13,16 +13,26 @@ setDatos(data.message);
 
 
 function setDatos(data) {
-    nombre.forEach(nombreDiv => {
-        nombreDiv.textContent=data.nombre+" "+data.apellido;
-    });
-    
-    foto.forEach(fotoDiv => {
-        if (data.foto == null || data.foto === '') {
-          fotoDiv.src = fotoruta + fotoUsuario;
-        } else {
-          fotoDiv.src = fotoruta + data.foto;
-        }
-    });
-    rol.textContent = data.nivelPermisos; 
+  nombre.forEach(nombreDiv => {
+    nombreDiv.textContent = data.nombre + " " + data.apellido;
+  });
+
+  foto.forEach(fotoDiv => {
+    if (data.foto == null || data.foto === '') {
+      fotoDiv.src = fotoruta + fotoUsuario;
+    } else {
+      fotoDiv.src = fotoruta + data.foto;
+    }
+  });
+  rol.textContent = data.nivelPermisos;
 }
+
+document.querySelectorAll(".item-menu > a").forEach(boton => {
+  boton.addEventListener("click", function (e) {
+    // Evita que redireccione si tiene submenu
+    if (this.nextElementSibling && this.nextElementSibling.classList.contains("submenu")) {
+      e.preventDefault();
+      this.parentElement.classList.toggle("open");
+    }
+  });
+});
