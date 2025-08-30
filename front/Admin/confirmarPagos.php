@@ -47,8 +47,8 @@
                             <i class="material-icons">payments</i> Pagos
                         </a>
                         <ul class="submenu">
-                            <li class="activo"><a href="confirmarPagos.php">Confirmar Comprobantes</a></li>
-                            <li><a href="pagos.php">Generar Pago</a></li>
+                            <li><a href="confirmarPagos.php">Corroborar Comprobantes</a></li>
+                            <li><a href="pagos.php">Gestor de Pagos</a></li>
                         </ul>
                     </li>
                     <li class="item-menu">
@@ -138,7 +138,7 @@
                     <table class="tabla-horas">
                         <thead>
                             <tr>
-                                <th>Fecha de Envío</th>
+                                <th>Fecha</th>
                                 <th>Usuario</th>
                                 <th>Cédula</th>
                                 <th>Motivo</th>
@@ -235,6 +235,7 @@
 
     <script src="../Javascript/BackOffice/generalidades.js" type="module"></script>
     <script src="../Javascript/BackOffice/comprobantes.js" type="module"></script>
+    <script src="../Javascript/BackOffice/corroborarPagos.js" type="module"></script>
 </body>
 
 </html>

@@ -87,6 +87,7 @@ public function setEstadoPagoInicial($estadoPagoInicial) {
 public function setMontoPagoInicial($montoPagoInicial) {
     $this->montoPagoInicial = $montoPagoInicial;
 }
+
 public function toArray() {
     return [
 

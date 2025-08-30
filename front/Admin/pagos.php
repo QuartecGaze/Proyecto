@@ -40,8 +40,8 @@
                             <i class="material-icons">payments</i> Pagos
                         </a>
                         <ul class="submenu">
-                            <li><a href="confirmarPagos.php">Enviar Comprobante</a></li>
-                            <li class="activo"><a href="pagos.php">Pagos Pendientes</a></li>
+                            <li><a href="confirmarPagos.php">Corroborar Comprobantes</a></li>
+                            <li><a href="pagos.php">Gestor de Pagos</a></li>
                         </ul>
                     </li>
                     <li class="item-menu">

@@ -3,6 +3,7 @@
     require_once __DIR__ .'../../APIUsuarios/Modelos/Persona.php'; 
     require_once __DIR__ .'../../APIUsuarios/Modelos/Admin.php';
     require_once __DIR__ .'../../APIUsuarios/Modelos/Interesado.php';
+    require_once __DIR__ .'../../APICooperativa/Modelos/ComprobantePago.php';
 
     Class ServicioBackOffice {
         //no se especifica el tipo porque cada servicio tiene un repositorio
@@ -165,6 +166,18 @@
             if(!$this->repositorio->unidadHabitacionalAsignada($idUnidadHabitacional)){
                 $this->repositorio->asignarUnidadHabitacional($idPersona, $idUnidadHabitacional);
             }
+        }
+
+        public function getPagosPendientes(){
+            $pagosObj = $this->repositorio->getPagosPendientes();
+            $pagosArrayAsociativo = [];
+            $comprobantesPendientes = 0;
+            foreach($pagosObj as $comprobantePago){
+                $comprobantesPendientes++;
+                $pagosArrayAsociativo[$comprobantePago->getIdComprobantePago()] = $comprobantePago->toArray();
+            }
+
+            return $pagosArrayAsociativo + ['comprobantesPendientes' => $comprobantesPendientes];
         }
         
     }

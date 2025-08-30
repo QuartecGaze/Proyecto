@@ -215,10 +215,10 @@
                     respuesta($e->getMessage(), "error", $e->getCode());
                 }
 
-            } else{
-                respuesta("No se encontro una id para buscar", "error", 0);
+                } else {
+                    respuesta("No se encontro una id para buscar", "error", 0);
+                }
             }
-        }
 
             if($accion == "getIdSesion"){
                 session_start();
@@ -238,6 +238,12 @@
                 }
             }
 
+            if($accion === "getPagosPendientes"){
+                $pagosPendientes = $servicio->getPagosPendientes();
+                respuesta($pagosPendientes, "exito", 200);
+            }
+
+            }
         break;
 
         default:

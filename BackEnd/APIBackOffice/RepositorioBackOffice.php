@@ -123,7 +123,7 @@ require_once __DIR__ .'../../APIUsuarios/Modelos/Interesado.php';
             ";
             mysqli_query($this->conn, $consulta); 
         }
-        
+ 
         public function getInteresados(){
             $consulta = "
             SELECT * 
@@ -157,6 +157,7 @@ require_once __DIR__ .'../../APIUsuarios/Modelos/Interesado.php';
             }
             return $interesados;
             }
+
         public function soloInteresados(){
             $consulta = "
                 SELECT ID_Persona
@@ -426,6 +427,29 @@ require_once __DIR__ .'../../APIUsuarios/Modelos/Interesado.php';
             }
             return $UsuariosSinUnidad;
         }
+
+
+        public function getPagosPendientes(){
+            $consulta = "
+                SELECT * 
+                FROM comprobante_pago  
+                WHERE Estado_pago = 'Pendiente';
+            ";
+            $resultado = mysqli_query($this->conn, $consulta); 
+           
+            while ($fila = mysqli_fetch_assoc($resultado)) {
+                $comprobantesPendientes[] = new ComprobantePago(
+                $fila['ID_Persona'], 
+                $fila['Motivo_pago'], 
+                $fila['Estado_pago'], 
+                $fila['Mes'], 
+                $fila['foto'], 
+                $fila['Monto'], 
+                $fila['ID_Comprobante_pago']
+            );
+            }
+            return $coomprobantesPendientes;
+            }
 
         
     }
