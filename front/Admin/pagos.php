@@ -90,16 +90,25 @@
                                 placeholder="Ej: 1500.00">
                         </div>
 
+                        <div class="info-pago-mensual">
+                            <p>
+                                El <strong>pago mensual</strong> corresponde a un cargo general que se aplica 
+                                a todos los usuarios registrados en el sistema. Este monto se utiliza para cubrir
+                                servicios,
+                                mantenimientos u otros conceptos definidos por la administración.
+                            </p>
+                            <p>
+                                Una vez registrado, el pago quedará asociado a cada usuario dentro del período
+                                correspondiente,
+                                facilitando la gestión y el control de las obligaciones mensuales.
+                            </p>
+                        </div>
 
-                    <!--Hacer una seccion donde explique que hace el pago mensual osea lo que es basicamente y que se aplica a todos los usuarios    -->
-                        <div> *Explicar lo que hace el pago mensual</div>
-                    <!--
                         <div class="grupo-formulario">
                             <label for="concepto-general">Concepto:</label>
                             <input type="text" id="concepto-general" name="concepto_general" required
                                 placeholder="Ej: Pago por servicios">
                         </div>
-                    -->
 
                         <button type="submit" name="pago_general" class="boton-primario">
                             <i class="material-icons">attach_money</i> Asignar Pago
@@ -127,7 +136,7 @@
                                     step="0.01" required placeholder="Ej: 2500.00">
                             </div>
                         </div>
-                        
+
                         <div class="grupo-formulario">
                             <label for="motivo">Motivo del pago:</label>
                             <textarea id="motivo" name="motivo" rows="3" required
@@ -234,7 +243,17 @@
     <script src="../Javascript/BackOffice/generalidades.js" type="module"></script>
     <script src="../Javascript/BackOffice/pagos.js" type="module"></script>
 
-
+    <script>
+        document.querySelectorAll(".item-menu > a").forEach(boton => {
+            boton.addEventListener("click", function (e) {
+                // Evita que redireccione si tiene submenu
+                if (this.nextElementSibling && this.nextElementSibling.classList.contains("submenu")) {
+                    e.preventDefault();
+                    this.parentElement.classList.toggle("open");
+                }
+            });
+        });
+    </script>
 </body>
 
 </html>

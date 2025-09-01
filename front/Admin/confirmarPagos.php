@@ -105,7 +105,7 @@
                             <label for="buscar-cedula">Buscar por CI:</label>
                             <input type="text" id="buscar-cedula" name="buscar-cedula" placeholder="Ej: 12345678">
                         </div>
-                        
+
                         <div class="grupo-filtro">
                             <button class="boton-primario" id="aplicar-filtros">
                                 <i class="material-icons">filter_list</i> Aplicar Filtros
@@ -113,7 +113,7 @@
                         </div>
                     </div>
                 </div>
-                
+
                 <div class="tarjeta-pendientes">
                     <div class="tarjeta-icono">
                         <i class="material-icons">pending_actions</i>
@@ -199,7 +199,7 @@
                         </tbody>
                     </table>
                 </div>
-                
+
                 <div class="paginacion">
                     <button class="boton-icono" disabled>
                         <i class="material-icons">chevron_left</i>
@@ -236,6 +236,17 @@
     <script src="../Javascript/BackOffice/generalidades.js" type="module"></script>
     <script src="../Javascript/BackOffice/comprobantes.js" type="module"></script>
     <script src="../Javascript/BackOffice/corroborarPagos.js" type="module"></script>
+    <script>
+        document.querySelectorAll(".item-menu > a").forEach(boton => {
+            boton.addEventListener("click", function (e) {
+                // Evita que redireccione si tiene submenu
+                if (this.nextElementSibling && this.nextElementSibling.classList.contains("submenu")) {
+                    e.preventDefault();
+                    this.parentElement.classList.toggle("open");
+                }
+            });
+        });
+    </script>
 </body>
 
 </html>
