@@ -28,7 +28,7 @@
                     <button class="boton-cerrar-sesion">
                         <i class="material-icons">logout</i> Cerrar sesión
                     </button>
-                </form> 
+                </form>
             </div>
         </div>
     </header>
@@ -38,6 +38,78 @@
             <p id="nombre">- Nombre</p>
         </h1>
 
+        <div class="residentes-container">
+            <div class="residentes-header">
+                <i class="material-icons">groups</i>
+                <h2>Datos de los Residentes</h2>
+            </div>
+
+            <p class="section-description">Proporcione la información de todas las personas que residirán en la unidad
+                habitacional.</p>
+
+            <div class="selector-personas">
+                <label for="cantidad-personas">Número de residentes:</label>
+                <select id="cantidad-personas">
+                    <option value="1">1</option>
+                    <option value="2">2</option>
+                    <option value="3">3</option>
+                    <option value="4">4</option>
+                    <option value="5">5</option>
+                </select>
+            </div>
+
+            <div class="tabs-container">
+                <div class="tabs-header">
+                    <button class="tab-btn active">Persona 1</button>
+                    <button class="tab-btn">Persona 2</button>
+                    <button class="tab-btn">Persona 3</button>
+                </div>
+
+                <div class="tabs-content">
+                    
+                    <div class="form-grid">
+                        <div class="form-group">
+                            <label class="required-field">Nombre</label>
+                            <input type="text" placeholder="Ingrese nombre" required>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label class="required-field">Apellido</label>
+                            <input type="text" placeholder="Ingrese apellido" required>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label class="required-field">Cédula de Identidad</label>
+                            <input type="text" placeholder="Ej: 1.234.567-8" required>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label class="required-field">Fecha de Nacimiento</label>
+                            <input type="date" required>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label class="required-field">Correo electrónico</label>
+                            <input type="email" placeholder="ejemplo@email.com" required>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label>Teléfono</label>
+                            <input type="tel" placeholder="+598 XXX XXX">
+                        </div>
+                    </div>
+                    
+                </div>
+
+                <div class="form-actions">
+                    <button class="btn-guardar">
+                        <i class="material-icons">save</i> Guardar todos los datos
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Resto del contenido existente -->
         <h2>1. Entrevista Agendada</h2>
         <div class="tarjeta">
             <div class="estado-linea">
@@ -83,13 +155,14 @@
                 <div class="file-info" id="file-info-pago">Ningún archivo seleccionado</div>
                 <input type="file" id="file-pago" accept=".pdf,.jpg,.jpeg,.png" style="display: none;">
             </div>
-            
+
             <!-- Nueva sección de métodos de pago -->
             <div id="metodos-pago">
                 <h3>Métodos de pago disponibles:</h3>
                 <div class="metodos-container">
                     <div class="metodo">
-                        <img src="https://upload.wikimedia.org/wikipedia/commons/b/b5/PayPal.svg" alt="PayPal" class="logo-pago">
+                        <img src="https://upload.wikimedia.org/wikipedia/commons/b/b5/PayPal.svg" alt="PayPal"
+                            class="logo-pago">
                         <p>PayPal: pagos@senda-firme.com</p>
                     </div>
                     <div class="metodo">
@@ -111,5 +184,4 @@
     </footer>
 </body>
 <script src="../Javascript/interesado.js" type="module"></script>
-
 </html>
