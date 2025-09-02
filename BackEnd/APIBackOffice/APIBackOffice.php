@@ -243,13 +243,13 @@
                 respuesta($pagosPendientes, "exito", 200);
             }
 
-            }
+            
         break;
-
+        
         default:
             respuesta("Método no permitido", "error", 405);
         break;
-
+        
     }
 
     function respuesta($mensaje, $estado, $codigo) {

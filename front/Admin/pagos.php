@@ -104,11 +104,6 @@
                             </p>
                         </div>
 
-                        <div class="grupo-formulario">
-                            <label for="concepto-general">Concepto:</label>
-                            <input type="text" id="concepto-general" name="concepto_general" required
-                                placeholder="Ej: Pago por servicios">
-                        </div>
 
                         <button type="submit" name="pago_general" class="boton-primario">
                             <i class="material-icons">attach_money</i> Asignar Pago
