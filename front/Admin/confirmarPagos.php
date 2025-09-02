@@ -234,7 +234,6 @@
     </div>
 
     <script src="../Javascript/BackOffice/generalidades.js" type="module"></script>
-    <script src="../Javascript/BackOffice/comprobantes.js" type="module"></script>
     <script src="../Javascript/BackOffice/corroborarPagos.js" type="module"></script>
     <script>
         document.querySelectorAll(".item-menu > a").forEach(boton => {

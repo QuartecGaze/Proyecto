@@ -1,6 +1,7 @@
 import { getPagos } from '../../../BackEnd/APIFetchs/APICooperativa.js';
 import { getUsuario } from '../../../BackEnd/APIFetchs/APIUsuario.js';
 import { getIdSesion } from '../../../BackEnd/APIFetchs/APIUsuario.js';
+import { subirComprobante } from '../../../BackEnd/APIFetchs/APICooperativa.js';
 
 const nombre = document.querySelectorAll(".nombreUsuario");
 const foto = document.querySelectorAll(".fotoPerfil");
@@ -53,6 +54,7 @@ function renderPagos(dataMessage) {
 
   tbody.innerHTML = '';
   for (const c of lista) {
+
     const monto = c.monto;
     const estado = c.estadoPago;
 
@@ -63,14 +65,57 @@ function renderPagos(dataMessage) {
       <td>${c.mes}</td>
       <td><span class="estado-pago">${estado}</span></td>
       <td>
-        <button class="boton-icono" title="Pagar" data-id="${c.idComprobantePago}">
+        <button class="boton-icono" title="Pagar" data-id="${c.idComprobantePago}" data-estado="${c.estadoPago}">
           <i class="material-icons">payment</i>
         </button>
+        <a href="../../Recursos/Comprobantes/${c.foto}" download>
         <button class="boton-icono" title="Ver detalles" data-id="${c.idComprobantePago}">
           <i class="material-icons">visibility</i>
         </button>
+        </a>
+
       </td>
     `;
     tbody.appendChild(tr);
   }
 }
+
+const comprobante = (() => {
+  const input = document.createElement('input');
+  input.type = 'file';
+  input.accept = 'image/*,application/pdf'; 
+  input.style.display = 'none';
+  document.body.appendChild(input);
+
+  return () =>
+    new Promise((resolve) => {
+      input.value = '';
+      const onChange = () => {
+        input.removeEventListener('change', onChange);
+        resolve(input.files && input.files[0] ? input.files[0] : null);
+      };
+      input.addEventListener('change', onChange, { once: true });
+      input.click();
+    });
+})();
+
+const tablaBody = document.querySelector('.tabla-pagos tbody');
+
+if (tablaBody) {
+  tablaBody.addEventListener('click', async (e) => {
+    const btnPagar = e.target.closest('button[title="Pagar"]');
+    
+    if (btnPagar.dataset.estado === "Pendiente") {
+      alert("No podes enviar un comprobante ya enviado");
+      return;
+    }
+
+    const idComprobante = btnPagar.dataset.id;
+    const archivo = await comprobante();
+    const formData = new FormData();
+    formData.append('comprobante', archivo);
+
+    await subirComprobante(formData, Number(idComprobante));
+  });
+}
+

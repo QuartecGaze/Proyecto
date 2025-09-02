@@ -15,8 +15,8 @@ import { apiRequest } from './apiConfig.js';
                 return data;
         }
 
-        export function subirComprobante(data){
-                return apiRequest(`/APICooperativa/ApiCooperativa.php?accion=subirComprobante`, "POST", data);
+        export function subirComprobante(comprobante, id) {
+                return apiRequest(`/APICooperativa/ApiCooperativa.php?accion=subirComprobante&id=` + id, 'POST', comprobante);
         }
 
         export function subirHoras(data){

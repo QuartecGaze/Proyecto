@@ -111,17 +111,16 @@
                         <select name="filtro-estado" id="filtro-estado">
                             <option value="todos">Todos</option>
                             <option value="pendiente">Pendiente</option>
-                            <option value="proximo">Proximo a vencer</option>
-                            <option value="vencido">Vencido</option>
+                            <option value="enespera">En Espera</option>
                         </select>
                     </div>
 
                     <div class="grupo-filtro">
-                        <label for="filtro-mes">Mes de vencimiento</label>
+                        <label for="filtro-mes">Tipo de Pago</label>
                         <select name="filtro-mes" id="filtro-mes">
                             <option value="Todos">Todos</option>
-                            <option value="11" selected>Noviembre 2024</option>
-                            <option value="12">Noviembre 2024</option>
+                            <option value="mensual" selected>Mensual</option>
+                            <option value="otros">Otros</option>
                         </select>
                     </div>
 
@@ -148,7 +147,8 @@
                                 <td>05/18/2025</td>
                                 <td><span class="estado-pago estado-pendiente">Pendiente</span></td>
                                 <td>
-                                    <button class="boton-icono" title="Pagar">
+                                <td>
+                                    <button class="boton-icono" id="subirComprobante" title="Pagar">
                                         <i class="material-icons">payment</i>
                                     </button>
                                     <button class="boton-icono" title="Ver detalles">

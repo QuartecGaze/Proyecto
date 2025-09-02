@@ -43,12 +43,12 @@
                 session_start();
                 $rutaComprobantes = "../../Recursos/Comprobantes/";
                 $extension = pathinfo($nombreArchivo, PATHINFO_EXTENSION);
-                $nuevoNombre =  'COMPROBANTE' . $_SESSION['id'] . $idComprobante . '.' . $extension;
+                $nuevoNombre =  $_SESSION['id'] . 'COMPROBANTE' . $idComprobante . '.' . $extension;
                 $nuevaRuta = $rutaComprobantes . $nuevoNombre;
                 $archivoExiste = glob($nuevaRuta);
                 if (count($archivoExiste) > 0) {
                     throw new Exception("Ya existe un archivo con el mismo nombre en el sistema", 500);
-                } else{
+                } else {
                    if(move_uploaded_file($nombreTemp, $nuevaRuta)){
                     $this->repositorio->subirComprobante($nuevoNombre, $idComprobante);
                     return(true);
