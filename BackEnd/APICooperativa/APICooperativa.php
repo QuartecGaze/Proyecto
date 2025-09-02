@@ -145,6 +145,39 @@
             }
         }
         
+        if($accion === "getPagos"){ //LLamar en el pagos de usuario
+            $id = $_GET['id'];
+            if($id != null){
+                $comprobantes = $servicio->getComprobantesPendientes($id);
+                if($servicio->semanaActualExiste()){
+                    
+                }
+
+                try{
+                    $respuesta = [
+                        //Total pagos atrasados
+                        'pagosAtrasados' => $comprobantes['cantidadPagosPendientes'],
+                        //total dinero de pagos atrasados?
+                        'pagosAtrasadosDinero' => $comprobantes['montoPendiente'],
+                        //precio pago mensual
+                        'pagoMensual' => $comprobantes['pagoMensual'],
+                        //todos los comprobantespendientes con todos sus datos para usar en la zona de hacer los pagos
+                        'comprobantesPendientes' => $comprobantes['comprobantesPendientes']
+
+                        //el ultimo va sin coma
+                    ];
+
+                    respuesta($respuesta, "exito", 200);
+                }
+                catch(Exception $e) {
+                respuesta($e->getMessage(), "error", $e->getCode());
+            }
+
+        } else {
+            respuesta("No se encontro una id para buscar", "error", 0);
+        }
+    }
+
         if($accion == "getIdSesion"){
             session_start();
             if(isset($_SESSION['id'])){

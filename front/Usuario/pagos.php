@@ -35,13 +35,7 @@
                         <a href="#Proyectos"><i class="material-icons">apartment</i> Proyectos</a>
                     </li>
                     <li class="item-menu">
-                        <a href="#">
-                            <i class="material-icons">payments</i> Pagos
-                        </a>
-                        <ul class="submenu">
-                            <li><a href="pagar.php">Enviar Comprobante</a></li>
-                            <li class="item-menu activo"><a href="pagos.php">Pagos Pendientes</a></li>
-                        </ul>
+                        <a href="pagos.php"><i class="material-icons">payments</i> Pagos</a>
                     </li>
                     <li class="item-menu">
                         <a href="configuracion.php"><i class="material-icons">settings</i> Configuración</a>
@@ -80,7 +74,7 @@
                     </div>
                     <div class="tarjeta-contenido">
                         <h3>Pagos Pendientes</h3>
-                        <p class="tarjeta-valor">3</p>
+                        <p class="tarjeta-valor" id="pagosAtrasadosCantidad"></p>
                         <p class="tarjeta-subtexto">Cantidad total</p>
                     </div>
                 </div>
@@ -91,7 +85,7 @@
                     </div>
                     <div class="tarjeta-contenido">
                         <h3>Monto Total</h3>
-                        <p class="tarjeta-valor">$28,000</p>
+                        <p class="tarjeta-valor" id="pagosAtrasadosTotal"></p>
                         <p class="tarjeta-subtexto">Por pagar</p>
                     </div>
                 </div>
@@ -101,9 +95,9 @@
                         <i class="material-icons">event</i>
                     </div>
                     <div class="tarjeta-contenido">
-                        <h3>Próximo Vencimiento</h3>
-                        <p class="tarjeta-valor">20/11/2023</p>
-                        <p class="tarjeta-subtexto">Fecha más cercana</p>
+                        <h3>Ultimo Pago</h3>
+                        <p class="tarjeta-valor" id="pagoMensual"></p>
+                        <p class="tarjeta-subtexto">Monto del ultimo pago</p>
                     </div>
                 </div>
             </div>
@@ -142,7 +136,7 @@
                             <tr>
                                 <th>Concepto</th>
                                 <th>Monto</th>
-                                <th>Fecha de Vencimiento</th>
+                                <th>Fecha del Pago</th>
                                 <th>Estado</th>
                                 <th>Acciones</th>
                             </tr>
@@ -168,6 +162,7 @@
             </section>
         </main>
     </div>
+    <script src="../Javascript/FrontUsuario/pagos.js" type="module"></script>
     <script>
         document.querySelectorAll(".item-menu > a").forEach(boton => {
             boton.addEventListener("click", function (e) {
