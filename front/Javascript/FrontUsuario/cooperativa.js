@@ -1,5 +1,7 @@
 import { getCooperativa } from '../../../BackEnd/APIFetchs/APICooperativa.js';
-import { getUsuario, getIdSesion } from '../../../BackEnd/APIFetchs/APIUsuario.js';
+import { getUsuario } from '../../../BackEnd/APIFetchs/APIUsuario.js';
+import { getIdSesion } from '../../../BackEnd/APIFetchs/APIUsuario.js';
+
 
 /// --- DOM Generalidades (usuario) ---
 const nombre = document.querySelectorAll(".nombreUsuario");

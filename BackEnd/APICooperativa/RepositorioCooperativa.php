@@ -175,6 +175,28 @@ public function getComprobantesMensuales($idPersona){
             }
             return null;
         }
+
+        public function getHorasHistorial($idPersona) {
+            $consulta = "
+                SELECT *
+                FROM Horas_Trabajadas
+                WHERE ID_Persona = $idPersona
+            ";
+            
+            $resultado = mysqli_query($this->conn, $consulta);
+            $horas = [];
+        
+            while ($fila = mysqli_fetch_assoc($resultado)) {
+                $horas[] = [
+                    'ID_Horas_trabajadas' => $fila['ID_Horas_trabajadas'],
+                    'Horas'               => $fila['Horas'],
+                    'Fecha_registro_horas'=> $fila['Fecha_registro_horas']
+                ];
+            }
+        
+            return $horas;
+        }
+        
     
         //FUNCIONES
         public function usuarioExisteID($id){

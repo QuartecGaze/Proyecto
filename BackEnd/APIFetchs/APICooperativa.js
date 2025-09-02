@@ -24,4 +24,10 @@ import { apiRequest } from './apiConfig.js';
         }
         export function getCooperativa(id) {
                 return apiRequest('/APICooperativa/ApiCooperativa.php?accion=getCooperativa&id=' + id, 'GET');
-            }
+        }
+        export function getPagos(id) {
+                return apiRequest('/APICooperativa/ApiCooperativa.php?accion=getPagos&id=' + id, 'GET');
+        }
+        export function getHorasTrabajadas(id) {
+                return apiRequest('/APICooperativa/ApiCooperativa.php?accion=getHorasTrabajadas&id=' + id, 'GET');
+        }

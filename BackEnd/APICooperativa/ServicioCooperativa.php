@@ -116,7 +116,23 @@
             }
         }
 
+        public function getHorasHistorial($idPersona){
+            $horas = $this->repositorio->getHorasHistorial($idPersona);
         
+            foreach ($horas as $horasHistorial) { 
+                $horasHistorial['diaDeLaSemana'] = $this->diaDeLaSemana($horasHistorial['Fecha_registro_horas']);
+            }
+        
+            return $horas;
+        }
+        
+        public function diaDeLaSemana($fecha) {
+            $dias = ["Domingo","Lunes","Martes","Miércoles","Jueves","Viernes","Sábado"];
+            $numDia = date("w", strtotime($fecha));
+            return $dias[$numDia];
+        }
+        
+
         public function semanaActualExiste(){
             $lunesSemana = $this->lunesDeEstaSemana();
             if($this->repositorio->semanaExiste($lunesSemana)){

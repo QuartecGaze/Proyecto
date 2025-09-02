@@ -30,19 +30,13 @@
                         <a href="#Reuniones"><i class="material-icons">event</i> Reuniones</a>
                     </li>
                     <li class="item-menu activo">
-                        <a href="horasTrabajadas.php"><i class="material-icons">punch_clock</i> Horas Trabajadas</a>
+                        <a href="horas.php"><i class="material-icons">punch_clock</i> Horas Trabajadas</a>
                     </li>
                     <li class="item-menu">
                         <a href="#Proyectos"><i class="material-icons">apartment</i> Proyectos</a>
                     </li>
                     <li class="item-menu">
-                        <a href="#">
-                            <i class="material-icons">payments</i> Pagos
-                        </a>
-                        <ul class="submenu">
-                            <li><a href="pagar.php">Enviar Comprobante</a></li>
-                            <li><a href="pagos.php">Pagos Pendientes</a></li>
-                        </ul>
+                        <a href="pagos.php"><i class="material-icons">payments</i> Pagos</a>
                     </li>
                     <li class="item-menu">
                         <a href="configuracion.php"><i class="material-icons">settings</i> Configuración</a>
@@ -120,22 +114,24 @@
                 <h2>Historial de horas trabajadas</h2>
 
                 <div class="filtros-historial">
+
                     <div class="grupo-filtro">
-                        <label for="filtro-mes">Mes:</label>
-                        <select id="filtro-mes" name="filtro-mes">
-                            <option value="">Todos</option>
-                            <option value="11" selected>Noviembre 2023</option>
-                            <option value="10">Octubre 2023</option>
-                            <option value="9">Septiembre 2023</option>
+                    <label for="filtro-semana">Semana:</label>
+                        <select id="filtro-semana" name="filtro-semana">
+                            <option value="">Todas</option>
+                            <option value="46" selected>11/08/2025</option>
+                            <option value="45">18/08/2025</option>
                         </select>
                     </div>
 
                     <div class="grupo-filtro">
-                        <label for="filtro-semana">Semana:</label>
-                        <select id="filtro-semana" name="filtro-semana">
-                            <option value="">Todas</option>
-                            <option value="46" selected>Semana 46 (13-19 Nov)</option>
-                            <option value="45">Semana 45 (6-12 Nov)</option>
+                        
+                    <label for="filtro-mes">Dia:</label>
+                        <select id="filtro-mes" name="filtro-mes">
+                            <option value="">Todos</option>
+                            <option value="11" selected>Lunes</option>
+                            <option value="10">Martes</option>
+                            <option value="9">Miercoles</option>
                         </select>
                     </div>
                 </div>
@@ -147,8 +143,8 @@
                                 <th>Fecha</th>
                                 <th>Día</th>
                                 <th>Horas</th>
-                                <th>Proyecto</th>
-                                <th>Acciones</th>
+                                <th>Editar</th>
+                                <th>Borrar</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -156,11 +152,12 @@
                                 <td>15/11/2023</td>
                                 <td>Miércoles</td>
                                 <td>8 horas</td>
-                                <td>Huerto comunitario</td>
                                 <td>
                                     <button class="boton-icono" title="Editar">
                                         <i class="material-icons">edit</i>
                                     </button>
+                                </td>
+                                <td>
                                     <button class="boton-icono" title="Eliminar">
                                         <i class="material-icons">delete</i>
                                     </button>
@@ -170,11 +167,12 @@
                                 <td>14/11/2023</td>
                                 <td>Martes</td>
                                 <td>6 horas</td>
-                                <td>Construcción</td>
                                 <td>
                                     <button class="boton-icono" title="Editar">
                                         <i class="material-icons">edit</i>
                                     </button>
+                                </td>
+                                <td>
                                     <button class="boton-icono" title="Eliminar">
                                         <i class="material-icons">delete</i>
                                     </button>
@@ -184,11 +182,12 @@
                                 <td>10/11/2023</td>
                                 <td>Viernes</td>
                                 <td>7 horas</td>
-                                <td>Administración</td>
                                 <td>
                                     <button class="boton-icono" title="Editar">
                                         <i class="material-icons">edit</i>
                                     </button>
+                                </td>
+                                <td>
                                     <button class="boton-icono" title="Eliminar">
                                         <i class="material-icons">delete</i>
                                     </button>

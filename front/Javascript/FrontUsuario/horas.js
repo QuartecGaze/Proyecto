@@ -1,7 +1,8 @@
 import { subirHoras } from '../../../BackEnd/APIFetchs/APICooperativa.js';
 import { getCooperativa } from '../../../BackEnd/APIFetchs/APICooperativa.js';
-import { getUsuario} from '../../../BackEnd/APIFetchs/APIUsuario.js';
-import { getIdSesion} from '../../../BackEnd/APIFetchs/APIUsuario.js';
+import { getUsuario } from '../../../BackEnd/APIFetchs/APIUsuario.js';
+import { getIdSesion } from '../../../BackEnd/APIFetchs/APIUsuario.js';
+import { getHorasTrabajadas } from '../../../BackEnd/APIFetchs/APICooperativa.js';
 
 const nombre = document.querySelectorAll(".nombreUsuario");
 const foto = document.querySelectorAll(".fotoPerfil");
