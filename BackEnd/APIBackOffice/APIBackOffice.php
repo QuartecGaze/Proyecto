@@ -243,7 +243,26 @@
                 respuesta($pagosPendientes, "exito", 200);
             }
 
-            
+            if($accion === "getPagosPendientes"){ 
+                $comprobantes = $servicio->getComprobantesPendientes();
+                try{
+                    $respuesta = [
+                            'fecha' => $comprobantes['Mes'],
+                            'usuario' => $comprobantes['Nombre'],
+                            'ci' => $comprobantes['CI'],
+                            'motivo' => $comprobantes['Motivo_pago'],
+                            'monto' => $comprobantes['Monto'],
+                            'estado' => $comprobantes['Estado_pago'],
+                            'foto' => $comprobantes['foto']
+                    ];
+                    respuesta($respuesta, "exito", 200);
+                    }
+                    catch(Exception $e) {
+                    respuesta($e->getMessage(), "error", $e->getCode());
+                }
+
+            }
+
         break;
         
         default:

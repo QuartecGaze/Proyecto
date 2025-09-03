@@ -25,9 +25,13 @@
             $comprobantesMonto = 0;
             $montoUltimoPagoPendiente = null;
             foreach($comprobantesObj as $comprobante){
-                $comprobantesPendientes++;
+                
                 $monto = $comprobante->getMonto();
-                $comprobantesMonto += $monto;
+                if($comprobante->getEstadoPago() === "Pendiente"){
+                } else{
+                    $comprobantesMonto += $monto;
+                    $comprobantesPendientes++;
+                }
                     $comprobantesAsociativo[$comprobante->getIdComprobantePago()] = $comprobante->toArray();
                 $montoUltimoPagoPendiente = $monto;
                 }

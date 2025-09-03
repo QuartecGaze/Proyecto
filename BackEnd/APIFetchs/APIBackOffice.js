@@ -59,3 +59,6 @@ export function asignarPagoMensual(data) {
 export function asignarPagoPersonalizado(data) {
     return apiRequest('/APIBackOffice/ApiBackOffice.php?accion=asignarPagoPersonalizado', 'POST', data);
 }
+export function getPagosPendientes(){
+    return apiRequest(`/APIBackOffice/ApiBackOffice.php?accion=getPagosPendientes`, "GET");
+}

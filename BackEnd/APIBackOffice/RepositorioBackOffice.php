@@ -448,8 +448,31 @@ require_once __DIR__ .'../../APIUsuarios/Modelos/Interesado.php';
                 $fila['ID_Comprobante_pago']
             );
             }
-            return $coomprobantesPendientes;
+            return $comprobantesPendientes;
             }
+
+            public function getUsuariosPagos($idPersona){
+                $consulta = "
+                    SELECT CI, Nombre, Apellido
+                    FROM Persona
+                    WHERE ID_Persona = $idPersona
+                ";
+                $resultado = mysqli_query($this->conn, $consulta); 
+            
+                $usuario = []; // inicializamos
+            
+                if ($resultado) {
+                    while ($fila = mysqli_fetch_assoc($resultado)) {
+                        $usuario[] = [
+                            'CI'       => $fila['CI'],
+                            'Nombre'   => $fila['Nombre'] . " " . $fila['Apellido']
+                        ];
+                    }
+                }
+            
+                return $usuario;
+            }
+            
 
         
     }

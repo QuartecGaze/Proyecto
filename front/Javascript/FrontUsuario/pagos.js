@@ -68,14 +68,20 @@ function renderPagos(dataMessage) {
         <button class="boton-icono" title="Pagar" data-id="${c.idComprobantePago}" data-estado="${c.estadoPago}">
           <i class="material-icons">payment</i>
         </button>
-        <a href="../../Recursos/Comprobantes/${c.foto}" download>
-        <button class="boton-icono" title="Ver detalles" data-id="${c.idComprobantePago}">
-          <i class="material-icons">visibility</i>
-        </button>
-        </a>
-
+        ${c.foto && c.foto !== 'null'  ? 
+            `<a href="../../Recursos/Comprobantes/${c.foto}" download>
+              <button class="boton-icono" title="Ver detalles" data-id="${c.idComprobantePago}">
+                <i class="material-icons">visibility</i>
+              </button>
+            </a>`
+            : 
+            `<button class="boton-icono ver-detalles" title="Ver detalles" id="ver">
+              <i class="material-icons">visibility</i>
+            </button>`
+        }
       </td>
     `;
+    
     tbody.appendChild(tr);
   }
 }
@@ -102,9 +108,18 @@ const comprobante = (() => {
 const tablaBody = document.querySelector('.tabla-pagos tbody');
 
 if (tablaBody) {
+  tablaBody.addEventListener('click', (e) => {
+    const btnVer = e.target.closest('button.ver-detalles');
+    if (btnVer) {
+      alert("No podes ver un comprobante que no mandaste");
+      return;
+    }
+  });
+
   tablaBody.addEventListener('click', async (e) => {
     const btnPagar = e.target.closest('button[title="Pagar"]');
-    
+    if (!btnPagar) return;
+
     if (btnPagar.dataset.estado === "Pendiente") {
       alert("No podes enviar un comprobante ya enviado");
       return;
@@ -112,10 +127,11 @@ if (tablaBody) {
 
     const idComprobante = btnPagar.dataset.id;
     const archivo = await comprobante();
+    if (!archivo) return;
+
     const formData = new FormData();
     formData.append('comprobante', archivo);
 
     await subirComprobante(formData, Number(idComprobante));
   });
 }
-

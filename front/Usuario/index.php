@@ -76,17 +76,20 @@ verificarAcceso(['Usuario', 'Admin']);
             <div class="contenedor-tarjetas">
                 <!-- Tarjeta de resumen de horas trabajadas -->
                 <!-- Tarjeta de pagos atrasados -->
-                <div class="tarjeta-dashboard" id="cardPagosAtrasados">
-                    <div class="tarjeta-icono" id="iconPagosAtrasados">
-                        <i class="material-icons">warning</i>
+                <a href="pagos.php">
+                    <div class="tarjeta-dashboard" id="cardPagosAtrasados">
+                        <div class="tarjeta-icono" id="iconPagosAtrasados">
+                            <i class="material-icons">warning</i>
+                        </div>
+                        <div class="tarjeta-contenido">
+                            <h3>Pagos Atrasados</h3>
+                            <p class="tarjeta-valor" id="pagosAtrasadosCantidad">0</p>
+                            <p class="tarjeta-subtexto" id="pagosAtrasadosTotal">Total: $0</p>
+                        </div>
                     </div>
-                    <div class="tarjeta-contenido">
-                        <h3>Pagos Atrasados</h3>
-                        <p class="tarjeta-valor" id="pagosAtrasadosCantidad">0</p>
-                        <p class="tarjeta-subtexto" id="pagosAtrasadosTotal">Total: $0</p>
-                    </div>
-                </div>
+                </a>
 
+                <a href="horas.php">
                 <div class="tarjeta-dashboard">
                     <div class="tarjeta-icono">
                         <i class="material-icons">punch_clock</i>
@@ -97,6 +100,7 @@ verificarAcceso(['Usuario', 'Admin']);
                         <p class="tarjeta-subtexto">Esta Semana</p>
                     </div>
                 </div>
+                </a>
 
                 <!-- Tarjeta de reuniones pendientes -->
                 <div class="tarjeta-dashboard">

@@ -179,6 +179,18 @@
 
             return $pagosArrayAsociativo + ['comprobantesPendientes' => $comprobantesPendientes];
         }
+        public function getComprobantesPendientes(){
+            $comprobantesObj = $this->repositorio->getPagosPendientes();
+            $comprobantesAsociativo = [];
+        
+            foreach ($comprobantesObj as $comprobante) {
+                $usuario = $this->repositorio->getUsuariosPagos($comprobante->getIdPersona());
+                $comprobantesAsociativo[$comprobante->getIdComprobantePago()] = 
+                array_merge($comprobante->toArray(),$usuario);
+            }
+            return $comprobantesAsociativo;
+        }
+        
         
     }
 ?>
