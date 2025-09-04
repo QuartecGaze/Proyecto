@@ -1,5 +1,4 @@
 import { subirHoras } from '../../../BackEnd/APIFetchs/APICooperativa.js';
-import { getCooperativa } from '../../../BackEnd/APIFetchs/APICooperativa.js';
 import { getUsuario } from '../../../BackEnd/APIFetchs/APIUsuario.js';
 import { getIdSesion } from '../../../BackEnd/APIFetchs/APIUsuario.js';
 import { getHorasTrabajadas } from '../../../BackEnd/APIFetchs/APICooperativa.js';
@@ -22,7 +21,7 @@ const id = Number(sesion.message);
 const dataUsuario = await getUsuario(id);
 setDatosUsuario(dataUsuario.message);
 
-const dataCoop = await getCooperativa(id);
+const dataCoop = await getHorasTrabajadas(id);
 setDatosCooperativa(dataCoop.message);
 
 function setDatosUsuario(data) {
@@ -36,6 +35,7 @@ function setDatosCooperativa(data) {
   horasTrabajadas.textContent = data.horasTrabajadas;
   objetivoHoras.textContent = data.horasObjetivo;
   Progreso(data.horasObjetivo, data.horasTrabajadas);
+  renderHoras(data);
 }
 
 function Progreso(objetivo, trabajadas) {
@@ -65,7 +65,7 @@ formularioHoras.addEventListener('submit', async (e) => {
       formularioHoras.reset();
 
       // refrescar cooperativa
-      const actualizado = await getCooperativa(id);
+      const actualizado = await getHorasTrabajadas(id);
       setDatosCooperativa(actualizado.message);
     } else {
       mensajeExitoHoras.style.display = 'none';
@@ -79,3 +79,39 @@ formularioHoras.addEventListener('submit', async (e) => {
     mensajeErrorHoras.textContent = 'Error del servidor';
   }
 });
+
+function renderHoras(dataMessage) {
+  const tbody = document.querySelector('.tabla-horas tbody');
+  if (!tbody) return;
+
+  const lista = Object.values(dataMessage?.horas ?? {});
+  if (!lista.length) { tbody.innerHTML = ''; return; }
+
+  tbody.innerHTML = '';
+  for (const c of lista) {
+
+    const fecha = c.fechaDeRegistro;
+    const diaDeLaSemana = c.diaDeLaSemana;
+    const horas = c.horasTrabajadas;
+    
+
+    const tr = document.createElement('tr');
+    tr.innerHTML = `
+      <td>${fecha}</td>
+      <td>${diaDeLaSemana}</td>
+      <td>${horas}</td>
+      <td>
+          <button class="boton-icono" title="Editar">
+            <i class="material-icons">edit</i>
+          </button>
+      </td>
+      <td>
+        <button class="boton-icono" title="Eliminar">
+          <i class="material-icons">delete</i>
+        </button>
+      </td>
+    `;
+    
+    tbody.appendChild(tr);
+  }
+}

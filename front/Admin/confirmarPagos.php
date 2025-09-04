@@ -55,7 +55,15 @@
                         <a href="solicitudes.php"><i class="material-icons">email</i> Solicitudes</a>
                     </li>
                     <li class="item-menu">
-                        <a href="configuracion.php"><i class="material-icons">settings</i> Configuración</a>
+                        <a href="#">
+                            <i class="material-icons">settings</i> Configuracion
+                        </a>
+                        <ul class="submenu">
+                            <a href="configuracion.php"><i class="material-icons">star</i> Mi Perfil</a>
+                            <a href="crearAdmin.php"><i class="material-icons">key</i> Crear Admin</a>
+                            <a href="borrarAdmin.php"><i class="material-icons">backspace</i> Borrar Admin</a>
+
+                        </ul>
                     </li>
                 </ul>
             </nav>
@@ -120,8 +128,8 @@
                     </div>
                     <div class="tarjeta-contenido">
                         <h3>Pagos Pendientes</h3>
-                        <p class="tarjeta-valor">3</p>
-                        <p class="tarjeta-subtexto">Cantidad total</p>
+                        <p class="tarjeta-valor" id="pagosPendientes"></p>
+                        <p class="tarjeta-subtexto">Por Aprobar</p>
                     </div>
                 </div>
             </div>
@@ -148,54 +156,7 @@
                             </tr>
                         </thead>
                         <tbody>
-                            <tr>
-                                <td>15/11/2023</td>
-                                <td>Juan Pérez</td>
-                                <td>V-12345678</td>
-                                <td>Pago de cuota mensual</td>
-                                <td>1,500.00 $</td>
-                                <td><span class="estado estado-pendiente">Pendiente</span></td>
-                                <td>
-                                    <div class="contenedor-acciones">
-                                        <button class="boton-icono descargar-comprobante" title="Descargar comprobante"
-                                            data-id="1">
-                                            <i class="material-icons">download</i>
-                                        </button>
-                                        <button class="boton-icono aprobar-comprobante" title="Aprobar comprobante"
-                                            data-id="1">
-                                            <i class="material-icons">check_circle</i>
-                                        </button>
-                                        <button class="boton-icono rechazar-comprobante" title="Rechazar comprobante"
-                                            data-id="1">
-                                            <i class="material-icons">cancel</i>
-                                        </button>
-                                    </div>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>01/11/2023</td>
-                                <td>Ana López</td>
-                                <td>V-55667788</td>
-                                <td>Pago por bono productividad</td>
-                                <td>1,800.00 $</td>
-                                <td><span class="estado estado-pendiente">Pendiente</span></td>
-                                <td>
-                                    <div class="contenedor-acciones">
-                                        <button class="boton-icono descargar-comprobante" title="Descargar comprobante"
-                                            data-id="4">
-                                            <i class="material-icons">download</i>
-                                        </button>
-                                        <button class="boton-icono aprobar-comprobante" title="Aprobar comprobante"
-                                            data-id="4">
-                                            <i class="material-icons">check_circle</i>
-                                        </button>
-                                        <button class="boton-icono rechazar-comprobante" title="Rechazar comprobante"
-                                            data-id="4">
-                                            <i class="material-icons">cancel</i>
-                                        </button>
-                                    </div>
-                                </td>
-                            </tr>
+                            
                         </tbody>
                     </table>
                 </div>

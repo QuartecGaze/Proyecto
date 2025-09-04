@@ -120,15 +120,21 @@
             }
         }
 
-        public function getHorasHistorial($idPersona){
+        public function getHorasHistorial($idPersona) {
             $horas = $this->repositorio->getHorasHistorial($idPersona);
-        
-            foreach ($horas as $horasHistorial) { 
-                $horasHistorial['diaDeLaSemana'] = $this->diaDeLaSemana($horasHistorial['Fecha_registro_horas']);
+            $resultado = [];
+
+            foreach ($horas as $horasHistorial) {
+                $resultado[] = [
+                    'fechaDeRegistro' => $horasHistorial['Fecha_registro_horas'],
+                    'horasTrabajadas' => $horasHistorial['Horas'],
+                    'diaDeLaSemana'   => $this->diaDeLaSemana($horasHistorial['Fecha_registro_horas']),
+                ];
             }
-        
-            return $horas;
+
+            return $resultado;
         }
+
         
         public function diaDeLaSemana($fecha) {
             $dias = ["Domingo","Lunes","Martes","Miércoles","Jueves","Viernes","Sábado"];

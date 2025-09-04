@@ -97,7 +97,7 @@
                     <div class="tarjeta-contenido">
                         <h3>Ultimo Pago</h3>
                         <p class="tarjeta-valor" id="pagoMensual"></p>
-                        <p class="tarjeta-subtexto">Monto del ultimo pago</p>
+                        <p class="tarjeta-subtexto">Monto del ultimo pago a realizar</p>
                     </div>
                 </div>
             </div>

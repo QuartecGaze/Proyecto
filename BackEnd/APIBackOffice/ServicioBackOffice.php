@@ -26,26 +26,27 @@
 
         }
 
-
-
-        public function cargarAdmin($idPersona, $nivelPermisos){
-            $fechaIngreso = date("Y-m-d"); //asigna la fecha del momento en el que se ejecuta el metodo
-            $persona = $this->repositorio->getPersona($idPersona);
-            $admin = new Admin(
-                    $persona->getCi(),
-                    $persona->getEmail(),
-                    $persona->getTelefono(),
-                    $persona->getIdPersona(),
-                    $persona->getNombre(),
-                    $persona->getApellido(),
-                    $persona->getContraseña(),
-                    "Admin",          //Asigna el rol Admin
-                    $nivelPermisos,
-                    null,
-                    $fechaIngreso
-                );
-            $this->repositorio->cargarAdmin($admin);
+        public function cargarAdmin($ci, $email, $telefono, $nombre, $apellido, $contraseña, $nivelPermisos){
+            $fechaIngreso = date("Y-m-d");
+            if(!$this->repositorio->personaExisteConCI($ci)){
+                    $contraseña = password_hash($contraseña, PASSWORD_DEFAULT);
+                    $persona = new Persona($ci, $email, $telefono, null, $nombre, $apellido, $contraseña, "Admin");
+                    $this->repositorio->cargarPersona($persona);
+                    $idPersona = $this->repositorio->getIDPersonaConCi($ci);
+                    $this->repositorio->cargarTelefono($idPersona, $telefono);
+                    //Las cosas en null se asignan posteriormente en el backoffice ademas de cambiar el estado "En espera" etc
+                    $admin = new Admin($ci, $email, $telefono, $idPersona, $nombre, $apellido, $contraseña, "Admin", //datos heredados de persona
+                    $nivelPermisos, null, $fechaIngreso); //datos de Admin
+                    $this->repositorio->cargarAdmin($admin);
+            } else {
+                $idPersona = $this->repositorio->getIDPersonaConCi($ci);
+                $admin = new Admin($ci, $email, $telefono, $idPersona, $nombre, $apellido, $contraseña, "Admin", //datos heredados de persona
+                $nivelPermisos, null, $fechaIngreso); //datos de Admin
+                $this->repositorio->cargarAdmin($admin);
+            }
         }
+
+
 
         public function getAdmin($id) {
             if (!$this->repositorio->adminExisteID($id)) {
@@ -168,29 +169,35 @@
             }
         }
 
-        public function getPagosPendientes(){
-            $pagosObj = $this->repositorio->getPagosPendientes();
-            $pagosArrayAsociativo = [];
-            $comprobantesPendientes = 0;
-            foreach($pagosObj as $comprobantePago){
-                $comprobantesPendientes++;
-                $pagosArrayAsociativo[$comprobantePago->getIdComprobantePago()] = $comprobantePago->toArray();
-            }
 
-            return $pagosArrayAsociativo + ['comprobantesPendientes' => $comprobantesPendientes];
-        }
         public function getComprobantesPendientes(){
             $comprobantesObj = $this->repositorio->getPagosPendientes();
             $comprobantesAsociativo = [];
-        
+            $comprobantesPendientes = 0;
+            if (count($comprobantesObj) > 0) {
             foreach ($comprobantesObj as $comprobante) {
+                $comprobantesPendientes++;
                 $usuario = $this->repositorio->getUsuariosPagos($comprobante->getIdPersona());
-                $comprobantesAsociativo[$comprobante->getIdComprobantePago()] = 
-                array_merge($comprobante->toArray(),$usuario);
+                $comprobantesAsociativo[] = [
+                    'fecha' => $comprobante->getMes(),
+                    'usuario' => $usuario['Nombre'],
+                    'ci' => $usuario['CI'],
+                    'motivo' => $comprobante->getMotivoPago(),
+                    'monto' => $comprobante->getMonto(),
+                    'estado' => $comprobante->getEstadoPago(),
+                    'foto' => $comprobante->getFoto(),
+                    'id' => $comprobante->getIdComprobantePago()
+                ];
             }
-            return $comprobantesAsociativo;
+            } else {
+                return ['comprobantesPendientes' => 0]; //si no hay pagos pendientes devuelvo 0
+            }
+
+            return [
+                'comprobantesPendientes' => $comprobantesPendientes,
+                'comprobantes' => $comprobantesAsociativo
+            ];
         }
-        
         
     }
 ?>

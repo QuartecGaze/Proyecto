@@ -148,7 +148,7 @@
                         //total dinero de pagos atrasados?
                         'pagosAtrasadosDinero' => $comprobantes['montoPendiente'],
                         //precio pago mensual
-                        'pagoMensual' => $comprobantes['pagoMensual'],
+                        'pagoMensual' => $comprobantes['pagoMensual'] ?? 0 , //para que no devuelva null al front
                         //todos los comprobantespendientes con todos sus datos para usar en la zona de hacer los pagos
                         'comprobantesPendientes' => $comprobantes['comprobantesPendientes']
 
@@ -178,13 +178,13 @@
         if($accion === "getHorasTrabajadas"){ //LLamar en horas.php de Usuario
                 $id = $_GET['id'];
                 if($id != null){
-                    $horas = $this->servicio->getHorasHistorial($id);
-                    try{
-                        $respuesta = [
-                            'fechaDeRegistro' => $horas['Fecha_registro_horas'],
-                            'diaDeLaSemana' => $horas['diaDeLaSemana'],
-                            'horasTrabajadas' => $horas['Horas']
-                        ];
+                    try {
+                        $horas = $servicio->getHorasHistorial($id);
+                            $respuesta = [
+                                'horasTrabajadas' => $servicio->horasTrabajadasEstaSemana($id),
+                                'horasObjetivo' => $servicio->horasSemanales(),
+                                'horas' => $horas
+                            ];
 
                         respuesta($respuesta, "exito", 200);
                     }

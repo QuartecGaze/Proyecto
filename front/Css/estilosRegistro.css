@@ -317,7 +317,6 @@ body {
         max-width: 95%;
         margin: 1rem auto;
         gap: 1rem;
-        he
     }
 
     .divForm {
@@ -412,4 +411,22 @@ body {
     .fieldInfo input[type="text"] {
         padding-right: 35px;
     }
+}
+
+/*CSS para crear Admins ============ modificar cualquier*/
+.opciones-permisos {
+    display: flex;
+    gap: .75rem;
+    }
+
+.radio {
+    display: flex;
+    align-items: center;
+    gap: .35rem;
+}
+
+.ayuda-permisos {
+    color: #666;
+    font-size: .9rem;
+    margin-top: .35rem;
 }

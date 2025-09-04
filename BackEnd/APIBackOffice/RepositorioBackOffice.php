@@ -25,6 +25,16 @@ require_once __DIR__ .'../../APIUsuarios/Modelos/Interesado.php';
             }
             
         }
+
+        public function personaExisteConCI($ci){
+            $consulta = "SELECT * FROM Persona WHERE CI = '$ci'";
+            $resultado = mysqli_query($this->conn, $consulta);
+            if(mysqli_num_rows($resultado) > 0){
+                return true;
+            } else {
+                return false;
+            }
+        }
         
         public function borrarTelefono($id){
             $consulta = "
@@ -436,14 +446,14 @@ require_once __DIR__ .'../../APIUsuarios/Modelos/Interesado.php';
                 WHERE Estado_pago = 'Pendiente';
             ";
             $resultado = mysqli_query($this->conn, $consulta); 
-           
+            $comprobantesPendientes = [];
             while ($fila = mysqli_fetch_assoc($resultado)) {
                 $comprobantesPendientes[] = new ComprobantePago(
                 $fila['ID_Persona'], 
                 $fila['Motivo_pago'], 
                 $fila['Estado_pago'], 
                 $fila['Mes'], 
-                $fila['foto'], 
+                $fila['Foto'], 
                 $fila['Monto'], 
                 $fila['ID_Comprobante_pago']
             );
@@ -454,26 +464,38 @@ require_once __DIR__ .'../../APIUsuarios/Modelos/Interesado.php';
             public function getUsuariosPagos($idPersona){
                 $consulta = "
                     SELECT CI, Nombre, Apellido
-                    FROM Persona
+                    FROM persona
                     WHERE ID_Persona = $idPersona
                 ";
                 $resultado = mysqli_query($this->conn, $consulta); 
-            
-                $usuario = []; // inicializamos
-            
-                if ($resultado) {
-                    while ($fila = mysqli_fetch_assoc($resultado)) {
-                        $usuario[] = [
-                            'CI'       => $fila['CI'],
-                            'Nombre'   => $fila['Nombre'] . " " . $fila['Apellido']
-                        ];
-                    }
-                }
-            
-                return $usuario;
+                $fila = mysqli_fetch_assoc($resultado);
+                return [
+                    'CI' => $fila['CI'],
+                    'Nombre' => $fila['Nombre'] . " " . $fila['Apellido']
+                ];
             }
-            
+            public function cargarPersona($persona){
+                $ci = $persona->getCi(); 
+                $email = $persona->getEmail();
+                $contraseña = $persona->getContraseña();
+                $rol = $persona->getRol();
+                $nombre = $persona->getNombre();
+                $apellido = $persona->getApellido();
+                $consulta = "
+                    INSERT INTO Persona (CI, Email, Contraseña, Rol, Nombre, Apellido) 
+                    VALUES ('$ci', '$email', '$contraseña', '$rol', '$nombre', '$apellido')
+                ";
+                mysqli_query($this->conn, $consulta);
+            }
 
+            public function cargarTelefono($id, $telefono){
+            $consulta = "
+                INSERT INTO numero_de_telefono (ID_Persona, Telefono)
+                VALUES ('$id', '$telefono')
+                ";
+            mysqli_query($this->conn, $consulta);
+        }
+            
         
     }
 ?>
