@@ -182,8 +182,8 @@
             while ($fila = mysqli_fetch_assoc($resultado)) {
                 $horas[] = [
                     'ID_Horas_trabajadas' => $fila['ID_Horas_trabajadas'],
-                    'Horas'               => $fila['Horas'],
-                    'Fecha_registro_horas'=> $fila['Fecha_registro_horas']
+                    'Horas' => $fila['Horas'],
+                    'Fecha_registro_horas' => $fila['Fecha_registro_horas']
                 ];
             }
         

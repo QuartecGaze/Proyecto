@@ -168,29 +168,35 @@
             }
         }
 
-        public function getPagosPendientes(){
-            $pagosObj = $this->repositorio->getPagosPendientes();
-            $pagosArrayAsociativo = [];
-            $comprobantesPendientes = 0;
-            foreach($pagosObj as $comprobantePago){
-                $comprobantesPendientes++;
-                $pagosArrayAsociativo[$comprobantePago->getIdComprobantePago()] = $comprobantePago->toArray();
-            }
 
-            return $pagosArrayAsociativo + ['comprobantesPendientes' => $comprobantesPendientes];
-        }
         public function getComprobantesPendientes(){
             $comprobantesObj = $this->repositorio->getPagosPendientes();
             $comprobantesAsociativo = [];
-        
+            $comprobantesPendientes = 0;
+            if (count($comprobantesObj) > 0) {
             foreach ($comprobantesObj as $comprobante) {
+                $comprobantesPendientes++;
                 $usuario = $this->repositorio->getUsuariosPagos($comprobante->getIdPersona());
-                $comprobantesAsociativo[$comprobante->getIdComprobantePago()] = 
-                array_merge($comprobante->toArray(),$usuario);
+                $comprobantesAsociativo[] = [
+                    'fecha' => $comprobante->getMes(),
+                    'usuario' => $usuario['Nombre'],
+                    'ci' => $usuario['CI'],
+                    'motivo' => $comprobante->getMotivoPago(),
+                    'monto' => $comprobante->getMonto(),
+                    'estado' => $comprobante->getEstadoPago(),
+                    'foto' => $comprobante->getFoto(),
+                    'id' => $comprobante->getIdComprobantePago()
+                ];
             }
-            return $comprobantesAsociativo;
+            } else {
+                return ['comprobantesPendientes' => 0]; //si no hay pagos pendientes devuelvo 0
+            }
+
+            return [
+                'comprobantesPendientes' => $comprobantesPendientes,
+                'comprobantes' => $comprobantesAsociativo
+            ];
         }
-        
         
     }
 ?>

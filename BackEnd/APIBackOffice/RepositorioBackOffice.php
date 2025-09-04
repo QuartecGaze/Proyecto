@@ -436,14 +436,14 @@ require_once __DIR__ .'../../APIUsuarios/Modelos/Interesado.php';
                 WHERE Estado_pago = 'Pendiente';
             ";
             $resultado = mysqli_query($this->conn, $consulta); 
-           
+            $comprobantesPendientes = [];
             while ($fila = mysqli_fetch_assoc($resultado)) {
                 $comprobantesPendientes[] = new ComprobantePago(
                 $fila['ID_Persona'], 
                 $fila['Motivo_pago'], 
                 $fila['Estado_pago'], 
                 $fila['Mes'], 
-                $fila['foto'], 
+                $fila['Foto'], 
                 $fila['Monto'], 
                 $fila['ID_Comprobante_pago']
             );
@@ -454,23 +454,15 @@ require_once __DIR__ .'../../APIUsuarios/Modelos/Interesado.php';
             public function getUsuariosPagos($idPersona){
                 $consulta = "
                     SELECT CI, Nombre, Apellido
-                    FROM Persona
+                    FROM persona
                     WHERE ID_Persona = $idPersona
                 ";
                 $resultado = mysqli_query($this->conn, $consulta); 
-            
-                $usuario = []; // inicializamos
-            
-                if ($resultado) {
-                    while ($fila = mysqli_fetch_assoc($resultado)) {
-                        $usuario[] = [
-                            'CI'       => $fila['CI'],
-                            'Nombre'   => $fila['Nombre'] . " " . $fila['Apellido']
-                        ];
-                    }
-                }
-            
-                return $usuario;
+                $fila = mysqli_fetch_assoc($resultado);
+                return [
+                    'CI' => $fila['CI'],
+                    'Nombre' => $fila['Nombre'] . " " . $fila['Apellido']
+                ];
             }
             
 

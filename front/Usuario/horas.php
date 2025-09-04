@@ -101,6 +101,10 @@
                             <label for="horas">Horas trabajadas:</label>
                             <input type="number" id="horas" name="horas" min="1" max="12" required placeholder="Ej: 3">
                         </div>
+                        <div class="grupo-formulario">
+                            <p>Ingresa la cantidad de horas que trabajaste</p>
+                            <p>Recorda que siempre redondeamos para <strong>abajo</strong></p>
+                           </div>
 
                         <button type="submit" name="registrar_horas" class="boton-primario">
                             <i class="material-icons">save</i> Registrar horas

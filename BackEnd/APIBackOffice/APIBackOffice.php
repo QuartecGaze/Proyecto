@@ -157,7 +157,7 @@
             if($accion === "rechazarPago"){
                 try {
                     $datos = json_decode(file_get_contents('php://input'), true);
-                    $servicio->rechazarPago($idComprobantePago); //traer el idcomprobante pago del boton
+                    $servicio->rechazarPago($datos['idComprobante']);
                     respuesta("Pago rechazado con exito", "exito", 201);
                 } catch(Exception $e) {
                     respuesta($e->getMessage(), "error", $e->getCode());
@@ -167,7 +167,7 @@
             if($accion === "aprobarPago"){
                 try {
                     $datos = json_decode(file_get_contents('php://input'), true);
-                    $servicio->aprobarPago($idComprobantePago); //traer el idcomprobante pago del boton
+                    $servicio->aprobarPago($datos['idComprobante']);
                     respuesta("Pago aprobado con exito", "exito", 201);
                 } catch(Exception $e) {
                     respuesta($e->getMessage(), "error", $e->getCode());
@@ -238,24 +238,10 @@
                 }
             }
 
-            if($accion === "getPagosPendientes"){
-                $pagosPendientes = $servicio->getPagosPendientes();
-                respuesta($pagosPendientes, "exito", 200);
-            }
-
             if($accion === "getPagosPendientes"){ 
-                $comprobantes = $servicio->getComprobantesPendientes();
                 try{
-                    $respuesta = [
-                            'fecha' => $comprobantes['Mes'],
-                            'usuario' => $comprobantes['Nombre'],
-                            'ci' => $comprobantes['CI'],
-                            'motivo' => $comprobantes['Motivo_pago'],
-                            'monto' => $comprobantes['Monto'],
-                            'estado' => $comprobantes['Estado_pago'],
-                            'foto' => $comprobantes['foto']
-                    ];
-                    respuesta($respuesta, "exito", 200);
+                    $comprobantes = $servicio->getComprobantesPendientes();
+                    respuesta($comprobantes, "exito", 200);
                     }
                     catch(Exception $e) {
                     respuesta($e->getMessage(), "error", $e->getCode());
