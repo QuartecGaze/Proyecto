@@ -474,6 +474,7 @@ require_once __DIR__ .'../../APIUsuarios/Modelos/Interesado.php';
                     'Nombre' => $fila['Nombre'] . " " . $fila['Apellido']
                 ];
             }
+            
             public function cargarPersona($persona){
                 $ci = $persona->getCi(); 
                 $email = $persona->getEmail();
