@@ -114,6 +114,44 @@ verificarAcceso(['Admin']);
         </div>
     </div>
 
+    <div class="modal-confirmacion-aprobar" id="modalConfirmacionAprobar">
+        <div class="modal-contenido">
+            <h3>
+                <i class="material-icons">check_circle</i>
+                Confirmar Aprobación
+            </h3>
+            <p>¿Estás seguro que deseas aprobar esta solicitud?</p>
+            <p>Seleccione una unidad habitacional:</p>
+
+            <div class="select-container">
+                <label class="select-label">Unidad Habitacional</label>
+                <select class="custom-select" id="selectUnidad">
+                    <option value="">Seleccione una unidad</option>
+                    <option value="1" data-habitaciones="2" data-baños="1">Unidad 1 - Avenida Principal
+                        123</option>
+                    <option value="2" data-habitaciones="3" data-baños="2">Unidad 2 - Calle Secundaria
+                        456</option>
+                    <option value="3" data-habitaciones="3" data-baños="2">Unidad 3 - Boulevard Central
+                        789</option>
+                    <option value="4" data-habitaciones="4" data-baños="2">Unidad 4 - Avenida Norte 101
+                    </option>
+                    <option value="5" data-habitaciones="2" data-baños="1">Unidad 5 - Calle Sur 202
+                    </option>
+                </select>
+                <span class="select-arrow material-icons">arrow_drop_down</span>
+            </div>
+
+            <div class="modal-acciones">
+                <button class="btn-cancelar">
+                    <i class="material-icons">arrow_back</i> Cancelar
+                </button>
+                <button class="btn-confirmar-aprobar" id="btnConfirmarAprobar" disabled>
+                    <i class="material-icons">check_circle</i> Confirmar Aprobación
+                </button>
+            </div>
+        </div>
+    </div>
+
 
     <!-- Modal de Asignar Monto -->
     <div class="modal-monto" id="modalPagoInicial">
