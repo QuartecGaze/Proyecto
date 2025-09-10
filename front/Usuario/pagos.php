@@ -68,14 +68,15 @@
             </header>
 
             <div class="contenedor-tarjetas">
-                <div class="tarjeta-dashboard">
-                    <div class="tarjeta-icono">
-                        <i class="material-icons">pending_actions</i>
+
+                <div class="tarjeta-dashboard" id="cardPagosAtrasados">
+                    <div class="tarjeta-icono" id="iconPagosAtrasados">
+                        <i class="material-icons">warning</i>
                     </div>
                     <div class="tarjeta-contenido">
                         <h3>Pagos Pendientes</h3>
                         <p class="tarjeta-valor" id="pagosAtrasadosCantidad"></p>
-                        <p class="tarjeta-subtexto">Cantidad total</p>
+                        <p class="tarjeta-subtexto" id="pagosAtrasadosTotal">Cantidad total</p>
                     </div>
                 </div>
 
@@ -127,6 +128,10 @@
                     <button class="boton-primario">
                         <i class="material-icons">filter_list</i> Aplicar Filtros
                     </button>
+
+                    <button class="boton-primario" id="abrirModalPago">
+                        <i class="material-icons">payment</i> Realizar Pago
+                    </button>
                 </div>
 
                 <div class="tabla-contenedor">
@@ -147,10 +152,6 @@
                                 <td>05/18/2025</td>
                                 <td><span class="estado-pago estado-pendiente">Pendiente</span></td>
                                 <td>
-                                <td>
-                                    <button class="boton-icono" id="subirComprobante" title="Pagar">
-                                        <i class="material-icons">payment</i>
-                                    </button>
                                     <button class="boton-icono" title="Ver detalles">
                                         <i class="material-icons">visibility</i>
                                     </button>
@@ -162,11 +163,61 @@
             </section>
         </main>
     </div>
+
+    <!-- Modal para realizar pagos -->
+<div id="modalPago" class="modal">
+    <div class="modal-contenido">
+        <div class="modal-header">
+            <h2>Realizar Pago</h2>
+            <button class="cerrar-modal">&times;</button>
+        </div>
+        
+        <div class="modal-body">
+            <form id="formularioPago">
+                <div class="grupo-formulario">
+                    <label for="seleccionar-pago">Seleccionar pago a realizar:</label>
+                    <select id="seleccionar-pago" name="seleccionar-pago" required>
+                        <option value="">Seleccione un pago</option>
+                        <option value="aporte-mensual">Aporte mensual - $1.500</option>
+                        <option value="cuota-especial">Cuota especial - $2.000</option>
+                    </select>
+                </div>
+                
+                <div class="info-pago-seleccionado" id="info-pago">
+                    <h3>Detalles del pago seleccionado</h3>
+                    <div class="detalles-pago">
+                        <p><strong>Concepto:</strong> <span id="detalle-concepto">-</span></p>
+                        <p><strong>Monto:</strong> <span id="detalle-monto">-</span></p>
+                        <p><strong>Fecha de vencimiento:</strong> <span id="detalle-vencimiento">-</span></p>
+                    </div>
+                </div>
+                
+                <div class="grupo-formulario">
+                    <label for="comprobante-pago">Comprobante de pago:</label>
+                    <div class="carga-archivo">
+                        <input type="file" id="comprobante-pago" name="comprobante-pago" accept=".pdf,.jpg,.jpeg,.png">
+                        <label for="comprobante-pago" class="boton-carga-archivo">
+                            <i class="material-icons">cloud_upload</i>
+                            <span>Seleccionar archivo</span>
+                        </label>
+                        <span class="nombre-archivo" id="nombre-archivo">Ningún archivo seleccionado</span>
+                    </div>
+                    <p class="texto-ayuda">Formatos aceptados: PDF, JPG, PNG (Tamaño máximo: 5MB)</p>
+                </div>
+                
+                <div class="modal-acciones">
+                    <button type="button" class="boton-secundario cerrar-modal">Cancelar</button>
+                    <button type="submit" class="boton-primario">Confirmar Pago</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
     <script src="../Javascript/FrontUsuario/pagos.js" type="module"></script>
     <script>
         document.querySelectorAll(".item-menu > a").forEach(boton => {
             boton.addEventListener("click", function (e) {
-                // Evita que redireccione si tiene submenu
                 if (this.nextElementSibling && this.nextElementSibling.classList.contains("submenu")) {
                     e.preventDefault();
                     this.parentElement.classList.toggle("open");
@@ -174,7 +225,6 @@
             });
         });
     </script>
-
 </body>
 
 </html>

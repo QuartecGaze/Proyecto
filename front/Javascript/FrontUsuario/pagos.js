@@ -38,10 +38,10 @@ function setDatosCooperativa(data) {
       cardPagosAtrasados?.classList.remove("atrasado");
     }
   }
-    pagosAtrasadosTotal.textContent = '$' + data.pagosAtrasadosDinero;
-    pagoMensual.textContent = '$' + data.pagoMensual;
+  pagosAtrasadosTotal.textContent = '$' + data.pagosAtrasadosDinero;
+  pagoMensual.textContent = '$' + data.pagoMensual;
   //para mostrar los pagos pendientes y luego vamos a poder enviarlos
-    renderPagos(data);
+  renderPagos(data);
 }
 
 //creamos una fila por cada comprobante
@@ -68,20 +68,20 @@ function renderPagos(dataMessage) {
         <button class="boton-icono" title="Pagar" data-id="${c.idComprobantePago}" data-estado="${c.estadoPago}">
           <i class="material-icons">payment</i>
         </button>
-        ${c.foto && c.foto !== 'null'  ? 
-            `<a href="../../Recursos/Comprobantes/${c.foto}" download>
+        ${c.foto && c.foto !== 'null' ?
+        `<a href="../../Recursos/Comprobantes/${c.foto}" download>
               <button class="boton-icono" title="Ver detalles" data-id="${c.idComprobantePago}">
                 <i class="material-icons">visibility</i>
               </button>
             </a>`
-            : 
-            `<button class="boton-icono ver-detalles" title="Ver detalles" id="ver">
+        :
+        `<button class="boton-icono ver-detalles" title="Ver detalles" id="ver">
               <i class="material-icons">visibility</i>
             </button>`
-        }
+      }
       </td>
     `;
-    
+
     tbody.appendChild(tr);
   }
 }
@@ -89,7 +89,7 @@ function renderPagos(dataMessage) {
 const comprobante = (() => {
   const input = document.createElement('input');
   input.type = 'file';
-  input.accept = 'image/*,application/pdf'; 
+  input.accept = 'image/*,application/pdf';
   input.style.display = 'none';
   document.body.appendChild(input);
 
