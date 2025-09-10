@@ -158,6 +158,22 @@
     <script src="../Javascript/BackOffice/generalidades.js" type="module"></script>
     <script src="../Javascript/BackOffice/pagos.js" type="module"></script>
 
+    <div class="modal-confirmacion" id="modalConfirmacion">
+        <div class="modal-contenido">
+            <h3>Confirmar Pago Mensual</h3>
+            <p>¿Estás seguro que deseas asignar este pago?</p>
+            <p>Esta acción no se puede deshacer.</p>
+            <div class="modal-acciones">
+                <button class="btn-cancelar">
+                    <i class="material-icons">arrow_back</i> Cancelar
+                </button>
+                <button class="btn-confirmar-pago">
+                    <i class="material-icons">delete_forever</i> Confirmar Pago
+                </button>
+            </div>
+        </div>
+    </div>
+
     <script>
         document.querySelectorAll(".item-menu > a").forEach(boton => {
             boton.addEventListener("click", function (e) {

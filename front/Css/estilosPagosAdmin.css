@@ -339,6 +339,7 @@ a {
     border-radius: 4px;
     font-size: 1rem;
     transition: border-color 0.3s;
+    resize: none;
 }
 
 .grupo-formulario input:focus,
@@ -483,6 +484,68 @@ a {
 
 .boton-icono i {
     font-size: 1.1rem;
+}
+
+/* MODAL Asiganr Pago*/
+
+.modal-confirmacion {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    z-index: 1000;
+    justify-content: center;
+    align-items: center;
+}
+
+.modal-confirmacion.mostrar {
+    display: flex;
+}
+
+.modal-contenido {
+    background-color: white;
+    padding: 25px;
+    border-radius: 10px;
+    width: 90%;
+    max-width: 400px;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
+}
+
+.modal-contenido h3 {
+    margin-bottom: 10px;
+}
+
+.modal-acciones {
+    display: flex;
+    justify-content: space-between;
+    gap: 15px;
+    margin-top: 20px;
+}
+
+.modal-acciones button {
+    padding: 8px 20px;
+    border-radius: 5px;
+    cursor: pointer;
+    font-weight: bold;
+    transition: all 0.3s;
+    display: inline-flex;
+    align-items: center;
+    gap: 5px;
+}
+
+.btn-cancelar {
+    border: none;
+    background-color: var(--color-alerta);
+    color: white;
+}
+
+.btn-confirmar-pago {
+    border: none;
+    background-color: var(--color-exito);
+    color: white;
 }
 
 /* Estilos adicionales específicos para la gestión de pagos */
