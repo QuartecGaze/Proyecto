@@ -83,7 +83,8 @@
                         </div>
                     </div>
                     <div>
-                        <p class="tarjeta-subtexto">Meta: <span id="horasObjetivo"></span> horas</p> <!-- TRAER LA CANTIDAD DE HORAS QUE DEBE EL USUARIO NO LAS DE LA SEMANA PORQUE CAPAS QUE TIENE HORAS PREVIAS POR HACER-->
+                        <p class="tarjeta-subtexto">Meta: <span id="horasObjetivo"></span> horas</p>
+                        <!-- TRAER LA CANTIDAD DE HORAS QUE DEBE EL USUARIO NO LAS DE LA SEMANA PORQUE CAPAS QUE TIENE HORAS PREVIAS POR HACER-->
                         <div class="barra-progreso">
                             <div class="progreso" id="progresoHoras" style="width:0%"></div>
                         </div>
@@ -104,7 +105,7 @@
                         <div class="grupo-formulario">
                             <p>Ingresa la cantidad de horas que trabajaste</p>
                             <p>Recorda que siempre redondeamos para <strong>abajo</strong></p>
-                           </div>
+                        </div>
 
                         <button type="submit" name="registrar_horas" class="boton-primario">
                             <i class="material-icons">save</i> Registrar horas
@@ -120,7 +121,7 @@
                 <div class="filtros-historial">
 
                     <div class="grupo-filtro">
-                    <label for="filtro-semana">Semana:</label>
+                        <label for="filtro-semana">Semana:</label>
                         <select id="filtro-semana" name="filtro-semana">
                             <option value="">Todas</option>
                             <option value="46" selected>11/08/2025</option>
@@ -129,8 +130,8 @@
                     </div>
 
                     <div class="grupo-filtro">
-                        
-                    <label for="filtro-mes">Dia:</label>
+
+                        <label for="filtro-mes">Dia:</label>
                         <select id="filtro-mes" name="filtro-mes">
                             <option value="">Todos</option>
                             <option value="11" selected>Lunes</option>
@@ -202,6 +203,46 @@
                 </div>
             </section>
         </main>
+    </div>
+
+    <!-- Modal para editar horas -->
+    <div id="modalEditarHoras" class="modal">
+        <div class="modal-contenido">
+            <div class="modal-header">
+                <h2>Editar horas trabajadas</h2>
+                <button class="modal-cerrar" id="cerrarModal">
+                    <i class="material-icons">close</i>
+                </button>
+            </div>
+
+            <div class="modal-body">
+                <form id="formEditarHoras" class="formulario-modal">
+                    <div class="mensaje-exito" style="display: none;">Horas actualizadas correctamente.</div>
+                    <div class="mensaje-error" style="display: none;">Error al actualizar las horas.</div>
+
+                    <div class="grupo-formulario">
+                        <label for="fechaEditar">Fecha:</label>
+                        <input type="date" id="fechaEditar" name="fecha" required>
+                    </div>
+
+                    <div class="grupo-formulario">
+                        <label for="horasEditar">Horas trabajadas:</label>
+                        <input type="number" id="horasEditar" name="horas" min="1" max="12" required
+                            placeholder="Ej: 3">
+                    </div>
+
+                    <div class="grupo-formulario">
+                        <label for="motivoCambio">Motivo de Modificacion (opcional):</label>
+                        <textarea name="motivo" id="movtivoCambio" required placeholder="Motivo"></textarea>
+                    </div>
+
+                    <div class="modal-acciones">
+                        <button type="button" class="boton-secundario" id="cancelarEdicion">Cancelar</button>
+                        <button type="submit" class="boton-primario">Guardar cambios</button>
+                    </div>
+                </form>
+            </div>
+        </div>
     </div>
 
     <script src="../Javascript/FrontUsuario/horas.js" type="module"></script>
