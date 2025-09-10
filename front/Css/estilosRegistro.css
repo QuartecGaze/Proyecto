@@ -23,7 +23,6 @@
 body {
     background-color: var(--fondo-claro);
     color: var(--texto-oscuro);
-    line-height: 1.6;
 }
 
 /* Header */

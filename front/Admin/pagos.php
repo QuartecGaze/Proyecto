@@ -33,7 +33,7 @@
                         <a href="#"><i class="material-icons">people</i> Socios</a>
                     </li>
                     <li class="item-menu">
-                        <a href="#"><i class="material-icons">apartment</i> Proyectos</a>
+                        <a href="proyectos.php"><i class="material-icons">apartment</i> Proyectos</a>
                     </li>
                     <li class="item-menu">
                         <a href="#">
@@ -100,7 +100,7 @@
 
                         <div class="info-pago-mensual">
                             <p>
-                                El <strong>pago mensual</strong> corresponde a un cargo general que se aplica 
+                                El <strong>pago mensual</strong> corresponde a un cargo general que se aplica
                                 a todos los usuarios registrados en el sistema. Este monto se utiliza para cubrir
                                 servicios,
                                 mantenimientos u otros conceptos definidos por la administración.

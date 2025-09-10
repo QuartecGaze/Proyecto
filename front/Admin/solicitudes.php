@@ -43,7 +43,7 @@ verificarAcceso(['Admin']);
                         <a href="#"><i class="material-icons">people</i> Socios</a>
                     </li>
                     <li class="item-menu">
-                        <a href="#"><i class="material-icons">apartment</i> Proyectos</a>
+                        <a href="proyectos.php"><i class="material-icons">apartment</i> Proyectos</a>
                     </li>
                     <li class="item-menu">
                         <a href="#">
