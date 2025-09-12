@@ -63,6 +63,9 @@ verificarAcceso(['Usuario', 'Admin']);
                     <button class="boton-cerrar-sesion">
                         <i class="material-icons">logout</i> Cerrar sesión
                     </button>
+                    <button class="boton-cambiar-sesion">
+                        <i class="material-icons">switch_account</i> Cambiar a Usuario
+                    </button>
                 </form>
             </div>
         </aside>
@@ -90,16 +93,16 @@ verificarAcceso(['Usuario', 'Admin']);
                 </a>
 
                 <a href="horas.php">
-                <div class="tarjeta-dashboard">
-                    <div class="tarjeta-icono">
-                        <i class="material-icons">punch_clock</i>
+                    <div class="tarjeta-dashboard">
+                        <div class="tarjeta-icono">
+                            <i class="material-icons">punch_clock</i>
+                        </div>
+                        <div class="tarjeta-contenido">
+                            <h3>Horas Trabajadas</h3>
+                            <p class="tarjeta-valor" id="horasTrabajadas"></p>
+                            <p class="tarjeta-subtexto">Esta Semana</p>
+                        </div>
                     </div>
-                    <div class="tarjeta-contenido">
-                        <h3>Horas Trabajadas</h3>
-                        <p class="tarjeta-valor" id="horasTrabajadas"></p>
-                        <p class="tarjeta-subtexto">Esta Semana</p>
-                    </div>
-                </div>
                 </a>
 
                 <!-- Tarjeta de reuniones pendientes -->

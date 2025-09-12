@@ -60,13 +60,13 @@
                         </a>
                         <ul class="submenu">
                             <li class="item-menu activo">
-                            <a href="configuracion.php"><i class="material-icons">star</i> Mi Perfil</a>
-                          </li>
-                          <li>
-                            <a href="crearAdmin.php"><i class="material-icons">key</i> Crear Admin</a>
-                          </li>
-                          <li>
-                            <a href="borrarAdmin.php"><i class="material-icons">backspace</i> Borrar Admin</a>
+                                <a href="configuracion.php"><i class="material-icons">star</i> Mi Perfil</a>
+                            </li>
+                            <li>
+                                <a href="crearAdmin.php"><i class="material-icons">key</i> Crear Admin</a>
+                            </li>
+                            <li>
+                                <a href="borrarAdmin.php"><i class="material-icons">backspace</i> Borrar Admin</a>
                             </li>
                         </ul>
                     </li>
@@ -85,6 +85,9 @@
                     <button class="boton-cerrar-sesion">
                         <i class="material-icons">logout</i> Cerrar sesión
                     </button>
+                    <button class="boton-cambiar-sesion">
+                        <i class="material-icons">switch_account</i> Cambiar a Usuario
+                    </button>
                 </form>
             </div>
         </aside>
@@ -98,93 +101,99 @@
 
             <div class="contenedor-perfil">
 
-            
 
 
 
 
-    <main class="contenedor-registro">
-        <div class="divForm">
-            <h1 class="registro-titulo">Crea tu cuenta</h1>
 
-            <div id="mensajeError" class="mensaje-error" style="display: none;">
-            </div>
+                <main class="contenedor-registro">
+                    <div class="divForm">
+                        <h1 class="registro-titulo">Crea tu cuenta</h1>
 
-            <form action="#" id="formRegistro" class="registro-form">
-                <div class="fieldInfo">
-                    <label for="nombre">Nombre</label>
-                    <input type="text" id="nombre" name="nombre" required title="Ingresa tu nombre completo">
-                </div>
+                        <div id="mensajeError" class="mensaje-error" style="display: none;">
+                        </div>
 
-                <div class="fieldInfo">
-                    <label for="apellido">Apellido</label>
-                    <input type="text" id="apellido" name="apellido" required title="Ingresa tu apellido completo">
-                </div>
+                        <form action="#" id="formRegistro" class="registro-form">
+                            <div class="fieldInfo">
+                                <label for="nombre">Nombre</label>
+                                <input type="text" id="nombre" name="nombre" required
+                                    title="Ingresa tu nombre completo">
+                            </div>
 
-                <div class="fieldInfo">
-                    <label for="email">Correo electrónico</label>
-                    <input type="email" id="email" name="email" required title="Ingresa un correo electrónico válido">
-                </div>
+                            <div class="fieldInfo">
+                                <label for="apellido">Apellido</label>
+                                <input type="text" id="apellido" name="apellido" required
+                                    title="Ingresa tu apellido completo">
+                            </div>
 
-                <div class="fieldInfo">
-                    <label for="telefono">Teléfono Móvil</label>
-                    <input type="tel" id="telefono" name="telefono" pattern="[0-9]{9,12}" required
-                        title="Ingresa tu número de teléfono (9 a 12 dígitos sin espacios)">
-                </div>
+                            <div class="fieldInfo">
+                                <label for="email">Correo electrónico</label>
+                                <input type="email" id="email" name="email" required
+                                    title="Ingresa un correo electrónico válido">
+                            </div>
 
-                <div class="fieldInfo">
-                    <label for="cedula">Cédula de Identidad</label>
-                    <input type="text" id="cedula" name="cedula" required pattern="^\d{7,8}$"
-                        title="Debe contener 7 u 8 dígitos numéricos sin puntos ni guiones">
-                </div>
+                            <div class="fieldInfo">
+                                <label for="telefono">Teléfono Móvil</label>
+                                <input type="tel" id="telefono" name="telefono" pattern="[0-9]{9,12}" required
+                                    title="Ingresa tu número de teléfono (9 a 12 dígitos sin espacios)">
+                            </div>
 
-                <div class="fieldInfo">
-                    <label for="password">Contraseña</label>
-                    <div class="password-container">
-                        <input type="password" id="password" name="password" required minlength="8"
-                            pattern="(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}"
-                            title="Debe tener al menos 8 caracteres, incluyendo mayúscula, minúscula, número y símbolo especial">
+                            <div class="fieldInfo">
+                                <label for="cedula">Cédula de Identidad</label>
+                                <input type="text" id="cedula" name="cedula" required pattern="^\d{7,8}$"
+                                    title="Debe contener 7 u 8 dígitos numéricos sin puntos ni guiones">
+                            </div>
+
+                            <div class="fieldInfo">
+                                <label for="password">Contraseña</label>
+                                <div class="password-container">
+                                    <input type="password" id="password" name="password" required minlength="8"
+                                        pattern="(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}"
+                                        title="Debe tener al menos 8 caracteres, incluyendo mayúscula, minúscula, número y símbolo especial">
+
+                                </div>
+                            </div>
+
+                            <div class="fieldInfo">
+                                <label for="nivel_permisos">Nivel de permisos</label>
+
+                                <div class="opciones-permisos" id="nivel_permisos">
+                                    <label class="radio">
+                                        <input type="radio" name="nivel_permisos" value="Operador" required>
+                                        <span>Operador</span>
+                                    </label>
+                                    <label class="radio">
+                                        <input type="radio" name="nivel_permisos" value="Admin">
+                                        <span>Admin</span>
+                                    </label>
+                                </div>
+                            </div>
+
+
+                            <button type="submit" class="btnRegistro registro-btn">Registrar Admin</button>
+                        </form>
 
                     </div>
-                </div>
+                    <div class="infoSide">
+                        <div class="contenidoInfo">
+                            <h2 class="login-titulo-side">Operador <span class="material-icons">security</span></h2>
+                            <p class="textoInfo login-texto-side">Cuenta con acceso total a la administración</p>
+                            <h2 class="login-titulo-side">Admin <span class="material-icons">rocket</span></h2>
+                            <p class="textoInfo login-texto-side">Cuenta con acceso restringido a acciones
+                                importantes/criticas.</p>
+                            <h2 class="login-titulo-side">Recomendacion <span
+                                    class="material-icons">support_agent</span></h2>
+                            <p class="textoInfo login-texto-side">Asignar <strong>Admin</strong> a los empleados de la
+                                administracion.</p>
 
-                <div class="fieldInfo">
-                <label for="nivel_permisos">Nivel de permisos</label>
+                        </div>
+                    </div>
 
-                <div class="opciones-permisos" id="nivel_permisos">
-                    <label class="radio">
-                    <input type="radio" name="nivel_permisos" value="Operador" required>
-                    <span>Operador</span>
-                    </label>
-                    <label class="radio">
-                    <input type="radio" name="nivel_permisos" value="Admin">
-                    <span>Admin</span>
-                    </label>
-                </div>
-                </div>
-
-
-                <button type="submit" class="btnRegistro registro-btn">Registrar Admin</button>
-            </form>
-
-        </div>
-        <div class="infoSide">
-            <div class="contenidoInfo">
-                <h2 class="login-titulo-side">Operador <span class="material-icons">security</span></h2>
-                <p class="textoInfo login-texto-side">Cuenta con acceso total a la administración</p>
-                <h2 class="login-titulo-side">Admin <span class="material-icons">rocket</span></h2>
-                <p class="textoInfo login-texto-side">Cuenta con acceso restringido a acciones importantes/criticas.</p>
-                <h2 class="login-titulo-side">Recomendacion <span class="material-icons">support_agent</span></h2>
-                <p class="textoInfo login-texto-side">Asignar <strong>Admin</strong> a los empleados de la administracion.</p>
-                
-            </div>
-        </div>
-
-    </main>
+                </main>
 
 
 
-            
+
 
 
 

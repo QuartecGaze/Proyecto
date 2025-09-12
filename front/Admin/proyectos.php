@@ -4,15 +4,18 @@ verificarAcceso(['Admin']);
 ?>
 <!DOCTYPE html>
 <html lang="es">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Senda Firme - Gestión de Proyectos</title>
-    <link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap"
+        rel="stylesheet">
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <link rel="stylesheet" href="../Css/estilosProyectos.css">
 </head>
+
 <body class="backoffice">
     <div class="contenedor-dashboard">
         <!-- Sidebar -->
@@ -73,6 +76,9 @@ verificarAcceso(['Admin']);
                 <form action="../cerrarSesion.php">
                     <button class="boton-cerrar-sesion">
                         <i class="material-icons">logout</i> Cerrar sesión
+                    </button>
+                    <button class="boton-cambiar-sesion">
+                        <i class="material-icons">switch_account</i> Cambiar a Usuario
                     </button>
                 </form>
             </div>
@@ -170,17 +176,17 @@ verificarAcceso(['Admin']);
             <div class="modal-body">
                 <form id="formProyecto">
                     <input type="hidden" id="proyectoId">
-                    
+
                     <div class="grupo-formulario">
                         <label for="nombreProyecto">Nombre del Proyecto *</label>
                         <input type="text" id="nombreProyecto" required>
                     </div>
-                    
+
                     <div class="grupo-formulario">
                         <label for="descripcionProyecto">Descripción</label>
                         <textarea id="descripcionProyecto" rows="3"></textarea>
                     </div>
-                    
+
                     <div class="grupo-formulario-doble">
                         <div>
                             <label for="ubicacionProyecto">Ubicación *</label>
@@ -191,7 +197,7 @@ verificarAcceso(['Admin']);
                             <input type="date" id="fechaInicio" required>
                         </div>
                     </div>
-                    
+
                     <div class="grupo-formulario-doble">
                         <div>
                             <label for="fechaEstimadaFin">Fecha Estimada de Fin</label>
@@ -207,7 +213,7 @@ verificarAcceso(['Admin']);
                             </select>
                         </div>
                     </div>
-                    
+
                     <div class="modal-footer">
                         <button type="button" class="btn-secundario cerrar-modal">Cancelar</button>
                         <button type="submit" class="btn-primario">Guardar Proyecto</button>
@@ -228,4 +234,5 @@ verificarAcceso(['Admin']);
         });
     </script>
 </body>
+
 </html>

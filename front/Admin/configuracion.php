@@ -59,13 +59,13 @@
                         </a>
                         <ul class="submenu">
                             <li class="item-menu activo">
-                            <a href="configuracion.php"><i class="material-icons">star</i> Mi Perfil</a>
-                          </li>
-                          <li>
-                            <a href="crearAdmin.php"><i class="material-icons">key</i> Crear Admin</a>
-                          </li>
-                          <li>
-                            <a href="borrarAdmin.php"><i class="material-icons">backspace</i> Borrar Admin</a>
+                                <a href="configuracion.php"><i class="material-icons">star</i> Mi Perfil</a>
+                            </li>
+                            <li>
+                                <a href="crearAdmin.php"><i class="material-icons">key</i> Crear Admin</a>
+                            </li>
+                            <li>
+                                <a href="borrarAdmin.php"><i class="material-icons">backspace</i> Borrar Admin</a>
                             </li>
                         </ul>
                     </li>
@@ -83,6 +83,9 @@
                 <form action="../cerrarSesion.php">
                     <button class="boton-cerrar-sesion">
                         <i class="material-icons">logout</i> Cerrar sesión
+                    </button>
+                    <button class="boton-cambiar-sesion">
+                        <i class="material-icons">switch_account</i> Cambiar a Usuario
                     </button>
                 </form>
             </div>
