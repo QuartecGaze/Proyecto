@@ -1,0 +1,231 @@
+<?php
+require_once '../verificarSesion.php';
+verificarAcceso(['Admin']);
+?>
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Senda Firme - Crear Unidad</title>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <link rel="stylesheet" href="../Css/crearUnidad.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+</head>
+<body>
+    <div class="contenedor-principal">
+        <!-- Sidebar -->
+        <aside class="sidebar">
+            <div class="logo-dashboard">
+                <img src="../../Fotos/logoBack.webp" alt="Logo Cooperativa">
+                <span>Senda Firme</span>
+                <p>Construyendo oportunidades juntos</p>
+            </div>
+
+            <nav id="NavegacionDashboard">
+                <ul class="menu-dashboard">
+                    <li class="item-menu">
+                        <a href="index.php"><i class="material-icons">home</i> Inicio</a>
+                    </li>
+                    <li class="item-menu">
+                        <a href="#"><i class="material-icons">event</i> Reuniones</a>
+                    </li>
+                    <li class="item-menu">
+                        <a href="#"><i class="material-icons">people</i> Socios</a>
+                    </li>
+                    <li class="item-menu">
+                        <a href="#">
+                            <i class="material-icons">apartment</i> Proyectos
+                        </a>
+                        <ul class="submenu">
+                            <li><a href="crearUnidad.php"><i class="material-icons">add_circle</i> Crear Unidad</a></li>
+                            <li><a href="borrarUnidad.php"><i class="material-icons">delete</i> Borrar Unidad</a></li>
+                            <li><a href="modificarUnidad.php"><i class="material-icons">edit</i> Modificar Unidad</a></li>
+                            <li><a href="asignarUnidad.php"><i class="material-icons">person_add</i> Asignar Unidad</a></li>
+                        </ul>
+                    </li>
+                    <li class="item-menu">
+                        <a href="#">
+                            <i class="material-icons">payments</i> Pagos
+                        </a>
+                        <ul class="submenu">
+                            <li><a href="confirmarPagos.php">Corroborar Comprobantes</a></li>
+                            <li><a href="pagos.php">Gestor de Pagos</a></li>
+                        </ul>
+                    </li>
+                    <li class="item-menu">
+                        <a href="solicitudes.php"><i class="material-icons">email</i> Solicitudes</a>
+                    </li>
+                    <li class="item-menu">
+                        <a href="#">
+                            <i class="material-icons">settings</i> Configuracion
+                        </a>
+                        <ul class="submenu">
+                            <li><a href="configuracion.php"><i class="material-icons">person</i> Mi Perfil</a></li>
+                            <li><a href="crearAdmin.php"><i class="material-icons">add</i> Crear Admin</a></li>
+                            <li><a href="borrarAdmin.php"><i class="material-icons">remove</i> Borrar Admin</a></li>
+                        </ul>
+                    </li>
+                </ul>
+            </nav>
+
+            <div class="perfil-usuario">
+                <div class="info-usuario">
+                    <img src="" alt="Foto perfil" class="fotoPerfil">
+                    <div>
+                        <p class="nombre-usuario nombreAdmin">Admin User</p>
+                        <p class="rol-usuario" id="rolAdmin">Administrador</p>
+                    </div>
+                </div>
+                <form action="../cerrarSesion.php">
+                    <button class="boton-cerrar-sesion">
+                        <i class="material-icons">logout</i> Cerrar sesión
+                    </button>
+                </form>
+            </div>
+        </aside>
+
+        <!-- Contenido principal -->
+        <main class="contenido-derecho">
+            <header class="header-principal">
+                <h1>Crear <span class="nombre-usuario-destacado">Unidad Habitacional</span></h1>
+                <p>Agregar una nueva unidad al sistema</p>
+            </header>
+
+            <div class="contenedor-formulario">
+                <h2 class="titulo-seccion">Seleccione el tipo de unidad</h2>
+                
+                <div class="selector-tipo">
+                    <div class="opcion-tipo activo" data-tipo="normal">
+                        <i class="material-icons">home</i>
+                        <h3>Unidad Normal</h3>
+                        <p>Unidad estándar con características predefinidas</p>
+                    </div>
+                    <div class="opcion-tipo" data-tipo="personalizada">
+                        <i class="material-icons">star</i>
+                        <h3>Unidad Personalizada</h3>
+                        <p>Unidad con características específicas y únicas</p>
+                    </div>
+                </div>
+
+                <!-- Formulario para Unidad Normal -->
+                <form id="formNormal" class="formulario-tipo activo" action="../procesarUnidad.php" method="POST">
+                    <input type="hidden" name="tipo" value="normal">
+                    
+                    <div class="grupo-formulario-doble">
+                        <div class="grupo-formulario">
+                            <label for="numeroPuerta">Número de Puerta</label>
+                            <input type="text" id="numeroPuerta" name="numeroPuerta" required>
+                        </div>
+                        <div class="grupo-formulario">
+                            <label for="pasillo">Pasillo</label>
+                            <input type="text" id="pasillo" name="pasillo" required>
+                        </div>
+                    </div>
+                    
+                    <div class="grupo-formulario">
+                        <label for="habitaciones">Cantidad de Habitaciones *</label>
+                        <select id="habitaciones" name="habitaciones" required>
+                            <option value="">Seleccione...</option>
+                            <option value="1">1 habitación</option>
+                            <option value="2">2 habitaciones</option>
+                            <option value="3">3 habitaciones</option>
+                            <option value="4">4 habitaciones</option>
+                            <option value="5">5 o más habitaciones</option>
+                        </select>
+                    </div>
+                    
+                    <div class="grupo-formulario">
+                        <label for="descripcionNormal">Descripción (Opcional)</label>
+                        <textarea id="descripcionNormal" name="descripcion" rows="3"></textarea>
+                    </div>
+                    
+                    <div class="botones-accion">
+                        <button type="submit" class="btn-primario">
+                            <i class="material-icons">save</i> Crear Unidad
+                        </button>
+                        <button type="reset" class="btn-secundario">
+                            <i class="material-icons">clear</i> Limpiar
+                        </button>
+                    </div>
+                </form>
+
+                <!-- Formulario para Unidad Personalizada -->
+                <form id="formPersonalizada" class="formulario-tipo" action="../procesarUnidad.php" method="POST">
+                    <input type="hidden" name="tipo" value="personalizada">
+                    
+                    <div class="grupo-formulario-doble">
+                        <div class="grupo-formulario">
+                            <label for="ciNumeroPuerta">Número de Puerta</label>
+                            <input type="text" id="ciNumeroPuerta" name="ciNumeroPuerta" required>
+                        </div>
+                        <div class="grupo-formulario">
+                            <label for="ciPasillo">Pasillo</label>
+                            <input type="text" id="ciPasillo" name="ciPasillo" required>
+                        </div>
+                    </div>
+                    
+                    <div class="grupo-formulario">
+                        <label for="caracteristicas">CI</label>
+                            <input type="number" id="ci" name="ci" required>
+                    </div>
+                    
+                    <div class="grupo-formulario">
+                        <label for="descripcionPersonalizada">Descripción (Opcional)</label>
+                        <textarea id="descripcionPersonalizada" name="descripcion" rows="3"></textarea>
+                    </div>
+                    
+                    <div class="botones-accion">
+                        <button type="submit" class="btn-primario">
+                            <i class="material-icons">save</i> Crear Unidad Personalizada
+                        </button>
+                        <button type="reset" class="btn-secundario">
+                            <i class="material-icons">clear</i> Limpiar
+                        </button>
+                    </div>
+                </form>
+                
+                <div id="mensajeExito" class="mensaje-exito">
+                    <i class="material-icons">check_circle</i>
+                    <span>La unidad ha sido creada exitosamente.</span>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <script>
+        // Manejo del selector de tipo de unidad
+        document.querySelectorAll('.opcion-tipo').forEach(opcion => {
+            opcion.addEventListener('click', function() {
+                // Remover clase activa de todas las opciones
+                document.querySelectorAll('.opcion-tipo').forEach(item => {
+                    item.classList.remove('activo');
+                });
+                
+                // Agregar clase activa a la opción seleccionada
+                this.classList.add('activo');
+                
+                // Ocultar todos los formularios
+                document.querySelectorAll('.formulario-tipo').forEach(form => {
+                    form.classList.remove('activo');
+                });
+                
+                // Mostrar el formulario correspondiente
+                const tipo = this.getAttribute('data-tipo');
+                document.getElementById(`form${tipo.charAt(0).toUpperCase() + tipo.slice(1)}`).classList.add('activo');
+            });
+        });
+        
+        // Manejo de menús desplegables
+        document.querySelectorAll(".item-menu > a").forEach(boton => {
+            boton.addEventListener("click", function (e) {
+                if (this.nextElementSibling && this.nextElementSibling.classList.contains("submenu")) {
+                    e.preventDefault();
+                    this.parentElement.classList.toggle("open");
+                }
+            });
+        });
+    </script>
+</body>
+</html>

@@ -4,15 +4,18 @@ verificarAcceso(['Admin']);
 ?>
 <!DOCTYPE html>
 <html lang="es">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Senda Firme - Gestión de Proyectos</title>
-    <link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap"
+        rel="stylesheet">
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <link rel="stylesheet" href="../Css/estilosProyectos.css">
 </head>
+
 <body class="backoffice">
     <div class="contenedor-dashboard">
         <!-- Sidebar -->
@@ -34,8 +37,15 @@ verificarAcceso(['Admin']);
                     <li class="item-menu">
                         <a href="#"><i class="material-icons">people</i> Socios</a>
                     </li>
-                    <li class="item-menu activo">
-                        <a href="proyectos.php"><i class="material-icons">apartment</i> Proyectos</a>
+                    <li class="item-menu">
+                        <a href="#">
+                            <i class="material-icons">apartment</i> Proyectos
+                        </a>
+                        <ul class="submenu">
+                            <a href="crearUnidad.php"><i class="material-icons">add_circle</i> Crear Unidad</a>
+                            <a href="borrarUnidad.php"><i class="material-icons">delete</i> Borrar Unidad</a>
+                            <a href="modificarUnidad.php"><i class="material-icons">edit</i> Modificar Unidad</a>
+                        </ul>
                     </li>
                     <li class="item-menu">
                         <a href="#">
@@ -54,6 +64,7 @@ verificarAcceso(['Admin']);
                             <i class="material-icons">settings</i> Configuracion
                         </a>
                         <ul class="submenu">
+                            <a href="proyectos.php"><i class="material-icons">home_work</i>Gestionar Proyectos</a>
                             <a href="configuracion.php"><i class="material-icons">star</i> Mi Perfil</a>
                             <a href="crearAdmin.php"><i class="material-icons">key</i> Crear Admin</a>
                             <a href="borrarAdmin.php"><i class="material-icons">backspace</i> Borrar Admin</a>
@@ -83,17 +94,6 @@ verificarAcceso(['Admin']);
                 <h1>Gestión de <span class="nombre-usuario-destacado">Proyectos</span></h1>
                 <p>Administra los proyectos de construcción de la cooperativa</p>
             </header>
-
-            <!-- Botones de acción -->
-            <div class="barra-acciones">
-                <button class="btn-primario" id="btnNuevoProyecto">
-                    <i class="material-icons">add</i> Nuevo Proyecto
-                </button>
-                <div class="buscador">
-                    <input type="text" placeholder="Buscar proyectos..." id="buscadorProyectos">
-                    <i class="material-icons">search</i>
-                </div>
-            </div>
 
             <!-- Estadísticas de proyectos -->
             <div class="contenedor-tarjetas">
@@ -145,8 +145,8 @@ verificarAcceso(['Admin']);
                     <thead>
                         <tr>
                             <th>Nombre</th>
-                            <th>Ubicación</th>
-                            <th>Unidades</th>
+                            <th>CI</th>
+                            <th>Habitaciones</th>
                             <th>Progreso</th>
                             <th>Estado</th>
                             <th>Acciones</th>
@@ -170,17 +170,17 @@ verificarAcceso(['Admin']);
             <div class="modal-body">
                 <form id="formProyecto">
                     <input type="hidden" id="proyectoId">
-                    
+
                     <div class="grupo-formulario">
                         <label for="nombreProyecto">Nombre del Proyecto *</label>
                         <input type="text" id="nombreProyecto" required>
                     </div>
-                    
+
                     <div class="grupo-formulario">
                         <label for="descripcionProyecto">Descripción</label>
                         <textarea id="descripcionProyecto" rows="3"></textarea>
                     </div>
-                    
+
                     <div class="grupo-formulario-doble">
                         <div>
                             <label for="ubicacionProyecto">Ubicación *</label>
@@ -191,7 +191,7 @@ verificarAcceso(['Admin']);
                             <input type="date" id="fechaInicio" required>
                         </div>
                     </div>
-                    
+
                     <div class="grupo-formulario-doble">
                         <div>
                             <label for="fechaEstimadaFin">Fecha Estimada de Fin</label>
@@ -207,7 +207,7 @@ verificarAcceso(['Admin']);
                             </select>
                         </div>
                     </div>
-                    
+
                     <div class="modal-footer">
                         <button type="button" class="btn-secundario cerrar-modal">Cancelar</button>
                         <button type="submit" class="btn-primario">Guardar Proyecto</button>
@@ -228,4 +228,5 @@ verificarAcceso(['Admin']);
         });
     </script>
 </body>
+
 </html>
