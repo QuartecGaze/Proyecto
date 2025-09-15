@@ -1,9 +1,9 @@
+<?php
+    require_once '../verificarSesion.php';
+    verificarAcceso(['Admin']);
+?>
 <!DOCTYPE html>
 <html lang="es">
-<?php
-require_once '../verificarSesion.php';
-verificarAcceso(['Admin']);
-?>
 
 <head>
     <meta charset="UTF-8">

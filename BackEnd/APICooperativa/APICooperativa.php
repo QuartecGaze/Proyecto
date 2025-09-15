@@ -78,6 +78,47 @@
                 }
             }
 
+            elseif ($accion === "editarHoras"){
+                $datos = json_decode(file_get_contents('php://input'), true);
+                $idHoras = $datos['idHoras'];
+                $horas = $datos['horas'];
+                $fecha = $datos['fecha'];
+                if ($idHoras === null || $idHoras < 1) {
+                    respuesta("El ID de horas es inválido.", "error", 400);
+                }
+                if ($horas === null || $horas < 1 || $horas > 12) {
+                    respuesta("La cantidad de horas debe ser entre 1 y 12.", "error", 400);
+                }
+
+                try{
+                    if($servicio->editarHoras($idHoras, $horas, $fecha)){
+                        respuesta("horas editadas correctamente", "exito", 200);
+                    }else{
+                        respuesta("error al editar las horas", "error", 400);
+                    }
+                }catch(Exception $e){
+                    respuesta($e->getMessage(), "error", $e->getCode());
+                }
+            }
+
+            elseif ($accion === "borrarHoras"){
+                $datos = json_decode(file_get_contents('php://input'), true);
+                $idHoras = $datos['idHoras'];
+                if ($idHoras === null || $idHoras < 1) {
+                    respuesta("El ID de horas es inválido.", "error", 400);
+                }
+                try{
+                    if($servicio->borrarHoras($idHoras)){
+                        respuesta("horas borradas correctamente", "exito", 200);
+                    }else{
+                        respuesta("error al borrar las horas", "error", 400);
+                    }
+                }catch(Exception $e){
+                    respuesta($e->getMessage(), "error", $e->getCode());
+                }
+            }
+
+
         break;
 
         case "GET":

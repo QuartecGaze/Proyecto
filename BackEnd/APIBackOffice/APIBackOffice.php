@@ -106,8 +106,12 @@
 
             if($accion === "rechazarInteresado") {
                 $datos = json_decode(file_get_contents('php://input'), true);
+                try {
                 $servicio->rechazarInteresado($datos['idPersona']);
                 respuesta("Interesado rechazado exitosamente", "exito", 200);
+                } catch (Exception $e) {
+                    respuesta($e->getMessage(), "error", $e->getCode());
+                }
             }
             
             if($accion === "aprobarInteresado") {

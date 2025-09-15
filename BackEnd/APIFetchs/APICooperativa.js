@@ -31,3 +31,9 @@ import { apiRequest } from './apiConfig.js';
         export function getHorasTrabajadas(id) {
                 return apiRequest('/APICooperativa/ApiCooperativa.php?accion=getHorasTrabajadas&id=' + id, 'GET');
         }
+        export function editarHoras(data){
+                return apiRequest(`/APICooperativa/ApiCooperativa.php?accion=editarHoras`, "POST", data);
+        }
+        export function borrarHoras(data){
+                return apiRequest(`/APICooperativa/ApiCooperativa.php?accion=borrarHoras`, "POST", data);
+        }

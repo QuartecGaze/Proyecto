@@ -129,6 +129,7 @@
                     'fechaDeRegistro' => $horasHistorial['Fecha_registro_horas'],
                     'horasTrabajadas' => $horasHistorial['Horas'],
                     'diaDeLaSemana'   => $this->diaDeLaSemana($horasHistorial['Fecha_registro_horas']),
+                    'idHoras' => $horasHistorial['idHoras']
                 ];
             }
 
@@ -174,5 +175,12 @@
             return $this->lunesDeXSemana(date('Y-m-d'));
         }
 
+        public function editarHoras($idHoras, $horas, $fecha){
+            return $this->repositorio->editarHoras($idHoras, $horas, $fecha);
+        }
+
+        public function borrarHoras($idHoras){
+            return $this->repositorio->borrarHoras($idHoras);
+        }
 
     }
