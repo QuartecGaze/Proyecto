@@ -497,6 +497,31 @@ require_once __DIR__ .'../../APIUsuarios/Modelos/Interesado.php';
             mysqli_query($this->conn, $consulta);
         }
             
+        public function crearUnidadHabitacional($unidadHabitacional){
+            $numeroPuerta = $unidadHabitacional->getNumeroPuerta();
+            $pasillo = $unidadHabitacional->getPasillo();
+            $cantidadHabitaciones = $unidadHabitacional->getCantidadHabitaciones();
+            $consulta = "
+                INSERT INTO unidad_habitacional (Numero_puerta, Pasillo, Estado_unidad, Cantidad_habitaciones) 
+                VALUES ($numeroPuerta, '$pasillo', 'En espera', $cantidadHabitaciones)
+            ";
+            mysqli_query($this->conn, $consulta);
+        }
         
+        public function unidadHabitacionalExiste($numeroPuerta, $pasillo){
+            $consulta = "
+                SELECT * FROM unidad_habitacional 
+                WHERE Numero_puerta = '$numeroPuerta' 
+                AND Pasillo = '$pasillo'
+                ";
+            $resultado = mysqli_query($this->conn, $consulta);
+            if(mysqli_num_rows($resultado) > 0){
+                return true;
+            }else{
+                return false;
+            }
+        }
+
+
     }
 ?>

@@ -26,21 +26,8 @@
 
     switch($metodo) {
         case "POST":
-            if($accion == "crearUnidad"){
-                try {
-                    $datos = json_decode(file_get_contents('php://input'), true);
-                    $servicio->crearUnidadHabitacional(
-                        $datos['numeroPuerta'], 
-                        $datos['pasillo'], 
-                        $datos['cantidadHabitaciones'], 
-                    );
-                    respuesta("La unidad habitacional se ha cargado con éxito", "exito", 201);
-                } catch(Exception $e) {
-                    respuesta($e->getMessage(), "error", $e->getCode());
-                }
-            }
 
-            elseif ($accion === "subirHoras"){
+            if ($accion === "subirHoras"){
                 //traer las horas del front
                 session_start();
                 $idPersona = $_SESSION['id'];
@@ -117,6 +104,44 @@
                     respuesta($e->getMessage(), "error", $e->getCode());
                 }
             }
+
+            elseif ($accion === "ingresarIntegrantesFamiliares"){
+                session_start();
+                $idPersona = $_SESSION['id'];
+                $datos = json_decode(file_get_contents('php://input'), true);
+                $cantidadIntegrantes = $datos['cantidadIntegrantes'];
+                $integrantes = $datos['integrantes'] ?? [];
+            
+                try {
+                    $ingresados = 0;
+                    foreach ($integrantes as $idx => $integrante) {
+                        try {
+                        $servicio->ingresarIntegrante($idPersona, $integrante['nombre'], $integrante['apellido'], $integrante['ci'], $integrante['fechaNacimiento'], $integrante['genero'], $integrante['telefono']/*, $integrante['parentesco']*/);
+                            $ingresados++;
+                        } catch (Throwable $e) {
+                            //si falla seguimos con el foreach
+                        }
+                    }
+            
+                    $total = count($integrantes);
+            
+                    if ($ingresados === $total) {
+                        respuesta("Integrantes ingresados con exito $ingresados / $total", "exito", 200);
+                    } elseif ($ingresados > 0) {
+                        respuesta("Algunos integrantes no se pudieron registrar $ingresados / $total", "error", 207);
+                    } else {
+                        respuesta("No se pudo registrar ni un integrante 0 / $total", "error", 400);
+                    }
+                } catch (Exception $e){
+                    respuesta($e->getMessage(), "error", $e->getCode());
+                }
+            }
+            
+
+
+
+
+
 
 
         break;

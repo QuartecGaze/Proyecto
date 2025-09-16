@@ -1,6 +1,6 @@
 <?php
-require_once '../verificarSesion.php';
-verificarAcceso(['Admin']);
+    require_once '../verificarSesion.php';
+    verificarAcceso(['Admin']);
 ?>
 <!DOCTYPE html>
 <html lang="es">
@@ -132,13 +132,7 @@ verificarAcceso(['Admin']);
                             <option value="2">2 habitaciones</option>
                             <option value="3">3 habitaciones</option>
                             <option value="4">4 habitaciones</option>
-                            <option value="5">5 o más habitaciones</option>
                         </select>
-                    </div>
-                    
-                    <div class="grupo-formulario">
-                        <label for="descripcionNormal">Descripción (Opcional)</label>
-                        <textarea id="descripcionNormal" name="descripcion" rows="3"></textarea>
                     </div>
                     
                     <div class="botones-accion">
@@ -171,11 +165,6 @@ verificarAcceso(['Admin']);
                             <input type="number" id="ci" name="ci" required>
                     </div>
                     
-                    <div class="grupo-formulario">
-                        <label for="descripcionPersonalizada">Descripción (Opcional)</label>
-                        <textarea id="descripcionPersonalizada" name="descripcion" rows="3"></textarea>
-                    </div>
-                    
                     <div class="botones-accion">
                         <button type="submit" class="btn-primario">
                             <i class="material-icons">save</i> Crear Unidad Personalizada
@@ -193,7 +182,7 @@ verificarAcceso(['Admin']);
             </div>
         </main>
     </div>
-
+    <script src="../Javascript/BackOffice/crearUnidad.js" type="module"></script>
     <script>
         // Manejo del selector de tipo de unidad
         document.querySelectorAll('.opcion-tipo').forEach(opcion => {

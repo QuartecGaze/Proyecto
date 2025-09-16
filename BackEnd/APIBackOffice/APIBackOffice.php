@@ -208,6 +208,20 @@
                 }
             }
 
+            if($accion == "crearUnidad"){
+                try {
+                    $datos = json_decode(file_get_contents('php://input'), true);
+                    $servicio->crearUnidadHabitacional(
+                        $datos['numeroPuerta'], 
+                        $datos['pasillo'], 
+                        $datos['cantidadHabitaciones'], 
+                    );
+                    respuesta("La unidad habitacional se ha cargado con éxito", "exito", 201);
+                } catch(Exception $e) {
+                    respuesta($e->getMessage(), "error", $e->getCode());
+                }
+            }
+
         break;
 
         case "GET":
