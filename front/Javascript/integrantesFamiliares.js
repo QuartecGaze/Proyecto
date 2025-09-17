@@ -150,4 +150,3 @@ btnGuardar.addEventListener('click', async (e) => {
     alert('Error del servidor');
   }
 });
-
