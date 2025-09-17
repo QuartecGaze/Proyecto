@@ -6,18 +6,6 @@
             $this->conn = $conn;
         }
 
-        public function crearUnidadHabitacional($unidadHabitacional){
-            $numeroPuerta = $unidadHabitacional->getNumeroPuerta();
-            $pasillo = $unidadHabitacional->getPasillo();
-            $cantidadHabitaciones = $unidadHabitacional->getCantidadHabitaciones();
-            //private $estadoUnidad; podriamos hacer que cargue el progreso, pero por ahora voy a hacer que por defecto empieze en espera /DIEGO/
-            $consulta = "
-                INSERT INTO unidad_habitacional (Numero_puerta, Pasillo, Estado_unidad, Cantidad_habitabitaciones) 
-                VALUES ('$numeroPuerta', '$pasillo', 'En espera', '$cantidadHabitaciones')
-            ";
-            mysqli_query($this->conn, $consulta);
-        }
-
     public function getComprobantesMensuales($idPersona){
         if (!is_numeric($idPersona) || !ctype_digit((string)$idPersona)) {
             error_log("getComprobantesMensuales: idPersona inválido = " . var_export($idPersona, true));
@@ -202,21 +190,6 @@
             }
             
         }
-
-        public function unidadHabitacionalExiste($numeroPuerta, $pasillo){
-            $consulta = "
-                SELECT * FROM unidad_habitacional 
-                WHERE Numero_puerta = '$numeroPuerta' 
-                AND Pasillo = '$pasillo'
-                ";
-            $resultado = mysqli_query($this->conn, $consulta);
-            if(mysqli_num_rows($resultado) > 0){
-                return true;
-            }else
-            {
-                return false;
-            }
-        }
         
         public function crearSemana($fecha){
             $consulta = "
@@ -268,7 +241,14 @@
             }
         }
 
-
-
-
+        public function ingresarIntegrante($idPersona, $nombre, $apellido, $ci, $fechaNacimiento, $genero, $telefono){
+            $consulta = "
+                INSERT INTO 
+                integrante_familiar
+                (ID_Persona, Nombre, Apellido, CI, FechaNacimiento, Genero, Telefono)
+                VALUES ($idPersona, '$nombre', '$apellido', '$ci', '$fechaNacimiento', '$genero', $telefono)
+            ";
+            //agregar [parentesco si va]
+            mysqli_query($this->conn, $consulta);
+        }
     }

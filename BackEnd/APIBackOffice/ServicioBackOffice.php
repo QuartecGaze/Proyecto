@@ -4,6 +4,7 @@
     require_once __DIR__ .'../../APIUsuarios/Modelos/Admin.php';
     require_once __DIR__ .'../../APIUsuarios/Modelos/Interesado.php';
     require_once __DIR__ .'../../APICooperativa/Modelos/ComprobantePago.php';
+    require_once __DIR__ .'../../APICooperativa/Modelos/UnidadHabitacional.php';
 
     Class ServicioBackOffice {
         //no se especifica el tipo porque cada servicio tiene un repositorio
@@ -197,6 +198,15 @@
                 'comprobantesPendientes' => $comprobantesPendientes,
                 'comprobantes' => $comprobantesAsociativo
             ];
+        }
+
+        public function crearUnidadHabitacional($numeroPuerta, $pasillo, $cantidadHabitaciones){
+            $unidadHabitacional = new UnidadHabitacional($numeroPuerta, $pasillo, $cantidadHabitaciones);
+            if(!$this->repositorio->unidadHabitacionalExiste($numeroPuerta, $pasillo)){
+                $this->repositorio->crearUnidadHabitacional($unidadHabitacional);
+            } else{
+                throw new Exception("Esta unidad ya esta registrada", 409);
+            }
         }
         
     }
