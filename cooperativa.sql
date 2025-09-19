@@ -3,9 +3,9 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 15-09-2025 a las 22:20:23
--- Versión del servidor: 10.4.32-MariaDB
--- Versión de PHP: 8.2.12
+-- Tiempo de generación: 19-09-2025 a las 14:40:05
+-- Versión del servidor: 8.0.43
+-- Versión de PHP: 8.0.30
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -28,9 +28,9 @@ SET time_zone = "+00:00";
 --
 
 CREATE TABLE `admin` (
-  `ID_Persona` int(11) NOT NULL,
-  `Nivel_permisos` enum('Operador','Admin') DEFAULT NULL,
-  `Foto` varchar(100) DEFAULT NULL,
+  `ID_Persona` int NOT NULL,
+  `Nivel_permisos` enum('Operador','Admin') COLLATE utf8mb4_general_ci DEFAULT NULL,
+  `Foto` varchar(100) COLLATE utf8mb4_general_ci DEFAULT NULL,
   `Fecha_ingreso` date DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
@@ -48,13 +48,13 @@ INSERT INTO `admin` (`ID_Persona`, `Nivel_permisos`, `Foto`, `Fecha_ingreso`) VA
 --
 
 CREATE TABLE `comprobante_pago` (
-  `ID_Comprobante_pago` int(11) NOT NULL,
-  `ID_Persona` int(11) DEFAULT NULL,
-  `Motivo_pago` varchar(255) DEFAULT NULL,
-  `Estado_pago` enum('En espera','Pendiente','Aprobado','Rechazado') DEFAULT NULL,
+  `ID_Comprobante_pago` int NOT NULL,
+  `ID_Persona` int DEFAULT NULL,
+  `Motivo_pago` varchar(255) COLLATE utf8mb4_general_ci DEFAULT NULL,
+  `Estado_pago` enum('En espera','Pendiente','Aprobado','Rechazado') COLLATE utf8mb4_general_ci DEFAULT NULL,
   `Mes` date DEFAULT NULL,
-  `Foto` varchar(255) DEFAULT NULL,
-  `Monto` int(11) DEFAULT NULL
+  `Foto` varchar(255) COLLATE utf8mb4_general_ci DEFAULT NULL,
+  `Monto` int DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
@@ -71,12 +71,12 @@ INSERT INTO `comprobante_pago` (`ID_Comprobante_pago`, `ID_Persona`, `Motivo_pag
 --
 
 CREATE TABLE `falta` (
-  `ID_Falta` int(11) NOT NULL,
-  `ID_Persona` int(11) NOT NULL,
-  `ID_Semana_trabajo` int(11) NOT NULL,
-  `Motivo_falta` varchar(255) NOT NULL,
-  `Horas_solicitadas` int(11) NOT NULL,
-  `Estado` enum('En espera','Aprobada','Rechazada') DEFAULT NULL,
+  `ID_Falta` int NOT NULL,
+  `ID_Persona` int NOT NULL,
+  `ID_Semana_trabajo` int NOT NULL,
+  `Motivo_falta` varchar(255) COLLATE utf8mb4_general_ci NOT NULL,
+  `Horas_solicitadas` int NOT NULL,
+  `Estado` enum('En espera','Aprobada','Rechazada') COLLATE utf8mb4_general_ci DEFAULT NULL,
   `Fecha` date DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
@@ -87,11 +87,11 @@ CREATE TABLE `falta` (
 --
 
 CREATE TABLE `horas_trabajadas` (
-  `ID_Horas_trabajadas` int(11) NOT NULL,
-  `Horas` int(11) DEFAULT NULL,
+  `ID_Horas_trabajadas` int NOT NULL,
+  `Horas` int DEFAULT NULL,
   `Fecha_registro_horas` date DEFAULT NULL,
-  `ID_Persona` int(11) DEFAULT NULL,
-  `ID_Semana_trabajo` int(11) NOT NULL
+  `ID_Persona` int DEFAULT NULL,
+  `ID_Semana_trabajo` int NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
@@ -108,15 +108,15 @@ INSERT INTO `horas_trabajadas` (`ID_Horas_trabajadas`, `Horas`, `Fecha_registro_
 --
 
 CREATE TABLE `integrante_familiar` (
-  `ID_Integrante` int(11) NOT NULL,
-  `ID_Persona` int(11) NOT NULL,
-  `Nombre` varchar(100) NOT NULL,
-  `Apellido` varchar(100) NOT NULL,
-  `CI` varchar(20) NOT NULL,
+  `ID_Integrante` int NOT NULL,
+  `ID_Persona` int NOT NULL,
+  `Nombre` varchar(100) COLLATE utf8mb4_general_ci NOT NULL,
+  `Apellido` varchar(100) COLLATE utf8mb4_general_ci NOT NULL,
+  `CI` varchar(20) COLLATE utf8mb4_general_ci NOT NULL,
   `FechaNacimiento` date DEFAULT NULL,
-  `Email` varchar(150) DEFAULT NULL,
-  `Genero` enum('Masculino','Femenino') NOT NULL,
-  `Parentesco` varchar(50) DEFAULT NULL
+  `Email` varchar(150) COLLATE utf8mb4_general_ci DEFAULT NULL,
+  `Genero` enum('Masculino','Femenino') COLLATE utf8mb4_general_ci NOT NULL,
+  `Parentesco` varchar(50) COLLATE utf8mb4_general_ci DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- --------------------------------------------------------
@@ -126,16 +126,16 @@ CREATE TABLE `integrante_familiar` (
 --
 
 CREATE TABLE `interesado` (
-  `ID_Persona` int(11) NOT NULL,
-  `Antecedentes` varchar(255) DEFAULT NULL,
-  `Estado_entrevista` enum('En espera','Pendiente','Aprobado','Rechazado') DEFAULT NULL,
-  `Estado_antecedentes` enum('En espera','Pendiente','Aprobado','Rechazado') DEFAULT NULL,
+  `ID_Persona` int NOT NULL,
+  `Antecedentes` varchar(255) COLLATE utf8mb4_general_ci DEFAULT NULL,
+  `Estado_entrevista` enum('En espera','Pendiente','Aprobado','Rechazado') COLLATE utf8mb4_general_ci DEFAULT NULL,
+  `Estado_antecedentes` enum('En espera','Pendiente','Aprobado','Rechazado') COLLATE utf8mb4_general_ci DEFAULT NULL,
   `Fecha_entrevista` date DEFAULT NULL,
   `Hora_entrevista` time DEFAULT NULL,
-  `Pago_inicial` varchar(255) DEFAULT NULL,
-  `Estado_pago_inicial` enum('En espera','Pendiente','Aprobado','Rechazado') DEFAULT NULL,
-  `Monto_pago_inicial` int(11) DEFAULT NULL,
-  `Unidad_Habitacional_Asignada` tinyint(1) DEFAULT 0
+  `Pago_inicial` varchar(255) COLLATE utf8mb4_general_ci DEFAULT NULL,
+  `Estado_pago_inicial` enum('En espera','Pendiente','Aprobado','Rechazado') COLLATE utf8mb4_general_ci DEFAULT NULL,
+  `Monto_pago_inicial` int DEFAULT NULL,
+  `Unidad_Habitacional_Asignada` tinyint(1) DEFAULT '0'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
@@ -144,7 +144,8 @@ CREATE TABLE `interesado` (
 
 INSERT INTO `interesado` (`ID_Persona`, `Antecedentes`, `Estado_entrevista`, `Estado_antecedentes`, `Fecha_entrevista`, `Hora_entrevista`, `Pago_inicial`, `Estado_pago_inicial`, `Monto_pago_inicial`, `Unidad_Habitacional_Asignada`) VALUES
 (1, NULL, 'En espera', 'En espera', NULL, NULL, NULL, 'En espera', NULL, 0),
-(2, NULL, 'Aprobado', 'En espera', '2025-11-12', '18:30:00', NULL, 'En espera', 1, 0);
+(2, NULL, 'Aprobado', 'En espera', '2025-11-12', '18:30:00', NULL, 'En espera', 1, 0),
+(3, 'ANTECEDENTE3.pdf', 'En espera', 'Pendiente', NULL, NULL, NULL, 'En espera', NULL, 0);
 
 -- --------------------------------------------------------
 
@@ -153,9 +154,9 @@ INSERT INTO `interesado` (`ID_Persona`, `Antecedentes`, `Estado_entrevista`, `Es
 --
 
 CREATE TABLE `numero_de_telefono` (
-  `ID_Telefono` int(11) NOT NULL,
-  `ID_Persona` int(11) DEFAULT NULL,
-  `Telefono` int(11) DEFAULT NULL
+  `ID_Telefono` int NOT NULL,
+  `ID_Persona` int DEFAULT NULL,
+  `Telefono` int DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
@@ -164,7 +165,8 @@ CREATE TABLE `numero_de_telefono` (
 
 INSERT INTO `numero_de_telefono` (`ID_Telefono`, `ID_Persona`, `Telefono`) VALUES
 (1, 1, 99888777),
-(2, 2, 99777888);
+(2, 2, 99777888),
+(3, 3, 92204459);
 
 -- --------------------------------------------------------
 
@@ -173,13 +175,13 @@ INSERT INTO `numero_de_telefono` (`ID_Telefono`, `ID_Persona`, `Telefono`) VALUE
 --
 
 CREATE TABLE `persona` (
-  `ID_Persona` int(11) NOT NULL,
-  `CI` varchar(8) NOT NULL,
-  `Email` varchar(100) NOT NULL,
-  `Contraseña` varchar(100) NOT NULL,
-  `Rol` enum('Usuario','Interesado','Admin') DEFAULT NULL,
-  `Nombre` varchar(100) NOT NULL,
-  `Apellido` varchar(100) NOT NULL
+  `ID_Persona` int NOT NULL,
+  `CI` varchar(8) COLLATE utf8mb4_general_ci NOT NULL,
+  `Email` varchar(100) COLLATE utf8mb4_general_ci NOT NULL,
+  `Contraseña` varchar(100) COLLATE utf8mb4_general_ci NOT NULL,
+  `Rol` enum('Usuario','Interesado','Admin') COLLATE utf8mb4_general_ci DEFAULT NULL,
+  `Nombre` varchar(100) COLLATE utf8mb4_general_ci NOT NULL,
+  `Apellido` varchar(100) COLLATE utf8mb4_general_ci NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
@@ -188,7 +190,8 @@ CREATE TABLE `persona` (
 
 INSERT INTO `persona` (`ID_Persona`, `CI`, `Email`, `Contraseña`, `Rol`, `Nombre`, `Apellido`) VALUES
 (1, '11111111', 'jrodriguezhuerta@gmail.com', '$2y$10$62uBrqvCS0e6k7IFFrj/nuXrRPMAVOlBm3O.k9WRIa9zyHwaMQw4C', 'Admin', 'Jose', 'Rodriguez Huerta'),
-(2, '12312312', 'joaquinkoez@gmail.com', '$2y$10$IHzaWR.j/Cb5OLUO4UO8pe5kvPJh7azNgT9aUfHSxsiw3VccOLmve', 'Usuario', 'Joaquin', 'Koez Diaz');
+(2, '12312312', 'joaquinkoez@gmail.com', '$2y$10$IHzaWR.j/Cb5OLUO4UO8pe5kvPJh7azNgT9aUfHSxsiw3VccOLmve', 'Usuario', 'Joaquin', 'Koez Diaz'),
+(3, '57226409', 'nigger@gmail.com', '$2y$10$SBcASYREAR4hDMsvngdwleaO4chThaT0r/xMNKvJSq5knC8JkF5eC', 'Interesado', 'Nigger', 'Nigger');
 
 -- --------------------------------------------------------
 
@@ -197,8 +200,8 @@ INSERT INTO `persona` (`ID_Persona`, `CI`, `Email`, `Contraseña`, `Rol`, `Nombr
 --
 
 CREATE TABLE `semana_trabajo` (
-  `ID_Semana_trabajo` int(11) NOT NULL,
-  `Horas_semanales` int(11) DEFAULT 21,
+  `ID_Semana_trabajo` int NOT NULL,
+  `Horas_semanales` int DEFAULT '21',
   `Fecha_semana` date NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
@@ -212,14 +215,34 @@ INSERT INTO `semana_trabajo` (`ID_Semana_trabajo`, `Horas_semanales`, `Fecha_sem
 -- --------------------------------------------------------
 
 --
+-- Estructura de tabla para la tabla `tokens`
+--
+
+CREATE TABLE `tokens` (
+  `Token` varchar(512) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL,
+  `ID_Persona` int NOT NULL,
+  `Fecha_creacion` date NOT NULL,
+  `Fecha_expiracion` date NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+
+--
+-- Volcado de datos para la tabla `tokens`
+--
+
+INSERT INTO `tokens` (`Token`, `ID_Persona`, `Fecha_creacion`, `Fecha_expiracion`) VALUES
+('1f1b90710952dfdad727ac2ffc648ffb2ba96e27fe88651f2e875059f11f365f', 1, '2025-09-19', '2025-09-20');
+
+-- --------------------------------------------------------
+
+--
 -- Estructura de tabla para la tabla `traducciones`
 --
 
 CREATE TABLE `traducciones` (
-  `pagina` varchar(100) NOT NULL,
-  `clave` varchar(100) NOT NULL,
-  `idioma` varchar(10) NOT NULL,
-  `texto` text NOT NULL
+  `pagina` varchar(100) COLLATE utf8mb4_general_ci NOT NULL,
+  `clave` varchar(100) COLLATE utf8mb4_general_ci NOT NULL,
+  `idioma` varchar(10) COLLATE utf8mb4_general_ci NOT NULL,
+  `texto` text COLLATE utf8mb4_general_ci NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
@@ -333,12 +356,12 @@ INSERT INTO `traducciones` (`pagina`, `clave`, `idioma`, `texto`) VALUES
 --
 
 CREATE TABLE `unidad_habitacional` (
-  `ID_Unidad_habitacional` int(11) NOT NULL,
-  `ID_Persona` int(11) DEFAULT NULL,
-  `Numero_puerta` varchar(20) DEFAULT NULL,
-  `Pasillo` varchar(20) DEFAULT NULL,
-  `Estado_unidad` enum('En espera','En pausa','En construcción','Finalizada') DEFAULT NULL,
-  `Cantidad_habitaciones` int(11) DEFAULT NULL
+  `ID_Unidad_habitacional` int NOT NULL,
+  `ID_Persona` int DEFAULT NULL,
+  `Numero_puerta` varchar(20) COLLATE utf8mb4_general_ci DEFAULT NULL,
+  `Pasillo` varchar(20) COLLATE utf8mb4_general_ci DEFAULT NULL,
+  `Estado_unidad` enum('En espera','En pausa','En construcción','Finalizada') COLLATE utf8mb4_general_ci DEFAULT NULL,
+  `Cantidad_habitaciones` int DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- --------------------------------------------------------
@@ -348,8 +371,8 @@ CREATE TABLE `unidad_habitacional` (
 --
 
 CREATE TABLE `unidad_habitacional_semana_trabajo` (
-  `ID_Semana_trabajo` int(11) NOT NULL,
-  `ID_Unidad_habitacional` int(11) NOT NULL
+  `ID_Semana_trabajo` int NOT NULL,
+  `ID_Unidad_habitacional` int NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- --------------------------------------------------------
@@ -359,10 +382,10 @@ CREATE TABLE `unidad_habitacional_semana_trabajo` (
 --
 
 CREATE TABLE `usuario` (
-  `ID_Persona` int(11) NOT NULL,
+  `ID_Persona` int NOT NULL,
   `Fecha_nacimiento` date DEFAULT NULL,
   `Fecha_ingreso` date DEFAULT NULL,
-  `Foto` varchar(100) DEFAULT NULL
+  `Foto` varchar(100) COLLATE utf8mb4_general_ci DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
@@ -441,6 +464,12 @@ ALTER TABLE `semana_trabajo`
   ADD UNIQUE KEY `Fecha_semana` (`Fecha_semana`);
 
 --
+-- Indices de la tabla `tokens`
+--
+ALTER TABLE `tokens`
+  ADD PRIMARY KEY (`ID_Persona`);
+
+--
 -- Indices de la tabla `traducciones`
 --
 ALTER TABLE `traducciones`
@@ -474,49 +503,49 @@ ALTER TABLE `usuario`
 -- AUTO_INCREMENT de la tabla `comprobante_pago`
 --
 ALTER TABLE `comprobante_pago`
-  MODIFY `ID_Comprobante_pago` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+  MODIFY `ID_Comprobante_pago` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
 -- AUTO_INCREMENT de la tabla `falta`
 --
 ALTER TABLE `falta`
-  MODIFY `ID_Falta` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `ID_Falta` int NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT de la tabla `horas_trabajadas`
 --
 ALTER TABLE `horas_trabajadas`
-  MODIFY `ID_Horas_trabajadas` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
+  MODIFY `ID_Horas_trabajadas` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
 
 --
 -- AUTO_INCREMENT de la tabla `integrante_familiar`
 --
 ALTER TABLE `integrante_familiar`
-  MODIFY `ID_Integrante` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `ID_Integrante` int NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT de la tabla `numero_de_telefono`
 --
 ALTER TABLE `numero_de_telefono`
-  MODIFY `ID_Telefono` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `ID_Telefono` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- AUTO_INCREMENT de la tabla `persona`
 --
 ALTER TABLE `persona`
-  MODIFY `ID_Persona` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `ID_Persona` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- AUTO_INCREMENT de la tabla `semana_trabajo`
 --
 ALTER TABLE `semana_trabajo`
-  MODIFY `ID_Semana_trabajo` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `ID_Semana_trabajo` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- AUTO_INCREMENT de la tabla `unidad_habitacional`
 --
 ALTER TABLE `unidad_habitacional`
-  MODIFY `ID_Unidad_habitacional` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `ID_Unidad_habitacional` int NOT NULL AUTO_INCREMENT;
 
 --
 -- Restricciones para tablas volcadas
