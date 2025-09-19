@@ -69,3 +69,6 @@ export function rechazarPago(data) {
 export function crearUnidadHabitacional(data){
     return apiRequest('/APIBackOffice/ApiBackOffice.php?accion=crearUnidad', 'POST', data);
 }
+export function crearUnidadHabitacionalPersonalizada(data){
+    return apiRequest('/APIBackOffice/ApiBackOffice.php?accion=crearUnidadConCI', 'POST', data);
+}

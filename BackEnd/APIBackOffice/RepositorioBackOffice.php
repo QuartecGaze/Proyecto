@@ -522,6 +522,63 @@ require_once __DIR__ .'../../APIUsuarios/Modelos/Interesado.php';
             }
         }
 
+        public function getIntegrantesFamiliares($idPersona){
+            $consulta = "
+                SELECT * 
+                FROM integrante_familiar
+                WHERE ID_Persona = $idPersona
+                ";
+            $resultado = mysqli_query($this->conn, $consulta); 
+            $integrantesFamiliares = [];
+            while ($fila = $resultado->fetch_assoc()) {
+                $integrantesFamiliares[] = [
+                    'ID_Integrante'   => $fila['ID_Integrante'],
+                    'ID_Persona'      => $fila['ID_Persona'],
+                    'Nombre'          => $fila['Nombre'],
+                    'Apellido'        => $fila['Apellido'],
+                    'CI'              => $fila['CI'],
+                    'FechaNacimiento' => $fila['FechaNacimiento'],
+                    'Telefono'        => $fila['Telefono'],
+                    'Genero'          => $fila['Genero']
+                ];
+            //agregar parentesco si hace falta
+            }
+            return $integrantesFamiliares;
+            }
+            
+            public function getIDUnidadHabitacional($numeroPuerta, $pasillo){
+                $consulta = "
+                    SELECT ID_Unidad_habitacional FROM unidad_habitacional 
+                    WHERE Numero_puerta = '$numeroPuerta' 
+                    AND Pasillo = '$pasillo'
+                ";
+                $resultado = mysqli_query($this->conn, $consulta);
+                $idUnidad = null;
+                while ($fila = mysqli_fetch_assoc($resultado)) {
+                    $idUnidad = $fila['ID_Unidad_habitacional'];
+                }
+    
+                return $idUnidad;
+            }
+
+            public function asignarUnidadHabitacional($idPersona, $idUnidadHabitacional){
+                $consulta = "
+                    UPDATE unidad_habitacional
+                    SET ID_Persona = $idPersona
+                    WHERE ID_Unidad_habitacional = $idUnidadHabitacional
+                ";
+            mysqli_query($this->conn, $consulta);
+            }
+
+            public function unidadHabitacionalBoolean($idPersona){
+                $consulta = "
+                    UPDATE interesado
+                    SET Unidad_Habitacional_Asignada = 1
+                    WHERE ID_Persona = $idPersona
+                ";
+            mysqli_query($this->conn, $consulta);
+            }
+
 
     }
 ?>

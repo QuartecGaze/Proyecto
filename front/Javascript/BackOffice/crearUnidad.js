@@ -1,21 +1,27 @@
 // crearUnidad.js
 import { crearUnidadHabitacional } from '../../../BackEnd/APIFetchs/APIBackOffice.js';
+import { crearUnidadHabitacionalPersonalizada } from '../../../BackEnd/APIFetchs/APIBackOffice.js';
 
 document.addEventListener('DOMContentLoaded', () => {
-  const formulario = document.getElementById('formNormal');
-  if (!formulario) {
-    console.error('No se encontró #formNormal');
+  const formNormal = document.getElementById('formNormal');
+  const formPersonalizada = document.getElementById('formPersonalizada');
+
+  if (!formNormal && !formPersonalizada) {
+    console.error('No se encontró #formNormal ni #formPersonalizada');
     return;
   }
 
-  // Éxito global (ya existe en tu HTML)
+  const $ = (sel, ctx = document) => ctx.querySelector(sel);
+
+  // Contenedor para mensajes
+  const contenedorFormulario =
+    document.querySelector('.contenedor-formulario') ||
+    formNormal?.parentElement ||
+    formPersonalizada?.parentElement ||
+    document.body;
+
+  // Mensajes (se crean si no existen)
   let mensajeExito = document.getElementById('mensajeExito');
-  // Contenedor de error (lo creamos si no existe)
-  let mensajeError = document.getElementById('mensajeError');
-
-  // Dónde insertar mensajes si hay que crearlos
-  const contenedorFormulario = document.querySelector('.contenedor-formulario') || formulario.parentElement || document.body;
-
   if (!mensajeExito) {
     mensajeExito = document.createElement('div');
     mensajeExito.id = 'mensajeExito';
@@ -25,12 +31,12 @@ document.addEventListener('DOMContentLoaded', () => {
     contenedorFormulario.appendChild(mensajeExito);
   }
 
+  let mensajeError = document.getElementById('mensajeError');
   if (!mensajeError) {
     mensajeError = document.createElement('div');
     mensajeError.id = 'mensajeError';
     mensajeError.className = 'mensaje-error';
     mensajeError.style.display = 'none';
-    // si querés el mismo estilo con ícono:
     mensajeError.innerHTML = `<i class="material-icons">error</i><span></span>`;
     contenedorFormulario.appendChild(mensajeError);
   }
@@ -44,39 +50,71 @@ document.addEventListener('DOMContentLoaded', () => {
 
   const setErr = (msg = 'Error del servidor') => {
     const span = mensajeError.querySelector('span');
-    if (span) span.textContent = msg; else mensajeError.textContent = msg;
+    if (span) span.textContent = msg;
+    else mensajeError.textContent = msg;
     mensajeError.style.display = 'flex';
     mensajeExito.style.display = 'none';
   };
 
-  formulario.addEventListener('submit', async (e) => {
-    e.preventDefault();
+  // --- Unidad Normal ---
+  if (formNormal) {
+    formNormal.addEventListener('submit', async (e) => {
+      e.preventDefault();
 
-    const datos = {
-      numeroPuerta: document.getElementById('numeroPuerta')?.value.trim() ?? '',
-      pasillo: document.getElementById('pasillo')?.value.trim() ?? '',
-      // El back espera "cantidadHabitaciones" (int)
-      cantidadHabitaciones: parseInt(document.getElementById('habitaciones')?.value ?? '', 10)
-    };
+      const datos = {
+        numeroPuerta: $('#numeroPuerta')?.value.trim() ?? '',
+        pasillo: $('#pasillo')?.value.trim() ?? '',
+        cantidadHabitaciones: parseInt($('#habitaciones')?.value ?? '', 10),
+      };
 
-    if (!datos.numeroPuerta || !datos.pasillo || isNaN(datos.cantidadHabitaciones)) {
-      setErr('Completá todos los campos requeridos.');
-      return;
-    }
-
-    try {
-      const r = await crearUnidadHabitacional(datos); // debe pegar a APIBackOffice.php?accion=crearUnidad
-
-      if (r?.status === 'exito') {
-        setOk('La unidad ha sido creada exitosamente.');
-        // formulario.reset();
-      } else {
-        setErr('Error: ' + (r?.message || 'No se pudo crear la unidad'));
-        if (r?.raw) console.error('HTML del back-end:', r.raw);
+      if (!datos.numeroPuerta || !datos.pasillo || isNaN(datos.cantidadHabitaciones)) {
+        setErr('Completá todos los campos requeridos.');
+        return;
       }
-    } catch (err) {
-      console.error('Error al crear la unidad', err);
-      setErr('Error del servidor');
-    }
-  });
+
+      try {
+        const r = await crearUnidadHabitacional(datos);
+        if (r?.status === 'exito') {
+          setOk('La unidad ha sido creada exitosamente.');
+        } else {
+          setErr('Error: ' + (r?.message || 'No se pudo crear la unidad'));
+          if (r?.raw) console.error('HTML del back-end:', r.raw);
+        }
+      } catch (err) {
+        console.error('Error al crear la unidad', err);
+        setErr('Error del servidor');
+      }
+    });
+  }
+
+  // --- Unidad Personalizada ---
+  if (formPersonalizada) {
+    formPersonalizada.addEventListener('submit', async (e) => {
+      e.preventDefault();
+
+      const datos = {
+        numeroPuerta: $('#ciNumeroPuerta')?.value.trim() ?? '',
+        pasillo: $('#ciPasillo')?.value.trim() ?? '',
+        ci: $('#ci')?.value.trim() ?? '',
+      };
+
+      if (!datos.numeroPuerta || !datos.pasillo || !datos.ci) {
+        setErr('Completá todos los campos requeridos.');
+        return;
+      }
+
+      try {
+        const r = await crearUnidadHabitacionalPersonalizada(datos);
+        if (r?.status === 'exito') {
+          setOk(' La unidad personalizada ha sido creada exitosamente.');
+        } else {
+          setErr('Error: ' + (r?.message || 'No se pudo crear la unidad personalizada'));
+          if (r?.raw) console.error('HTML del back-end:', r.raw);
+        }
+      } catch (err) {
+        console.error('Error al crear la unidad personalizada', err);
+        setErr('Error del servidor');
+      }
+    });
+  }
 });

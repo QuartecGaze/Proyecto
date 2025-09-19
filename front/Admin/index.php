@@ -54,8 +54,8 @@
                             <i class="material-icons">payments</i> Pagos
                         </a>
                         <ul class="submenu">
-                            <li><a href="confirmarPagos.php">Corroborar Comprobantes</a></li>
-                            <li><a href="pagos.php">Gestor de Pagos</a></li>
+                            <li><a href="confirmarPagos.php"><i class="material-icons">receipt_long</i> Corroborar Comprobantes</a></li>
+                            <li><a href="pagos.php"><i class="material-icons">point_of_sale</i> Gestor de Pagos</a></li>
                         </ul>
                     </li>
                     <li class="item-menu">
@@ -106,7 +106,7 @@
                         </div>
                         <div class="tarjeta-contenido">
                             <h3>Solicitudes Pendientes</h3>
-                            <p class="tarjeta-valor" id="solicitudesPendientes">10 <span>Solicitudes</span></p>
+                            <p class="tarjeta-valor" id="solicitudesPendientes"><span>Solicitudes</span></p>
                         </div>
                     </div>
                 </a>

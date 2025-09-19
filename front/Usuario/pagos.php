@@ -79,7 +79,7 @@
                     <div class="tarjeta-contenido">
                         <h3>Pagos Pendientes</h3>
                         <p class="tarjeta-valor" id="pagosAtrasadosCantidad"></p>
-                        <p class="tarjeta-subtexto" id="pagosAtrasadosTotal">Cantidad total</p>
+                        <p class="tarjeta-subtexto">Cantidad total</p>
                     </div>
                 </div>
 
