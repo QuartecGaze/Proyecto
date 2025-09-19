@@ -6,18 +6,6 @@
             $this->conn = $conn;
         }
 
-        public function crearUnidadHabitacional($unidadHabitacional){
-            $numeroPuerta = $unidadHabitacional->getNumeroPuerta();
-            $pasillo = $unidadHabitacional->getPasillo();
-            $cantidadHabitaciones = $unidadHabitacional->getCantidadHabitaciones();
-            //private $estadoUnidad; podriamos hacer que cargue el progreso, pero por ahora voy a hacer que por defecto empieze en espera /DIEGO/
-            $consulta = "
-                INSERT INTO unidad_habitacional (Numero_puerta, Pasillo, Estado_unidad, Cantidad_habitabitaciones) 
-                VALUES ('$numeroPuerta', '$pasillo', 'En espera', '$cantidadHabitaciones')
-            ";
-            mysqli_query($this->conn, $consulta);
-        }
-
     public function getComprobantesMensuales($idPersona){
         if (!is_numeric($idPersona) || !ctype_digit((string)$idPersona)) {
             error_log("getComprobantesMensuales: idPersona inválido = " . var_export($idPersona, true));
@@ -92,8 +80,6 @@
             }else{
                 return false;
             }
-            
-            
         }
 
         public function horasTrabajadasXSemana($idPersona, $idSemana){
@@ -183,7 +169,8 @@
                 $horas[] = [
                     'ID_Horas_trabajadas' => $fila['ID_Horas_trabajadas'],
                     'Horas' => $fila['Horas'],
-                    'Fecha_registro_horas' => $fila['Fecha_registro_horas']
+                    'Fecha_registro_horas' => $fila['Fecha_registro_horas'],
+                    'idHoras' => $fila['ID_Horas_trabajadas']
                 ];
             }
         
@@ -202,21 +189,6 @@
                 return false;
             }
             
-        }
-
-        public function unidadHabitacionalExiste($numeroPuerta, $pasillo){
-            $consulta = "
-                SELECT * FROM unidad_habitacional 
-                WHERE Numero_puerta = '$numeroPuerta' 
-                AND Pasillo = '$pasillo'
-                ";
-            $resultado = mysqli_query($this->conn, $consulta);
-            if(mysqli_num_rows($resultado) > 0){
-                return true;
-            }else
-            {
-                return false;
-            }
         }
         
         public function crearSemana($fecha){
@@ -241,5 +213,42 @@
                 return true; 
             }
             return null;
+        }
+        
+        public function editarHoras($idHoras, $horas, $fecha){
+            $consulta = "
+                UPDATE Horas_trabajadas
+                SET Horas = $horas ,
+                Fecha_registro_horas = '$fecha'
+                WHERE ID_Horas_trabajadas = $idHoras
+            ";
+            if(mysqli_query($this->conn, $consulta)){
+                return true;
+            }else{
+                return false;
+            }
+        }
+
+        public function borrarHoras($idHoras){
+            $consulta = "
+                DELETE FROM Horas_trabajadas
+                WHERE ID_Horas_trabajadas = $idHoras
+            ";
+            if(mysqli_query($this->conn, $consulta)){
+                return true;
+            }else{
+                return false;
+            }
+        }
+
+        public function ingresarIntegrante($idPersona, $nombre, $apellido, $ci, $fechaNacimiento, $genero, $telefono){
+            $consulta = "
+                INSERT INTO 
+                integrante_familiar
+                (ID_Persona, Nombre, Apellido, CI, FechaNacimiento, Genero, Telefono)
+                VALUES ($idPersona, '$nombre', '$apellido', '$ci', '$fechaNacimiento', '$genero', $telefono)
+            ";
+            //agregar [parentesco si va]
+            mysqli_query($this->conn, $consulta);
         }
     }

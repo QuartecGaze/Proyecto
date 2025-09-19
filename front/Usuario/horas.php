@@ -1,6 +1,9 @@
+<?php 
+    require_once '../verificarSesion.php';
+    verificarAcceso(['Usuario', 'Admin']);
+?>
 <!DOCTYPE html>
 <html lang="es">
-
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -156,51 +159,7 @@
                             </tr>
                         </thead>
                         <tbody>
-                            <tr>
-                                <td>15/11/2023</td>
-                                <td>Miércoles</td>
-                                <td>8 horas</td>
-                                <td>
-                                    <button class="boton-icono" title="Editar">
-                                        <i class="material-icons">edit</i>
-                                    </button>
-                                </td>
-                                <td>
-                                    <button class="boton-icono" title="Eliminar">
-                                        <i class="material-icons">delete</i>
-                                    </button>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>14/11/2023</td>
-                                <td>Martes</td>
-                                <td>6 horas</td>
-                                <td>
-                                    <button class="boton-icono" title="Editar">
-                                        <i class="material-icons">edit</i>
-                                    </button>
-                                </td>
-                                <td>
-                                    <button class="boton-icono" title="Eliminar">
-                                        <i class="material-icons">delete</i>
-                                    </button>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>10/11/2023</td>
-                                <td>Viernes</td>
-                                <td>7 horas</td>
-                                <td>
-                                    <button class="boton-icono" title="Editar">
-                                        <i class="material-icons">edit</i>
-                                    </button>
-                                </td>
-                                <td>
-                                    <button class="boton-icono" title="Eliminar">
-                                        <i class="material-icons">delete</i>
-                                    </button>
-                                </td>
-                            </tr>
+                            <!-- TRAEMOS CON JS LAS LINEAS-->
                         </tbody>
                     </table>
                 </div>
@@ -234,14 +193,10 @@
                             placeholder="Ej: 3">
                     </div>
 
-                    <div class="grupo-formulario">
-                        <label for="motivoCambio">Motivo de Modificacion (opcional):</label>
-                        <textarea name="motivo" id="movtivoCambio" required placeholder="Motivo"></textarea>
-                    </div>
 
                     <div class="modal-acciones">
                         <button type="button" class="boton-secundario" id="cancelarEdicion">Cancelar</button>
-                        <button type="submit" class="boton-primario">Guardar cambios</button>
+                        <button type="submit" class="boton-primario" id="confirmarModal">Guardar cambios</button>
                     </div>
                 </form>
             </div>
@@ -250,43 +205,6 @@
 
     <script src="../Javascript/FrontUsuario/horas.js" type="module"></script>
 
-    <script>
-
-        document.querySelector('.formulario-horas').addEventListener('submit', function (e) {
-            e.preventDefault();
-
-            // Simular envío exitoso
-            document.querySelector('.mensaje-exito').style.display = 'block';
-            document.querySelector('.mensaje-error').style.display = 'none';
-
-            // Actualizar el resumen (ejemplo)
-            const horasRegistradas = parseInt(document.getElementById('horas').value);
-            const totalElement = document.querySelector('.tarjeta-valor');
-            const totalActual = parseInt(totalElement.textContent);
-            totalElement.textContent = (totalActual + horasRegistradas) + ' horas';
-
-            // Actualizar barra de progreso (ejemplo)
-            const progreso = document.querySelector('.progreso');
-            const nuevoProgreso = ((totalActual + horasRegistradas) / 84) * 100;
-            progreso.style.width = Math.min(nuevoProgreso, 100) + '%';
-
-            // Limpiar formulario después de 2 segundos
-            setTimeout(() => {
-                document.querySelector('.mensaje-exito').style.display = 'none';
-                this.reset();
-            }, 2000);
-        });
-
-        document.querySelectorAll(".item-menu > a").forEach(boton => {
-            boton.addEventListener("click", function (e) {
-                // Evita que redireccione si tiene submenu
-                if (this.nextElementSibling && this.nextElementSibling.classList.contains("submenu")) {
-                    e.preventDefault();
-                    this.parentElement.classList.toggle("open");
-                }
-            });
-        });
-    </script>
 
 </body>
 

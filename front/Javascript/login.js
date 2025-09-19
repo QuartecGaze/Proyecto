@@ -17,6 +17,7 @@
             const data = await iniciarSesion(datos);
 
             if (data.status === "exito") {
+                    localStorage.setItem("token", data.message);
                     if (data.rol === "Admin") {
                         window.location.href = "../Admin/index.php";
                     } else if (data.rol === "Usuario") {

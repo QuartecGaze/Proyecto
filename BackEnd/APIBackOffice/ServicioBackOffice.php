@@ -4,6 +4,7 @@
     require_once __DIR__ .'../../APIUsuarios/Modelos/Admin.php';
     require_once __DIR__ .'../../APIUsuarios/Modelos/Interesado.php';
     require_once __DIR__ .'../../APICooperativa/Modelos/ComprobantePago.php';
+    require_once __DIR__ .'../../APICooperativa/Modelos/UnidadHabitacional.php';
 
     Class ServicioBackOffice {
         //no se especifica el tipo porque cada servicio tiene un repositorio
@@ -198,6 +199,86 @@
                 'comprobantes' => $comprobantesAsociativo
             ];
         }
+
+        public function crearUnidadHabitacional($numeroPuerta, $pasillo, $cantidadHabitaciones){
+            $unidadHabitacional = new UnidadHabitacional($numeroPuerta, $pasillo, $cantidadHabitaciones);
+            if(!$this->repositorio->unidadHabitacionalExiste($numeroPuerta, $pasillo)){
+                $this->repositorio->crearUnidadHabitacional($unidadHabitacional);
+            } else{
+                throw new Exception("Esta unidad ya esta registrada", 409);
+            }
+        }
+
+        public function crearUnidadHabitacionalConCI($numeroPuerta, $pasillo, $ci){
+            $idPersona = $this->repositorio->getIDPersonaConCi($ci);
+            if (!$idPersona) {
+                throw new Exception("No se encontró la persona con CI {$ci}", 404);
+            }
+            $integrantesFamiliares = $this->repositorio->getIntegrantesFamiliares($idPersona) ?? [];
+            $integrantes = 0;
+            $menoresAdolescentes = [];
+            $masculino = false;
+            $femenino  = false;
+            $habitacionesEspeciales = 0;
+        
+            foreach($integrantesFamiliares as $integrante) {
+                $fechaNac = $integrante['FechaNacimiento'];
+                $generoRaw = $integrante['Genero'];
+                $idIntegrante = $integrante['ID_Integrante'];
+                $edad = null;
+                try {
+                    $cumple = new DateTime($fechaNac);
+                    $hoy    = new DateTime('today');
+                    $edad   = $cumple->diff($hoy)->y;
+                } catch (Throwable $e) {
+                    $edad = null;
+                }
+                if ($edad !== null && $edad >= 18) {
+                    $integrantes++; // mayor
+                } elseif ($edad !== null && $edad >= 11 && $edad <= 17) {
+                    // Guardamos adolescentes y marcamos sexo exacto
+                        $menoresAdolescentes[$idIntegrante] = [
+                            'genero' => $generoRaw,
+                            'edad'   => $edad
+                        ];
+                    if ($generoRaw === 'Masculino') $masculino = true;
+                    if ($generoRaw === 'Femenino')  $femenino  = true;
+                }
+                // <11 o edad desconocida: no afectan la regla actual
+            }
+            // Si hay adolescentes de ambos sexos, +1 habitacion, si son 3 nenes y 1 nena igualmente es una habitacion cu
+            if ($masculino && $femenino) {
+                $habitacionesEspeciales++;
+            }
+            $integrantesTotal = $integrantes + 1; //agregamos el due;o de la cuenta
+
+            if ($integrantesTotal <= 2) {
+                $habitacionesBase = 1;
+            } elseif ($integrantesTotal <= 4) {
+                $habitacionesBase = 2;
+            } elseif ($integrantesTotal < 6) {
+                $habitacionesBase = 3;
+            } else {
+                $habitacionesBase = 4;
+            }
+        
+            //Las unidades habitacionales tienen un minimo de 1 y un maximo de 4
+            $habitaciones = $habitacionesBase + $habitacionesEspeciales;
+            if ($habitaciones < 1) $habitaciones = 1;
+            if ($habitaciones > 4) $habitaciones = 4;
+
+            if(!$this->repositorio->unidadHabitacionalExiste($numeroPuerta, $pasillo)){
+                $cantidadHabitaciones = $habitaciones;
+                $unidadHabitacional = new UnidadHabitacional($numeroPuerta, $pasillo, $cantidadHabitaciones);
+                $this->repositorio->crearUnidadHabitacional($unidadHabitacional);
+                $idUnidadHabitacional = $this->repositorio->getIDUnidadHabitacional($numeroPuerta, $pasillo);
+                $this->repositorio->asignarUnidadHabitacional($idPersona, $idUnidadHabitacional);
+                $this->repositorio->unidadHabitacionalBoolean($idPersona);
+            }else{
+                throw new Exception("Esta unidad ya esta registrada", 409);
+            }
+        }
+        
         
     }
 ?>
