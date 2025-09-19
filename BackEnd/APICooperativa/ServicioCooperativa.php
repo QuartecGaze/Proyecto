@@ -9,15 +9,6 @@
             $this->repositorio = $repositorio;
         }
 
-        public function crearUnidadHabitacional($numeroPuerta, $pasillo, $cantidadHabitaciones){
-            $unidadHabitacional = new UnidadHabitacional($numeroPuerta, $pasillo, $cantidadHabitaciones);
-            if(!$this->repositorio->unidadHabitacionalExiste($numeroPuerta, $pasillo)){
-                $this->repositorio->crearUnidadHabitacional($unidadHabitacional);
-            } else{
-                throw new Exception("Esta unidad ya esta registrada", 409);
-            }
-        }
-
         public function getComprobantesPendientes($idPersona){
             $comprobantesObj = $this->repositorio->getComprobantesMensuales($idPersona);
             $comprobantesAsociativo = [];
@@ -129,6 +120,7 @@
                     'fechaDeRegistro' => $horasHistorial['Fecha_registro_horas'],
                     'horasTrabajadas' => $horasHistorial['Horas'],
                     'diaDeLaSemana'   => $this->diaDeLaSemana($horasHistorial['Fecha_registro_horas']),
+                    'idHoras' => $horasHistorial['idHoras']
                 ];
             }
 
@@ -174,5 +166,17 @@
             return $this->lunesDeXSemana(date('Y-m-d'));
         }
 
+        public function editarHoras($idHoras, $horas, $fecha){
+            return $this->repositorio->editarHoras($idHoras, $horas, $fecha);
+        }
+
+        public function borrarHoras($idHoras){
+            return $this->repositorio->borrarHoras($idHoras);
+        }
+
+        public function ingresarIntegrante($idPersona, $nombre, $apellido, $ci, $fechaNacimiento, $genero, $telefono){
+        $this->repositorio->ingresarIntegrante($idPersona, $nombre, $apellido, $ci, $fechaNacimiento, $genero, $telefono);
+        }
+        
 
     }

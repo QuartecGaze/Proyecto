@@ -1,6 +1,9 @@
+<?php 
+    require_once '../verificarSesion.php';
+    verificarAcceso(['Usuario', 'Admin']);
+?>
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -79,7 +82,7 @@
                     <div class="tarjeta-contenido">
                         <h3>Pagos Pendientes</h3>
                         <p class="tarjeta-valor" id="pagosAtrasadosCantidad"></p>
-                        <p class="tarjeta-subtexto" id="pagosAtrasadosTotal">Cantidad total</p>
+                        <p class="tarjeta-subtexto">Cantidad total</p>
                     </div>
                 </div>
 

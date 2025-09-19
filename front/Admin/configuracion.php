@@ -1,3 +1,7 @@
+<?php
+    require_once '../verificarSesion.php';
+    verificarAcceso(['Admin']);
+?>
 <!DOCTYPE html>
 <html lang="es">
 
@@ -39,7 +43,15 @@
                         <a href="#"><i class="material-icons">people</i> Socios</a>
                     </li>
                     <li class="item-menu">
-                        <a href="proyectos.php"><i class="material-icons">apartment</i> Proyectos</a>
+                        <a href="#">
+                            <i class="material-icons">apartment</i> Proyectos
+                        </a>
+                        <ul class="submenu">
+                            <a href="proyectos.php"><i class="material-icons">home_work</i>Gestionar Proyectos</a>
+                            <a href="crearUnidad.php"><i class="material-icons">add_circle</i> Crear Unidad</a>
+                            <a href="borrarUnidad.php"><i class="material-icons">delete</i> Borrar Unidad</a>
+                            <a href="modificarUnidad.php"><i class="material-icons">edit</i> Modificar Unidad</a>
+                        </ul>
                     </li>
                     <li class="item-menu">
                         <a href="#">

@@ -4,12 +4,7 @@ import { apiRequest } from './apiConfig.js';
  * @param {Object} datos - Contiene `ci` y `contraseña`
  * @returns {Promise<Object>} - Respuesta de la API
  */
-/*
-        export function crearUnidadHabitacional(data){
-                const data = apiRequest('/APICooperativa/APICooperativa.php?accion=crearUnidad', 'POST', data);
-                return data;
-        }
-*/
+
         export function getComprobantes(){
                 const data = apiRequest('/APICooperativa/APICooperativa.php?accion=getComprobantes&id=' + id , 'POST');
                 return data;
@@ -30,4 +25,13 @@ import { apiRequest } from './apiConfig.js';
         }
         export function getHorasTrabajadas(id) {
                 return apiRequest('/APICooperativa/ApiCooperativa.php?accion=getHorasTrabajadas&id=' + id, 'GET');
+        }
+        export function editarHoras(data){
+                return apiRequest(`/APICooperativa/ApiCooperativa.php?accion=editarHoras`, "POST", data);
+        }
+        export function borrarHoras(data){
+                return apiRequest(`/APICooperativa/ApiCooperativa.php?accion=borrarHoras`, "POST", data);
+        }
+        export function ingresarIntegrantesFamiliares(data){
+                return apiRequest(`/APICooperativa/ApiCooperativa.php?accion=ingresarIntegrantesFamiliares`, "POST", data);
         }
