@@ -1,6 +1,6 @@
 <?php
-    require_once '../verificarSesion.php';
-    verificarAcceso(['Admin']);
+require_once '../verificarSesion.php';
+verificarAcceso(['Admin']);
 ?>
 <!DOCTYPE html>
 <html lang="es">
@@ -13,6 +13,7 @@
         rel="stylesheet">
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link rel="stylesheet" href="../Css/backoffice.css">
     <link rel="stylesheet" href="../Css/estilosProyectos.css">
 </head>
 
@@ -152,15 +153,65 @@
                             <th>Habitaciones</th>
                             <th>Progreso</th>
                             <th>Estado</th>
-                            <th>Acciones</th>
+                            <th class="checkbox-seleccion">Seleccionar</th>
                         </tr>
                     </thead>
                     <tbody id="tablaProyectos">
-                        <!-- Los proyectos se cargarán dinámicamente con JavaScript -->
+                        <tr>
+                            <td>Proyecto Residencial Norte</td>
+                            <td>8.765.432-1</td>
+                            <td>12</td>
+                            <td>
+                                65%
+                            </td>
+                            <td><span class="estado estado-en-proceso">En Contruccion</span></td>
+                            <td class="checkbox-seleccion">
+                                <input type="checkbox" class="seleccion-unidad" name="seleccionUnidad" value="1">
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>Torre Central</td>
+                            <td>5.432.198-7</td>
+                            <td>24</td>
+                            <td>
+                                30%
+                            </td>
+                            <td><span class="estado estado-en-proceso">En Contruccion</span></td>
+                            <td class="checkbox-seleccion">
+                                <input type="checkbox" class="seleccion-unidad" name="seleccionUnidad" value="2">
+                            </td>
+                        </tr>
                     </tbody>
                 </table>
             </div>
         </main>
+    </div>
+
+    <div class="botones-flotantes">
+        <div class="boton-flotante" id="botonAcciones">
+            <i class="material-icons">tune</i>
+            <span class="contador-seleccionados" id="contadorSeleccionados">0</span>
+        </div>
+
+        <div class="acciones-multiples" id="accionesMultiples">
+            <div class="grupo-botones">
+                <button class="btn-accion btn-borrar" id="btnBorrarUnidades">
+                    <i class="material-icons">delete</i> Borrar Unidades Seleccionadas
+                </button>
+
+                <div>
+                    <select class="select-estado" id="selectEstadoUnidad">
+                        <option value="">Seleccionar estado...</option>
+                        <option value="planificacion">En Espera</option>
+                        <option value="construccion">En Construcción</option>
+                        <option value="completado">En Pausa</option>
+                    </select>
+                    <button class="btn-accion btn-cambiar-estado" id="btnCambiarEstado">
+                        <i class="material-icons">swap_horiz</i> Cambiar Estado
+                    </button>
+                </div>
+            </div>
+        </div>
     </div>
 
     <!-- Modal para crear/editar proyecto -->
@@ -230,6 +281,91 @@
             });
         });
     </script>
+
+
+
+    <script>
+    document.querySelectorAll(".item-menu > a").forEach(boton => {
+        boton.addEventListener("click", function (e) {
+            // Evita que redireccione si tiene submenu
+            if (this.nextElementSibling && this.nextElementSibling.classList.contains("submenu")) {
+                e.preventDefault();
+                this.parentElement.classList.toggle("open");
+            }
+        });
+    });
+
+    // Funcionalidad para los checkboxes y botones flotantes
+    document.addEventListener('DOMContentLoaded', function () {
+        const checkboxes = document.querySelectorAll('.seleccion-unidad');
+        const contador = document.getElementById('contadorSeleccionados');
+        const botonAcciones = document.getElementById('botonAcciones');
+        const botonFlotante = document.querySelector(".boton-flotante");
+        const accionesMultiples = document.getElementById('accionesMultiples');
+        const btnBorrarUnidades = document.getElementById('btnBorrarUnidades');
+        const btnCambiarEstado = document.getElementById('btnCambiarEstado');
+        const selectEstado = document.getElementById('selectEstadoUnidad');
+        
+        // Actualizar contador de seleccionados
+        function actualizarContador() {
+            const seleccionados = document.querySelectorAll('.seleccion-unidad:checked').length;
+            contador.textContent = seleccionados;
+
+            if (seleccionados > 0) {
+                botonAcciones.classList.add('activo');
+                accionesMultiples.classList.add('mostrar');
+            } else {
+                accionesMultiples.classList.remove('mostrar');
+                botonAcciones.classList.remove('activo'); // 🔥 resetea la rotación
+            }
+        }
+
+        // Event listeners para checkboxes
+        checkboxes.forEach(checkbox => {
+            checkbox.addEventListener('change', actualizarContador);
+        });
+
+        // Mostrar/ocultar acciones múltiples con el botón flotante
+        botonAcciones.addEventListener('click', function () {
+            const seleccionados = document.querySelectorAll('.seleccion-unidad:checked').length;
+            if (seleccionados > 0) {
+                accionesMultiples.classList.toggle('mostrar');
+                botonFlotante.classList.toggle('activo'); // 🔥 rota el botón (45° ↔ 0°)
+            } else {
+                botonFlotante.classList.remove('activo'); // 🔥 asegura que vuelva a 0°
+            }
+        });
+
+        // Acción de borrar unidades seleccionadas
+        btnBorrarUnidades.addEventListener('click', function () {
+            const seleccionados = document.querySelectorAll('.seleccion-unidad:checked');
+            if (seleccionados.length > 0) {
+                if (confirm(`¿Está seguro de que desea eliminar las ${seleccionados.length} unidades seleccionadas?`)) {
+                    // Aquí iría la lógica para eliminar las unidades
+                    alert(`Se eliminarían ${seleccionados.length} unidades (simulación)`);
+                }
+            }
+        });
+
+        // Acción de cambiar estado
+        btnCambiarEstado.addEventListener('click', function () {
+            if (selectEstado.value) {
+                const seleccionados = document.querySelectorAll('.seleccion-unidad:checked');
+                if (seleccionados.length > 0) {
+                    if (confirm(`¿Cambiar el estado de ${seleccionados.length} unidades a "${selectEstado.options[selectEstado.selectedIndex].text}"?`)) {
+                        // Aquí iría la lógica para cambiar el estado
+                        alert(`Se cambiaría el estado de ${seleccionados.length} unidades a ${selectEstado.value} (simulación)`);
+                    }
+                } else {
+                    alert('Por favor, seleccione al menos una unidad.');
+                }
+            } else {
+                alert('Por favor, seleccione un estado.');
+            }
+        });
+    });
+</script>
+
 </body>
 
 </html>

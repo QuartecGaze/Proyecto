@@ -387,7 +387,6 @@ a {
 .tabla-datos td {
     padding: 12px 15px;
     text-align: left;
-    border-bottom: 1px solid var(--color-borde);
 }
 
 .tabla-datos th {
@@ -399,6 +398,10 @@ a {
 
 .tabla-datos tr:hover {
     background-color: #f8f9fa;
+}
+
+.tabla-datos tr:nth-child(even) {
+    background-color: rgba(236, 240, 241, 0.5);
 }
 
 .btn-icon {
@@ -416,6 +419,156 @@ a {
 
 .btn-eliminar:hover {
     color: var(--color-alerta);
+}
+
+.checkbox-seleccion {
+    text-align: center;
+}
+
+.botones-flotantes {
+    position: fixed;
+    bottom: 30px;
+    right: 30px;
+    display: flex;
+    flex-direction: row;
+    gap: 15px;
+    z-index: 1000;
+}
+
+.grupo-botones {
+    display: flex;
+    flex-direction: column;
+    background: white;
+    border-radius: 8px;
+    padding: 15px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+    gap: 10px;
+    min-width: 200px;
+}
+
+.boton-flotante {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 60px;
+    height: 60px;
+    border-radius: 5px;
+    background-color: var(--color-backoffice-text);
+    color: var(--color-primario);
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+    transform: rotate(0deg);
+    transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    cursor: pointer;
+    position: relative;
+    margin-right: 10px;
+
+}
+
+.boton-flotante:hover {
+    transform: translateY(-3px) rotate(5deg);
+    box-shadow: 0 6px 15px rgba(0, 0, 0, 0.3);
+}
+
+.boton-flotante i {
+    font-size: 24px;
+}
+
+.boton-flotante.activo {
+    transform: rotate(45deg);
+    transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+.boton-flotante.activo .grupo-botones {
+    display: flex;
+}
+
+.grupo-botones {
+    transform: translateY(20px) scale(0.95);
+    transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    visibility: hidden;
+}
+
+.acciones-multiples {
+    display: none;
+}
+
+.acciones-multiples.mostrar {
+    display: flex;
+}
+
+.acciones-multiples.mostrar .grupo-botones {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+    visibility: visible;
+}
+
+.btn-accion {
+    padding: 8px 12px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    font-weight: 500;
+    transition: all 0.3s ease;
+}
+
+.btn-borrar {
+    background-color: #e74c3c;
+    color: white;
+}
+
+.btn-borrar:hover {
+    background-color: #c0392b;
+}
+
+.btn-cambiar-estado {
+    background-color: #3498db;
+    color: white;
+}
+
+.btn-cambiar-estado:hover {
+    background-color: #2980b9;
+}
+
+.select-estado {
+    padding: 8px;
+    border-radius: 4px;
+    border: 1px solid #ddd;
+    width: 100%;
+    margin-bottom: 10px;
+    transition: all 0.3s ease;
+}
+
+.contador-seleccionados {
+    position: absolute;
+    top: -5px;
+    right: -5px;
+    background-color: #e74c3c;
+    color: white;
+    border-radius: 50%;
+    width: 24px;
+    height: 24px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 12px;
+    font-weight: bold;
+}
+
+
+
+@media (max-width: 768px) {
+    .botones-flotantes {
+        bottom: 20px;
+        right: 20px;
+    }
+
+    .boton-flotante {
+        width: 50px;
+        height: 50px;
+    }
 }
 
 
