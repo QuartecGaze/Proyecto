@@ -256,7 +256,7 @@
                 $habitacionesBase = 1;
             } elseif ($integrantesTotal <= 4) {
                 $habitacionesBase = 2;
-            } elseif ($integrantesTotal <= 6) {
+            } elseif ($integrantesTotal < 6) {
                 $habitacionesBase = 3;
             } else {
                 $habitacionesBase = 4;
