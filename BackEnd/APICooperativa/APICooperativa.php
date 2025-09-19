@@ -4,6 +4,7 @@
     require_once __DIR__ .'/Modelos/UnidadHabitacional.php';
     require_once __DIR__ .'/Modelos/ComprobantePago.php';
     require_once __DIR__ .'/../BDConeccion.php';
+    include __DIR__ .'/../Tokens.php';
     header("Access-Control-Allow-Origin: *");
     header("Access-Control-Allow-Methods: GET, POST, OPTIONS");
     header("Access-Control-Allow-Headers: Content-Type, Authorization");
@@ -19,11 +20,13 @@
         $repositorio = new RepositorioCooperativa($conn);
         $servicio = new ServicioCooperativa($repositorio);
 
-
+        
         $metodo = $_SERVER['REQUEST_METHOD'];
         $accion = $_GET['accion'] ?? ''; // USAMOS QUERY STRING EN VEZ DE PATH_INFO
 
-
+        if(!validarToken(obtenerToken(), $conn)){
+        respuesta("Token invalido", "error", 401);
+        } 
     switch($metodo) {
         case "POST":
 
