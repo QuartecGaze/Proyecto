@@ -2,7 +2,6 @@
     require_once __DIR__ . '/RepositorioBackOffice.php';
     require_once __DIR__ . '/ServicioBackOffice.php'; 
     require_once __DIR__ .'/../BDConeccion.php';
-    include __DIR__ .'/../Tokens.php';
     if ($_SERVER['REQUEST_METHOD'] === 'OPTIONS') {
         http_response_code(200);
         exit();
@@ -17,10 +16,7 @@
     $metodo = $_SERVER['REQUEST_METHOD'];
     $accion = $_GET['accion'] ?? ''; // USAMOS QUERY STRING EN VEZ DE PATH_INFO
 
-    if(!validarTokenAdmin(obtenerToken(), $conn)){
-        respuesta("Token invalido", "error", 401);
-    } 
-    
+
     switch($metodo) {
         case "POST":
             if ($accion === "crearAdmin") {
@@ -110,12 +106,8 @@
 
             if($accion === "rechazarInteresado") {
                 $datos = json_decode(file_get_contents('php://input'), true);
-                try {
                 $servicio->rechazarInteresado($datos['idPersona']);
                 respuesta("Interesado rechazado exitosamente", "exito", 200);
-                } catch (Exception $e) {
-                    respuesta($e->getMessage(), "error", $e->getCode());
-                }
             }
             
             if($accion === "aprobarInteresado") {
@@ -207,34 +199,6 @@
                     //tiene que recibir la cedula de la persona y el idunidadhabitacional
                     $servicio->asignarUnidadHabitacional($ci, $idUnidadHabitacional);
                     respuesta("Unidad Habitacional asignada con exito", "exito", 201);
-                } catch(Exception $e) {
-                    respuesta($e->getMessage(), "error", $e->getCode());
-                }
-            }
-
-            if($accion == "crearUnidad"){
-                try {
-                    $datos = json_decode(file_get_contents('php://input'), true);
-                    $servicio->crearUnidadHabitacional(
-                        $datos['numeroPuerta'], 
-                        $datos['pasillo'], 
-                        $datos['cantidadHabitaciones'], 
-                    );
-                    respuesta("La unidad habitacional se ha cargado con éxito", "exito", 201);
-                } catch(Exception $e) {
-                    respuesta($e->getMessage(), "error", $e->getCode());
-                }
-            }
-
-            if($accion == "crearUnidadConCI"){
-                try {
-                    $datos = json_decode(file_get_contents('php://input'), true);
-                    $servicio->crearUnidadHabitacionalConCI(
-                        $datos['numeroPuerta'], 
-                        $datos['pasillo'], 
-                        $datos['ci']
-                    );
-                    respuesta("La unidad habitacional se ha cargado con éxito", "exito", 201);
                 } catch(Exception $e) {
                     respuesta($e->getMessage(), "error", $e->getCode());
                 }

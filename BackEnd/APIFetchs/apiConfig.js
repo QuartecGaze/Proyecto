@@ -14,8 +14,6 @@ export async function apiRequest(endpoint, method = 'GET', body = null) {
         headers: {},
     };
 
-    config.headers['Authorization'] = localStorage.getItem('token');
-
     if (body && !(body instanceof FormData)) {
         config.headers['Content-Type'] = 'application/json';
         config.body = JSON.stringify(body);
@@ -27,9 +25,6 @@ export async function apiRequest(endpoint, method = 'GET', body = null) {
     const response = await fetch(`${baseUrl}${endpoint}`, config);
     const data = await response.json(); 
     console.log(data);
-    if(data.message == "Token invalido"){
-         window.location.href = "http://localhost/Proyecto/front/Landing Page/login.html";
-    }
     return data;
 }
 

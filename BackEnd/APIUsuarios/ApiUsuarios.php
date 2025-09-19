@@ -6,7 +6,6 @@
     require_once __DIR__ .'/Modelos/Admin.php';
     require_once __DIR__ .'/Modelos/Interesado.php';
     require_once __DIR__ .'/../BDConeccion.php';
-    require __DIR__ .'/../Tokens.php';
     header("Access-Control-Allow-Origin: *");
     header("Access-Control-Allow-Methods: GET, POST, OPTIONS");
     header("Access-Control-Allow-Headers: Content-Type, Authorization");
@@ -25,17 +24,14 @@
 
     $metodo = $_SERVER['REQUEST_METHOD'];
     $accion = $_GET['accion'] ?? ''; // USAMOS QUERY STRING EN VEZ DE PATH_INFO
-    $datos = json_decode(file_get_contents('php://input'), true);
-    if(!validarToken(obtenerToken(), $conn)){
-        if($accion != "login" && $accion != "registro"){
-        respuesta("Token invalido", "error", 401);
-        }
-    } 
+
+
     switch($metodo) {
         case "POST":
             if ($accion === "registro") {
             
                 try {
+                    $datos = json_decode(file_get_contents('php://input'), true);
                     $servicio->registro(
                         $datos['ci'], 
                         $datos['email'], 
@@ -54,11 +50,11 @@
 
                 try {
                     session_start();
+                    $datos = json_decode(file_get_contents('php://input'), true);
                     $persona = $servicio->iniciarSesion($datos['ci'], $datos['contraseña']);
                     $_SESSION['id'] = $persona['id'];
                     $_SESSION['rol'] = $persona['rol'];
-                    $token = crearToken($_SESSION['id'], $_SESSION['rol'], $conn);
-                    respuesta($token, "exito", 200, $persona['rol']);
+                    respuesta("Sesion iniciada con exito", "exito", 200, $persona['rol']);
 
 
                 } catch(Exception $e) {
@@ -211,6 +207,5 @@
         exit;
     }
 
-  
 
 ?>

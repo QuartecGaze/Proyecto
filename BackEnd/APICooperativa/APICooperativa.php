@@ -4,7 +4,6 @@
     require_once __DIR__ .'/Modelos/UnidadHabitacional.php';
     require_once __DIR__ .'/Modelos/ComprobantePago.php';
     require_once __DIR__ .'/../BDConeccion.php';
-    include __DIR__ .'/../Tokens.php';
     header("Access-Control-Allow-Origin: *");
     header("Access-Control-Allow-Methods: GET, POST, OPTIONS");
     header("Access-Control-Allow-Headers: Content-Type, Authorization");
@@ -20,17 +19,28 @@
         $repositorio = new RepositorioCooperativa($conn);
         $servicio = new ServicioCooperativa($repositorio);
 
-        
+
         $metodo = $_SERVER['REQUEST_METHOD'];
         $accion = $_GET['accion'] ?? ''; // USAMOS QUERY STRING EN VEZ DE PATH_INFO
 
-        if(!validarToken(obtenerToken(), $conn)){
-        respuesta("Token invalido", "error", 401);
-        } 
+
     switch($metodo) {
         case "POST":
+            if($accion == "crearUnidad"){
+                try {
+                    $datos = json_decode(file_get_contents('php://input'), true);
+                    $servicio->crearUnidadHabitacional(
+                        $datos['numeroPuerta'], 
+                        $datos['pasillo'], 
+                        $datos['cantidadHabitaciones'], 
+                    );
+                    respuesta("La unidad habitacional se ha cargado con éxito", "exito", 201);
+                } catch(Exception $e) {
+                    respuesta($e->getMessage(), "error", $e->getCode());
+                }
+            }
 
-            if ($accion === "subirHoras"){
+            elseif ($accion === "subirHoras"){
                 //traer las horas del front
                 session_start();
                 $idPersona = $_SESSION['id'];
@@ -67,84 +77,6 @@
                     respuesta($e->getMessage(), "error", $e->getCode());
                 }
             }
-
-            elseif ($accion === "editarHoras"){
-                $datos = json_decode(file_get_contents('php://input'), true);
-                $idHoras = $datos['idHoras'];
-                $horas = $datos['horas'];
-                $fecha = $datos['fecha'];
-                if ($idHoras === null || $idHoras < 1) {
-                    respuesta("El ID de horas es inválido.", "error", 400);
-                }
-                if ($horas === null || $horas < 1 || $horas > 12) {
-                    respuesta("La cantidad de horas debe ser entre 1 y 12.", "error", 400);
-                }
-
-                try{
-                    if($servicio->editarHoras($idHoras, $horas, $fecha)){
-                        respuesta("horas editadas correctamente", "exito", 200);
-                    }else{
-                        respuesta("error al editar las horas", "error", 400);
-                    }
-                }catch(Exception $e){
-                    respuesta($e->getMessage(), "error", $e->getCode());
-                }
-            }
-
-            elseif ($accion === "borrarHoras"){
-                $datos = json_decode(file_get_contents('php://input'), true);
-                $idHoras = $datos['idHoras'];
-                if ($idHoras === null || $idHoras < 1) {
-                    respuesta("El ID de horas es inválido.", "error", 400);
-                }
-                try{
-                    if($servicio->borrarHoras($idHoras)){
-                        respuesta("horas borradas correctamente", "exito", 200);
-                    }else{
-                        respuesta("error al borrar las horas", "error", 400);
-                    }
-                }catch(Exception $e){
-                    respuesta($e->getMessage(), "error", $e->getCode());
-                }
-            }
-
-            elseif ($accion === "ingresarIntegrantesFamiliares"){
-                session_start();
-                $idPersona = $_SESSION['id'];
-                $datos = json_decode(file_get_contents('php://input'), true);
-                $cantidadIntegrantes = $datos['cantidadIntegrantes'];
-                $integrantes = $datos['integrantes'];
-            
-                try {
-                    $ingresados = 0;
-                    foreach ($integrantes as $idx => $integrante) {
-                        try {
-                            $nombre = $integrante['nombre']; 
-                            $apelido = $integrante['apellido'];
-                            $ci = $integrante['ci'];
-                            $fechaNacimiento = $integrante['fechaNacimiento'];
-                            $genero = $integrante['genero'];
-                            $telefono = $integrante['telefono'];
-
-                        $servicio->ingresarIntegrante($idPersona, $nombre, $apelido, $ci, $fechaNacimiento, $genero, $telefono);
-                            $ingresados++;
-                        } catch (Throwable $e) {
-                            //si falla seguimos con el foreach
-                        }
-                    }
-                    $total = count($integrantes);
-                    respuesta("Integrantes ingresados con exito $ingresados/$total", "exito", 200);
-                } catch (Exception $e){
-                    respuesta($e->getMessage(), "error", $e->getCode());
-                }
-            }
-            
-
-
-
-
-
-
 
         break;
 

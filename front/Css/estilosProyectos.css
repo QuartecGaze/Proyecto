@@ -312,6 +312,15 @@ a {
     color: var(--color-texto-oscuro);
 }
 
+/* Estilos para la gestión de proyectos */
+.barra-acciones {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+    gap: 15px;
+}
+
 .btn-primario,
 .btn-secundario {
     padding: 10px 15px;

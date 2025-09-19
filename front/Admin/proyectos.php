@@ -1,6 +1,6 @@
 <?php
-    require_once '../verificarSesion.php';
-    verificarAcceso(['Admin']);
+require_once '../verificarSesion.php';
+verificarAcceso(['Admin']);
 ?>
 <!DOCTYPE html>
 <html lang="es">
@@ -37,15 +37,8 @@
                     <li class="item-menu">
                         <a href="#"><i class="material-icons">people</i> Socios</a>
                     </li>
-                    <li class="item-menu">
-                        <a href="#">
-                            <i class="material-icons">apartment</i> Proyectos
-                        </a>
-                        <ul class="submenu">
-                            <a href="crearUnidad.php"><i class="material-icons">add_circle</i> Crear Unidad</a>
-                            <a href="borrarUnidad.php"><i class="material-icons">delete</i> Borrar Unidad</a>
-                            <a href="modificarUnidad.php"><i class="material-icons">edit</i> Modificar Unidad</a>
-                        </ul>
+                    <li class="item-menu activo">
+                        <a href="proyectos.php"><i class="material-icons">apartment</i> Proyectos</a>
                     </li>
                     <li class="item-menu">
                         <a href="#">
@@ -64,7 +57,6 @@
                             <i class="material-icons">settings</i> Configuracion
                         </a>
                         <ul class="submenu">
-                            <a href="proyectos.php"><i class="material-icons">home_work</i>Gestionar Proyectos</a>
                             <a href="configuracion.php"><i class="material-icons">star</i> Mi Perfil</a>
                             <a href="crearAdmin.php"><i class="material-icons">key</i> Crear Admin</a>
                             <a href="borrarAdmin.php"><i class="material-icons">backspace</i> Borrar Admin</a>
@@ -97,6 +89,17 @@
                 <h1>Gestión de <span class="nombre-usuario-destacado">Proyectos</span></h1>
                 <p>Administra los proyectos de construcción de la cooperativa</p>
             </header>
+
+            <!-- Botones de acción -->
+            <div class="barra-acciones">
+                <button class="btn-primario" id="btnNuevoProyecto">
+                    <i class="material-icons">add</i> Nuevo Proyecto
+                </button>
+                <div class="buscador">
+                    <input type="text" placeholder="Buscar proyectos..." id="buscadorProyectos">
+                    <i class="material-icons">search</i>
+                </div>
+            </div>
 
             <!-- Estadísticas de proyectos -->
             <div class="contenedor-tarjetas">
@@ -148,8 +151,8 @@
                     <thead>
                         <tr>
                             <th>Nombre</th>
-                            <th>CI</th>
-                            <th>Habitaciones</th>
+                            <th>Ubicación</th>
+                            <th>Unidades</th>
                             <th>Progreso</th>
                             <th>Estado</th>
                             <th>Acciones</th>

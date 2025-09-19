@@ -4,6 +4,9 @@ import { apiRequest } from './apiConfig.js';
  * @param {Object} datos - Contiene `ci` y `contraseña`
  * @returns {Promise<Object>} - Respuesta de la API
  */
+export function Interesados() {
+    return apiRequest('/APIBackOffice/ApiBackOffice.php?accion=Interesados', 'GET');
+}
 
 export function aprobarEstado(data) {
     return apiRequest('/APIBackOffice/ApiBackOffice.php?accion=aprobarEstado', 'POST', data);
@@ -64,11 +67,4 @@ export function aprobarPago(data) {
 }
 export function rechazarPago(data) {
     return apiRequest('/APIBackOffice/ApiBackOffice.php?accion=rechazarPago', 'POST', data);
-}
-
-export function crearUnidadHabitacional(data){
-    return apiRequest('/APIBackOffice/ApiBackOffice.php?accion=crearUnidad', 'POST', data);
-}
-export function crearUnidadHabitacionalPersonalizada(data){
-    return apiRequest('/APIBackOffice/ApiBackOffice.php?accion=crearUnidadConCI', 'POST', data);
 }

@@ -1,11 +1,11 @@
-<?php
-    require_once '../verificarSesion.php';
-    verificarAcceso(['Admin']);
-?>
 <!DOCTYPE html>
 <html lang="es">
 
 <head>
+    <?php
+    require_once '../verificarSesion.php';
+    verificarAcceso(['Admin']);
+    ?>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Senda Firme - Dashboard</title>
@@ -39,23 +39,15 @@
                         <a href="#"><i class="material-icons">people</i> Socios</a>
                     </li>
                     <li class="item-menu">
-                        <a href="#">
-                            <i class="material-icons">apartment</i> Proyectos
-                        </a>
-                        <ul class="submenu">
-                            <a href="proyectos.php"><i class="material-icons">home_work</i>Gestionar Proyectos</a>
-                            <a href="crearUnidad.php"><i class="material-icons">add_circle</i> Crear Unidad</a>
-                            <a href="borrarUnidad.php"><i class="material-icons">delete</i> Borrar Unidad</a>
-                            <a href="modificarUnidad.php"><i class="material-icons">edit</i> Modificar Unidad</a>
-                        </ul>
+                        <a href="proyectos.php"><i class="material-icons">apartment</i> Proyectos</a>
                     </li>
                     <li class="item-menu">
                         <a href="#">
                             <i class="material-icons">payments</i> Pagos
                         </a>
                         <ul class="submenu">
-                            <li><a href="confirmarPagos.php"><i class="material-icons">receipt_long</i> Corroborar Comprobantes</a></li>
-                            <li><a href="pagos.php"><i class="material-icons">point_of_sale</i> Gestor de Pagos</a></li>
+                            <li><a href="confirmarPagos.php">Corroborar Comprobantes</a></li>
+                            <li><a href="pagos.php">Gestor de Pagos</a></li>
                         </ul>
                     </li>
                     <li class="item-menu">
@@ -109,7 +101,7 @@
                         </div>
                         <div class="tarjeta-contenido">
                             <h3>Solicitudes Pendientes</h3>
-                            <p class="tarjeta-valor" id="solicitudesPendientes"><span>Solicitudes</span></p>
+                            <p class="tarjeta-valor" id="solicitudesPendientes">10 <span>Solicitudes</span></p>
                         </div>
                     </div>
                 </a>
