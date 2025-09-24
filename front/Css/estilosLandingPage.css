@@ -275,18 +275,18 @@ header {
 
 .carrousel-item {
     position: absolute;
-    top: 0;
-    left: 0;
+    top: 0; left: 0;
     width: 100%;
     height: 100%;
     background-size: cover;
     background-position: center;
-    opacity: 1;
+    opacity: 0;
     transition: opacity 1s ease-in-out;
+    pointer-events: none;
 }
-
 .carrousel-item.active {
     opacity: 1;
+    pointer-events: auto;
 }
 
 .carrousel-overlay {
@@ -746,21 +746,24 @@ footer {
     }
     
     .nav-menu {
-        position: fixed;
-        top: 80px;
-        left: -100%;
-        width: 100%;
-        height: calc(100vh - 80px);
-        background-color: var(--primarioOscuro);
-        flex-direction: column;
-        transition: left 0.3s ease;
-        padding: 20px;
-        box-shadow: var(--sombra-hover);
-    }
-    
-    .nav-menu.active {
-        left: 0;
-    }
+    position: fixed;
+    top: 80px;
+    left: -100%;
+    width: 100%;
+    height: calc(100vh - 80px);
+    background-color: var(--primarioOscuro);
+    flex-direction: column;
+    transition: left 0.3s ease;
+    padding: 20px;
+    box-shadow: var(--sombra-hover);
+    z-index: 1100; /* que quede por encima del header */
+}
+
+/* usar 'activo' (mismo nombre que el JS) */
+.nav-menu.activo {
+    left: 0;
+}
+
     
     .nav-menu ul {
         flex-direction: column;
