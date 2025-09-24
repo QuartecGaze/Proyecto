@@ -1,4 +1,5 @@
 <?php
+require __DIR__ .'/../Consultas.php';
     class RepositorioCooperativa{
         private $conn;
 
@@ -7,6 +8,7 @@
         }
 
     public function getComprobantesMensuales($idPersona){
+        // Validación previa para evitar inputs inválidos
         if (!is_numeric($idPersona) || !ctype_digit((string)$idPersona)) {
             error_log("getComprobantesMensuales: idPersona inválido = " . var_export($idPersona, true));
             return []; 
@@ -20,24 +22,9 @@
             AND TRIM(Estado_pago) IN ('En espera', 'Pendiente')
         ";
 
-        $stmt = mysqli_prepare($this->conn, $sql);
-        if (!$stmt) {
-            throw new Exception("Error en prepare: " . mysqli_error($this->conn));
-        }
-
-        mysqli_stmt_bind_param($stmt, "i", $idPersona);
-
-        if (!mysqli_stmt_execute($stmt)) {
-            $err = mysqli_stmt_error($stmt);
-            mysqli_stmt_close($stmt);
-            throw new Exception("Error en execute: " . $err);
-        }
-
-        $resultado = mysqli_stmt_get_result($stmt);
+        $resultado = consulta($this->conn, $sql, "i", [$idPersona]);
         if ($resultado === false) {
-            $err = mysqli_error($this->conn);
-            mysqli_stmt_close($stmt);
-            throw new Exception("Error al obtener resultado: " . $err);
+            throw new Exception("Error en consulta getComprobantesMensuales");
         }
 
         $comprobantes = [];
@@ -53,7 +40,6 @@
                 $fila['ID_Comprobante_pago']
             );
         }
-        mysqli_stmt_close($stmt);
         return $comprobantes;
     }
 
@@ -62,33 +48,36 @@
         public function subirComprobante($nombre, $idComprobantePago) {
             $consulta = "
                 UPDATE Comprobante_pago
-                SET Foto = '$nombre',
-                Estado_pago = 'Pendiente'
-                WHERE ID_Comprobante_pago = $idComprobantePago
+                SET Foto = ?, Estado_pago = 'Pendiente'
+                WHERE ID_Comprobante_pago = ?
             ";
-            mysqli_query($this->conn, $consulta);
+            return consulta($this->conn, $consulta, "si", [$nombre, $idComprobantePago]);
         }
         
         public function cargarHoras($idPersona, $horas, $fechaHoras, $idSemana){
             $consulta = "
                 INSERT INTO Horas_trabajadas 
                 (ID_Persona, Horas, Fecha_registro_horas, ID_Semana_trabajo)
-                VALUES ($idPersona, $horas, '$fechaHoras', $idSemana);
+                VALUES (?, ?, ?, ?)
             ";
-            if(mysqli_query($this->conn, $consulta)){
-                return true;
-            }else{
+            // horas puede ser decimal -> usar 'd' si corresponde; si es entero usar 'i'
+            $resultado = consulta($this->conn, $consulta, "idsi", [$idPersona, $horas, $fechaHoras, $idSemana]);
+            if ($resultado === false) {
                 return false;
             }
+            return true;
         }
 
         public function horasTrabajadasXSemana($idPersona, $idSemana){
             $consulta = "
                 SELECT Horas
                 FROM Horas_Trabajadas
-                WHERE ID_Persona = $idPersona AND ID_Semana_trabajo = $idSemana 
+                WHERE ID_Persona = ? AND ID_Semana_trabajo = ?
             ";
-            $resultado = mysqli_query($this->conn, $consulta);
+            $resultado = consulta($this->conn, $consulta, "ii", [$idPersona, $idSemana]);
+            if ($resultado === false) {
+                return 0;
+            }
 
             $total = 0;
             while ($fila = mysqli_fetch_assoc($resultado)) {
@@ -101,9 +90,12 @@
             $consulta = "
                 SELECT Monto 
                 FROM Comprobante_Pago
-                WHERE ID_Persona = $idPersona AND Estado_Pago = 'En Espera'
+                WHERE ID_Persona = ? AND Estado_Pago = 'En Espera'
             ";
-            $resultado = mysqli_query($this->conn, $consulta);
+            $resultado = consulta($this->conn, $consulta, "i", [$idPersona]);
+            if ($resultado === false) {
+                return 0;
+            }
 
             $total = 0;
             while ($fila = mysqli_fetch_assoc($resultado)) {
@@ -116,9 +108,12 @@
             $consulta = "
                 SELECT Horas
                 FROM Horas_Trabajadas
-                WHERE ID_Persona = $idPersona
+                WHERE ID_Persona = ?
             ";
-            $resultado = mysqli_query($this->conn, $consulta);
+            $resultado = consulta($this->conn, $consulta, "i", [$idPersona]);
+            if ($resultado === false) {
+                return 0;
+            }
 
             $total = 0;
             while ($fila = mysqli_fetch_assoc($resultado)) {
@@ -132,9 +127,12 @@
             $consulta = "
                 SELECT Horas_semanales
                 FROM   Semana_trabajo
-                WHERE  Fecha_semana = '$semana'
+                WHERE  Fecha_semana = ?
             ";
-            $resultado = mysqli_query($this->conn, $consulta);
+            $resultado = consulta($this->conn, $consulta, "s", [$semana]);
+            if ($resultado === false) {
+                return null;
+            }
             if ($fila = mysqli_fetch_assoc($resultado)) {
                 return $fila['Horas_semanales']; 
             }
@@ -145,10 +143,13 @@
             $consulta = "
                 SELECT ID_Semana_trabajo
                 FROM   Semana_trabajo
-                WHERE  Fecha_semana = '$fecha'
+                WHERE  Fecha_semana = ?
                 LIMIT 1 
             "; //para solo traer uno
-            $resultado = mysqli_query($this->conn, $consulta);
+            $resultado = consulta($this->conn, $consulta, "s", [$fecha]);
+            if ($resultado === false) {
+                return null;
+            }
             if ($fila = mysqli_fetch_assoc($resultado)) {
                 return $fila['ID_Semana_trabajo']; 
             }
@@ -159,10 +160,14 @@
             $consulta = "
                 SELECT *
                 FROM Horas_Trabajadas
-                WHERE ID_Persona = $idPersona
+                WHERE ID_Persona = ?
             ";
             
-            $resultado = mysqli_query($this->conn, $consulta);
+            $resultado = consulta($this->conn, $consulta, "i", [$idPersona]);
+            if ($resultado === false) {
+                return [];
+            }
+
             $horas = [];
         
             while ($fila = mysqli_fetch_assoc($resultado)) {
@@ -180,8 +185,11 @@
     
         //FUNCIONES
         public function usuarioExisteID($id){
-            $consulta = "SELECT * FROM Usuario WHERE ID_Persona = '$id'";
-            $resultado = mysqli_query($this->conn, $consulta);
+            $consulta = "SELECT * FROM Usuario WHERE ID_Persona = ?";
+            $resultado = consulta($this->conn, $consulta, "i", [$id]);
+            if ($resultado === false) {
+                return false;
+            }
             if(mysqli_num_rows($resultado) > 0){
                 return true;
             }else
@@ -196,19 +204,22 @@
                 INSERT INTO 
                 Semana_trabajo
                 (Fecha_semana)
-                VALUES ('$fecha')
+                VALUES (?)
             ";
-            mysqli_query($this->conn, $consulta);
+            return consulta($this->conn, $consulta, "s", [$fecha]);
         }
         
         public function semanaExiste($fecha){
             $consulta = "
                 SELECT ID_Semana_trabajo
                 FROM   Semana_trabajo
-                WHERE  Fecha_semana = '$fecha'
+                WHERE  Fecha_semana = ?
                 LIMIT 1 
             "; //para solo traer uno
-            $resultado = mysqli_query($this->conn, $consulta);
+            $resultado = consulta($this->conn, $consulta, "s", [$fecha]);
+            if ($resultado === false) {
+                return null;
+            }
             if (mysqli_fetch_assoc($resultado)) {
                 return true; 
             }
@@ -218,27 +229,27 @@
         public function editarHoras($idHoras, $horas, $fecha){
             $consulta = "
                 UPDATE Horas_trabajadas
-                SET Horas = $horas ,
-                Fecha_registro_horas = '$fecha'
-                WHERE ID_Horas_trabajadas = $idHoras
+                SET Horas = ?, 
+                Fecha_registro_horas = ?
+                WHERE ID_Horas_trabajadas = ?
             ";
-            if(mysqli_query($this->conn, $consulta)){
-                return true;
-            }else{
+            $resultado = consulta($this->conn, $consulta, "dsi", [$horas, $fecha, $idHoras]);
+            if ($resultado === false) {
                 return false;
             }
+            return true;
         }
 
         public function borrarHoras($idHoras){
             $consulta = "
                 DELETE FROM Horas_trabajadas
-                WHERE ID_Horas_trabajadas = $idHoras
+                WHERE ID_Horas_trabajadas = ?
             ";
-            if(mysqli_query($this->conn, $consulta)){
-                return true;
-            }else{
+            $resultado = consulta($this->conn, $consulta, "i", [$idHoras]);
+            if ($resultado === false) {
                 return false;
             }
+            return true;
         }
 
         public function ingresarIntegrante($idPersona, $nombre, $apellido, $ci, $fechaNacimiento, $genero, $telefono){
@@ -246,9 +257,10 @@
                 INSERT INTO 
                 integrante_familiar
                 (ID_Persona, Nombre, Apellido, CI, FechaNacimiento, Genero, Telefono)
-                VALUES ($idPersona, '$nombre', '$apellido', '$ci', '$fechaNacimiento', '$genero', $telefono)
+                VALUES (?, ?, ?, ?, ?, ?, ?)
             ";
             //agregar [parentesco si va]
-            mysqli_query($this->conn, $consulta);
+            return consulta($this->conn, $consulta, "isssssi", [$idPersona, $nombre, $apellido, $ci, $fechaNacimiento, $genero, $telefono]);
         }
     }
+?>

@@ -3,6 +3,7 @@ require_once __DIR__ .'../../APIUsuarios/Modelos/Usuario.php';
 require_once __DIR__ .'../../APIUsuarios/Modelos/Persona.php'; 
 require_once __DIR__ .'../../APIUsuarios/Modelos/Admin.php';
 require_once __DIR__ .'../../APIUsuarios/Modelos/Interesado.php';
+require __DIR__ .'/../Consultas.php';
     Class RepositorioBackOffice {
         
         private $conn;
@@ -14,9 +15,9 @@ require_once __DIR__ .'../../APIUsuarios/Modelos/Interesado.php';
         //Persona
         public function personaExiste($id){
             $consulta = "
-            SELECT * FROM Persona WHERE ID_Persona=$id
+            SELECT * FROM Persona WHERE ID_Persona=?
             ";
-            $resultado = mysqli_query($this->conn, $consulta);
+            $resultado = consulta($this->conn, $consulta, "i", [$id]);
             if(mysqli_num_rows($resultado) > 0){
                 return true;
             }else
@@ -27,8 +28,8 @@ require_once __DIR__ .'../../APIUsuarios/Modelos/Interesado.php';
         }
 
         public function personaExisteConCI($ci){
-            $consulta = "SELECT * FROM Persona WHERE CI = '$ci'";
-            $resultado = mysqli_query($this->conn, $consulta);
+            $consulta = "SELECT * FROM Persona WHERE CI = ?";
+            $resultado = consulta($this->conn, $consulta, "s", [$ci]);
             if(mysqli_num_rows($resultado) > 0){
                 return true;
             } else {
@@ -38,23 +39,23 @@ require_once __DIR__ .'../../APIUsuarios/Modelos/Interesado.php';
         
         public function borrarTelefono($id){
             $consulta = "
-                DELETE FROM Numero_de_telefono WHERE ID_Persona=$id
+                DELETE FROM Numero_de_telefono WHERE ID_Persona=?
             ";
-            mysqli_query($this->conn, $consulta);
+            consulta($this->conn, $consulta, "i", [$id]);
         }
 
         public function borrarPersona($id){
             $consulta = "
-                DELETE FROM Persona WHERE ID_Persona=$id
+                DELETE FROM Persona WHERE ID_Persona=?
             ";
-            mysqli_query($this->conn, $consulta);
+            consulta($this->conn, $consulta, "i", [$id]);
         }
 
         public function getPersona($id){
             $consulta = "
-                SELECT * FROM Persona WHERE ID_Persona=$id
+                SELECT * FROM Persona WHERE ID_Persona=?
             ";
-            $resultado = mysqli_query($this->conn, $consulta);
+            $resultado = consulta($this->conn, $consulta, "i", [$id]);
             $fila = mysqli_fetch_assoc($resultado);
             $telefonos = $this->getTelefonosPersona($id);
             $persona = new Persona($fila['CI'], $fila['Email'], $telefonos ,$id, $fila['Nombre'], $fila['Apellido'], $fila['Contraseña'], $fila['Rol']);
@@ -63,10 +64,10 @@ require_once __DIR__ .'../../APIUsuarios/Modelos/Interesado.php';
 
         public function getTelefonosPersona($idPersona) {
             $consulta = "
-                SELECT Telefono FROM numero_de_telefono WHERE ID_Persona = $idPersona
+                SELECT Telefono FROM numero_de_telefono WHERE ID_Persona = ?
             ";
     
-            $resultado = mysqli_query($this->conn, $consulta);
+            $resultado = consulta($this->conn, $consulta, "i", [$idPersona]);
 
             $telefonos = [];
 
@@ -89,7 +90,7 @@ require_once __DIR__ .'../../APIUsuarios/Modelos/Interesado.php';
                 WHERE Rol = 'Interesado'
             ";
         
-            $resultado = mysqli_query($this->conn, $consulta);
+            $resultado = consulta($this->conn, $consulta);
         
             if (!$resultado) {
                 throw new Exception("Error al obtener interesados", 500);
@@ -100,38 +101,37 @@ require_once __DIR__ .'../../APIUsuarios/Modelos/Interesado.php';
         
         public function borrarInteresado($id){
             $consulta = "
-                DELETE FROM Interesado WHERE ID_Persona=$id
+                DELETE FROM Interesado WHERE ID_Persona=?
             ";
-            mysqli_query($this->conn, $consulta);
+            consulta($this->conn, $consulta, "i", [$id]);
         }
         
 
         public function cargarEntrevista($id, $fechaEntrevista, $horaEntrevista){
             $consulta = "
                 UPDATE Interesado
-                SET Fecha_entrevista = '$fechaEntrevista',
-                    Hora_entrevista = '$horaEntrevista'
-                WHERE ID_Persona = $id
+                SET Fecha_entrevista = ?, Hora_entrevista = ?
+                WHERE ID_Persona = ?
             ";
-            mysqli_query($this->conn, $consulta);
+            consulta($this->conn, $consulta, "ssi", [$fechaEntrevista, $horaEntrevista, $id]);
         }
 
         public function revisarEstado($id, $tipo, $estado){
             $consulta = "
                 UPDATE Interesado
-                SET $tipo = '$estado'
-                WHERE ID_Persona = $id
+                SET $tipo = ?
+                WHERE ID_Persona = ?
             ";
-            mysqli_query($this->conn, $consulta);
+            consulta($this->conn, $consulta, "si", [$estado, $id]);
         }
 
         public function setMontoPagoInicial($id, $montoPagoInicial){
             $consulta = "
                 UPDATE Interesado
-                SET Monto_pago_inicial = '$montoPagoInicial'
-                WHERE ID_Persona = $id
+                SET Monto_pago_inicial = ?
+                WHERE ID_Persona = ?
             ";
-            mysqli_query($this->conn, $consulta); 
+            consulta($this->conn, $consulta, "di", [$montoPagoInicial, $id]); 
         }
  
         public function getInteresados(){
@@ -142,7 +142,7 @@ require_once __DIR__ .'../../APIUsuarios/Modelos/Interesado.php';
             WHERE Rol = 'Interesado';
             
                 ";
-            $resultado = mysqli_query($this->conn, $consulta); 
+            $resultado = consulta($this->conn, $consulta); 
            
             while ($fila = mysqli_fetch_assoc($resultado)) {
                 $telefonos = $this->getTelefonosPersona($fila['ID_Persona']);
@@ -174,26 +174,26 @@ require_once __DIR__ .'../../APIUsuarios/Modelos/Interesado.php';
                 FROM Persona
                 WHERE Rol = 'Interesado';
             ";
-            $resultado = mysqli_query($this->conn, $consulta); 
+            $resultado = consulta($this->conn, $consulta); 
             return $resultado;
         }    
         //Usuario
         public function subirFoto($id, $nombre) {
         $consulta = "
             UPDATE Admin
-            SET Foto = '$nombre'
-            WHERE ID_Persona = $id
+            SET Foto = ?
+            WHERE ID_Persona = ?
         ";
-        mysqli_query($this->conn, $consulta);
+        consulta($this->conn, $consulta, "si", [$nombre, $id]);
         }
 
         public function getFoto($id) {
             $consulta = "
                 SELECT Foto FROM Admin
-                WHERE ID_Persona = $id
+                WHERE ID_Persona = ?
             ";
 
-            $resultado = mysqli_query($this->conn, $consulta);
+            $resultado = consulta($this->conn, $consulta, "i", [$id]);
             if ($resultado && mysqli_num_rows($resultado) > 0) {
                 $fila = mysqli_fetch_assoc($resultado);
                 return $fila['Foto'] === null ? null : $fila['Foto']; //verifica que la foto no sea null, porque en la bd se carga como default null
@@ -205,9 +205,9 @@ require_once __DIR__ .'../../APIUsuarios/Modelos/Interesado.php';
             $consulta = "
                 UPDATE Admin
                 SET Foto = NULL
-                WHERE ID_Persona = $id
+                WHERE ID_Persona = ?
             ";
-            return mysqli_query($this->conn, $consulta);
+            return consulta($this->conn, $consulta, "i", [$id]);
         }
 
         public function cargarUsuario($Usuario) {
@@ -215,25 +215,25 @@ require_once __DIR__ .'../../APIUsuarios/Modelos/Interesado.php';
             $fechaIngreso = $Usuario->getFechaIngreso();
             $consulta = "
                 INSERT INTO Usuario (ID_Persona, Fecha_ingreso)
-                VALUES ($idPersona,'$fechaIngreso')
+                VALUES (?,?)
             ";
-            mysqli_query($this->conn, $consulta);
+            consulta($this->conn, $consulta, "is", [$idPersona, $fechaIngreso]);
         }
         
         public function borrarUsuario($id){
             $consulta = "
-                DELETE FROM Usuario WHERE ID_Persona=$id
+                DELETE FROM Usuario WHERE ID_Persona=?
             ";
-            mysqli_query($this->conn, $consulta);
+            consulta($this->conn, $consulta, "i", [$id]);
         }
         
         public function cambiarRol($id){
             $consulta = "
             UPDATE Persona
             SET Rol = 'Usuario'
-            WHERE ID_Persona = $id
+            WHERE ID_Persona = ?
         ";
-        mysqli_query($this->conn, $consulta);
+        consulta($this->conn, $consulta, "i", [$id]);
         }
 
         //CRUD Admin
@@ -244,21 +244,21 @@ require_once __DIR__ .'../../APIUsuarios/Modelos/Interesado.php';
             $fechaIngreso = $admin->getFechaIngreso();
             $consulta = "
                 INSERT INTO Admin (ID_Persona, Nivel_permisos, Fecha_ingreso) 
-                VALUES ('$idPersona', '$nivelPermisos', '$fechaIngreso')
+                VALUES (?,?,?)
             ";
-            mysqli_query($this->conn, $consulta);
+            consulta($this->conn, $consulta, "iis", [$idPersona, $nivelPermisos, $fechaIngreso]);
         }
         
          public function borrarAdmin($id){
             $consulta = "
-                DELETE FROM Admin WHERE ID_Persona=$id
+                DELETE FROM Admin WHERE ID_Persona=?
             ";
-            mysqli_query($this->conn, $consulta);
+            consulta($this->conn, $consulta, "i", [$id]);
         }
 
         public function adminExisteID($id){
-            $consulta = "SELECT * FROM Admin WHERE ID_Persona = '$id'";
-            $resultado = mysqli_query($this->conn, $consulta);
+            $consulta = "SELECT * FROM Admin WHERE ID_Persona = ?";
+            $resultado = consulta($this->conn, $consulta, "i", [$id]);
             if(mysqli_num_rows($resultado) > 0){
                 return true;
             }else
@@ -272,9 +272,9 @@ require_once __DIR__ .'../../APIUsuarios/Modelos/Interesado.php';
             $consulta = "
                 SELECT * FROM Persona 
                 JOIN Admin ON Persona.ID_Persona = Admin.ID_Persona
-                WHERE Persona.ID_Persona = '$id';
+                WHERE Persona.ID_Persona = ?;
             ";
-            $resultado = mysqli_query($this->conn, $consulta); 
+            $resultado = consulta($this->conn, $consulta, "i", [$id]); 
             $fila = mysqli_fetch_assoc($resultado);
             $telefonos = $this->getTelefonosPersona($fila['ID_Persona']);
             $admin = new Admin(
@@ -302,7 +302,7 @@ require_once __DIR__ .'../../APIUsuarios/Modelos/Interesado.php';
                 WHERE Rol = 'Usuario'
             ";
 
-            $resultado = mysqli_query($this->conn, $consulta);
+            $resultado = consulta($this->conn, $consulta);
 
             $ids = [];
                 if ($resultado && mysqli_num_rows($resultado) > 0) {
@@ -329,14 +329,14 @@ require_once __DIR__ .'../../APIUsuarios/Modelos/Interesado.php';
                     INSERT INTO Comprobante_pago (ID_Persona, Motivo_pago, Estado_pago, Mes, Monto)
                     VALUES $valoresConsulta;
                 ";
-            mysqli_query($this->conn, $consulta); 
+            consulta($this->conn, $consulta); 
         }
 
         public function getIDPersonaConCi($ci){
             $consulta = "
-                SELECT ID_Persona FROM Persona WHERE CI = '$ci'
+                SELECT ID_Persona FROM Persona WHERE CI = ?
             ";
-            $resultado = mysqli_query($this->conn, $consulta);
+            $resultado = consulta($this->conn, $consulta, "s", [$ci]);
             if(mysqli_num_rows($resultado) > 0) {
             $fila = mysqli_fetch_assoc($resultado);
             $idPersona = $fila['ID_Persona']; 
@@ -349,9 +349,9 @@ require_once __DIR__ .'../../APIUsuarios/Modelos/Interesado.php';
         public function crearPagoPersonalizado($idPersona, $motivoPago, $montoPagoPersonalizado, $fecha) {
             $consulta = "
                 INSERT INTO Comprobante_pago (ID_Persona, Motivo_pago, Estado_pago, Mes, Monto)
-                VALUES ($idPersona , '$motivoPago' , 'En Espera' , '$fecha' , $montoPagoPersonalizado);
+                VALUES (? , ? , 'En Espera' , ? , ?);
             ";
-            mysqli_query($this->conn, $consulta); 
+            consulta($this->conn, $consulta, "issd", [$idPersona, $motivoPago, $fecha, $montoPagoPersonalizado]); 
         }
 
 
@@ -359,10 +359,10 @@ require_once __DIR__ .'../../APIUsuarios/Modelos/Interesado.php';
             $consulta = "
                 SELECT ID_Persona, Monto, Mes
                 FROM   Comprobante_pago
-                WHERE  ID_Comprobante_pago = '$idComprobante'
+                WHERE  ID_Comprobante_pago = ?
             ";
 
-            $resultado = mysqli_query($this->conn, $consulta);
+            $resultado = consulta($this->conn, $consulta, "i", [$idComprobante]);
 
             if (mysqli_num_rows($resultado) > 0) {
                 $fila = mysqli_fetch_assoc($resultado);
@@ -380,27 +380,27 @@ require_once __DIR__ .'../../APIUsuarios/Modelos/Interesado.php';
             $consulta = "
                 UPDATE Comprobante_pago
                 SET    Estado_pago = 'Rechazado'
-                WHERE  ID_Comprobante_pago = '$idComprobantePago'
+                WHERE  ID_Comprobante_pago = ?
             ";
-            $resultado = mysqli_query($this->conn, $consulta);
+            $resultado = consulta($this->conn, $consulta, "i", [$idComprobantePago]);
         }
 
         public function aprobarPago($idComprobantePago){
             $consulta = "
                 UPDATE Comprobante_pago
                 SET    Estado_pago = 'Aprobado'
-                WHERE  ID_Comprobante_pago = '$idComprobantePago'
+                WHERE  ID_Comprobante_pago = ?
             ";
-            $resultado = mysqli_query($this->conn, $consulta);
+            $resultado = consulta($this->conn, $consulta, "i", [$idComprobantePago]);
         }
 
         public function unidadHabitacionalAsignada($idUnidadHabitacional) {
             $consulta = "
                 SELECT ID_Persona
                 FROM   Unidad_Habitacional
-                WHERE  ID_Unidad_Habitacional = '$idUnidadHabitacional'
+                WHERE  ID_Unidad_Habitacional = ?
             ";
-            $resultado = mysqli_query($this->conn, $consulta);
+            $resultado = consulta($this->conn, $consulta, "i", [$idUnidadHabitacional]);
             $dato = mysqli_fetch_assoc($resultado);
             $dato['ID_Persona'];
             if($dato['ID_Persona'] == null){
@@ -416,7 +416,7 @@ require_once __DIR__ .'../../APIUsuarios/Modelos/Interesado.php';
                 FROM   Unidad_Habitacional
                 WHERE  ID_Persona IS NULL
             ";
-            $resultado = mysqli_query($this->conn, $consulta);
+            $resultado = consulta($this->conn, $consulta);
             $UnidadesHabitacionalesSinAsignar = [];
             while ($fila = mysqli_fetch_assoc($resultado)) {
                 $UnidadesHabitacionalesSinAsignar[$fila['ID_Unidad_Habitacional']] = $fila;
@@ -430,7 +430,7 @@ require_once __DIR__ .'../../APIUsuarios/Modelos/Interesado.php';
                 FROM   Unidad_Habitacional
                 WHERE  ID_Persona IS NULL
             ";
-            $resultado = mysqli_query($this->conn, $consulta);
+            $resultado = consulta($this->conn, $consulta);
             $UsuariosSinUnidad = [];
             while ($fila = mysqli_fetch_assoc($resultado)) {
                 $UsuariosSinUnidad[$fila['ID_Persona']] = $fila;
@@ -445,7 +445,7 @@ require_once __DIR__ .'../../APIUsuarios/Modelos/Interesado.php';
                 FROM comprobante_pago  
                 WHERE Estado_pago = 'Pendiente';
             ";
-            $resultado = mysqli_query($this->conn, $consulta); 
+            $resultado = consulta($this->conn, $consulta); 
             $comprobantesPendientes = [];
             while ($fila = mysqli_fetch_assoc($resultado)) {
                 $comprobantesPendientes[] = new ComprobantePago(
@@ -465,9 +465,9 @@ require_once __DIR__ .'../../APIUsuarios/Modelos/Interesado.php';
                 $consulta = "
                     SELECT CI, Nombre, Apellido
                     FROM persona
-                    WHERE ID_Persona = $idPersona
+                    WHERE ID_Persona = ?
                 ";
-                $resultado = mysqli_query($this->conn, $consulta); 
+                $resultado = consulta($this->conn, $consulta, "i", [$idPersona]); 
                 $fila = mysqli_fetch_assoc($resultado);
                 return [
                     'CI' => $fila['CI'],
@@ -484,17 +484,17 @@ require_once __DIR__ .'../../APIUsuarios/Modelos/Interesado.php';
                 $apellido = $persona->getApellido();
                 $consulta = "
                     INSERT INTO Persona (CI, Email, Contraseña, Rol, Nombre, Apellido) 
-                    VALUES ('$ci', '$email', '$contraseña', '$rol', '$nombre', '$apellido')
+                    VALUES (?, ?, ?, ?, ?, ?)
                 ";
-                mysqli_query($this->conn, $consulta);
+                consulta($this->conn, $consulta, "ssssss", [$ci, $email, $contraseña, $rol, $nombre, $apellido]);
             }
 
             public function cargarTelefono($id, $telefono){
             $consulta = "
                 INSERT INTO numero_de_telefono (ID_Persona, Telefono)
-                VALUES ('$id', '$telefono')
+                VALUES (?, ?)
                 ";
-            mysqli_query($this->conn, $consulta);
+            consulta($this->conn, $consulta, "is", [$id, $telefono]);
         }
             
         public function crearUnidadHabitacional($unidadHabitacional){
@@ -503,18 +503,18 @@ require_once __DIR__ .'../../APIUsuarios/Modelos/Interesado.php';
             $cantidadHabitaciones = $unidadHabitacional->getCantidadHabitaciones();
             $consulta = "
                 INSERT INTO unidad_habitacional (Numero_puerta, Pasillo, Estado_unidad, Cantidad_habitaciones) 
-                VALUES ($numeroPuerta, '$pasillo', 'En espera', $cantidadHabitaciones)
+                VALUES (?, ?, 'En espera', ?)
             ";
-            mysqli_query($this->conn, $consulta);
+            consulta($this->conn, $consulta, "isi", [$numeroPuerta, $pasillo, $cantidadHabitaciones]);
         }
         
         public function unidadHabitacionalExiste($numeroPuerta, $pasillo){
             $consulta = "
                 SELECT * FROM unidad_habitacional 
-                WHERE Numero_puerta = '$numeroPuerta' 
-                AND Pasillo = '$pasillo'
+                WHERE Numero_puerta = ? 
+                AND Pasillo = ?
                 ";
-            $resultado = mysqli_query($this->conn, $consulta);
+            $resultado = consulta($this->conn, $consulta, "is", [$numeroPuerta, $pasillo]);
             if(mysqli_num_rows($resultado) > 0){
                 return true;
             }else{
@@ -526,9 +526,9 @@ require_once __DIR__ .'../../APIUsuarios/Modelos/Interesado.php';
             $consulta = "
                 SELECT * 
                 FROM integrante_familiar
-                WHERE ID_Persona = $idPersona
+                WHERE ID_Persona = ?
                 ";
-            $resultado = mysqli_query($this->conn, $consulta); 
+            $resultado = consulta($this->conn, $consulta, "i", [$idPersona]); 
             $integrantesFamiliares = [];
             while ($fila = $resultado->fetch_assoc()) {
                 $integrantesFamiliares[] = [
@@ -549,10 +549,10 @@ require_once __DIR__ .'../../APIUsuarios/Modelos/Interesado.php';
             public function getIDUnidadHabitacional($numeroPuerta, $pasillo){
                 $consulta = "
                     SELECT ID_Unidad_habitacional FROM unidad_habitacional 
-                    WHERE Numero_puerta = '$numeroPuerta' 
-                    AND Pasillo = '$pasillo'
+                    WHERE Numero_puerta = ? 
+                    AND Pasillo = ?
                 ";
-                $resultado = mysqli_query($this->conn, $consulta);
+                $resultado = consulta($this->conn, $consulta, "is", [$numeroPuerta, $pasillo]);
                 $idUnidad = null;
                 while ($fila = mysqli_fetch_assoc($resultado)) {
                     $idUnidad = $fila['ID_Unidad_habitacional'];
@@ -564,19 +564,19 @@ require_once __DIR__ .'../../APIUsuarios/Modelos/Interesado.php';
             public function asignarUnidadHabitacional($idPersona, $idUnidadHabitacional){
                 $consulta = "
                     UPDATE unidad_habitacional
-                    SET ID_Persona = $idPersona
-                    WHERE ID_Unidad_habitacional = $idUnidadHabitacional
+                    SET ID_Persona = ?
+                    WHERE ID_Unidad_habitacional = ?
                 ";
-            mysqli_query($this->conn, $consulta);
+            consulta($this->conn, $consulta, "ii", [$idPersona, $idUnidadHabitacional]);
             }
 
             public function unidadHabitacionalBoolean($idPersona){
                 $consulta = "
                     UPDATE interesado
                     SET Unidad_Habitacional_Asignada = 1
-                    WHERE ID_Persona = $idPersona
+                    WHERE ID_Persona = ?
                 ";
-            mysqli_query($this->conn, $consulta);
+            consulta($this->conn, $consulta, "i", [$idPersona]);
             }
 
 

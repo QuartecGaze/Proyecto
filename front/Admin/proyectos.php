@@ -86,10 +86,10 @@ verificarAcceso(['Admin']);
                     <button class="boton-cerrar-sesion">
                         <i class="material-icons">logout</i> Cerrar sesión
                     </button>
-                    <button class="boton-cambiar-sesion">
-                        <i class="material-icons">switch_account</i> Cambiar a Usuario
-                    </button>
                 </form>
+                <button id="boton-cambiar-sesion">
+                        <i class="material-icons">switch_account</i> Cambiar a Usuario
+                </button>
             </div>
         </aside>
 
@@ -270,6 +270,7 @@ verificarAcceso(['Admin']);
             </div>
         </div>
     </div>
+    <script src="../Javascript/BackOffice/generalidades.js" type="module"></script>
     <script>
         document.querySelectorAll(".item-menu > a").forEach(boton => {
             boton.addEventListener("click", function (e) {

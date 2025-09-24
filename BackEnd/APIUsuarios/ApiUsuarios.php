@@ -7,6 +7,8 @@
     require_once __DIR__ .'/Modelos/Interesado.php';
     require_once __DIR__ .'/../BDConeccion.php';
     require __DIR__ .'/../Tokens.php';
+    
+
     header("Access-Control-Allow-Origin: *");
     header("Access-Control-Allow-Methods: GET, POST, OPTIONS");
     header("Access-Control-Allow-Headers: Content-Type, Authorization");
@@ -173,7 +175,8 @@
                     'apellido' => $usuario->getApellido(),
                     'fechaNacimiento' => $usuario->getFechaNacimiento(),
                     'fechaIngreso' => $usuario->getFechaIngreso(),
-                    'foto' => $usuario->getFoto()
+                    'foto' => $usuario->getFoto(),
+                     'rol' => $usuario->getRol()
                     ];
                         respuesta($respuesta, "exito", 200);
                     }

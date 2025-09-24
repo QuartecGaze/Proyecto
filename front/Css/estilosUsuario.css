@@ -192,7 +192,7 @@ body {
     color: var(--color-oscuro);
 }
 
-.boton-cerrar-sesion, .boton-cambiar-sesion {
+.boton-cerrar-sesion, #boton-cambiar-sesion {
     display: flex;
     align-items: center;
     justify-content: center;
@@ -206,15 +206,15 @@ body {
     transition: all 0.3s ease;
 }
 
-.boton-cerrar-sesion:hover, .boton-cambiar-sesion:hover {
+.boton-cerrar-sesion:hover, #boton-cambiar-sesion:hover {
     background-color: var(--color-hover);
 }
 
-.boton-cerrar-sesion i, .boton-cambiar-sesion i {
+.boton-cerrar-sesion i, #boton-cambiar-sesion i {
     margin-right: 5px;
 }
 
-.boton-cambiar-sesion {
+#boton-cambiar-sesion {
     margin-top: 10px;
 }
 

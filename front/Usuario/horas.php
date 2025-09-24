@@ -61,10 +61,10 @@
                     <button class="boton-cerrar-sesion">
                         <i class="material-icons">logout</i> Cerrar sesión
                     </button>
-                    <button class="boton-cambiar-sesion">
-                        <i class="material-icons">switch_account</i> Cambiar a Usuario
-                    </button>
                 </form>
+                <button id="boton-cambiar-sesion">
+                        <i class="material-icons">switch_account</i> Cambiar a Usuario
+                </button>
             </div>
         </aside>
 
@@ -204,6 +204,7 @@
     </div>
 
     <script src="../Javascript/FrontUsuario/horas.js" type="module"></script>
+    <script src="../Javascript/FrontUsuario/generalidades.js" type="module"></script>
 
 
 </body>

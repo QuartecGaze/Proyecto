@@ -1,90 +1,81 @@
 <?php
-    require_once __DIR__ . '/ServicioPersona.php'; 
-    Class RepositorioPersona {
-        private $conn;
+require_once __DIR__ . '/ServicioPersona.php'; 
+require __DIR__ .'/../Consultas.php';
 
-        public function __construct($conn) {
-            $this->conn = $conn;
+class RepositorioPersona {
+    private $conn;
+
+    public function __construct($conn) {
+        $this->conn = $conn;
+    }
+
+    // CRUD Persona
+    public function cargarPersona($persona){
+        $ci = $persona->getCi(); 
+        $email = $persona->getEmail();
+        $contraseña = $persona->getContraseña();
+        $rol = $persona->getRol();
+        $nombre = $persona->getNombre();
+        $apellido = $persona->getApellido();
+
+        $consulta = "INSERT INTO Persona (CI, Email, Contraseña, Rol, Nombre, Apellido) VALUES (?, ?, ?, ?, ?, ?)";
+        consulta($this->conn, $consulta, "ssssss", [$ci, $email, $contraseña, $rol, $nombre, $apellido]);
+    }
+
+    public function cargarTelefono($id, $telefono){
+        $consulta = "INSERT INTO numero_de_telefono (ID_Persona, Telefono) VALUES (?, ?)";
+        consulta($this->conn, $consulta, "is", [$id, $telefono]);
+    }
+
+    public function getPersona($id){
+        $consulta = "SELECT * FROM Persona WHERE ID_Persona = ?";
+        $resultado = consulta($this->conn, $consulta, "i", [$id]);
+        $fila = mysqli_fetch_assoc($resultado);
+
+        return new Persona(
+            $fila['CI'], 
+            $fila['Email'], 
+            $fila['Telefono'],
+            $fila['ID_Persona'], 
+            $fila['Nombre'], 
+            $fila['Apellido'], 
+            $fila['Contraseña'], 
+            $fila['Rol']
+        );
+    }
+
+    // CRUD Interesado
+    public function cargarInteresado($interesado){
+        $idPersona = $interesado->getIdPersona();
+        $estadoAntecedentes = $interesado->getEstadoAntecedentes();
+        $estadoEntrevista = $interesado->getEstadoEntrevista();
+        $estadoPagoInicial = $interesado->getEstadoPagoInicial();
+
+        $consulta = "INSERT INTO Interesado (ID_Persona, Estado_antecedentes, Estado_entrevista, Estado_pago_inicial) VALUES (?, ?, ?, ?)";
+        consulta($this->conn, $consulta, "isss", [$idPersona, $estadoAntecedentes, $estadoEntrevista, $estadoPagoInicial]);
+    }
+
+    public function getTelefonosPersona($idPersona) {
+        $consulta = "SELECT Telefono FROM numero_de_telefono WHERE ID_Persona = ?";
+        $resultado = consulta($this->conn, $consulta, "i", [$idPersona]);
+
+        $telefonos = [];
+        while ($fila = mysqli_fetch_assoc($resultado)) {
+            $telefonos[] = $fila['Telefono'];
         }
+        return $telefonos;
+    }
 
-        
-        //CRUD Persona
+    public function getDatosInteresado($id) {
+        $consulta = "
+            SELECT * FROM Persona 
+            JOIN Interesado ON Persona.ID_Persona = Interesado.ID_Persona
+            WHERE Persona.ID_Persona = ?";
+        $resultado = consulta($this->conn, $consulta, "i", [$id]); 
+        $fila = mysqli_fetch_assoc($resultado);
 
-        public function cargarPersona($persona){
-            $ci = $persona->getCi(); 
-            $email = $persona->getEmail();
-            $contraseña = $persona->getContraseña();
-            $rol = $persona->getRol();
-            $nombre = $persona->getNombre();
-            $apellido = $persona->getApellido();
-            $consulta = "
-                INSERT INTO Persona (CI, Email, Contraseña, Rol, Nombre, Apellido) 
-                VALUES ('$ci', '$email', '$contraseña', '$rol', '$nombre', '$apellido')
-            ";
-            mysqli_query($this->conn, $consulta);
-        }
-
-        public function cargarTelefono($id, $telefono){
-            $consulta = "
-                INSERT INTO numero_de_telefono (ID_Persona, Telefono)
-                VALUES ('$id', '$telefono')
-                ";
-            mysqli_query($this->conn, $consulta);
-        }
-
-        public function getPersona($id){
-            $consulta = "
-                SELECT * FROM Persona WHERE ID_Persona=$id
-            ";
-            $resultado = mysqli_query($this->conn, $consulta);
-            $fila = mysqli_fetch_assoc($resultado);
-            $persona = new Persona($fila['CI'], $fila['Email'], $fila['Telefono'] ,$fila['ID_Persona'], $fila['Nombre'], $fila['Apellido'], $fila['Contraseña'], $fila['Rol']);
-            return $persona;
-        }
-
-       
-
-        //CRUD Interesado
-
-        public function cargarInteresado($interesado){
-            $idPersona = $interesado->getIdPersona();
-            $estadoAntecedentes = $interesado->getEstadoAntecedentes();
-            $estadoEntrevista = $interesado->getEstadoEntrevista();
-            $estadoPagoInicial = $interesado->getEstadoPagoInicial();
-            $consulta = "
-                INSERT INTO Interesado (ID_Persona, Estado_antecedentes, Estado_entrevista, Estado_pago_inicial) 
-                VALUES ('$idPersona', '$estadoAntecedentes', '$estadoEntrevista', '$estadoPagoInicial')
-            ";
-            mysqli_query($this->conn, $consulta);
-        }
-
-
-        public function getTelefonosPersona($idPersona) {
-            $consulta = "
-                SELECT Telefono FROM numero_de_telefono WHERE ID_Persona = $idPersona
-            ";
-    
-            $resultado = mysqli_query($this->conn, $consulta);
-
-            $telefonos = [];
-
-            while ($fila = mysqli_fetch_assoc($resultado)) {
-                $telefonos[] = $fila['Telefono'];
-            }
-
-            return $telefonos;
-        }
-
-        public function getDatosInteresado($id) {
-            $consulta = "
-                SELECT * FROM Persona 
-                JOIN Interesado ON Persona.ID_Persona = Interesado.ID_Persona
-                WHERE Persona.ID_Persona = '$id';
-            ";
-            $resultado = mysqli_query($this->conn, $consulta); 
-            $fila = mysqli_fetch_assoc($resultado);
-            $telefonos = $this->getTelefonosPersona($fila['ID_Persona']);
-            $interesado = new Interesado(
+        $telefonos = $this->getTelefonosPersona($fila['ID_Persona']);
+        return new Interesado(
             $fila['CI'], 
             $fila['Email'], 
             $telefonos,
@@ -102,98 +93,61 @@
             $fila['Estado_pago_inicial'], 
             $fila['Monto_pago_inicial']
         );
-        
-        return $interesado;
-        }
+    }
 
-
-        public function subirComprobante($nombre, $id) {
+    public function subirComprobante($nombre, $id) {
         $consulta = "
-        UPDATE Interesado
-            SET 
-            Pago_inicial = '$nombre',
-            Estado_pago_inicial = 'Pendiente'
-            WHERE ID_Persona = $id
-        ";
-        mysqli_query($this->conn, $consulta);
-        }
+            UPDATE Interesado
+            SET Pago_inicial = ?, Estado_pago_inicial = 'Pendiente'
+            WHERE ID_Persona = ?";
+        consulta($this->conn, $consulta, "si", [$nombre, $id]);
+    }
 
-        public function subirAntecedentes($nombre, $id) {
-            $consulta = "
-                UPDATE Interesado
-                SET 
-                Antecedentes = '$nombre',
-                Estado_antecedentes = 'Pendiente'
-                WHERE ID_Persona = $id
-            ";
-            mysqli_query($this->conn, $consulta);
-        }
-
-        
-        
-
-
-
-
-
-
-
-
-        
-        //CRUD Usuario
-
-        public function subirFoto($id, $nombre) {
+    public function subirAntecedentes($nombre, $id) {
         $consulta = "
-            UPDATE Usuario
-            SET Foto = '$nombre'
-            WHERE ID_Persona = $id
-        ";
-        mysqli_query($this->conn, $consulta);
-        }
+            UPDATE Interesado
+            SET Antecedentes = ?, Estado_antecedentes = 'Pendiente'
+            WHERE ID_Persona = ?";
+        consulta($this->conn, $consulta, "si", [$nombre, $id]);
+    }
 
-        public function getFoto($id) {
-            $consulta = "
-                SELECT Foto FROM Usuario
-                WHERE ID_Persona = $id
-            ";
+    // CRUD Usuario
+    public function subirFoto($id, $nombre) {
+        $consulta = "UPDATE Usuario SET Foto = ? WHERE ID_Persona = ?";
+        consulta($this->conn, $consulta, "si", [$nombre, $id]);
+    }
 
-            $resultado = mysqli_query($this->conn, $consulta);
-            if ($resultado && mysqli_num_rows($resultado) > 0) {
-                $fila = mysqli_fetch_assoc($resultado);
-                return $fila['Foto'] === null ? null : $fila['Foto']; //verifica que la foto no sea null, porque en la bd se carga como default null
-            }
-            return null;
-        }
+    public function getFoto($id) {
+        $consulta = "SELECT Foto FROM Usuario WHERE ID_Persona = ?";
+        $resultado = consulta($this->conn, $consulta, "i", [$id]);
 
-        public function borrarFoto($id) {
-            $consulta = "
-                UPDATE Usuario
-                SET Foto = NULL
-                WHERE ID_Persona = $id
-            ";
-            return mysqli_query($this->conn, $consulta);
-        }
-
-
-
-        public function cargarFechaNacimientoUsuario($id, $fechaNacimiento){
-            $consulta = "
-            INSERT INTO Usuario WHERE ID_Persona=$id (Fecha_nacimiento) 
-            VALUES ('$fechaNacimiento')
-        ";
-        mysqli_query($this->conn, $consulta);
-        }
-
-        public function getDatosUsuario($id) {
-            $consulta = "
-                SELECT * FROM Persona 
-                JOIN Usuario ON Persona.ID_Persona = Usuario.ID_Persona
-                WHERE Persona.ID_Persona = '$id';
-            ";
-            $resultado = mysqli_query($this->conn, $consulta); 
+        if ($resultado && mysqli_num_rows($resultado) > 0) {
             $fila = mysqli_fetch_assoc($resultado);
-            $telefonos = $this->getTelefonosPersona($fila['ID_Persona']);
-            $usuario = new Usuario(
+            return $fila['Foto'] === null ? null : $fila['Foto'];
+        }
+        return null;
+    }
+
+    public function borrarFoto($id) {
+        $consulta = "UPDATE Usuario SET Foto = NULL WHERE ID_Persona = ?";
+        return consulta($this->conn, $consulta, "i", [$id]);
+    }
+
+    public function cargarFechaNacimientoUsuario($id, $fechaNacimiento){
+        $consulta = "UPDATE Usuario SET Fecha_nacimiento = ? WHERE ID_Persona = ?";
+        consulta($this->conn, $consulta, "si", [$fechaNacimiento, $id]);
+    }
+
+    public function getDatosUsuario($id) {
+        $consulta = "
+            SELECT * FROM Persona 
+            JOIN Usuario ON Persona.ID_Persona = Usuario.ID_Persona
+            WHERE Persona.ID_Persona = ?";
+        $resultado = consulta($this->conn, $consulta, "i", [$id]); 
+        $fila = mysqli_fetch_assoc($resultado);
+        $telefonos = $this->getTelefonosPersona($fila['ID_Persona']);
+
+        return new Usuario(
             $fila['CI'], 
             $fila['Email'], 
             $telefonos,
@@ -205,103 +159,75 @@
             $fila['Fecha_nacimiento'],
             $fila['Fecha_ingreso'],
             $fila['Foto']
-    
-            );
-
-        return $usuario;
-        }
-
-        //ediar datos usuario
-       
-
-        //Funciones
-        
-        //recibe un objeto tipo persona y devuelve la id, ya que el dato id es creado por la base de datos.
-        public function getIdPersona($persona){
-            $ci = $persona->getCi();
-            $consulta = "SELECT ID_Persona FROM Persona WHERE CI = '$ci'";
-            $resultado = mysqli_query($this->conn, $consulta);
-            if(mysqli_num_rows($resultado) > 0) {
-            $fila = mysqli_fetch_assoc($resultado);
-            $id = $fila['ID_Persona']; 
-            return $id;
-            }else{
-                throw new Exception("No se encontro una persona con la CI $ci");
-            }
-
-        }
-        //recibe una cedula y devuelve la id;
-        public function getIdPersonaCi($ci){
-            $consulta = "SELECT ID_Persona FROM Persona WHERE CI = '$ci'";
-            $resultado = mysqli_query($this->conn, $consulta);
-            if(mysqli_num_rows($resultado) > 0) {
-            $fila = mysqli_fetch_assoc($resultado);
-            $id = $fila['ID_Persona']; 
-            return $id;
-            }else{
-                throw new Exception("No se encontro una persona con la CI $ci");
-            }
-
-        }
-
-        public function personaExiste($ci){
-            $consulta = "SELECT * FROM Persona WHERE CI = '$ci'";
-            $resultado = mysqli_query($this->conn, $consulta);
-            if(mysqli_num_rows($resultado) > 0){
-                return true;
-            }else
-            {
-                return false;
-            }
-            
-        }
-         public function InteresadoExisteID($id){
-            $consulta = "SELECT * FROM Interesado WHERE ID_Persona = '$id'";
-            $resultado = mysqli_query($this->conn, $consulta);
-            if(mysqli_num_rows($resultado) > 0){
-                return true;
-            }else
-            {
-                return false;
-            }
-            
-        }
-        
-
-        public function getContraseña($ci){
-            if($this->personaExiste($ci)){
-             $consulta = "SELECT Contraseña FROM Persona WHERE CI = '$ci'";
-             $resultado = mysqli_query($this->conn, $consulta);
-             $fila = mysqli_fetch_assoc($resultado);
-             return $fila['Contraseña'];
-            }
-            
-        }
-
-        public function getRol($ci){
-            $consulta = "SELECT Rol FROM Persona WHERE CI = '$ci'";
-            $resultado = mysqli_query($this->conn, $consulta);
-            if(mysqli_num_rows($resultado) > 0) {
-            $fila = mysqli_fetch_assoc($resultado);
-            $rol = $fila['Rol']; 
-            return $rol;
-            } else{
-                throw new Exception("No se encontro una persona con la CI $ci");
-            }
-        }
-
-        public function usuarioExisteID($id){
-            $consulta = "SELECT * FROM Usuario WHERE ID_Persona = '$id'";
-            $resultado = mysqli_query($this->conn, $consulta);
-            if(mysqli_num_rows($resultado) > 0){
-                return true;
-            }else
-            {
-                return false;
-            }
-            
-        }
-    
-        
+        );
     }
-    ?>
+
+    // Funciones auxiliares
+    public function getIdPersona($persona){
+        $ci = $persona->getCi();
+        $consulta = "SELECT ID_Persona FROM Persona WHERE CI = ?";
+        $resultado = consulta($this->conn, $consulta, "s", [$ci]);
+
+        if(mysqli_num_rows($resultado) > 0) {
+            $fila = mysqli_fetch_assoc($resultado);
+            return $fila['ID_Persona']; 
+        } else {
+            throw new Exception("No se encontró una persona con la CI $ci");
+        }
+    }
+
+    public function getIdPersonaCi($ci){
+        $consulta = "SELECT ID_Persona FROM Persona WHERE CI = ?";
+        $resultado = consulta($this->conn, $consulta, "s", [$ci]);
+
+        if(mysqli_num_rows($resultado) > 0) {
+            $fila = mysqli_fetch_assoc($resultado);
+            return $fila['ID_Persona']; 
+        } else {
+            throw new Exception("No se encontró una persona con la CI $ci");
+        }
+    }
+
+    public function personaExiste($ci){
+        $consulta = "SELECT 1 FROM Persona WHERE CI = ?";
+        $resultado = consulta($this->conn, $consulta, "s", [$ci]);
+
+        return mysqli_num_rows($resultado) > 0;
+    }
+
+    public function InteresadoExisteID($id){
+        $consulta = "SELECT 1 FROM Interesado WHERE ID_Persona = ?";
+        $resultado = consulta($this->conn, $consulta, "i", [$id]);
+
+        return mysqli_num_rows($resultado) > 0;
+    }
+
+    public function getContraseña($ci){
+        if($this->personaExiste($ci)){
+            $consulta = "SELECT Contraseña FROM Persona WHERE CI = ?";
+            $resultado = consulta($this->conn, $consulta, "s", [$ci]);
+            $fila = mysqli_fetch_assoc($resultado);
+            return $fila['Contraseña'];
+        }
+    }
+
+    public function getRol($ci){
+        $consulta = "SELECT Rol FROM Persona WHERE CI = ?";
+        $resultado = consulta($this->conn, $consulta, "s", [$ci]);
+
+        if(mysqli_num_rows($resultado) > 0) {
+            $fila = mysqli_fetch_assoc($resultado);
+            return $fila['Rol']; 
+        } else {
+            throw new Exception("No se encontró una persona con la CI $ci");
+        }
+    }
+
+    public function usuarioExisteID($id){
+        $consulta = "SELECT 1 FROM Usuario WHERE ID_Persona = ?";
+        $resultado = consulta($this->conn, $consulta, "i", [$id]);
+
+        return mysqli_num_rows($resultado) > 0;
+    }
+}
+?>
