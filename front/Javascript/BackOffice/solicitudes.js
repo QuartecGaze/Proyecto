@@ -13,6 +13,11 @@ const btnCancelar = modalConfirm.querySelector('.btn-cancelar');
 const modalPago = document.getElementById('modalPagoInicial');
 const btnCancelarPago = modalPago.querySelector('.btn-cancelar-pago');
 const btnConfirmarPago = modalPago.querySelector('.btn-confirmar-pago');
+const modalUnidad = document.getElementById('modalAsignarUnidad');
+const btnCancelarUnidad = modalUnidad.querySelector('.btn-cancelar-unidad');
+const btnConfirmarUnidad = modalUnidad.querySelector('.btn-confirmar-unidad');
+const selectUnidad = document.getElementById('selectUnidadHabitacional');
+const infoUnidad = document.getElementById('infoUnidad');
 
 
 //cerrar modal rechazar Interesado
@@ -103,6 +108,21 @@ function actualizarSolicitudes(interesados) {
                             </button>
                         </div>
                     </div>
+
+                    <div class="asignacion-unidad">
+                        <div class="documento-card">
+                            <div class="documento-info">
+                                <h4>Unidad Habitacional Asignada</h4>
+                                <p><strong>Unidad:</strong> ${interesado.unidadAsignada || '<em>No asignada</em>'}</p>
+                            </div>
+                            <div class="documento-acciones">
+                                <button class="btn-asignar-unidad" data-id="${interesado.idPersona}">
+                                    <i class="material-icons">apartment</i> Asignar Unidad
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+
                     <div class="acciones">
 
                         <button class="btn-rechazar btn-${interesado.estadoEntrevista}" data-id="${interesado.idPersona}" data-campo="Estado_entrevista">
@@ -191,7 +211,7 @@ function actualizarSolicitudes(interesados) {
             `;
         contenedor.appendChild(div);
     });
-    
+
     const botonesAprobar = document.querySelectorAll(".btn-aprobar");
     const botonesRechazar = document.querySelectorAll(".btn-rechazar");
     const botonAsignarEntrevista = document.querySelectorAll(".btn-asignar-entrevista");
@@ -350,35 +370,104 @@ function actualizarSolicitudes(interesados) {
         delete btnConfirmarPago.dataset.id;
     });
 
-    
-} 
+
+}
 // Confirmar pago inicial
-    btnConfirmarPago.addEventListener('click', async function (){
-        console.log('Confirmando pago');
-        modalPago.style.display = 'none';
-        const idPersona = btnConfirmarPago.dataset.id;
-        delete btnConfirmarPago.dataset.id;
-        const montoPagoInicial = document.getElementById('inputPagoInicial').value;
-        if (!montoPagoInicial) {
-            alert('Por favor ingrese un monto válido');
-            return;
-        }
+btnConfirmarPago.addEventListener('click', async function () {
+    console.log('Confirmando pago');
+    modalPago.style.display = 'none';
+    const idPersona = btnConfirmarPago.dataset.id;
+    delete btnConfirmarPago.dataset.id;
+    const montoPagoInicial = document.getElementById('inputPagoInicial').value;
+    if (!montoPagoInicial) {
+        alert('Por favor ingrese un monto válido');
+        return;
+    }
 
-        const datos = {
-            idPersona: idPersona,
-            montoPagoInicial: montoPagoInicial
-        };
+    const datos = {
+        idPersona: idPersona,
+        montoPagoInicial: montoPagoInicial
+    };
 
-        try {
-            const respuesta = await asignarPagoInicial(datos);
-            if (respuesta.status === 'exito') {
-                alert('Pago inicial asignado correctamente.');
-                // Actualizar la vista si es necesario
-            } else {
-                alert('Error: ' + respuesta.message);
-            }
-        } catch (error) {
-            console.error('Error al asignar pago inicial', error);
-            alert('Error del servidor');
+    try {
+        const respuesta = await asignarPagoInicial(datos);
+        if (respuesta.status === 'exito') {
+            alert('Pago inicial asignado correctamente.');
+            // Actualizar la vista si es necesario
+        } else {
+            alert('Error: ' + respuesta.message);
         }
+    } catch (error) {
+        console.error('Error al asignar pago inicial', error);
+        alert('Error del servidor');
+    }
+});
+
+
+document.querySelectorAll('.btn-asignar-unidad').forEach(boton => {
+    boton.addEventListener('click', function () {
+        console.log('Abriendo modal de unidad');
+        btnConfirmarUnidad.dataset.id = boton.dataset.id;
+        modalUnidad.style.display = 'flex';
     });
+});
+
+// Cerrar modal de unidad
+btnCancelarUnidad.addEventListener('click', function () {
+    console.log('Cerrando modal de unidad');
+    modalUnidad.style.display = 'none';
+    delete btnConfirmarUnidad.dataset.id;
+    selectUnidad.value = '';
+    btnConfirmarUnidad.disabled = true;
+});
+
+// Habilitar botón cuando se selecciona una unidad
+selectUnidad.addEventListener('change', function () {
+    btnConfirmarUnidad.disabled = !this.value;
+});
+
+// Confirmar asignación de unidad
+btnConfirmarUnidad.addEventListener('click', async function () {
+    console.log('Confirmando asignación de unidad');
+    const idPersona = btnConfirmarUnidad.dataset.id;
+    const idUnidad = selectUnidad.value;
+
+    if (!idUnidad) {
+        alert('Por favor seleccione una unidad válida');
+        return;
+    }
+
+    const selectedOption = selectUnidad.options[selectUnidad.selectedIndex];
+    const nombreUnidad = selectedOption.textContent;
+
+    const datos = {
+        idPersona: idPersona,
+        idUnidad: idUnidad,
+        nombreUnidad: nombreUnidad
+    };
+
+    try {
+        // Aquí llamarías a tu API para asignar la unidad
+        // const respuesta = await asignarUnidad(datos);
+
+        // Por ahora simulamos la respuesta
+        const respuesta = { status: 'exito', message: 'Unidad asignada correctamente' };
+
+        if (respuesta.status === 'exito') {
+            alert('Unidad asignada correctamente.');
+            modalUnidad.style.display = 'none';
+            delete btnConfirmarUnidad.dataset.id;
+            selectUnidad.value = '';
+            btnConfirmarUnidad.disabled = true;
+
+            // Actualizar la vista
+            // interesados = actualizarEstadoArray(interesados, idPersona, 'unidadAsignada', nombreUnidad);
+            // actualizarSolicitudes(interesados);
+        } else {
+            alert('Error: ' + respuesta.message);
+        }
+    } catch (error) {
+        console.error('Error al asignar unidad', error);
+        alert('Error del servidor');
+    }
+});

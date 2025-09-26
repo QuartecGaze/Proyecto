@@ -1,6 +1,6 @@
 <?php
-    require_once '../verificarSesion.php';
-    verificarAcceso(['Admin']);
+require_once '../verificarSesion.php';
+verificarAcceso(['Admin']);
 ?>
 <!DOCTYPE html>
 <html lang="es">
@@ -93,7 +93,7 @@
                     </button>
                 </form>
                 <button id="boton-cambiar-sesion">
-                        <i class="material-icons">switch_account</i> Cambiar a Usuario
+                    <i class="material-icons">switch_account</i> Cambiar a Usuario
                 </button>
             </div>
         </aside>
@@ -176,6 +176,36 @@
                 </button>
                 <button class="btn-confirmar-pago">
                     <i class="material-icons">check_circle</i> Confirmar Monto
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal de Asignar Unidad Habitacional -->
+    <div class="modal-unidad" id="modalAsignarUnidad">
+        <div class="modal-contenido">
+            <h3>
+                <i class="material-icons">apartment</i>
+                Asignar Unidad Habitacional
+            </h3>
+            <p>Seleccione una unidad para asignar al interesado:</p>
+
+            <div class="select-container">
+                <label class="select-label">Unidad Habitacional</label>
+                <select class="custom-select" id="selectUnidadHabitacional">
+                    <option value="">Seleccione una unidad</option>
+                    <option value="1">Unidad 1 </option>
+                    <option value="2">Unidad 2 </option>
+                </select>
+                <span class="select-arrow material-icons">arrow_drop_down</span>
+            </div>
+
+            <div class="modal-acciones">
+                <button class="btn-cancelar-unidad">
+                    <i class="material-icons">arrow_back</i> Cancelar
+                </button>
+                <button class="btn-confirmar-unidad" id="btnConfirmarUnidad" disabled>
+                    <i class="material-icons">check_circle</i> Asignar Unidad
                 </button>
             </div>
         </div>
