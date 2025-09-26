@@ -31,25 +31,29 @@
     text-transform: uppercase;
 }
 
-.backoffice .boton-cerrar-sesion, #boton-cambiar-sesion {
+.backoffice .boton-cerrar-sesion,
+#boton-cambiar-sesion {
     display: flex;
     align-items: center;
     justify-content: center;
     width: 100%;
     padding: 8px;
     background-color: transparent;
-    border: 1px solid var(--color-borde);
+    border: 1px solid rgba(255, 255, 255, 0.2);
     border-radius: 4px;
-    color: var(--color-texto);
+    color: var(--color-backoffice-text);
     cursor: pointer;
     transition: all 0.3s ease;
 }
+}
 
-.backoffice .boton-cerrar-sesion:hover, #boton-cambiar-sesion:hover {
+.backoffice .boton-cerrar-sesion:hover,
+#boton-cambiar-sesion:hover {
     background-color: var(--color-hover);
 }
 
-.backoffice .boton-cerrar-sesion i, #boton-cambiar-sesion i {
+.backoffice .boton-cerrar-sesion i,
+#boton-cambiar-sesion i {
     margin-right: 5px;
 }
 
@@ -58,11 +62,18 @@
 }
 
 .backoffice .sidebar {
-    color: white;
+    width: 280px;
     background: linear-gradient(180deg, #0F1530 0%, #1A1F2E 100%);
+    box-shadow: 4px 0 10px var(--color-sombra);
+    display: flex;
+    flex-direction: column;
+    padding: 20px 0;
+    height: 100vh;
+    overflow-y: auto;
     border-right: 1px solid var(--color-backoffice-accent);
-    border: none;
+    color: white;
 }
+
 
 .backoffice .logo-dashboard {
     position: relative;
@@ -104,7 +115,46 @@
     font-size: 0.9rem;
 }
 
+.submenu {
+    list-style: none;
+    padding-left: 30px;
+    background-color: #f9f9f900;
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.4s ease, padding 0.4s ease;
+}
 
+.submenu li a {
+    display: block;
+    padding: 8px 15px;
+    color: white;
+    font-size: 0.9rem;
+}
+
+.submenu li a:hover {
+    background-color: var(--color-hover);
+    color: white;
+}
+
+.item-menu.open > .submenu {
+    max-height: 200px; /* ajustá según la cantidad de elementos */
+    padding-top: 5px;
+    padding-bottom: 5px;
+}
+
+.item-menu a:hover {
+    background-color: var(--color-hover);
+}
+
+.item-menu a i {
+    margin-right: 10px;
+    font-size: 1.2rem;
+}
+
+.item-menu.activo a {
+    background-color: var(--color-primario);
+    color: white;
+}
 
 /* Responsive */
 @media (max-width: 768px) {
@@ -120,4 +170,3 @@
         padding: 2px 8px;
     }
 }
-

@@ -30,11 +30,11 @@
 
             <nav id="NavegacionDashboard">
                 <ul class="menu-dashboard">
-                    <li class="item-menu activo">
+                    <li class="item-menu">
                         <a href="index.php"><i class="material-icons">home</i> Inicio</a>
                     </li>
                     <li class="item-menu">
-                        <a href="#"><i class="material-icons">event</i> Reuniones</a>
+                        <a href="reuniones.php"><i class="material-icons">event</i> Reuniones</a>
                     </li>
                     <li class="item-menu">
                         <a href="#"><i class="material-icons">people</i> Socios</a>

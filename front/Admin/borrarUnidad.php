@@ -32,7 +32,7 @@
                         <a href="index.php"><i class="material-icons">home</i> Inicio</a>
                     </li>
                     <li class="item-menu">
-                        <a href="#"><i class="material-icons">event</i> Reuniones</a>
+                        <a href="reuniones.php"><i class="material-icons">event</i> Reuniones</a>
                     </li>
                     <li class="item-menu">
                         <a href="#"><i class="material-icons">people</i> Socios</a>
@@ -42,11 +42,10 @@
                             <i class="material-icons">apartment</i> Proyectos
                         </a>
                         <ul class="submenu">
-                            <li><a href="crearUnidad.php"><i class="material-icons">add_circle</i> Crear Unidad</a></li>
-                            <li><a href="borrarUnidad.php"><i class="material-icons">delete</i> Borrar Unidad</a></li>
-                            <li><a href="modificarUnidad.php"><i class="material-icons">edit</i> Modificar Unidad</a></li>
-                            <li><a href="asignarUnidad.php"><i class="material-icons">person_add</i> Asignar Unidad</a>
-                            </li>
+                            <a href="proyectos.php"><i class="material-icons">home_work</i>Gestionar Proyectos</a>
+                            <a href="crearUnidad.php"><i class="material-icons">add_circle</i> Crear Unidad</a>
+                            <a href="borrarUnidad.php"><i class="material-icons">delete</i> Borrar Unidad</a>
+                            <a href="modificarUnidad.php"><i class="material-icons">edit</i> Modificar Unidad</a>
                         </ul>
                     </li>
                     <li class="item-menu">

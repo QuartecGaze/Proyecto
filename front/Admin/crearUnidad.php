@@ -11,9 +11,10 @@
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
     <link rel="stylesheet" href="../Css/crearUnidad.css">
+    <link rel="stylesheet" href="../Css/estilosBackOffice.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
 </head>
-<body>
+<body class="backoffice">
     <div class="contenedor-principal">
         <!-- Sidebar -->
         <aside class="sidebar">
@@ -29,7 +30,7 @@
                         <a href="index.php"><i class="material-icons">home</i> Inicio</a>
                     </li>
                     <li class="item-menu">
-                        <a href="#"><i class="material-icons">event</i> Reuniones</a>
+                        <a href="reuniones.php"><i class="material-icons">event</i> Reuniones</a>
                     </li>
                     <li class="item-menu">
                         <a href="#"><i class="material-icons">people</i> Socios</a>
@@ -39,10 +40,10 @@
                             <i class="material-icons">apartment</i> Proyectos
                         </a>
                         <ul class="submenu">
-                            <li><a href="crearUnidad.php"><i class="material-icons">add_circle</i> Crear Unidad</a></li>
-                            <li><a href="borrarUnidad.php"><i class="material-icons">delete</i> Borrar Unidad</a></li>
-                            <li><a href="modificarUnidad.php"><i class="material-icons">edit</i> Modificar Unidad</a></li>
-                            <li><a href="asignarUnidad.php"><i class="material-icons">person_add</i> Asignar Unidad</a></li>
+                            <a href="proyectos.php"><i class="material-icons">home_work</i>Gestionar Proyectos</a>
+                            <a href="crearUnidad.php"><i class="material-icons">add_circle</i> Crear Unidad</a>
+                            <a href="borrarUnidad.php"><i class="material-icons">delete</i> Borrar Unidad</a>
+                            <a href="modificarUnidad.php"><i class="material-icons">edit</i> Modificar Unidad</a>
                         </ul>
                     </li>
                     <li class="item-menu">
