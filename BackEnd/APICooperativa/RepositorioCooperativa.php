@@ -252,15 +252,15 @@ require __DIR__ .'/../Consultas.php';
             return true;
         }
 
-        public function ingresarIntegrante($idPersona, $nombre, $apellido, $ci, $fechaNacimiento, $genero, $telefono){
+        public function ingresarIntegrante($idPersona, $nombre, $apellido, $ci, $fechaNacimiento, $genero, $email){
             $consulta = "
                 INSERT INTO 
                 integrante_familiar
-                (ID_Persona, Nombre, Apellido, CI, FechaNacimiento, Genero, Telefono)
+                (ID_Persona, Nombre, Apellido, CI, FechaNacimiento, Genero, Email)
                 VALUES (?, ?, ?, ?, ?, ?, ?)
             ";
             //agregar [parentesco si va]
-            return consulta($this->conn, $consulta, "isssssi", [$idPersona, $nombre, $apellido, $ci, $fechaNacimiento, $genero, $telefono]);
+            return consulta($this->conn, $consulta, "isssssi", [$idPersona, $nombre, $apellido, $ci, $fechaNacimiento, $genero, $email]);
         }
     }
 ?>

@@ -101,13 +101,6 @@
                 </select>
             </div>
 
-            <div class="tabs-container">
-                <div class="tabs-header">
-                    <button class="tab-btn active">Persona 1</button>
-                    <button class="tab-btn">Persona 2</button>
-                    <button class="tab-btn">Persona 3</button>
-                </div>
-
                 <div class="tabs-content">
                     <!-- DESDE EL JS SE CARGAN LAS PERSONAS -->
                 </div>

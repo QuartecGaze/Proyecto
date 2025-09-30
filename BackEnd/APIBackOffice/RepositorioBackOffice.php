@@ -295,23 +295,32 @@ require __DIR__ .'/../Consultas.php';
         }
 
         //APICooperativa
-        public function getIDUsuarios(): array {
+        public function getIDUsuarios() {
             $consulta = "
-                SELECT ID_Persona 
-                FROM Persona 
-                WHERE Rol = 'Usuario'
+                SELECT p.ID_Persona
+                FROM Persona p
+                WHERE p.Rol = 'Usuario'
+
+                UNION
+
+                SELECT p.ID_Persona
+                FROM Persona p
+                INNER JOIN Usuario u ON p.ID_Persona = u.ID_Persona
+                WHERE p.Rol = 'Admin'
             ";
 
             $resultado = consulta($this->conn, $consulta);
 
             $ids = [];
-                if ($resultado && mysqli_num_rows($resultado) > 0) {
-                    while ($fila = mysqli_fetch_assoc($resultado)) {
-                        $ids[] = $fila['ID_Persona'];
-                    }
+            if ($resultado && mysqli_num_rows($resultado) > 0) {
+                while ($fila = mysqli_fetch_assoc($resultado)) {
+                    $ids[] = $fila['ID_Persona'];
                 }
+            }
+
             return $ids;
         }
+
 
 
         public function crearPagoMensual($montoPagoMensual, $IDUsuariosArray, $fecha) {

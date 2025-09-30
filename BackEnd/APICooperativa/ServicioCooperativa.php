@@ -174,8 +174,8 @@
             return $this->repositorio->borrarHoras($idHoras);
         }
 
-        public function ingresarIntegrante($idPersona, $nombre, $apellido, $ci, $fechaNacimiento, $genero, $telefono){
-        $this->repositorio->ingresarIntegrante($idPersona, $nombre, $apellido, $ci, $fechaNacimiento, $genero, $telefono);
+        public function ingresarIntegrante($idPersona, $nombre, $apellido, $ci, $fechaNacimiento, $genero, $email){
+        $this->repositorio->ingresarIntegrante($idPersona, $nombre, $apellido, $ci, $fechaNacimiento, $genero, $email);
         }
         
 

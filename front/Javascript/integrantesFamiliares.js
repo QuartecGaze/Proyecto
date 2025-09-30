@@ -9,7 +9,7 @@ const tabsContent = $('.tabs-content');
 const btnGuardar = $('.btn-guardar');
 
 if (tabsHeader) tabsHeader.style.display = 'none';
-
+if (tabsContent) tabsContent.style.display = 'none';
 let lista = $('#personas-list');
 if (!lista) {
   lista = document.createElement('div');
@@ -20,7 +20,11 @@ if (!lista) {
 
 function crearBloquePersona(idx) {
   const hoy = new Date().toISOString().slice(0,10); //para no poder poner fechas del futuro
+  const fechaMin = new Date();
+  fechaMin.setFullYear(fechaMin.getFullYear() - 150); // restar 150 anos para darle un minimo
+  const anosAtras = fechaMin.toISOString().slice(0, 10);
 
+  tabsContent.style.display = 'block';
   const contenedor = document.createElement('section');
   contenedor.className = 'persona-bloque card';
   contenedor.dataset.index = idx;
@@ -52,7 +56,7 @@ function crearBloquePersona(idx) {
 
       <div class="form-group">
         <label>Fecha de Nacimiento</label>
-        <input id="fecha${idx}" type="date" max="${hoy}">
+        <input id="fecha${idx}" type="date" min="${anosAtras}" max="${hoy}" required>
       </div>
 
       <div class="form-group">
@@ -65,10 +69,9 @@ function crearBloquePersona(idx) {
       </div>
 
       <div class="form-group">
-        <label>Teléfono</label>
-        <input id="telefono${idx}" type="tel" placeholder="099 XXX XXX"
-               name="telefono" pattern="[0-9]{9,12}" inputmode="tel"
-               title="Ingresa tu número (9 a 12 dígitos sin espacios)">
+        <label>Email</label>
+        <input id="email${idx}" type="email" placeholder="joaquinsantos@gmail.com"
+               name="email" required title="Ingresa un correo electrónico válido">
       </div>
     </div>
     <hr>
@@ -128,9 +131,9 @@ btnGuardar.addEventListener('click', async (e) => {
     const ci       = document.getElementById('ci'       + i).value.trim();
     const fechaNacimiento = document.getElementById('fecha' + i).value.trim();
     const genero   = document.getElementById('genero'   + i).value.trim();
-    const telefono = document.getElementById('telefono' + i).value.trim();
+    const email = document.getElementById('email' + i).value.trim();
 
-    return { nombre, apellido, ci, fechaNacimiento, genero, telefono };
+    return { nombre, apellido, ci, fechaNacimiento, genero, email };
   });
 
   const datos = {

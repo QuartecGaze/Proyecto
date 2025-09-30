@@ -124,9 +124,9 @@
                             $ci = $integrante['ci'];
                             $fechaNacimiento = $integrante['fechaNacimiento'];
                             $genero = $integrante['genero'];
-                            $telefono = $integrante['telefono'];
+                            $telefono = $integrante['email'];
 
-                        $servicio->ingresarIntegrante($idPersona, $nombre, $apelido, $ci, $fechaNacimiento, $genero, $telefono);
+                        $servicio->ingresarIntegrante($idPersona, $nombre, $apelido, $ci, $fechaNacimiento, $genero, $email);
                             $ingresados++;
                         } catch (Throwable $e) {
                             //si falla seguimos con el foreach

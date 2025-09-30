@@ -327,6 +327,18 @@ header {
     flex-wrap: wrap;
 }
 
+.hero-buttons a {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  text-decoration: none;
+}
+
+.hero-buttons .material-icons {
+  font-size: 20px;
+  line-height: 1;
+}
+
 .btn-primary {
     background-color: var(--secundario);
     color: var(--primarioOscuro);
