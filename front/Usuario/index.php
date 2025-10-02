@@ -1,14 +1,16 @@
-<?php 
-    require_once '../verificarSesion.php';
-    verificarAcceso(['Admin', 'Usuario']);
+<?php
+require_once '../verificarSesion.php';
+verificarAcceso(['Admin', 'Usuario']);
 ?>
 <!DOCTYPE html>
 <html lang="es">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Senda Firme - Dashboard</title>
     <link rel="stylesheet" href="../Css/estilosUsuario.css">
+    <link rel="stylesheet" href="../Css/genFrontUsuario.css">
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap"
         rel="stylesheet">
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
@@ -64,7 +66,7 @@
                     </button>
                 </form>
                 <button id="boton-cambiar-sesion">
-                        <i class="material-icons">switch_account</i> Cambiar a Usuario
+                    <i class="material-icons">switch_account</i> Cambiar a Usuario
                 </button>
             </div>
         </aside>
@@ -123,7 +125,7 @@
                     </div>
                     <div class="tarjeta-contenido">
                         <h3>Algo extra</h3>
-                        <p class="tarjeta-valor">ya estamos poniendo</p>
+                        <p class="tarjeta-valor">y</p>
                         <p class="tarjeta-subtexto"> lo que hay que pagar en el otro</p>
                     </div>
                 </div>

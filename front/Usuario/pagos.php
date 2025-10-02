@@ -1,9 +1,10 @@
-<?php 
-    require_once '../verificarSesion.php';
-    verificarAcceso(['Usuario', 'Admin']);
+<?php
+require_once '../verificarSesion.php';
+verificarAcceso(['Usuario', 'Admin']);
 ?>
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -12,6 +13,7 @@
         rel="stylesheet">
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
     <link rel="stylesheet" href="../Css/estilosPagosUsuario.css">
+    <link rel="stylesheet" href="../Css/genFrontUsuario.css">
 </head>
 
 <body>
@@ -62,7 +64,7 @@
                     </button>
                 </form>
                 <button id="boton-cambiar-sesion">
-                        <i class="material-icons">switch_account</i> Cambiar a Usuario
+                    <i class="material-icons">switch_account</i> Cambiar a Usuario
                 </button>
             </div>
         </aside>
@@ -171,57 +173,58 @@
     </div>
 
     <!-- Modal para realizar pagos -->
-<div id="modalPago" class="modal">
-    <div class="modal-contenido">
-        <div class="modal-header">
-            <h2>Realizar Pago</h2>
-            <button class="cerrar-modal">&times;</button>
-        </div>
-        
-        <div class="modal-body">
-            <form id="formularioPago">
-                <div class="grupo-formulario">
-                    <label for="seleccionar-pago">Seleccionar pago a realizar:</label>
-                    <select id="seleccionar-pago" name="seleccionar-pago" required>
-                        <option value="">Seleccione un pago</option>
-                        <option value="aporte-mensual">Aporte mensual - $1.500</option>
-                        <option value="cuota-especial">Cuota especial - $2.000</option>
-                    </select>
-                </div>
-                
-                <div class="info-pago-seleccionado" id="info-pago">
-                    <h3>Detalles del pago seleccionado</h3>
-                    <div class="detalles-pago">
-                        <p><strong>Concepto:</strong> <span id="detalle-concepto">-</span></p>
-                        <p><strong>Monto:</strong> <span id="detalle-monto">-</span></p>
-                        <p><strong>Fecha de vencimiento:</strong> <span id="detalle-vencimiento">-</span></p>
+    <div id="modalPago" class="modal">
+        <div class="modal-contenido">
+            <div class="modal-header">
+                <h2>Realizar Pago</h2>
+                <button class="cerrar-modal">&times;</button>
+            </div>
+
+            <div class="modal-body">
+                <form id="formularioPago">
+                    <div class="grupo-formulario">
+                        <label for="seleccionar-pago">Seleccionar pago a realizar:</label>
+                        <select id="seleccionar-pago" name="seleccionar-pago" required>
+                            <option value="">Seleccione un pago</option>
+                            <option value="aporte-mensual">Aporte mensual - $1.500</option>
+                            <option value="cuota-especial">Cuota especial - $2.000</option>
+                        </select>
                     </div>
-                </div>
-                
-                <div class="grupo-formulario">
-                    <label for="comprobante-pago">Comprobante de pago:</label>
-                    <div class="carga-archivo">
-                        <input type="file" id="comprobante-pago" name="comprobante-pago" accept=".pdf,.jpg,.jpeg,.png">
-                        <label for="comprobante-pago" class="boton-carga-archivo">
-                            <i class="material-icons">cloud_upload</i>
-                            <span>Seleccionar archivo</span>
-                        </label>
-                        <span class="nombre-archivo" id="nombre-archivo">Ningún archivo seleccionado</span>
+
+                    <div class="info-pago-seleccionado" id="info-pago">
+                        <h3>Detalles del pago seleccionado</h3>
+                        <div class="detalles-pago">
+                            <p><strong>Concepto:</strong> <span id="detalle-concepto">-</span></p>
+                            <p><strong>Monto:</strong> <span id="detalle-monto">-</span></p>
+                            <p><strong>Fecha de vencimiento:</strong> <span id="detalle-vencimiento">-</span></p>
+                        </div>
                     </div>
-                    <p class="texto-ayuda">Formatos aceptados: PDF, JPG, PNG (Tamaño máximo: 5MB)</p>
-                </div>
-                
-                <div class="modal-acciones">
-                    <button type="button" class="boton-secundario cerrar-modal">Cancelar</button>
-                    <button type="submit" class="boton-primario">Confirmar Pago</button>
-                </div>
-            </form>
+
+                    <div class="grupo-formulario">
+                        <label for="comprobante-pago">Comprobante de pago:</label>
+                        <div class="carga-archivo">
+                            <input type="file" id="comprobante-pago" name="comprobante-pago"
+                                accept=".pdf,.jpg,.jpeg,.png">
+                            <label for="comprobante-pago" class="boton-carga-archivo">
+                                <i class="material-icons">cloud_upload</i>
+                                <span>Seleccionar archivo</span>
+                            </label>
+                            <span class="nombre-archivo" id="nombre-archivo">Ningún archivo seleccionado</span>
+                        </div>
+                        <p class="texto-ayuda">Formatos aceptados: PDF, JPG, PNG (Tamaño máximo: 5MB)</p>
+                    </div>
+
+                    <div class="modal-acciones">
+                        <button type="button" class="boton-secundario cerrar-modal">Cancelar</button>
+                        <button type="submit" class="boton-primario">Confirmar Pago</button>
+                    </div>
+                </form>
+            </div>
         </div>
     </div>
-</div>
 
     <script src="../Javascript/FrontUsuario/pagos.js" type="module"></script>
-        <script src="../Javascript/FrontUsuario/generalidades.js" type="module"></script>
+    <script src="../Javascript/FrontUsuario/generalidades.js" type="module"></script>
     <script>
         document.querySelectorAll(".item-menu > a").forEach(boton => {
             boton.addEventListener("click", function (e) {
