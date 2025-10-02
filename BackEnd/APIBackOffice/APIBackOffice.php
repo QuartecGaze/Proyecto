@@ -23,8 +23,7 @@
     
     switch($metodo) {
         case "POST":
-            if ($accion === "crearAdmin") {
-            
+            if ($accion === "cargarAdmin") {
                 try {
                     $datos = json_decode(file_get_contents('php://input'), true);
                     $servicio->cargarAdmin(

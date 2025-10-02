@@ -121,7 +121,7 @@
                         <div id="mensajeError" class="mensaje-error" style="display: none;">
                         </div>
 
-                        <form action="#" id="formRegistro" class="registro-form">
+                        <form action="#" id="cargarAdmin" class="registro-form">
                             <div class="fieldInfo">
                                 <label for="nombre">Nombre</label>
                                 <input type="text" id="nombre" name="nombre" required
@@ -210,7 +210,7 @@
             </div>
         </main>
     </div>
-    <script src="../Javascript/BackOffice/perfil.js" type="module"></script>
+    <script src="../Javascript/BackOffice/cargarAdmin.js" type="module"></script>
     <script>
         document.querySelectorAll(".item-menu > a").forEach(boton => {
             boton.addEventListener("click", function (e) {

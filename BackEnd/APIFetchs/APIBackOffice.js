@@ -72,3 +72,6 @@ export function crearUnidadHabitacional(data){
 export function crearUnidadHabitacionalPersonalizada(data){
     return apiRequest('/APIBackOffice/ApiBackOffice.php?accion=crearUnidadConCI', 'POST', data);
 }
+export function cargarAdmin(data) {
+    return apiRequest('/APIBackOffice/ApiBackOffice.php?accion=cargarAdmin', 'POST', data);
+}

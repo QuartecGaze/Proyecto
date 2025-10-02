@@ -39,11 +39,13 @@
                     $admin = new Admin($ci, $email, $telefono, $idPersona, $nombre, $apellido, $contraseña, "Admin", //datos heredados de persona
                     $nivelPermisos, null, $fechaIngreso); //datos de Admin
                     $this->repositorio->cargarAdmin($admin);
+                    $this->repositorio->cargarUsuario($admin);
             } else {
                 $idPersona = $this->repositorio->getIDPersonaConCi($ci);
                 $admin = new Admin($ci, $email, $telefono, $idPersona, $nombre, $apellido, $contraseña, "Admin", //datos heredados de persona
                 $nivelPermisos, null, $fechaIngreso); //datos de Admin
                 $this->repositorio->cargarAdmin($admin);
+                $this->repositorio->cambiarRolAdmin($admin);
             }
         }
 

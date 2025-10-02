@@ -247,7 +247,9 @@ require __DIR__ .'/../Consultas.php';
                 VALUES (?,?,?)
             ";
             consulta($this->conn, $consulta, "iis", [$idPersona, $nivelPermisos, $fechaIngreso]);
+    
         }
+        
         
          public function borrarAdmin($id){
             $consulta = "
@@ -266,6 +268,17 @@ require __DIR__ .'/../Consultas.php';
                 return false;
             }
             
+        }
+        public function cambiarRolAdmin($admin) {
+             $idPersona = $admin->getIdPersona();
+
+             $consulta = "
+                UPDATE Persona
+                SET Rol = 'Admin'
+                WHERE ID_Persona = ?
+            ";
+
+            consulta($this->conn, $consulta, "i", [$idPersona]);
         }
 
         public function getDatosAdmin($id) {
