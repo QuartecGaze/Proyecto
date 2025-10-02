@@ -21,6 +21,10 @@
     font-family: 'Montserrat', sans-serif;
 }
 
+::-webkit-scrollbar {
+  display: none;
+}
+
 body {
     background-color: var(--color-fondo-claro);
     color: var(--color-texto);

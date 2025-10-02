@@ -152,7 +152,6 @@ verificarAcceso(['Admin']);
                             <th>Nombre</th>
                             <th>CI</th>
                             <th>Habitaciones</th>
-                            <th>Progreso</th>
                             <th>Estado</th>
                             <th class="checkbox-seleccion">Seleccionar</th>
                         </tr>
@@ -162,9 +161,6 @@ verificarAcceso(['Admin']);
                             <td>Proyecto Residencial Norte</td>
                             <td>8.765.432-1</td>
                             <td>12</td>
-                            <td>
-                                65%
-                            </td>
                             <td><span class="estado estado-en-proceso">En Contruccion</span></td>
                             <td class="checkbox-seleccion">
                                 <input type="checkbox" class="seleccion-unidad" name="seleccionUnidad" value="1">
@@ -174,9 +170,6 @@ verificarAcceso(['Admin']);
                             <td>Torre Central</td>
                             <td>5.432.198-7</td>
                             <td>24</td>
-                            <td>
-                                30%
-                            </td>
                             <td><span class="estado estado-en-proceso">En Contruccion</span></td>
                             <td class="checkbox-seleccion">
                                 <input type="checkbox" class="seleccion-unidad" name="seleccionUnidad" value="2">

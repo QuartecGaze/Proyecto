@@ -1,14 +1,16 @@
-<?php 
-    require_once '../verificarSesion.php';
-    verificarAcceso(['Usuario', 'Admin']);
+<?php
+require_once '../verificarSesion.php';
+verificarAcceso(['Usuario', 'Admin']);
 ?>
 <!DOCTYPE html>
 <html lang="es">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Senda Firme - Horas Trabajadas</title>
     <link rel="stylesheet" href="../Css/estilosHoras.css">
+    <link rel="stylesheet" href="../Css/genFrontUsuario.css">
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap"
         rel="stylesheet">
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
@@ -63,7 +65,7 @@
                     </button>
                 </form>
                 <button id="boton-cambiar-sesion">
-                        <i class="material-icons">switch_account</i> Cambiar a Usuario
+                    <i class="material-icons">switch_account</i> Cambiar a Usuario
                 </button>
             </div>
         </aside>
@@ -74,58 +76,136 @@
                 <p>Registra y consulta tus horas de trabajo Semanales en la cooperativa</p>
             </header>
 
-            <!-- Fila con resumen y formulario -->
-            <div class="contenedor-secciones">
-                <!-- Sección de resumen -->
-                <section class="seccion-resumen">
-                    <h2>Resumen</h2>
-                    <div class="tarjeta-dashboard">
-                        <div class="tarjeta-icono">
+            <!-- Fila 1: Contador de horas a lo largo -->
+            <section class="fila-contador">
+                <div class="tarjeta-contador-horas">
+                    <div class="contador-principal">
+                        <div class="icono-contador">
                             <i class="material-icons">punch_clock</i>
                         </div>
-                        <div class="tarjeta-contenido">
-                            <h3>Horas Trabajadas</h3><!-- TRAER LAS HORAS TRABAJADAS EN ESTA SEMANA-->
-                            <p class="tarjeta-valor" id="horasTrabajadas"><span>horas</span></p>
+                        <div class="info-contador">
+                            <h2>Resumen de Horas</h2>
+                            <div class="estadisticas-contador">
+                                <div class="estadistica-contador">
+                                    <span class="valor-contador" id="horasTrabajadas">0</span>
+                                    <span class="etiqueta-contador">Horas trabajadas esta semana</span>
+                                </div>
+                                <div class="estadistica-contador">
+                                    <span class="valor-contador" id="horasObjetivo">40</span>
+                                    <span class="etiqueta-contador">Meta semanal</span>
+                                </div>
+                                <div class="estadistica-contador">
+                                    <span class="valor-contador" id="horasRestantes">40</span>
+                                    <span class="etiqueta-contador">Horas restantes</span>
+                                </div>
+                            </div>
                         </div>
                     </div>
-                    <div>
-                        <p class="tarjeta-subtexto">Meta: <span id="horasObjetivo"></span> horas</p>
-                        <!-- TRAER LA CANTIDAD DE HORAS QUE DEBE EL USUARIO NO LAS DE LA SEMANA PORQUE CAPAS QUE TIENE HORAS PREVIAS POR HACER-->
-                        <div class="barra-progreso">
+                    <div class="progreso-contador">
+                        <div class="info-progreso">
+                            <span class="porcentaje-progreso" id="porcentajeProgreso">0%</span>
+                            <span class="texto-progreso">Completado</span>
+                        </div>
+                        <div class="barra-progreso-contador">
                             <div class="progreso" id="progresoHoras" style="width:0%"></div>
                         </div>
                     </div>
-                </section>
+                </div>
+            </section>
 
-                <!-- Sección de formulario -->
-                <section class="seccion-formulario">
-                    <h2>Registrar horas</h2>
-                    <form method="POST" class="formulario-horas">
-                        <div class="mensaje-exito" style="display: none;">Horas registradas correctamente.</div>
-                        <div class="mensaje-error" style="display: none;">Error al registrar las horas.</div>
-
-                        <div class="grupo-formulario">
-                            <label for="horas">Horas trabajadas:</label>
-                            <input type="number" id="horas" name="horas" min="1" max="12" required placeholder="Ej: 3">
-                        </div>
-                        <div class="grupo-formulario">
-                            <p>Ingresa la cantidad de horas que trabajaste</p>
-                            <p>Recorda que siempre redondeamos para <strong>abajo</strong></p>
-                        </div>
-
-                        <button type="submit" name="registrar_horas" class="boton-primario">
-                            <i class="material-icons">save</i> Registrar horas
+            <!-- Fila 2: Formularios con pestañas -->
+            <section class="fila-formularios">
+                <div class="contenedor-pestanas">
+                    <div class="cabecera-pestanas">
+                        <button class="pestana activo" data-pestana="horas">
+                            <i class="material-icons">punch_clock</i>
+                            Registrar Horas
                         </button>
-                    </form>
-                </section>
-            </div>
+                        <button class="pestana" data-pestana="faltas">
+                            <i class="material-icons">event_busy</i>
+                            Registrar Faltas
+                        </button>
+                    </div>
 
-            <!-- Historial de horas trabajadas -->
+                    <!-- Contenido de pestaña Horas -->
+                    <div class="contenido-pestana activo" id="contenido-horas">
+                        <div class="formulario-contenido">
+                            <h3>Registrar horas trabajadas</h3>
+                            <form method="POST" class="formulario-horas">
+                                <div class="mensaje-exito" style="display: none;">Horas registradas correctamente.</div>
+                                <div class="mensaje-error" style="display: none;">Error al registrar las horas.</div>
+
+                                <div class="grupo-formulario">
+                                    <label for="horas">Horas trabajadas:</label>
+                                    <input type="number" id="horas" name="horas" min="1" max="12" required
+                                        placeholder="Ej: 3">
+                                </div>
+                                <div class="grupo-formulario">
+                                    <p class="texto-ayuda">Ingresa la cantidad de horas que trabajaste</p>
+                                    <p class="texto-ayuda">Recorda que siempre redondeamos para <strong>abajo</strong>
+                                    </p>
+                                </div>
+
+                                <button type="submit" name="registrar_horas" class="boton-primario">
+                                    <i class="material-icons">save</i> Registrar horas
+                                </button>
+                            </form>
+                        </div>
+                    </div>
+
+                    <!-- Contenido de pestaña Faltas -->
+                    <div class="contenido-pestana" id="contenido-faltas">
+                        <div class="formulario-contenido">
+                            <h3>Registrar Faltas</h3>
+                            <div class="explicacion-faltas">
+                                <p><strong>Opciones de compensación:</strong></p>
+                                <ul>
+                                    <li><strong>Exoneración:</strong> Se descuentan las horas faltadas de tu objetivo
+                                        semanal</li>
+                                    <li><strong>Compensación monetaria:</strong> Se descuenta el valor de las horas
+                                        faltadas de tu pago</li>
+                                </ul>
+                            </div>
+
+                            <form method="POST" class="formulario-horas">
+                                <div class="mensaje-exito" style="display: none;">Falta registrada correctamente.</div>
+                                <div class="mensaje-error" style="display: none;">Error al registrar la falta.</div>
+
+                                <div class="grupo-formulario">
+                                    <label for="horas_faltadas">Horas faltadas:</label>
+                                    <input type="number" id="horas_faltadas" name="horas_faltadas" min="1" max="12"
+                                        required placeholder="Ej: 4">
+                                </div>
+
+                                <div class="grupo-formulario">
+                                    <label for="tipo_compensacion">Tipo de compensación:</label>
+                                    <select id="tipo_compensacion" name="tipo_compensacion" required>
+                                        <option value="">Selecciona una opción</option>
+                                        <option value="exoneracion">Exoneración de horas</option>
+                                        <option value="compensacion_monetaria">Compensación monetaria</option>
+                                    </select>
+                                </div>
+
+                                <div class="grupo-formulario">
+                                    <label for="motivo_falta">Motivo de la falta:</label>
+                                    <textarea id="motivo_falta" name="motivo_falta" required
+                                        placeholder="Describe brevemente el motivo de tu falta"></textarea>
+                                </div>
+
+                                <button type="submit" name="registrar_falta" class="boton-primario">
+                                    <i class="material-icons">save</i> Registrar falta
+                                </button>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Fila 3: Historial -->
             <section class="seccion-historial">
                 <h2>Historial de horas trabajadas</h2>
 
                 <div class="filtros-historial">
-
                     <div class="grupo-filtro">
                         <label for="filtro-semana">Semana:</label>
                         <select id="filtro-semana" name="filtro-semana">
@@ -136,7 +216,6 @@
                     </div>
 
                     <div class="grupo-filtro">
-
                         <label for="filtro-mes">Dia:</label>
                         <select id="filtro-mes" name="filtro-mes">
                             <option value="">Todos</option>
@@ -193,7 +272,6 @@
                             placeholder="Ej: 3">
                     </div>
 
-
                     <div class="modal-acciones">
                         <button type="button" class="boton-secundario" id="cancelarEdicion">Cancelar</button>
                         <button type="submit" class="boton-primario" id="confirmarModal">Guardar cambios</button>
@@ -206,7 +284,42 @@
     <script src="../Javascript/FrontUsuario/horas.js" type="module"></script>
     <script src="../Javascript/FrontUsuario/generalidades.js" type="module"></script>
 
+    <script>
+        // Funcionalidad para las pestañas
+        document.addEventListener('DOMContentLoaded', function () {
+            const pestanas = document.querySelectorAll('.pestana');
+            const contenidos = document.querySelectorAll('.contenido-pestana');
 
+            pestanas.forEach(pestana => {
+                pestana.addEventListener('click', function () {
+                    const pestanaId = this.getAttribute('data-pestana');
+
+                    // Remover clase activa de todas las pestañas y contenidos
+                    pestanas.forEach(p => p.classList.remove('activo'));
+                    contenidos.forEach(c => c.classList.remove('activo'));
+
+                    // Activar pestaña y contenido clickeado
+                    this.classList.add('activo');
+                    document.getElementById(`contenido-${pestanaId}`).classList.add('activo');
+                });
+            });
+
+            // Simular progreso de horas (esto se reemplazará con datos reales)
+            function actualizarProgreso() {
+                const horasTrabajadas = 25; // Esto vendrá de la base de datos
+                const horasObjetivo = 40;
+                const horasRestantes = Math.max(0, horasObjetivo - horasTrabajadas);
+                const porcentaje = (horasTrabajadas / horasObjetivo) * 100;
+
+                document.getElementById('horasTrabajadas').textContent = horasTrabajadas;
+                document.getElementById('horasRestantes').textContent = horasRestantes;
+                document.getElementById('progresoHoras').style.width = `${porcentaje}%`;
+                document.getElementById('porcentajeProgreso').textContent = `${Math.round(porcentaje)}%`;
+            }
+
+            actualizarProgreso();
+        });
+    </script>
 </body>
 
 </html>

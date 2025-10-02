@@ -1,0 +1,233 @@
+/* Este archivo contiene generalidades para todos los php de usuario */
+/* ======================================================= */
+/* 1. Variables de Color y Tipografía */
+/* ======================================================= */
+:root {
+    --color-primario: #2c3e50;
+    --color-secundario: #3498db;
+    --color-fondo-claro: #ecf0f1;
+    --color-fondo-header: #1a2b3c;
+    --color-texto-oscuro: #2c3e50;
+    --color-texto-claro: #ffffff;
+    --color-borde: #bdc3c7;
+    --color-destacado: #e74c3c;
+    --color-sombra: rgba(0, 0, 0, 0.171);
+    --color-hover: #3498db;
+    --color-exito: #27ae60;
+    --color-alerta: #e74c3c;
+    --color-advertencia: #f39c12;
+}
+
+/* ======================================================= */
+/* 2. Reset y Estilos Generales */
+/* ======================================================= */
+
+/* Reset universal */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Montserrat', sans-serif;
+}
+
+body {
+    background-color: var(--color-fondo-claro);
+}
+
+a {
+    text-decoration: none;
+    color: inherit;
+}
+
+/* Ocultar barra de desplazamiento en navegadores basados en WebKit (Chrome, Safari) */
+::-webkit-scrollbar {
+    display: none;
+}
+
+/* ======================================================= */
+/* 3. Estructura de Layout (Dashboard) */
+/* ======================================================= */
+
+/* Contenedor principal (Dashboard) */
+.contenedor-dashboard {
+    position: relative;
+    display: flex;
+    min-height: 100vh;
+    overflow: hidden;
+}
+
+/* Área de contenido principal */
+.contenido-principal {
+    padding: 30px;
+    flex-grow: 1;
+    margin-left: 280px; /* Margen igual al ancho de la barra lateral */
+    width: calc(100% - 280px);
+}
+
+/* ======================================================= */
+/* 4. Estilos de la Barra Lateral (Aside / .sidebar) */
+/* ======================================================= */
+
+.sidebar {
+    position: fixed;
+    width: 280px;
+    background-color: rgb(255, 255, 255);
+    box-shadow: 4px 0 10px var(--color-sombra);
+    display: flex;
+    flex-direction: column;
+    padding: 20px 0;
+    top: 0;
+    height: 100vh;
+    overflow-y: auto;
+    z-index: 100;
+}
+
+/* Logo superior */
+.logo-dashboard {
+    padding: 0 20px;
+    border-bottom: 1px solid var(--color-borde);
+    margin-bottom: 20px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+}
+
+.logo-dashboard img {
+    width: 50px;
+    height: 50px;
+    margin-bottom: 10px;
+}
+
+.logo-dashboard span {
+    font-size: 1.2rem;
+    font-weight: 600;
+    display: block;
+    margin-bottom: 15px;
+}
+
+/* ======================================================= */
+/* 5. Estilos de Navegación y Menú */
+/* ======================================================= */
+
+#NavegacionDashboard {
+    flex-grow: 1;
+}
+
+.menu-dashboard {
+    list-style: none;
+}
+
+.item-menu {
+    margin: 5px 0;
+}
+
+.item-menu a {
+    display: flex;
+    align-items: center;
+    padding: 12px 20px;
+    color: var(--color-texto-oscuro);
+    transition: background-color 0.3s, color 0.3s;
+}
+
+.item-menu a:hover {
+    background-color: var(--color-hover);
+    color: var(--color-texto-claro);
+}
+
+.item-menu a i {
+    margin-right: 10px;
+    font-size: 1.2rem;
+}
+
+.item-menu.activo a {
+    background-color: var(--color-primario);
+    color: white;
+}
+
+/* Estilos de Submenú */
+.submenu {
+    list-style: none;
+    padding-left: 30px;
+    background-color: #f9f9f9; /* Se toma el estilo más común, aunque uno tenía transparencia */
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.4s ease, padding 0.4s ease;
+}
+
+.submenu li a {
+    display: block;
+    padding: 8px 15px;
+    color: var(--color-texto-oscuro);
+    font-size: 0.9rem;
+}
+
+.submenu li a:hover {
+    background-color: var(--color-hover);
+    color: white;
+}
+
+.item-menu.open > .submenu {
+    max-height: 200px; /* Ajustar si el submenú tiene más elementos */
+    padding-top: 5px;
+    padding-bottom: 5px;
+}
+
+/* ======================================================= */
+/* 6. Perfil y Botones de Sesión */
+/* ======================================================= */
+
+/* Perfil de usuario */
+.perfil-usuario {
+    padding: 20px;
+    border-top: 1px solid var(--color-borde);
+}
+
+.info-usuario {
+    display: flex;
+    align-items: center;
+    margin-bottom: 15px;
+}
+
+.info-usuario img {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    margin-right: 10px;
+    object-fit: cover;
+}
+
+.nombre-usuario {
+    font-weight: 600;
+    font-size: 0.9rem;
+}
+
+.rol-usuario {
+    font-size: 0.8rem;
+    color: var(--color-texto-oscuro);
+}
+
+.boton-cerrar-sesion, #boton-cambiar-sesion {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    padding: 8px;
+    background-color: transparent;
+    border: 1px solid var(--color-borde);
+    border-radius: 4px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.boton-cerrar-sesion:hover, #boton-cambiar-sesion:hover {
+    background-color: var(--color-hover);
+}
+
+.boton-cerrar-sesion i, #boton-cambiar-sesion i {
+    margin-right: 5px;
+}
+
+#boton-cambiar-sesion {
+    margin-top: 10px;
+}
