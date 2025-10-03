@@ -13,9 +13,9 @@ formAdmin.addEventListener("submit", async function (event) {
     var nivelPermisos = document.querySelector('input[name="nivel_permisos"]:checked')?.value;
         event.preventDefault();
         if(nivelPermisos == "Admin"){
-            nivelPermisos = 1;
-        } else if(nivelPermisos == "Operador"){
             nivelPermisos = 2;
+        } else {
+            nivelPermisos = 1;
         }
         const datos = {
                 ci: ci,

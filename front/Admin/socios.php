@@ -1,0 +1,624 @@
+<?php
+require_once '../verificarSesion.php';
+verificarAcceso(['Admin']);
+?>
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Senda Firme - Perfil</title>
+    <link rel="stylesheet" href="../Css/backoffice.css">
+    <link rel="stylesheet" href="../Css/estilosSocios.css">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap"
+        rel="stylesheet">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+</head>
+
+<body class="backoffice">
+    <div class="contenedor-dashboard">
+        <aside class="sidebar">
+            <div class="logo-dashboard">
+                <img src="../../Fotos/logoBack.webp" alt="Logo Cooperativa">
+                <span>Senda Firme</span>
+                <p>Construyendo oportunidades juntos</p>
+            </div>
+
+            <nav id="NavegacionDashboard">
+                <ul class="menu-dashboard">
+                    <li class="item-menu">
+                        <a href="index.php"><i class="material-icons">home</i> Inicio</a>
+                    </li>
+                    <li class="item-menu">
+                        <a href="reuniones.php"><i class="material-icons">event</i> Reuniones</a>
+                    </li>
+                    <li class="item-menu">
+                        <a href="#"><i class="material-icons">people</i> Socios</a>
+                    </li>
+                    <li class="item-menu">
+                        <a href="#">
+                            <i class="material-icons">apartment</i> Proyectos
+                        </a>
+                        <ul class="submenu">
+                            <a href="proyectos.php"><i class="material-icons">home_work</i>Gestionar Proyectos</a>
+                            <a href="crearUnidad.php"><i class="material-icons">add_circle</i> Crear Unidad</a>
+                            <a href="borrarUnidad.php"><i class="material-icons">delete</i> Borrar Unidad</a>
+                            <a href="modificarUnidad.php"><i class="material-icons">edit</i> Modificar Unidad</a>
+                        </ul>
+                    </li>
+                    <li class="item-menu">
+                        <a href="#">
+                            <i class="material-icons">payments</i> Pagos
+                        </a>
+                        <ul class="submenu">
+                            <li><a href="confirmarPagos.php">Corroborar Comprobantes</a></li>
+                            <li><a href="pagos.php">Gestor de Pagos</a></li>
+                        </ul>
+                    </li>
+                    <li class="item-menu">
+                        <a href="solicitudes.php"><i class="material-icons">email</i> Solicitudes</a>
+                    </li>
+                    <li class="item-menu">
+                        <a href="#">
+                            <i class="material-icons">settings</i> Configuracion
+                        </a>
+                        <ul class="submenu">
+                            <li class="item-menu activo">
+                                <a href="configuracion.php"><i class="material-icons">star</i> Mi Perfil</a>
+                            </li>
+                            <li>
+                                <a href="crearAdmin.php"><i class="material-icons">key</i> Crear Admin</a>
+                            </li>
+                            <li>
+                                <a href="borrarAdmin.php"><i class="material-icons">backspace</i> Borrar Admin</a>
+                            </li>
+                        </ul>
+                    </li>
+                </ul>
+            </nav>
+
+            <div class="perfil-usuario">
+                <div class="info-usuario">
+                    <img src="" alt="Foto perfil" class="fotoPerfil">
+                    <div>
+                        <p class="nombre-usuario nombreAdmin">Admin User</p>
+                        <p class="rol-usuario" id="rolAdmin">Administrador</p>
+                    </div>
+                </div>
+                <form action="../cerrarSesion.php">
+                    <button class="boton-cerrar-sesion">
+                        <i class="material-icons">logout</i> Cerrar sesión
+                    </button>
+                </form>
+                <button id="boton-cambiar-sesion">
+                    <i class="material-icons">switch_account</i> Cambiar a Usuario
+                </button>
+            </div>
+        </aside>
+
+        <!-- Contenido principal del perfil -->
+        <main class="contenido-principal">
+            <header class="header-principal">
+                <h1>Socios</h1>
+                <p>En este pestaña puedes consultar todos lo socios regstrados en la cooperativa.</p>
+            </header>
+
+            <div class="contenedor-socios">
+
+
+
+                <div class="etiqueta">
+                    <div class="card">
+                        <div class="card-header">
+                            <img src="avatar.jpg" alt="Usuario" class="avatar">
+                            <div class="info">
+                                <h3>Nombre Apellido</h3>
+                                <p>Pasillo P-1 <br> Puerta 100</p>
+                            </div>
+                        </div>
+                        <div class="card-footer">
+                            <span class="tag gray">0 Horas Trabajadas Totales</span>
+                            <span class="tag red">0/21</span>
+                            <span class="tag green">$ 0</span>
+                        </div>
+                    </div>
+                    <div class="actions">
+                        <button>
+                            <i class="material-icons" style="font-size: 40px;">visibility</i>
+                        </button>
+                    </div>
+                </div>
+
+
+                <div class="etiqueta">
+                    <div class="card">
+                        <div class="card-header">
+                            <img src="avatar.jpg" alt="Usuario" class="avatar">
+                            <div class="info">
+                                <h3>Nombre Apellido</h3>
+                                <p>Pasillo P-1 <br> Puerta 100</p>
+                            </div>
+                        </div>
+                        <div class="card-footer">
+                            <span class="tag gray">0 Horas Trabajadas Totales</span>
+                            <span class="tag red">0/21</span>
+                            <span class="tag green">$ 0</span>
+                        </div>
+                    </div>
+                    <div class="actions">
+                        <button>
+                            <i class="material-icons" style="font-size: 40px;">visibility</i>
+                        </button>
+                    </div>
+                </div>
+
+
+                <div class="etiqueta">
+                    <div class="card">
+                        <div class="card-header">
+                            <img src="avatar.jpg" alt="Usuario" class="avatar">
+                            <div class="info">
+                                <h3>Nombre Apellido</h3>
+                                <p>Pasillo P-1 <br> Puerta 100</p>
+                            </div>
+                        </div>
+                        <div class="card-footer">
+                            <span class="tag gray">0 Horas Trabajadas Totales</span>
+                            <span class="tag red">0/21</span>
+                            <span class="tag green">$ 0</span>
+                        </div>
+                    </div>
+                    <div class="actions">
+                        <button>
+                            <i class="material-icons" style="font-size: 40px;">visibility</i>
+                        </button>
+                    </div>
+                </div>
+
+
+                <div class="etiqueta">
+                    <div class="card">
+                        <div class="card-header">
+                            <img src="avatar.jpg" alt="Usuario" class="avatar">
+                            <div class="info">
+                                <h3>Nombre Apellido</h3>
+                                <p>Pasillo P-1 <br> Puerta 100</p>
+                            </div>
+                        </div>
+                        <div class="card-footer">
+                            <span class="tag gray">0 Horas Trabajadas Totales</span>
+                            <span class="tag red">0/21</span>
+                            <span class="tag green">$ 0</span>
+                        </div>
+                    </div>
+                    <div class="actions">
+                        <button>
+                            <i class="material-icons" style="font-size: 40px;">visibility</i>
+                        </button>
+                    </div>
+                </div>
+
+
+                <div class="etiqueta">
+                    <div class="card">
+                        <div class="card-header">
+                            <img src="avatar.jpg" alt="Usuario" class="avatar">
+                            <div class="info">
+                                <h3>Nombre Apellido</h3>
+                                <p>Pasillo P-1 <br> Puerta 100</p>
+                            </div>
+                        </div>
+                        <div class="card-footer">
+                            <span class="tag gray">0 Horas Trabajadas Totales</span>
+                            <span class="tag red">0/21</span>
+                            <span class="tag green">$ 0</span>
+                        </div>
+                    </div>
+                    <div class="actions">
+                        <button>
+                            <i class="material-icons" style="font-size: 40px;">visibility</i>
+                        </button>
+                    </div>
+                </div>
+
+                <div class="etiqueta">
+                    <div class="card">
+                        <div class="card-header">
+                            <img src="avatar.jpg" alt="Usuario" class="avatar">
+                            <div class="info">
+                                <h3>Nombre Apellido</h3>
+                                <p>Pasillo P-1 <br> Puerta 100</p>
+                            </div>
+                        </div>
+                        <div class="card-footer">
+                            <span class="tag gray">0 Horas Trabajadas Totales</span>
+                            <span class="tag red">0/21</span>
+                            <span class="tag green">$ 0</span>
+                        </div>
+                    </div>
+                    <div class="actions">
+                        <button>
+                            <i class="material-icons" style="font-size: 40px;">visibility</i>
+                        </button>
+                    </div>
+                </div>
+
+
+                <div class="etiqueta">
+                    <div class="card">
+                        <div class="card-header">
+                            <img src="avatar.jpg" alt="Usuario" class="avatar">
+                            <div class="info">
+                                <h3>Nombre Apellido</h3>
+                                <p>Pasillo P-1 <br> Puerta 100</p>
+                            </div>
+                        </div>
+                        <div class="card-footer">
+                            <span class="tag gray">0 Horas Trabajadas Totales</span>
+                            <span class="tag red">0/21</span>
+                            <span class="tag green">$ 0</span>
+                        </div>
+                    </div>
+                    <div class="actions">
+                        <button>
+                            <i class="material-icons" style="font-size: 40px;">visibility</i>
+                        </button>
+                    </div>
+                </div>
+
+
+                <div class="etiqueta">
+                    <div class="card">
+                        <div class="card-header">
+                            <img src="avatar.jpg" alt="Usuario" class="avatar">
+                            <div class="info">
+                                <h3>Nombre Apellido</h3>
+                                <p>Pasillo P-1 <br> Puerta 100</p>
+                            </div>
+                        </div>
+                        <div class="card-footer">
+                            <span class="tag gray">0 Horas Trabajadas Totales</span>
+                            <span class="tag red">0/21</span>
+                            <span class="tag green">$ 0</span>
+                        </div>
+                    </div>
+                    <div class="actions">
+                        <button>
+                            <i class="material-icons" style="font-size: 40px;">visibility</i>
+                        </button>
+                    </div>
+                </div>
+
+
+                <div class="etiqueta">
+                    <div class="card">
+                        <div class="card-header">
+                            <img src="avatar.jpg" alt="Usuario" class="avatar">
+                            <div class="info">
+                                <h3>Nombre Apellido</h3>
+                                <p>Pasillo P-1 <br> Puerta 100</p>
+                            </div>
+                        </div>
+                        <div class="card-footer">
+                            <span class="tag gray">0 Horas Trabajadas Totales</span>
+                            <span class="tag red">0/21</span>
+                            <span class="tag green">$ 0</span>
+                        </div>
+                    </div>
+                    <div class="actions">
+                        <button>
+                            <i class="material-icons" style="font-size: 40px;">visibility</i>
+                        </button>
+                    </div>
+                </div>
+
+
+                <div class="etiqueta">
+                    <div class="card">
+                        <div class="card-header">
+                            <img src="avatar.jpg" alt="Usuario" class="avatar">
+                            <div class="info">
+                                <h3>Nombre Apellido</h3>
+                                <p>Pasillo P-1 <br> Puerta 100</p>
+                            </div>
+                        </div>
+                        <div class="card-footer">
+                            <span class="tag gray">0 Horas Trabajadas Totales</span>
+                            <span class="tag red">0/21</span>
+                            <span class="tag green">$ 0</span>
+                        </div>
+                    </div>
+                    <div class="actions">
+                        <button>
+                            <i class="material-icons" style="font-size: 40px;">visibility</i>
+                        </button>
+                    </div>
+                </div>
+
+
+                <div class="etiqueta">
+                    <div class="card">
+                        <div class="card-header">
+                            <img src="avatar.jpg" alt="Usuario" class="avatar">
+                            <div class="info">
+                                <h3>Nombre Apellido</h3>
+                                <p>Pasillo P-1 <br> Puerta 100</p>
+                            </div>
+                        </div>
+                        <div class="card-footer">
+                            <span class="tag gray">0 Horas Trabajadas Totales</span>
+                            <span class="tag red">0/21</span>
+                            <span class="tag green">$ 0</span>
+                        </div>
+                    </div>
+                    <div class="actions">
+                        <button>
+                            <i class="material-icons" style="font-size: 40px;">visibility</i>
+                        </button>
+                    </div>
+                </div>
+
+                <div class="etiqueta">
+                    <div class="card">
+                        <div class="card-header">
+                            <img src="avatar.jpg" alt="Usuario" class="avatar">
+                            <div class="info">
+                                <h3>Nombre Apellido</h3>
+                                <p>Pasillo P-1 <br> Puerta 100</p>
+                            </div>
+                        </div>
+                        <div class="card-footer">
+                            <span class="tag gray">0 Horas Trabajadas Totales</span>
+                            <span class="tag red">0/21</span>
+                            <span class="tag green">$ 0</span>
+                        </div>
+                    </div>
+                    <div class="actions">
+                        <button>
+                            <i class="material-icons" style="font-size: 40px;">visibility</i>
+                        </button>
+                    </div>
+                </div>
+
+
+                <div class="etiqueta">
+                    <div class="card">
+                        <div class="card-header">
+                            <img src="avatar.jpg" alt="Usuario" class="avatar">
+                            <div class="info">
+                                <h3>Nombre Apellido</h3>
+                                <p>Pasillo P-1 <br> Puerta 100</p>
+                            </div>
+                        </div>
+                        <div class="card-footer">
+                            <span class="tag gray">0 Horas Trabajadas Totales</span>
+                            <span class="tag red">0/21</span>
+                            <span class="tag green">$ 0</span>
+                        </div>
+                    </div>
+                    <div class="actions">
+                        <button>
+                            <i class="material-icons" style="font-size: 40px;">visibility</i>
+                        </button>
+                    </div>
+                </div>
+
+
+
+                <div class="etiqueta">
+                    <div class="card">
+                        <div class="card-header">
+                            <img src="avatar.jpg" alt="Usuario" class="avatar">
+                            <div class="info">
+                                <h3>Nombre Apellido</h3>
+                                <p>Pasillo P-1 <br> Puerta 100</p>
+                            </div>
+                        </div>
+                        <div class="card-footer">
+                            <span class="tag gray">0 Horas Trabajadas Totales</span>
+                            <span class="tag red">0/21</span>
+                            <span class="tag green">$ 0</span>
+                        </div>
+                    </div>
+                    <div class="actions">
+                        <button>
+                            <i class="material-icons" style="font-size: 40px;">visibility</i>
+                        </button>
+                    </div>
+                </div>
+
+
+                <div class="etiqueta">
+                    <div class="card">
+                        <div class="card-header">
+                            <img src="avatar.jpg" alt="Usuario" class="avatar">
+                            <div class="info">
+                                <h3>Nombre Apellido</h3>
+                                <p>Pasillo P-1 <br> Puerta 100</p>
+                            </div>
+                        </div>
+                        <div class="card-footer">
+                            <span class="tag gray">0 Horas Trabajadas Totales</span>
+                            <span class="tag red">0/21</span>
+                            <span class="tag green">$ 0</span>
+                        </div>
+                    </div>
+                    <div class="actions">
+                        <button>
+                            <i class="material-icons" style="font-size: 40px;">visibility</i>
+                        </button>
+                    </div>
+                </div>
+
+                <div class="etiqueta">
+                    <div class="card">
+                        <div class="card-header">
+                            <img src="avatar.jpg" alt="Usuario" class="avatar">
+                            <div class="info">
+                                <h3>Nombre Apellido</h3>
+                                <p>Pasillo P-1 <br> Puerta 100</p>
+                            </div>
+                        </div>
+                        <div class="card-footer">
+                            <span class="tag gray">0 Horas Trabajadas Totales</span>
+                            <span class="tag red">0/21</span>
+                            <span class="tag green">$ 0</span>
+                        </div>
+                    </div>
+                    <div class="actions">
+                        <button>
+                            <i class="material-icons" style="font-size: 40px;">visibility</i>
+                        </button>
+                    </div>
+                </div>
+
+                <div class="etiqueta">
+                    <div class="card">
+                        <div class="card-header">
+                            <img src="avatar.jpg" alt="Usuario" class="avatar">
+                            <div class="info">
+                                <h3>Nombre Apellido</h3>
+                                <p>Pasillo P-1 <br> Puerta 100</p>
+                            </div>
+                        </div>
+                        <div class="card-footer">
+                            <span class="tag gray">0 Horas Trabajadas Totales</span>
+                            <span class="tag red">0/21</span>
+                            <span class="tag green">$ 0</span>
+                        </div>
+                    </div>
+                    <div class="actions">
+                        <button>
+                            <i class="material-icons" style="font-size: 40px;">visibility</i>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <!-- Modal para mostrar datos del usuario -->
+    <div id="modalUsuario" class="modal">
+        <div class="modal-contenido">
+            <div class="modal-header">
+                <h2>Detalles del Socio</h2>
+                <span class="cerrar-modal">&times;</span>
+            </div>
+            <div class="modal-body">
+                <div class="perfil-completo">
+                    <div class="foto-perfil-modal">
+                        <img id="modalAvatar" src="avatar.jpg" alt="Foto del usuario">
+                    </div>
+                    <div class="info-completa">
+                        <div class="campo">
+                            <label>Nombre completo:</label>
+                            <span id="modalNombre">Nombre Apellido</span>
+                        </div>
+                        <div class="campo">
+                            <label>Dirección:</label>
+                            <span id="modalDireccion">Pasillo P-1, Puerta 100</span>
+                        </div>
+                        <div class="campo">
+                            <label>Email:</label>
+                            <span id="modalEmail">usuario@ejemplo.com</span>
+                        </div>
+                        <div class="campo">
+                            <label>Teléfono:</label>
+                            <span id="modalTelefono">+34 123 456 789</span>
+                        </div>
+                        <div class="campo">
+                            <label>Fecha de registro:</label>
+                            <span id="modalFechaRegistro">01/01/2023</span>
+                        </div>
+                        <div class="campo">
+                            <label>Estado:</label>
+                            <span id="modalEstado" class="estado-activo">Activo</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="historial">
+                    <h3>Integrantes Familiares</h3>
+                    <div class="historial-lista">
+                        <div class="historial-item">
+                            <span class="fecha">15/10/2023</span>
+                            <span class="descripcion">Pago mensual realizado</span>
+                            <span class="monto positivo">$150</span>
+                        </div>
+                        <div class="historial-item">
+                            <span class="fecha">10/10/2023</span>
+                            <span class="descripcion">Horas trabajadas: 4h</span>
+                            <span class="monto positivo">+4h</span>
+                        </div>
+                        <div class="historial-item">
+                            <span class="fecha">01/10/2023</span>
+                            <span class="descripcion">Cuota mensual adeudada</span>
+                            <span class="monto negativo">-$150</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="estadisticas">
+                    <h3>Estadísticas</h3>
+                    <div class="estadisticas-grid">
+                        <div class="estadistica-item">
+                            <span class="estadistica-valor" id="modalHorasTotales">0</span>
+                            <span class="estadistica-etiqueta">Horas trabajadas totales</span>
+                        </div>
+                        <div class="estadistica-item">
+                            <span class="estadistica-valor" id="modalHorasActual">0/21</span>
+                            <span class="estadistica-etiqueta">Horas este mes</span>
+                        </div>
+                        <div class="estadistica-item">
+                            <span class="estadistica-valor" id="modalSaldo">$ 0</span>
+                            <span class="estadistica-etiqueta">Saldo actual</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="historial">
+                    <h3>Historial reciente</h3>
+                    <div class="historial-lista">
+                        <div class="historial-item">
+                            <span class="fecha">15/10/2023</span>
+                            <span class="descripcion">Pago mensual realizado</span>
+                            <span class="monto positivo">$150</span>
+                        </div>
+                        <div class="historial-item">
+                            <span class="fecha">10/10/2023</span>
+                            <span class="descripcion">Horas trabajadas: 4h</span>
+                            <span class="monto positivo">+4h</span>
+                        </div>
+                        <div class="historial-item">
+                            <span class="fecha">01/10/2023</span>
+                            <span class="descripcion">Cuota mensual adeudada</span>
+                            <span class="monto negativo">-$150</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button class="btn btn-secundario cerrar-modal" id="btnCerrarModal">Cerrar</button>
+                    <button class="btn btn-primario" id="btnEditarUsuario">Editar información</button>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+    <script src="../Javascript/BackOffice/cargarAdmin.js" type="module"></script>
+    <script>
+        document.querySelectorAll(".item-menu > a").forEach(boton => {
+            boton.addEventListener("click", function (e) {
+                // Evita que redireccione si tiene submenu
+                if (this.nextElementSibling && this.nextElementSibling.classList.contains("submenu")) {
+                    e.preventDefault();
+                    this.parentElement.classList.toggle("open");
+                }
+            });
+        });
+    </script>
+</body>
+
+</html>
