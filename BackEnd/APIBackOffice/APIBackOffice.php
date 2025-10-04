@@ -239,6 +239,71 @@
                 }
             }
 
+            if($accion == "crearReunion"){
+                try {
+                    $datos = json_decode(file_get_contents('php://input'), true);
+                    $servicio->crearReunion(
+                        $datos['titulo'], 
+                        $datos['descripcion'], 
+                        $datos['fecha'],
+                        $datos['hora'], 
+                        $datos['lugar'], 
+                        $datos['tipoDeReunion']
+                    );
+                    respuesta("La reunion se ha cargado con éxito", "exito", 201);
+                } catch(Exception $e) {
+                    respuesta($e->getMessage(), "error", $e->getCode());
+                }
+            }
+
+            if ($accion === "completarReunion") {
+                try {
+                    $datos = json_decode(file_get_contents('php://input'), true);
+                    
+                    $resultado = $servicio->completarReunion($datos['idReunion']);
+                    respuesta("Reunion completada correctamente", "exito", 200);
+                } catch(Exception $e) {
+                    respuesta($e->getMessage(), "error", $e->getCode());
+                }
+            }
+
+            if ($accion === "eliminarReunion") {
+                try {
+                    $datos = json_decode(file_get_contents('php://input'), true);
+                    
+                    $resultado = $servicio->eliminarReunion($datos['idReunion']);
+                    respuesta("Reunion eliminada correctamente", "exito", 200);
+                } catch(Exception $e) {
+                    respuesta($e->getMessage(), "error", $e->getCode());
+                }
+            }
+
+            if ($accion === "editarReunion") {
+                try {
+                    $datos = json_decode(file_get_contents('php://input'), true);
+                    $id = isset($datos['idReunion']) ? (int)$datos['idReunion'] : 0;
+                    if ($id <= 0) {
+                        respuesta("ID Reunion invalido", "error", 400);
+                    }
+            
+                    $servicio->editarReunion(
+                        $id,
+                        $datos['titulo'],
+                        $datos['descripcion'],
+                        $datos['fecha'],
+                        $datos['hora'],
+                        $datos['lugar'],
+                        $datos['tipoDeReunion']
+                    );
+            
+                    respuesta("La reunión se ha editado con éxito", "exito", 200);
+                } catch(Exception $e) {
+                    respuesta($e->getMessage(), "error", $e->getCode() ?: 500);
+                }
+            }
+            
+
+
         break;
 
         case "GET":
@@ -303,6 +368,24 @@
 
             }
 
+            if($accion == "getReunionesPendientes"){
+                try {
+                    $reuniones = $servicio->getReunionesPendientes();
+                    respuesta($reuniones, "exito", 201);
+                } catch(Exception $e) {
+                    respuesta($e->getMessage(), "error", $e->getCode());
+                }
+            }
+
+            if($accion == "getReunionesCompletadas"){
+                try {
+                    $reuniones = $servicio->getReunionesCompletadas();
+                    respuesta($reuniones, "exito", 201);
+                } catch(Exception $e) {
+                    respuesta($e->getMessage(), "error", $e->getCode());
+                }
+            }
+            
         break;
         
         default:

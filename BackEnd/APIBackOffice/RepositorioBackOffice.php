@@ -600,7 +600,80 @@ require __DIR__ .'/../Consultas.php';
                 ";
             consulta($this->conn, $consulta, "i", [$idPersona]);
             }
+            
+            public function crearReunion($titulo, $descripcion, $fecha, $hora, $lugar, $tipoDeReunion){
+                $consulta = "
+                    INSERT INTO reunion (Nombre, Descripcion, Fecha, Hora, Lugar, Tipo_Reunion, Estado_Reunion)
+                    VALUES (?, ?, ?, ?, ?, ?, 'Pendiente')
+                ";
+                consulta($this->conn, $consulta, "ssssss", [$titulo, $descripcion, $fecha, $hora, $lugar, $tipoDeReunion]);
+            }
 
+            public function getReunionesPendientes(){
+                $consulta = "
+                    SELECT * 
+                    FROM reunion 
+                    WHERE Estado_Reunion = 'Pendiente';
+                ";
+                $resultado = consulta($this->conn, $consulta); 
+                $reunionesPendientes = [];
+            
+                while ($fila = mysqli_fetch_assoc($resultado)) {
+                    $reunionesPendientes[] = $fila;
+                }
+                return $reunionesPendientes;
+            }
+            
+            public function getReunionesCompletadas(){
+                $consulta = "
+                    SELECT * 
+                    FROM reunion 
+                    WHERE Estado_Reunion = 'Finalizada';
+                ";
+                $resultado = consulta($this->conn, $consulta); 
+                $reunionesPendientes = [];
+            
+                while ($fila = mysqli_fetch_assoc($resultado)) {
+                    $reunionesPendientes[] = $fila;
+                }
+                return $reunionesPendientes;
+            }
 
+            public function completarReunion($idReunion){
+                $consulta = "
+                    UPDATE reunion
+                    SET Estado_Reunion = 'Finalizada'
+                    WHERE ID_Reunion = ?
+                ";
+                consulta($this->conn, $consulta, "i", [$idReunion]);
+            }
+
+            public function eliminarReunion($idReunion){
+                $consulta = "
+                    UPDATE reunion
+                    SET Estado_Reunion = 'Cancelada'
+                    WHERE ID_Reunion = ?
+                ";
+                consulta($this->conn, $consulta, "i", [$idReunion]);
+            }
+            
+            public function editarReunion($idReunion, $titulo, $descripcion, $fecha, $hora, $lugar, $tipoDeReunion){
+                $sql = "
+                    UPDATE reunion
+                       SET Nombre = ?,
+                           Descripcion = ?,
+                           Fecha = ?,
+                           Hora = ?,
+                           Lugar = ?,
+                           Tipo_Reunion = ?
+                     WHERE ID_Reunion = ?
+                     LIMIT 1
+                ";
+                consulta($this->conn, $sql, "ssssssi", [
+                    $titulo, $descripcion, $fecha, $hora, $lugar, $tipoDeReunion, $idReunion
+                ]);
+            }
+            
+            
     }
 ?>

@@ -72,6 +72,26 @@ export function crearUnidadHabitacional(data){
 export function crearUnidadHabitacionalPersonalizada(data){
     return apiRequest('/APIBackOffice/ApiBackOffice.php?accion=crearUnidadConCI', 'POST', data);
 }
+<<<<<<< Updated upstream
 export function cargarAdmin(data) {
     return apiRequest('/APIBackOffice/ApiBackOffice.php?accion=cargarAdmin', 'POST', data);
+=======
+export function crearReunion(data){
+    return apiRequest('/APIBackOffice/ApiBackOffice.php?accion=crearReunion', 'POST', data);
+}
+export function getReunionesPendientes(){
+    return apiRequest(`/APIBackOffice/ApiBackOffice.php?accion=getReunionesPendientes`, "GET");
+}
+export function getReunionesCompletadas(){
+    return apiRequest(`/APIBackOffice/ApiBackOffice.php?accion=getReunionesCompletadas`, "GET");
+}
+export function completarReunion(data){
+    return apiRequest('/APIBackOffice/ApiBackOffice.php?accion=completarReunion', 'POST', data);
+}
+export function eliminarReunion(data){
+    return apiRequest('/APIBackOffice/ApiBackOffice.php?accion=eliminarReunion', 'POST', data);
+}
+export function editarReunion(data){
+    return apiRequest('/APIBackOffice/ApiBackOffice.php?accion=editarReunion', 'POST', data);
+>>>>>>> Stashed changes
 }
