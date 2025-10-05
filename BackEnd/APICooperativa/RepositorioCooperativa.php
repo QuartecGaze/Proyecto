@@ -262,5 +262,44 @@ require __DIR__ .'/../Consultas.php';
             //agregar [parentesco si va]
             return consulta($this->conn, $consulta, "isssssi", [$idPersona, $nombre, $apellido, $ci, $fechaNacimiento, $genero, $email]);
         }
+                
+        public function cargarFalta($idPersona, $horas, $fechaHoras, $idSemana, $compensacion, $motivo){
+            $consulta = "
+                INSERT INTO Falta
+                    (ID_Persona, Horas_solicitadas, Fecha, ID_Semana_trabajo, Tipo_falta, Motivo_falta, Estado)
+                VALUES (?, ?, ?, ?, ?, ?, ?)
+            ";
+            // horas puede ser decimal -> usar 'd' si corresponde; si es entero usar 'i'
+            $resultado = consulta($this->conn, $consulta, "idsisss", [$idPersona, $horas, $fechaHoras, $idSemana, $compensacion, $motivo, 'En espera']);
+            if ($resultado === false) {
+                return false;
+            }
+            return true;
+        }
+
+        public function getSemanas() {
+            $sql = "
+                SELECT
+                    ID_Semana_trabajo,
+                    Fecha_semana
+                FROM Semana_trabajo
+                ORDER BY Fecha_semana DESC
+            ";
+            $res = consulta($this->conn, $sql);
+
+            $semanas = [];
+            if ($res && mysqli_num_rows($res) > 0) {
+                while ($row = mysqli_fetch_assoc($res)) {
+                    $semanas[] = [
+                        'id'    => $row['ID_Semana_trabajo'],
+                        'fecha' => $row['Fecha_semana'],                  // 'YYYY-MM-DD'
+                        'label' => date('d/m/Y', strtotime($row['Fecha_semana']))
+                    ];
+                }
+            }
+            return $semanas;
+        }
+
+
     }
 ?>

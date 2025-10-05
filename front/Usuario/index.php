@@ -66,7 +66,7 @@ verificarAcceso(['Admin', 'Usuario']);
                     </button>
                 </form>
                 <button id="boton-cambiar-sesion">
-                    <i class="material-icons">switch_account</i> Cambiar a Usuario
+                    <i class="material-icons">switch_account</i> Cambiar a Admin
                 </button>
             </div>
         </aside>

@@ -177,6 +177,21 @@
         public function ingresarIntegrante($idPersona, $nombre, $apellido, $ci, $fechaNacimiento, $genero, $email){
         $this->repositorio->ingresarIntegrante($idPersona, $nombre, $apellido, $ci, $fechaNacimiento, $genero, $email);
         }
-        
+
+        public function cargarFalta($idPersona, $horas, $compensacion, $motivo){
+            $fechaHoras = date("Y-m-d");
+            $lunesSemana = $this->lunesDeEstaSemana();
+            if($this->repositorio->semanaExiste($lunesSemana)){
+                $idSemana = $this->repositorio->getIdSemana($lunesSemana);
+            }else{
+                $this->repositorio->crearSemana($lunesSemana);
+                $idSemana = $this->repositorio->getIdSemana($lunesSemana);
+            }
+            return $this->repositorio->cargarFalta($idPersona, $horas, $fechaHoras, $idSemana, $compensacion, $motivo);
+        }
+
+        public function getSemanas(){
+            return $this->repositorio->getSemanas();
+        }
 
     }

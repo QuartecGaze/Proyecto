@@ -1,4 +1,4 @@
-<?php
+    <?php
     require_once __DIR__ . '/RepositorioCooperativa.php';
     require_once __DIR__ . '/ServicioCooperativa.php'; 
     require_once __DIR__ .'/Modelos/UnidadHabitacional.php';
@@ -139,6 +139,31 @@
                 }
             }
             
+            if ($accion === "subirFalta"){
+                //traer las horas del front
+                session_start();
+                $idPersona = $_SESSION['id'];
+                $datos = json_decode(file_get_contents('php://input'), true);
+                $horas = $datos['horas'];
+                $compensacion = $datos['compensacion'];
+                $motivo = $datos['motivo'];
+                if ($horas === null || $horas < 1 || $horas > 12) {
+                    respuesta("Horas inválidas (1–12).", "error", 422);
+                }
+                $valoresValidos = ['Exoneracion', 'Pago Compensatorio'];
+                if ($compensacion === null || !in_array($compensacion, $valoresValidos, true)) {
+                    respuesta("Compensación inválida", "error", 422);
+                }
+                try{
+                    if($servicio->cargarFalta($idPersona, $horas, $compensacion, $motivo)){
+                        respuesta("Falta cargada correctamente", "exito", 200);
+                    }else{
+                        respuesta("error al cargar la falta", "error", 400);
+                    }
+                    }catch(Exception $e){
+                        respuesta($e->getMessage(), "error", $e->getCode());
+                    }
+            }
 
 
 
@@ -248,9 +273,24 @@
                 if($id != null){
                     try {
                         $horas = $servicio->getHorasHistorial($id);
+                        $horasTrabajadas = $servicio->horasTrabajadasEstaSemana($id);
+                        $horasObjetivo = $servicio->horasSemanales();
+                        $horasRestantes = $horasObjetivo - $horasTrabajadas;
+                        $porcentaje = 0.0;
+                        if ($horasObjetivo > 0) {
+                            $porcentaje = ($horasTrabajadas / $horasObjetivo) * 100.0;
+                            if ($porcentaje < 0)   $porcentaje = 0;
+                            if ($porcentaje > 100) $porcentaje = 100;
+                        }
+                        $porcentaje = round($porcentaje, 2); //redondeamos para no tener valores raros
+                        $semanas = $servicio->getSemanas();
+                        if ($horasRestantes < 0) $horasRestantes = 0;
                             $respuesta = [
-                                'horasTrabajadas' => $servicio->horasTrabajadasEstaSemana($id),
-                                'horasObjetivo' => $servicio->horasSemanales(),
+                                'horasTrabajadas' => $horasTrabajadas,
+                                'horasObjetivo' => $horasObjetivo,
+                                'horasRestantes' => $horasRestantes,
+                                'porcentaje' => $porcentaje,
+                                'semanas' => $semanas,
                                 'horas' => $horas
                             ];
 

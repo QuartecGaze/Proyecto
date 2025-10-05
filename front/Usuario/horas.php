@@ -65,7 +65,7 @@ verificarAcceso(['Usuario', 'Admin']);
                     </button>
                 </form>
                 <button id="boton-cambiar-sesion">
-                    <i class="material-icons">switch_account</i> Cambiar a Usuario
+                    <i class="material-icons">switch_account</i> Cambiar a Admin
                 </button>
             </div>
         </aside>
@@ -87,15 +87,15 @@ verificarAcceso(['Usuario', 'Admin']);
                             <h2>Resumen de Horas</h2>
                             <div class="estadisticas-contador">
                                 <div class="estadistica-contador">
-                                    <span class="valor-contador" id="horasTrabajadas">0</span>
+                                    <span class="valor-contador" id="horasTrabajadas"></span>
                                     <span class="etiqueta-contador">Horas trabajadas esta semana</span>
                                 </div>
                                 <div class="estadistica-contador">
-                                    <span class="valor-contador" id="horasObjetivo">40</span>
+                                    <span class="valor-contador" id="horasObjetivo"></span>
                                     <span class="etiqueta-contador">Meta semanal</span>
                                 </div>
                                 <div class="estadistica-contador">
-                                    <span class="valor-contador" id="horasRestantes">40</span>
+                                    <span class="valor-contador" id="horasRestantes"></span>
                                     <span class="etiqueta-contador">Horas restantes</span>
                                 </div>
                             </div>
@@ -162,8 +162,7 @@ verificarAcceso(['Usuario', 'Admin']);
                                 <ul>
                                     <li><strong>Exoneración:</strong> Se descuentan las horas faltadas de tu objetivo
                                         semanal</li>
-                                    <li><strong>Compensación monetaria:</strong> Se descuenta el valor de las horas
-                                        faltadas de tu pago</li>
+                                    <li><strong>Compensación monetaria:</strong> Pagas una tarifa establecida por la cooperativa por las horas que no trabajaste</li>
                                 </ul>
                             </div>
 
@@ -218,10 +217,14 @@ verificarAcceso(['Usuario', 'Admin']);
                     <div class="grupo-filtro">
                         <label for="filtro-mes">Dia:</label>
                         <select id="filtro-mes" name="filtro-mes">
-                            <option value="">Todos</option>
-                            <option value="11" selected>Lunes</option>
-                            <option value="10">Martes</option>
-                            <option value="9">Miercoles</option>
+                            <option value="" selected>Todos</option>
+                            <option value="1">Lunes</option>
+                            <option value="2">Martes</option>
+                            <option value="3">Miercoles</option>
+                            <option value="4">Jueves</option>
+                            <option value="5">Viernes</option>
+                            <option value="6">Sabado</option>
+                            <option value="7">Domingo</option>
                         </select>
                     </div>
                 </div>

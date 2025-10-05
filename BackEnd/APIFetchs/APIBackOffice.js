@@ -72,10 +72,9 @@ export function crearUnidadHabitacional(data){
 export function crearUnidadHabitacionalPersonalizada(data){
     return apiRequest('/APIBackOffice/ApiBackOffice.php?accion=crearUnidadConCI', 'POST', data);
 }
-<<<<<<< Updated upstream
 export function cargarAdmin(data) {
     return apiRequest('/APIBackOffice/ApiBackOffice.php?accion=cargarAdmin', 'POST', data);
-=======
+}
 export function crearReunion(data){
     return apiRequest('/APIBackOffice/ApiBackOffice.php?accion=crearReunion', 'POST', data);
 }
@@ -93,5 +92,4 @@ export function eliminarReunion(data){
 }
 export function editarReunion(data){
     return apiRequest('/APIBackOffice/ApiBackOffice.php?accion=editarReunion', 'POST', data);
->>>>>>> Stashed changes
 }

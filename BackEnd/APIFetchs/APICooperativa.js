@@ -35,3 +35,6 @@ import { apiRequest } from './apiConfig.js';
         export function ingresarIntegrantesFamiliares(data){
                 return apiRequest(`/APICooperativa/ApiCooperativa.php?accion=ingresarIntegrantesFamiliares`, "POST", data);
         }
+        export function subirFalta(data){
+                return apiRequest(`/APICooperativa/ApiCooperativa.php?accion=subirFalta`, "POST", data);
+        }
