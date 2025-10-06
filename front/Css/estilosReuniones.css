@@ -539,7 +539,7 @@ body {
 
 /* Modal de confirmación de asistencia */
 .modal-asistencia {
-    display: flex;
+    display: none;
     position: fixed;
     top: 0;
     left: 0;
