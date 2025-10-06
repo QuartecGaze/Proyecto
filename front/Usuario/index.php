@@ -33,9 +33,6 @@ verificarAcceso(['Admin', 'Usuario']);
                         <a href="index.php"><i class="material-icons">home</i> Inicio</a>
                     </li>
                     <li class="item-menu">
-                        <a href="#Reuniones"><i class="material-icons">event</i> Reuniones</a>
-                    </li>
-                    <li class="item-menu">
                         <a href="horas.php"><i class="material-icons">punch_clock</i> Horas Trabajadas</a>
                     </li>
                     <li class="item-menu">
@@ -134,27 +131,14 @@ verificarAcceso(['Admin', 'Usuario']);
             <div class="contenedor-secciones">
                 <!-- Sección de actividades recientes -->
                 <section class="seccion-actividades">
-                    <h2>Actividades recientes</h2>
+                    <h2>Reuniones Completadas</h2>
                     <div class="lista-actividades">
-                        <div class="actividad">
-                            <i class="material-icons actividad-icono">check_circle</i>
-                            <div class="actividad-detalle">
-                                <p>Registro de horas trabajadas</p>
-                                <span class="actividad-fecha">Hoy, 10:30 AM</span>
-                            </div>
-                        </div>
+
                         <div class="actividad">
                             <i class="material-icons actividad-icono">event_available</i>
                             <div class="actividad-detalle">
-                                <p>Asistencia a reunión confirmada</p>
-                                <span class="actividad-fecha">Ayer, 3:45 PM</span>
-                            </div>
-                        </div>
-                        <div class="actividad">
-                            <i class="material-icons actividad-icono">assignment_turned_in</i>
-                            <div class="actividad-detalle">
-                                <p>Tarea completada en proyecto "Huerto comunitario"</p>
-                                <span class="actividad-fecha">Ayer, 1:20 PM</span>
+                                <p>Reunion Actividades Comerciales</p>
+                                <span class="actividad-fecha">Hoy, 10:30 AM</span>
                             </div>
                         </div>
                     </div>
@@ -162,7 +146,7 @@ verificarAcceso(['Admin', 'Usuario']);
 
                 <!-- Sección de próximos eventos -->
                 <section class="seccion-eventos">
-                    <h2>Próximos eventos</h2>
+                    <h2>Proximas Reuniones</h2>
                     <div class="lista-eventos">
                         <div class="evento">
                             <div class="evento-fecha">
@@ -171,17 +155,7 @@ verificarAcceso(['Admin', 'Usuario']);
                             </div>
                             <div class="evento-detalle">
                                 <h3>Reunión general</h3>
-                                <p>Auditorio principal - 4:00 PM</p>
-                            </div>
-                        </div>
-                        <div class="evento">
-                            <div class="evento-fecha">
-                                <span class="evento-dia">18</span>
-                                <span class="evento-mes">Jul</span>
-                            </div>
-                            <div class="evento-detalle">
-                                <h3>Trabajo comunitario</h3>
-                                <p>Parque central - 8:00 AM</p>
+                                <p>Acciones Comerciales Avanzadas - 4:00 PM</p>
                             </div>
                         </div>
                     </div>

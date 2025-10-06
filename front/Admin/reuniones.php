@@ -245,6 +245,61 @@ verificarAcceso(['Admin']);
         </div>
     </div>
 
+    <!-- Modal para confirmar asistencia -->
+    <div class="modal-reunion modal-asistencia" id="modalAsistencia">
+        <div class="modal-contenido">
+            <div class="encabezado-asistencia">
+                <h3>
+                    <i class="material-icons">groups</i>
+                    Confirmar Asistencia
+                </h3>
+                <div class="contador-asistencia" id="contadorAsistencia">
+                    Socio 1 de 10
+                </div>
+            </div>
+
+            <div class="indicador-accion indicador-falta" id="indicadorFalta">FALTA</div>
+            <div class="indicador-accion indicador-asistencia" id="indicadorAsistencia">ASISTIÓ</div>
+
+            <div class="tarjeta-socio" id="tarjetaSocio">
+                <img src="" alt="Foto del socio" class="foto-socio" id="fotoSocio">
+                <div class="nombre-socio" id="nombreSocio">Nombre del Socio</div>
+                <div class="info-socio" id="infoSocio"><p>CI: 57051830 <br> Unidad Habitacional: 5 </p></div>
+            </div>
+
+            <div class="controles-asistencia">
+                <button class="btn-asistencia btn-no-asistio" id="btnNoAsistio" title="Marcar como falta">
+                    <i class="material-icons">close</i>
+                </button>
+                <button class="btn-asistencia btn-si-asistio" id="btnSiAsistio" title="Marcar como asistió">
+                    <i class="material-icons">check</i>
+                </button>
+            </div>
+
+            <div class="resumen-asistencia" id="resumenAsistencia" style="display: none;">
+                <h4>Resumen de Asistencia</h4>
+                <div class="estadisticas-asistencia">
+                    <div class="estadistica asistieron">
+                        <span class="numero-estadistica" id="totalAsistieron">0</span>
+                        <span class="texto-estadistica">Asistieron</span>
+                    </div>
+                    <div class="estadistica no-asistieron">
+                        <span class="numero-estadistica" id="totalNoAsistieron">0</span>
+                        <span class="texto-estadistica">No Asistieron</span>
+                    </div>
+                </div>
+                <div class="modal-acciones">
+                    <button type="button" class="btn-cancelar" id="btnCancelarAsistencia">
+                        <i class="material-icons">close</i> Cancelar
+                    </button>
+                    <button type="button" class="btn-confirmar" id="btnGuardarAsistencia">
+                        <i class="material-icons">save</i> Guardar Asistencia
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
     <script src="../Javascript/BackOffice/generalidades.js" type="module"></script>
     <script src="../Javascript/BackOffice/reuniones.js" type="module"></script>
 </body>

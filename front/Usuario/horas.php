@@ -31,9 +31,6 @@ verificarAcceso(['Usuario', 'Admin']);
                     <li class="item-menu">
                         <a href="index.php"><i class="material-icons">home</i> Inicio</a>
                     </li>
-                    <li class="item-menu">
-                        <a href="#Reuniones"><i class="material-icons">event</i> Reuniones</a>
-                    </li>
                     <li class="item-menu activo">
                         <a href="horas.php"><i class="material-icons">punch_clock</i> Horas Trabajadas</a>
                     </li>
