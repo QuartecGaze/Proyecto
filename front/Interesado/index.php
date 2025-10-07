@@ -101,9 +101,9 @@
                 </select>
             </div>
 
-                <div class="tabs-content">
+            <div class="tabs-content">
                     <!-- DESDE EL JS SE CARGAN LAS PERSONAS -->
-                </div>
+            </div>
 
                 <div class="form-actions">
                     <button class="btn-guardar">
@@ -112,15 +112,10 @@
                 </div>
             </div>
         </div>
+        
+    
 
 
-
-
-
-
-        <div class="divider"></div>
-
-        <h2>deberiamos mostrar los integrantes familiares ingresados por esta persona para poder editarlos borrarlos etc</h2>
 
         <div class="divider"></div>
 

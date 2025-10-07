@@ -38,3 +38,9 @@ import { apiRequest } from './apiConfig.js';
         export function subirFalta(data){
                 return apiRequest(`/APICooperativa/ApiCooperativa.php?accion=subirFalta`, "POST", data);
         }
+        export function getIntegrantesFamiliares(id) {
+                return apiRequest('/APICooperativa/ApiCooperativa.php?accion=getIntegrantesFamiliares&id=' + id, 'GET');
+        }
+        export function eliminarIntegranteFamiliar(idIntegrante) {
+                return apiRequest('/APICooperativa/ApiCooperativa.php?accion=eliminarIntegranteFamiliar', 'POST', idIntegrante);
+        }

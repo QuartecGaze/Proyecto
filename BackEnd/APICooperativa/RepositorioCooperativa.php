@@ -260,7 +260,7 @@ require __DIR__ .'/../Consultas.php';
                 VALUES (?, ?, ?, ?, ?, ?, ?)
             ";
             //agregar [parentesco si va]
-            return consulta($this->conn, $consulta, "isssssi", [$idPersona, $nombre, $apellido, $ci, $fechaNacimiento, $genero, $email]);
+            return consulta($this->conn, $consulta, "issssss", [$idPersona, $nombre, $apellido, $ci, $fechaNacimiento, $genero, $email]);
         }
                 
         public function cargarFalta($idPersona, $horas, $fechaHoras, $idSemana, $compensacion, $motivo){
@@ -300,6 +300,41 @@ require __DIR__ .'/../Consultas.php';
             return $semanas;
         }
 
+        public function getIntegrantesFamiliares($idPersona) {
+            $consulta = "
+                SELECT * 
+                FROM integrante_familiar
+                WHERE ID_Persona = ?
+            ";
+            $resultado = consulta($this->conn, $consulta, "i", [$idPersona]); 
+        
+            $integrantesFamiliares = [];
+            while ($fila = mysqli_fetch_assoc($resultado)) {
+                $integrantesFamiliares[] = [
+                    'ID_Integrante'   => $fila['ID_Integrante'],
+                    'Nombre'          => $fila['Nombre'],
+                    'Apellido'        => $fila['Apellido'],
+                    'CI'              => $fila['CI'],
+                    'FechaNacimiento' => $fila['FechaNacimiento'],
+                    'Email'           => $fila['Email'],
+                    'Genero'          => $fila['Genero']
+                ];
+            }
+            return $integrantesFamiliares;
+        }
+        
+        public function eliminarIntegrante($idIntegrante) {
+            $consulta = "
+                DELETE
+                FROM integrante_familiar
+                WHERE ID_Integrante = ?
+            ";
+            $resultado = consulta($this->conn, $consulta, "i", [$idIntegrante]); 
+            if ($resultado === false) {
+                return false;
+            }
+            return true;
+        }
 
     }
 ?>

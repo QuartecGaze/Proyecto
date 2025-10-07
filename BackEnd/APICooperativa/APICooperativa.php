@@ -124,7 +124,7 @@
                             $ci = $integrante['ci'];
                             $fechaNacimiento = $integrante['fechaNacimiento'];
                             $genero = $integrante['genero'];
-                            $telefono = $integrante['email'];
+                            $email = $integrante['email'];
 
                         $servicio->ingresarIntegrante($idPersona, $nombre, $apelido, $ci, $fechaNacimiento, $genero, $email);
                             $ingresados++;
@@ -139,7 +139,7 @@
                 }
             }
             
-            if ($accion === "subirFalta"){
+            elseif ($accion === "subirFalta"){
                 //traer las horas del front
                 session_start();
                 $idPersona = $_SESSION['id'];
@@ -165,6 +165,21 @@
                     }
             }
 
+            elseif ($accion === "eliminarIntegranteFamiliar") {
+                $idIntegrante = json_decode(file_get_contents('php://input'), true);;
+                try {
+                    if ($idIntegrante === null || $idIntegrante < 1) {
+                        respuesta("El ID integrante es inválido.", "error", 400);
+                    }
+                    if ($servicio->eliminarIntegranteFamiliar($idIntegrante)) {
+                        respuesta("Integrante borrado correctamente", "exito", 200);
+                    } else {
+                        respuesta("Error al borrar el integrante", "error", 500);
+                    }
+                    }catch(Exception $e){
+                        respuesta($e->getMessage(), "error", $e->getCode());
+                    }
+                }
 
 
 
@@ -304,6 +319,27 @@
                 respuesta("No se encontro una id para buscar", "error", 0);
             }
         }
+
+
+        if($accion === "getIntegrantesFamiliares"){
+            $idPersona = $_GET['id'];
+            if($idPersona != null){
+                try{
+                    $integrantesFamiliares = $servicio->getIntegrantesFamiliares($idPersona);
+                    respuesta($integrantesFamiliares, "exito", 200);
+                }
+                catch(Exception $e) {
+                respuesta($e->getMessage(), "error", $e->getCode());
+            }
+
+        } else {
+            respuesta("No se encontro una id para buscar", "error", 0);
+        }
+    }
+
+
+
+
 
 
 

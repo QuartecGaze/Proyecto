@@ -194,4 +194,27 @@
             return $this->repositorio->getSemanas();
         }
 
+        public function getIntegrantesFamiliares($idPersona) {
+            $filas = $this->repositorio->getIntegrantesFamiliares($idPersona);
+        
+            $out = [];
+            foreach ($filas as $f) {
+                $out[] = [
+                    'id' => $f['ID_Integrante'],
+                    'nombre' => $f['Nombre'],
+                    'apellido' => $f['Apellido'],
+                    'ci' => $f['CI'],
+                    'fecha_nacimiento' => $f['FechaNacimiento'],
+                    'email' => $f['Email'],
+                    'genero' => $f['Genero']
+                ];
+            }
+            return $out;
+        }
+        
+        
+        public function eliminarIntegranteFamiliar($idIntegrante){
+            return $this->repositorio->eliminarIntegrante($idIntegrante);
+        }
+
     }
