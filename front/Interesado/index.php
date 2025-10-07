@@ -102,21 +102,16 @@
             </div>
 
             <div class="tabs-content">
-                    <!-- DESDE EL JS SE CARGAN LAS PERSONAS -->
+                <!-- DESDE EL JS SE CARGAN LAS PERSONAS -->
             </div>
 
-                <div class="form-actions">
-                    <button class="btn-guardar">
-                        <i class="material-icons">save</i> Guardar todos los datos
-                    </button>
-                </div>
+            <div class="form-actions">
+                <button class="btn-guardar">
+                    <i class="material-icons">save</i> Guardar todos los datos
+                </button>
             </div>
         </div>
-        
-    
-
-
-
+        </div>
         <div class="divider"></div>
 
         <h2>4. Comprobante de Pago Inicial</h2>
@@ -161,4 +156,5 @@
 </body>
 <script src="../Javascript/interesado.js" type="module"></script>
 <script src="../Javascript/integrantesFamiliares.js" type="module"></script>
+
 </html>
