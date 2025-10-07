@@ -35,7 +35,7 @@
                         <a href="reuniones.php"><i class="material-icons">event</i> Reuniones</a>
                     </li>
                     <li class="item-menu">
-                        <a href="#"><i class="material-icons">people</i> Socios</a>
+                        <a href="socios.php"><i class="material-icons">people</i> Socios</a>
                     </li>
                     <li class="item-menu">
                         <a href="#">
@@ -44,8 +44,6 @@
                         <ul class="submenu">
                             <a href="proyectos.php"><i class="material-icons">home_work</i>Gestionar Proyectos</a>
                             <a href="crearUnidad.php"><i class="material-icons">add_circle</i> Crear Unidad</a>
-                            <a href="borrarUnidad.php"><i class="material-icons">delete</i> Borrar Unidad</a>
-                            <a href="modificarUnidad.php"><i class="material-icons">edit</i> Modificar Unidad</a>
                         </ul>
                     </li>
                     <li class="item-menu">

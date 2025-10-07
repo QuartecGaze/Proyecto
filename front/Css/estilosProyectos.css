@@ -523,7 +523,7 @@ a {
     background-color: #c0392b;
 }
 
-.btn-cambiar-estado {
+.btn-cambiar-estado, .btn-modificar {
     background-color: #3498db;
     color: white;
 }
