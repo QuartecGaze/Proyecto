@@ -44,3 +44,9 @@ import { apiRequest } from './apiConfig.js';
         export function eliminarIntegranteFamiliar(idIntegrante) {
                 return apiRequest('/APICooperativa/ApiCooperativa.php?accion=eliminarIntegranteFamiliar', 'POST', idIntegrante);
         }
+        export function getReunionesTerminadas() {
+                return apiRequest('/APICooperativa/ApiCooperativa.php?accion=getReunionesTerminadas', 'GET');
+        }
+        export function getReunionesPendientes() {
+                return apiRequest('/APICooperativa/ApiCooperativa.php?accion=getReunionesPendientes', 'GET');
+        }

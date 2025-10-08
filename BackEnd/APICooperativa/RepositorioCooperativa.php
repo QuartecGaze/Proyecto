@@ -336,5 +336,34 @@ require __DIR__ .'/../Consultas.php';
             return true;
         }
 
+        public function getReunionesPendientes(){
+            $consulta = "
+                SELECT * 
+                FROM reunion 
+                WHERE Estado_Reunion = 'Pendiente';
+            ";
+            $resultado = consulta($this->conn, $consulta); 
+            $reunionesPendientes = [];
+        
+            while ($fila = mysqli_fetch_assoc($resultado)) {
+                $reunionesPendientes[] = $fila;
+            }
+            return $reunionesPendientes;
+        }
+
+        public function getReunionesTerminadas(){
+            $consulta = "
+                SELECT * 
+                FROM reunion 
+                WHERE Estado_Reunion = 'Finalizada' OR Estado_Reunion = 'Cancelada';
+            ";
+            $resultado = consulta($this->conn, $consulta); 
+            $reunionesPendientes = [];
+        
+            while ($fila = mysqli_fetch_assoc($resultado)) {
+                $reunionesPendientes[] = $fila;
+            }
+            return $reunionesPendientes;
+        }
     }
 ?>

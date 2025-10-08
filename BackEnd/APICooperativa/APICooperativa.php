@@ -337,6 +337,23 @@
         }
     }
 
+    if($accion == "getReunionesPendientes"){
+        try {
+            $reuniones = $servicio->getReunionesPendientes();
+            respuesta($reuniones, "exito", 201);
+        } catch(Exception $e) {
+            respuesta($e->getMessage(), "error", $e->getCode());
+        }
+    }
+
+    if($accion == "getReunionesTerminadas"){
+        try {
+            $reuniones = $servicio->getReunionesTerminadas();
+            respuesta($reuniones, "exito", 201);
+        } catch(Exception $e) {
+            respuesta($e->getMessage(), "error", $e->getCode());
+        }
+    }
 
 
 

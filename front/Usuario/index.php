@@ -84,7 +84,7 @@ verificarAcceso(['Admin', 'Usuario']);
                         </div>
                         <div class="tarjeta-contenido">
                             <h3>Pagos Atrasados</h3>
-                            <p class="tarjeta-valor" id="pagosAtrasadosCantidad">0</p>
+                            <p class="tarjeta-valor" id="pagosAtrasadosCantidad">.</p>
                             <p class="tarjeta-subtexto" id="pagosAtrasadosTotal">Total: $0</p>
                         </div>
                     </div>
@@ -97,7 +97,7 @@ verificarAcceso(['Admin', 'Usuario']);
                         </div>
                         <div class="tarjeta-contenido">
                             <h3>Horas Trabajadas</h3>
-                            <p class="tarjeta-valor" id="horasTrabajadas"></p>
+                            <p class="tarjeta-valor" id="horasTrabajadas">.</p>
                             <p class="tarjeta-subtexto">Esta Semana</p>
                         </div>
                     </div>
@@ -110,7 +110,7 @@ verificarAcceso(['Admin', 'Usuario']);
                     </div>
                     <div class="tarjeta-contenido">
                         <h3>Reuniones</h3>
-                        <p class="tarjeta-valor">2</p>
+                        <p class="tarjeta-valor" id="reunionesPendientes">.</p>
                         <p class="tarjeta-subtexto">Próximas</p>
                     </div>
                 </div>
@@ -133,12 +133,13 @@ verificarAcceso(['Admin', 'Usuario']);
                 <section class="seccion-actividades">
                     <h2>Reuniones Completadas</h2>
                     <div class="lista-actividades">
-
-                        <div class="actividad">
-                            <i class="material-icons actividad-icono">event_available</i>
-                            <div class="actividad-detalle">
-                                <p>Reunion Actividades Comerciales</p>
-                                <span class="actividad-fecha">Hoy, 10:30 AM</span>
+                        <div id="contenedorTerminadas">
+                            <div class="actividad">
+                                <i class="material-icons actividad-icono">event_available</i>
+                                <div class="actividad-detalle">
+                                    <p>Reunion Actividades Comerciales</p>
+                                    <span class="actividad-fecha">Hoy, 10:30 AM</span>
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -148,14 +149,16 @@ verificarAcceso(['Admin', 'Usuario']);
                 <section class="seccion-eventos">
                     <h2>Proximas Reuniones</h2>
                     <div class="lista-eventos">
-                        <div class="evento">
-                            <div class="evento-fecha">
-                                <span class="evento-dia">15</span>
-                                <span class="evento-mes">Jul</span>
-                            </div>
-                            <div class="evento-detalle">
-                                <h3>Reunión general</h3>
-                                <p>Acciones Comerciales Avanzadas - 4:00 PM</p>
+                        <div id="contenedorPendientes">
+                            <div class="evento">
+                                <div class="evento-fecha">
+                                    <span class="evento-dia">15</span>
+                                    <span class="evento-mes">Jul</span>
+                                </div>
+                                <div class="evento-detalle">
+                                    <h3>Reunión general</h3>
+                                    <p>Acciones Comerciales Avanzadas - 4:00 PM</p>
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -166,6 +169,7 @@ verificarAcceso(['Admin', 'Usuario']);
 
     <script src="../Javascript/FrontUsuario/cooperativa.js" type="module"></script>
     <script src="../Javascript/FrontUsuario/generalidades.js" type="module"></script>
+    <script src="../Javascript/FrontUsuario/reuniones.js" type="module"></script>
     <script>
         document.querySelectorAll(".item-menu > a").forEach(boton => {
             boton.addEventListener("click", function (e) {

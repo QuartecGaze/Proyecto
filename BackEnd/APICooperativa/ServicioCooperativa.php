@@ -217,4 +217,64 @@
             return $this->repositorio->eliminarIntegrante($idIntegrante);
         }
 
+        public function getReunionesTerminadas(){
+            $filas = $this->repositorio->getReunionesTerminadas();
+        
+            if (empty($filas)) {
+                return ['reunionesCompletadas' => 0, 'reuniones' => []];
+            }
+        
+            $reuniones = [];
+            foreach ($filas as $r) {
+                if (is_object($r)) $r = get_object_vars($r);
+                // claves del repo son tal cual columnas:
+                $reuniones[] = [
+                    'idReunion'     => $r['ID_Reunion'],
+                    'titulo'        => $r['Nombre'],
+                    'descripcion'   => $r['Descripcion'],
+                    'fecha'         => $r['Fecha'],
+                    'hora'          => $r['Hora'],
+                    'lugar'         => $r['Lugar'],
+                    'tipoDeReunion' => $r['Tipo_Reunion'],
+                    'estado'        => $r['Estado_Reunion'],
+                ];
+            }
+        
+            return [
+                'reunionesCompletadas' => count($reuniones),
+                'reuniones'           => $reuniones
+            ];
+        }
+
+        public function getReunionesPendientes(){
+            $filas = $this->repositorio->getReunionesPendientes();
+        
+            if (empty($filas)) {
+                return ['reunionesPendientes' => 0, 'reuniones' => []];
+            }
+        
+            $reuniones = [];
+            foreach ($filas as $r) {
+                if (is_object($r)) $r = get_object_vars($r);
+                // claves del repo son tal cual columnas:
+                $reuniones[] = [
+                    'idReunion'     => $r['ID_Reunion'],
+                    'titulo'        => $r['Nombre'],
+                    'descripcion'   => $r['Descripcion'],
+                    'fecha'         => $r['Fecha'],
+                    'hora'          => $r['Hora'],
+                    'lugar'         => $r['Lugar'],
+                    'tipoDeReunion' => $r['Tipo_Reunion'],
+                    'estado'        => $r['Estado_Reunion'],
+                ];
+            }
+        
+            return [
+                'reunionesPendientes' => count($reuniones),
+                'reuniones'           => $reuniones
+            ];
+        }
+
+
+
     }
