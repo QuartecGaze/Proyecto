@@ -7,8 +7,8 @@ import {
 import { getIdSesion } from '../../BackEnd/APIFetchs/APIUsuario.js';
 
 // ===== HELPERS / DOM =====
-const $  = (sel, ctx=document) => ctx.querySelector(sel);
-const $$ = (sel, ctx=document) => Array.from(ctx.querySelectorAll(sel));
+const $ = (sel, ctx = document) => ctx.querySelector(sel);
+const $$ = (sel, ctx = document) => Array.from(ctx.querySelectorAll(sel));
 
 const selectCantidad = $('#cantidad-personas');
 const tabsHeader = $('.tabs-header');
@@ -16,7 +16,7 @@ const tabsContent = $('.tabs-content');
 const residentesContainer = $('.residentes-container'); // <-- ancla de sección completa
 const btnGuardar = $('.btn-guardar');
 
-if (tabsHeader)  tabsHeader.style.display = 'none';
+if (tabsHeader) tabsHeader.style.display = 'none';
 if (tabsContent) tabsContent.style.display = 'none';
 
 // Contenedor para cargar personas (inputs)
@@ -31,52 +31,51 @@ if (!lista) {
 }
 
 // ====== PANEL DE LISTADO (separado del cargador, DEBAJO de toda la sección 3) ======
-let panel = document.getElementById('panel-integrantes-listado');
+let panel = document.getElementById('panel-integrantes');
 if (!panel) {
   panel = document.createElement('section');
-  panel.id = 'panel-integrantes-listado';
-  panel.className = 'panel-integrantes tarjeta';
+  panel.id = 'panel-integrantes';
+  panel.className = 'panel-integrantes';
   panel.innerHTML = `
-    <div class="panel-integrantes__header">
-      <div class="panel-title">
-        <i class="material-icons">groups</i>
-        <h3>Integrantes familiares</h3>
-      </div>
-      <span id="if-contador" class="badge">0</span>
-    </div>
+        <div class="panel-integrantes__header">
+            <div class="panel-integrantes__title">
+                <i class="material-icons">groups</i>
+                <h3>Integrantes Familiares Registrados</h3>
+            </div>
+            <span id="integrantes-count" class="panel-integrantes__badge">0</span>
+        </div>
 
-    <div class="panel-integrantes__body">
-      <div id="if-spinner" class="if-spinner">
-        <div class="loader"></div>
-        <span>Cargando integrantes…</span>
-      </div>
+        <div class="panel-integrantes__body">
+            <div id="integrantes-spinner" class="panel-integrantes__spinner">
+                <div class="panel-integrantes__loader"></div>
+                <span>Cargando integrantes...</span>
+            </div>
 
-      <div id="if-empty" class="if-empty" style="display:none;">
-        <i class="material-icons">info</i>
-        <p>No hay integrantes registrados.</p>
-      </div>
+            <div id="integrantes-empty" class="panel-integrantes__empty" style="display:none;">
+                <i class="material-icons">group</i>
+                <p>No hay integrantes familiares registrados</p>
+                <small>Agregue integrantes usando el formulario superior</small>
+            </div>
 
-      <div id="if-table-wrap" class="if-table-wrapper" style="display:none;">
-        <table id="if-table" class="if-table">
-          <thead>
-            <tr>
-              <th>Nombre</th>
-              <th>Apellido</th>
-              <th>CI</th>
-              <th>Fecha Nac.</th>
-              <th>Género</th>
-              <th>Email</th>
-              <th class="col-acciones">Acciones</th>
-            </tr>
-          </thead>
-          <tbody id="if-tbody"></tbody>
-        </table>
-      </div>
-    </div>
-  `;
+            <div id="integrantes-table-wrapper" class="panel-integrantes__table-wrapper" style="display:none;">
+                <table id="integrantes-table" class="panel-integrantes__table">
+                    <thead>
+                        <tr>
+                            <th>Nombre</th>
+                            <th>Apellido</th>
+                            <th>Cédula</th>
+                            <th>Fecha Nacimiento</th>
+                            <th>Género</th>
+                            <th>Email</th>
+                            <th class="panel-integrantes__actions">Borrar</th>
+                        </tr>
+                    </thead>
+                    <tbody id="integrantes-tbody"></tbody>
+                </table>
+            </div>
+        </div>
+    `;
 
-  // ⬇️ ANTES: insertábamos después de .tabs-content
-  // AHORA: lo insertamos DESPUÉS de toda la sección .residentes-container
   if (residentesContainer && residentesContainer.parentElement) {
     residentesContainer.insertAdjacentElement('afterend', panel);
   } else if (tabsContent && tabsContent.parentElement) {
@@ -86,11 +85,12 @@ if (!panel) {
   }
 }
 
-const ifContador = $('#if-contador', panel);
-const ifSpinner  = $('#if-spinner', panel);
-const ifEmpty    = $('#if-empty', panel);
-const ifWrap     = $('#if-table-wrap', panel);
-const ifTbody    = $('#if-tbody', panel);
+
+const integrantesCount = $('#integrantes-count', panel);
+const integrantesSpinner = $('#integrantes-spinner', panel);
+const integrantesEmpty = $('#integrantes-empty', panel);
+const integrantesTableWrapper = $('#integrantes-table-wrapper', panel);
+const integrantesTbody = $('#integrantes-tbody', panel);
 
 // ====== ESTADO ======
 let idPersonaLog = null;
@@ -98,7 +98,7 @@ let integrantesGuardados = [];
 
 // ====== CARGAR NUEVOS INTEGRANTES ======
 function crearBloquePersona(idx) {
-  const hoy = new Date().toISOString().slice(0,10);
+  const hoy = new Date().toISOString().slice(0, 10);
   const fechaMin = new Date();
   fechaMin.setFullYear(fechaMin.getFullYear() - 150);
   const anosAtras = fechaMin.toISOString().slice(0, 10);
@@ -154,7 +154,7 @@ function renderCantidad(nro) {
   }
 }
 
-(function ensureZeroOption(){
+(function ensureZeroOption() {
   if (!selectCantidad) return;
   if (![...selectCantidad.options].some(o => o.value === '0')) {
     const opt = new Option('0', '0');
@@ -230,7 +230,7 @@ async function cargarListadoIntegrantes() {
     toggleSpinner(true);
     const resp = await getIntegrantesFamiliares(idPersonaLog);
     const arr = Array.isArray(resp?.message) ? resp.message
-              : (Array.isArray(resp?.message?.data) ? resp.message.data : []);
+      : (Array.isArray(resp?.message?.data) ? resp.message.data : []);
     integrantesGuardados = normalizarIntegrantes(arr);
     renderTablaIntegrantes();
   } catch (e) {
@@ -244,51 +244,52 @@ async function cargarListadoIntegrantes() {
 
 function normalizarIntegrantes(arr) {
   return (arr || []).map(f => ({
-    id:               f.id ?? f.ID_Integrante ?? '',
-    nombre:           f.nombre ?? f.Nombre ?? '',
-    apellido:         f.apellido ?? f.Apellido ?? '',
-    ci:               f.ci ?? f.CI ?? '',
-    fechaNacimiento:  f.fecha_nacimiento ?? f.FechaNacimiento ?? '',
-    genero:           f.genero ?? f.Genero ?? '',
-    email:            f.email ?? f.Email ?? ''
+    id: f.id ?? f.ID_Integrante ?? '',
+    nombre: f.nombre ?? f.Nombre ?? '',
+    apellido: f.apellido ?? f.Apellido ?? '',
+    ci: f.ci ?? f.CI ?? '',
+    fechaNacimiento: f.fecha_nacimiento ?? f.FechaNacimiento ?? '',
+    genero: f.genero ?? f.Genero ?? '',
+    email: f.email ?? f.Email ?? ''
   }));
 }
 
 function renderTablaIntegrantes() {
-  ifContador.textContent = String(integrantesGuardados.length);
+  integrantesCount.textContent = String(integrantesGuardados.length);
 
   if (integrantesGuardados.length === 0) {
-    ifWrap.style.display  = 'none';
-    ifEmpty.style.display = 'flex';
-    ifTbody.innerHTML = '';
+    integrantesTableWrapper.style.display = 'none';
+    integrantesEmpty.style.display = 'flex';
+    integrantesTbody.innerHTML = '';
     return;
   }
 
-  ifEmpty.style.display = 'none';
-  ifWrap.style.display  = 'block';
+  integrantesEmpty.style.display = 'none';
+  integrantesTableWrapper.style.display = 'block';
 
-  ifTbody.innerHTML = integrantesGuardados.map(r => `
-    <tr data-id="${esc(r.id)}">
-      <td>${esc(r.nombre)}</td>
-      <td>${esc(r.apellido)}</td>
-      <td>${esc(r.ci)}</td>
-      <td>${esc(formatDate(r.fechaNacimiento))}</td>
-      <td>${esc(r.genero)}</td>
-      <td>${esc(r.email)}</td>
-      <td class="acciones">
-        <button type="button" class="btn btn-danger btn-sm btn-borrar-integrante" data-id="${esc(r.id)}" title="Borrar">
-          <i class="material-icons">delete</i>
-        </button>
-      </td>
-    </tr>
-  `).join('');
+  integrantesTbody.innerHTML = integrantesGuardados.map((integrante, index) => `
+        <tr data-id="${esc(integrante.id)}">
+            <td data-label="Nombre">${esc(integrante.nombre)}</td>
+            <td data-label="Apellido">${esc(integrante.apellido)}</td>
+            <td data-label="Cédula">${esc(integrante.ci)}</td>
+            <td data-label="Fecha Nac.">${esc(formatDate(integrante.fechaNacimiento))}</td>
+            <td data-label="Género">${esc(integrante.genero)}</td>
+            <td data-label="Email">${esc(integrante.email)}</td>
+            <td class="panel-integrantes__actions" data-label="Acciones">
+                <button type="button" class="btn btn--danger btn--sm btn-delete-integrante" 
+                        data-id="${esc(integrante.id)}" title="Eliminar integrante">
+                    <i class="material-icons">delete</i>
+                </button>
+            </td>
+        </tr>
+    `).join('');
 }
 
 // === Borrar ===
 function wireDelete() {
-  if (!ifTbody) return;
-  ifTbody.addEventListener('click', async (ev) => {
-    const btn = ev.target.closest('.btn-borrar-integrante');
+  if (!integrantesTbody) return;
+  integrantesTbody.addEventListener('click', async (ev) => {
+    const btn = ev.target.closest('.btn-delete-integrante');
     if (!btn) return;
     const id = btn.dataset.id || btn.closest('tr')?.dataset?.id;
     if (!id) return;
@@ -312,19 +313,24 @@ function wireDelete() {
 }
 
 function toggleSpinner(show) {
-  ifSpinner.style.display = show ? 'flex' : 'none';
+  integrantesSpinner.style.display = show ? 'flex' : 'none';
+  if (show) {
+    panel.classList.add('is-loading');
+  } else {
+    panel.classList.remove('is-loading');
+  }
 }
 
 function formatDate(d) {
   if (!d) return '';
   const iso = d.includes('T') ? d.split('T')[0] : d;
-  const [y,m,dd] = iso.split('-');
+  const [y, m, dd] = iso.split('-');
   if (!y || !m || !dd) return d;
   return `${dd}/${m}/${y}`;
 }
 
 function esc(s) {
   return String(s ?? '').replace(/[&<>"']/g, m => (
-    { '&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;' }[m]
+    { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[m]
   ));
 }

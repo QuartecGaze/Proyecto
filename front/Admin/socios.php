@@ -39,7 +39,7 @@ verificarAcceso(['Admin']);
                     </li>
                     <li class="item-menu">
                         <a href="#">
-                            <i class="material-icons">apartment</i> Proyectos
+                            <i class="material-icons">apartment</i> Unidades Habitacionales
                         </a>
                         <ul class="submenu">
                             <a href="proyectos.php"><i class="material-icons">home_work</i>Gestionar Proyectos</a>

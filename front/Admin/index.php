@@ -1,7 +1,6 @@
 <?php
-    require_once '../verificarSesion.php';
-    verificarAcceso(['Admin']);
-    
+require_once '../verificarSesion.php';
+verificarAcceso(['Admin']);
 ?>
 <!DOCTYPE html>
 <html lang="es">
@@ -41,7 +40,7 @@
                     </li>
                     <li class="item-menu">
                         <a href="#">
-                            <i class="material-icons">apartment</i> Proyectos
+                            <i class="material-icons">apartment</i> Unidades Habitacionales
                         </a>
                         <ul class="submenu">
                             <a href="proyectos.php"><i class="material-icons">home_work</i>Gestionar Proyectos</a>
@@ -53,12 +52,18 @@
                             <i class="material-icons">payments</i> Pagos
                         </a>
                         <ul class="submenu">
-                            <li><a href="confirmarPagos.php"><i class="material-icons">receipt_long</i> Corroborar Comprobantes</a></li>
+                            <li><a href="confirmarPagos.php"><i class="material-icons">receipt_long</i> Corroborar
+                                    Comprobantes</a></li>
                             <li><a href="pagos.php"><i class="material-icons">point_of_sale</i> Gestor de Pagos</a></li>
                         </ul>
                     </li>
                     <li class="item-menu">
                         <a href="solicitudes.php"><i class="material-icons">email</i> Solicitudes</a>
+                    </li>
+                    <li class="item-menu">
+                        <a href="faltas.php">
+                            <i class="material-icons">punch_clock</i> Faltas de Horas
+                        </a>
                     </li>
                     <li class="item-menu">
                         <a href="#">
@@ -88,7 +93,7 @@
                     </button>
                 </form>
                 <button id="boton-cambiar-sesion">
-                        <i class="material-icons">switch_account</i> Cambiar a Usuario
+                    <i class="material-icons">switch_account</i> Cambiar a Usuario
                 </button>
             </div>
         </aside>
