@@ -456,6 +456,41 @@ a {
     height: 50px;
 }
 
+/* Tabla de pagos */
+.tabla-contenedor {
+    overflow-x: auto;
+    margin-top: 15px;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+}
+
+.tabla-pagos {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 0.9rem;
+}
+
+.tabla-pagos th {
+    background-color: var(--color-primario);
+    color: white;
+    font-weight: 500;
+    text-align: left;
+    padding: 12px 15px;
+}
+
+.tabla-pagos td {
+    padding: 12px 15px;
+    border-bottom: 1px solid var(--color-fondo-claro);
+    vertical-align: middle;
+}
+
+.tabla-pagos tr:nth-child(even) {
+    background-color: rgba(236, 240, 241, 0.5);
+}
+
+.tabla-pagos tr:hover {
+    background-color: rgba(52, 152, 219, 0.1);
+}
 
 
 .btn-secundario {
@@ -539,11 +574,6 @@ a {
 
 .campo span {
     flex: 1;
-}
-
-.estado-activo {
-    color: var(--color-exito);
-    font-weight: 600;
 }
 
 .estadisticas {
@@ -638,7 +668,6 @@ a {
     display: flex;
     justify-content: flex-end;
     padding: 20px 30px;
-    border-top: 1px solid var(--color-borde);
     gap: 15px;
 }
 
