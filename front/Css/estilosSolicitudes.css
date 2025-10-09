@@ -405,6 +405,61 @@ strong {
     gap: 5px;
 }
 
+.tabla-contenedor {
+    overflow-x: auto;
+    margin-top: 15px;
+    border-radius: 8px;
+}
+
+.tabla-pagos {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 0.9rem;
+    border-radius: 8px;
+    margin-bottom: 20px;
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+
+}
+
+.tabla-pagos th {
+    background-color: var(--color-primario);
+    color: white;
+    font-weight: 500;
+    text-align: left;
+    padding: 12px 15px;
+}
+
+.tabla-pagos td {
+    padding: 12px 15px;
+    vertical-align: middle;
+}
+
+.tabla-pagos tr:nth-child(even) {
+    background-color: rgba(236, 240, 241, 0.5);
+}
+
+.tabla-pagos tr:hover {
+    background-color: rgba(52, 152, 219, 0.1);
+}
+
+th:first-child {
+  border-radius: 8px 0 0 0;
+}
+
+/* Para el último tr */
+th:last-child {
+  border-radius: 0 8px  0 0;
+}
+
+td:first-child {
+  border-radius: 0 0 0 8px;
+}
+
+/* Para el último tr */
+td:last-child {
+  border-radius: 0 0 8px 0;
+}
+
 /* Botones */
 .btn-asignar-entrevista,
 .btn-asignar-pago-inicial {

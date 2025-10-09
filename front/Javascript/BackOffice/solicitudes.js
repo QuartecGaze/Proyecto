@@ -161,18 +161,41 @@ function actualizarSolicitudes(interesados) {
                             </button>
                         </div>
 
+                        <div class="tabla-contenedor">
+                            <h3>Integrantes Familiares</h3>
+                            <table class="tabla-pagos">
+                                <thead>
+                                    <tr>
+                                        <th>Nombre</th>
+                                        <th>Apellido</th>
+                                        <th>Cedeula</th>
+                                        <th>Fecha de Nac.</th>
+                                        <th>Email</th>
+                                        <th>Genero</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <td data-label="Nombre">Alain</td>
+                                    <td data-label="Apellido">Arce</td>
+                                    <td data-label="Cedula">57051830<td>
+                                    <td data-label="Fecha Nac">06/02/2026<td>
+                                    <td data-label="Género">Masculino</td>
+                                    <td data-label="Email">alain@gmail.com</td>
+                                </tbody>
+                            </table>
+                        </div>
 
-                            <div class="documento-card">
-                                <div class="documento-info">
-                                    <h4>Monto de Pago Inicial</h4>
-                                        <p><strong>Asignado:</strong> ${interesado.montoPagoInicial != null && interesado.montoPagoInicial !== "" ? `$${interesado.montoPagoInicial}` : '<em>No asignado</em>'}</p>
-                                </div>
-                                    <div class="documento-acciones">
-                                        <button class="btn-asignar-pago-inicial" data-id="${interesado.idPersona}">
-                                            <i class="material-icons">payment</i> Asignar / Editar Monto
-                                        </button>
-                                    </div>
-                                </div>
+                        <div class="documento-card">
+                            <div class="documento-info">
+                                <h4>Monto de Pago Inicial</h4>
+                                <p><strong>Asignado:</strong> ${interesado.montoPagoInicial != null && interesado.montoPagoInicial !== "" ? `$${interesado.montoPagoInicial}` : '<em>No asignado</em>'}</p>
+                            </div>
+                            <div class="documento-acciones">
+                                <button class="btn-asignar-pago-inicial" data-id="${interesado.idPersona}">
+                                    <i class="material-icons">payment</i> Asignar / Editar Monto
+                                </button>
+                            </div>
+                        </div>
 
                         <div class="documento-card">
                             <div class="documento-info">
