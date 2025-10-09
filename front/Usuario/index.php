@@ -118,12 +118,12 @@ verificarAcceso(['Admin', 'Usuario']);
                 <!-- Tarjeta de estado financiero -->
                 <div class="tarjeta-dashboard">
                     <div class="tarjeta-icono">
-                        <i class="material-icons">payments</i>
+                        <i class="material-icons">analytics</i>
                     </div>
                     <div class="tarjeta-contenido">
-                        <h3>Algo extra</h3>
-                        <p class="tarjeta-valor">y</p>
-                        <p class="tarjeta-subtexto"> lo que hay que pagar en el otro</p>
+                        <h3>Porcentaje Faltas</h3>
+                        <p class="tarjeta-valor">5</p>
+                        <p class="tarjeta-subtexto">Esta semana</p>
                     </div>
                 </div>
             </div>
@@ -167,9 +167,56 @@ verificarAcceso(['Admin', 'Usuario']);
         </main>
     </div>
 
+    <!-- Modal para información detallada de reunión -->
+    <div id="modalReunion" class="modal-reunion">
+        <div class="modal-contenido">
+            <div class="modal-header">
+                <h2 id="modalTitulo">Detalles de la Reunión</h2>
+                <span class="cerrar-modal">&times;</span>
+            </div>
+            <div class="modal-body">
+                <div class="info-reunion">
+                    <div class="info-item">
+                        <i class="material-icons">event</i>
+                        <div class="info-detalle">
+                            <h3>Fecha y Hora</h3>
+                            <p id="modalFechaHora">-</p>
+                        </div>
+                    </div>
+                    <div class="info-item">
+                        <i class="material-icons">location_on</i>
+                        <div class="info-detalle">
+                            <h3>Ubicación</h3>
+                            <p id="modalUbicacion">-</p>
+                        </div>
+                    </div>
+                    <div class="info-item">
+                        <i class="material-icons">description</i>
+                        <div class="info-detalle">
+                            <h3>Descripción</h3>
+                            <p id="modalDescripcion">-</p>
+                        </div>
+                    </div>
+                    <div class="info-item">
+                        <i class="material-icons">assignment</i>
+                        <div class="info-detalle">
+                            <h3>Orden del Día</h3>
+                            <ul id="modalOrdenDia" class="lista-orden-dia">
+                                <!-- Los puntos del orden del día se insertarán aquí -->
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button class="boton-modal boton-secundario" id="botonCerrarModal">Cerrar</button>
+            </div>
+        </div>
+    </div>
     <script src="../Javascript/FrontUsuario/cooperativa.js" type="module"></script>
     <script src="../Javascript/FrontUsuario/generalidades.js" type="module"></script>
     <script src="../Javascript/FrontUsuario/reuniones.js" type="module"></script>
+    <script src="../Javascript/FrontUsuario/modalReuniones.js" type="module"></script>
     <script>
         document.querySelectorAll(".item-menu > a").forEach(boton => {
             boton.addEventListener("click", function (e) {

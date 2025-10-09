@@ -373,20 +373,20 @@ a {
 
 .actividad {
     display: flex;
-    align-items: flex-start;
     gap: 15px;
 }
 
 .actividad-icono {
     color: var(--color-exito);
-    font-size: 1.5rem;
+    margin: auto 0;
+
 }
 
 .actividad-detalle p {
     font-size: 0.9rem;
     color: var(--color-texto-oscuro);
-    margin-bottom: 3px;
 }
+
 
 .actividad-fecha {
     font-size: 0.8rem;
@@ -435,6 +435,175 @@ a {
 .evento-detalle p {
     font-size: 0.9rem;
     color: var(--color-texto-oscuro);
+}
+
+/* Estilos para el modal de reuniones */
+.modal-reunion {
+    display: none;
+    position: fixed;
+    z-index: 1000;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    animation: fadeIn 0.3s ease;
+}
+
+.modal-contenido {
+    background-color: white;
+    margin: 5% auto;
+    border-radius: 8px;
+    width: 90%;
+    max-width: 600px;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+    animation: slideIn 0.3s ease;
+    overflow: hidden;
+}
+
+.modal-header {
+    background-color: var(--color-primario);
+    color: white;
+    padding: 20px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.modal-header h2 {
+    margin: 0;
+    font-size: 1.5rem;
+}
+
+.cerrar-modal {
+    font-size: 28px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: color 0.3s;
+}
+
+.cerrar-modal:hover {
+    color: var(--color-destacado);
+}
+
+.modal-body {
+    padding: 20px;
+    max-height: 60vh;
+    overflow-y: auto;
+}
+
+.info-reunion {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.info-item {
+    display: flex;
+    align-items: flex-start;
+    gap: 15px;
+}
+
+.info-item i {
+    color: var(--color-secundario);
+    font-size: 1.5rem;
+    margin-top: 5px;
+}
+
+.info-detalle h3 {
+    margin: 0 0 8px 0;
+    font-size: 1rem;
+    color: var(--color-primario);
+}
+
+.info-detalle p {
+    margin: 0;
+    color: var(--color-texto-oscuro);
+    line-height: 1.5;
+}
+
+.lista-orden-dia {
+    margin: 0;
+    padding-left: 20px;
+}
+
+.lista-orden-dia li {
+    margin-bottom: 8px;
+    color: var(--color-texto-oscuro);
+}
+
+.modal-footer {
+    padding: 15px 20px;
+    border-top: 1px solid var(--color-borde);
+    display: flex;
+    justify-content: flex-end;
+    gap: 10px;
+}
+
+.boton-modal {
+    padding: 10px 20px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-weight: 600;
+    transition: all 0.3s ease;
+}
+
+.boton-principal {
+    background-color: var(--color-secundario);
+    color: white;
+}
+
+.boton-principal:hover {
+    background-color: var(--color-primario);
+}
+
+.boton-secundario {
+    background-color: var(--color-fondo-claro);
+    color: var(--color-texto-oscuro);
+}
+
+.boton-secundario:hover {
+    background-color: var(--color-borde);
+}
+
+/* Animaciones para el modal */
+@keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+}
+
+@keyframes slideIn {
+    from { transform: translateY(-50px); opacity: 0; }
+    to { transform: translateY(0); opacity: 1; }
+}
+
+/* Estilo para actividades clickeables */
+.actividad {
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    padding: 10px;
+    border-radius: 4px;
+}
+
+.actividad:hover {
+    background-color: rgba(52, 152, 219, 0.1);
+}
+
+/* Responsive para el modal */
+@media (max-width: 768px) {
+    .modal-contenido {
+        width: 95%;
+        margin: 10% auto;
+    }
+    
+    .modal-footer {
+        flex-direction: column;
+    }
+    
+    .boton-modal {
+        width: 100%;
+    }
 }
 
 /* Responsive */
