@@ -175,7 +175,11 @@
         }
 
         public function ingresarIntegrante($idPersona, $nombre, $apellido, $ci, $fechaNacimiento, $genero, $email){
-        $this->repositorio->ingresarIntegrante($idPersona, $nombre, $apellido, $ci, $fechaNacimiento, $genero, $email);
+            if($this->repositorio->integranteExiste($ci)){
+                throw new Exception("Ya existe un integrante con una de las cédula en el sistema", 400);
+            } else {
+                  $this->repositorio->ingresarIntegrante($idPersona, $nombre, $apellido, $ci, $fechaNacimiento, $genero, $email);
+            }
         }
 
         public function cargarFalta($idPersona, $horas, $compensacion, $motivo){

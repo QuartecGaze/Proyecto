@@ -199,12 +199,18 @@ if (btnGuardar) {
     try {
       const resp = await ingresarIntegrantesFamiliares({ cantidadIntegrantes: personas.length, integrantes: personas });
       if (resp?.status === 'exito') {
-        alert('Integrantes enviados');
+        document.querySelector('.mensaje-exito').style.display = 'block';
+        document.querySelector('.mensaje-error').style.display = 'none';
         await cargarListadoIntegrantes();
         renderCantidad(0);
         if (selectCantidad) selectCantidad.value = '0';
       } else {
-        alert('Error: ' + (resp?.message || 'No se pudo registrar'));
+        document.querySelector('.mensaje-exito').style.display = 'none';
+        document.querySelector('.mensaje-error').style.display = 'block';
+        document.querySelector('.mensaje-error').textContent = resp?.message || 'Error al registrar integrantes';
+        await cargarListadoIntegrantes();
+        renderCantidad(0);
+        if (selectCantidad) selectCantidad.value = '0';
       }
     } catch (err) {
       console.error('Error al enviar integrantes', err);

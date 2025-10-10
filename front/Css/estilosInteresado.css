@@ -29,6 +29,27 @@
     max-width: 1200px;
     margin: 0 auto;
 }
+.mensaje-exito {
+    background-color: rgba(39, 174, 96, 0.1);
+    color: var(--color-exito);
+    padding: 12px;
+    border-radius: 4px;
+    margin-bottom: 15px;
+    text-align: center;
+    border-left: 4px solid var(--color-exito);
+    font-size: 0.9rem;
+}
+.mensaje-error {
+    background-color: rgba(231, 76, 60, 0.1);
+    color: var(--color-alerta);
+    padding: 12px;
+    border-radius: 4px;
+    margin-bottom: 15px;
+    text-align: center;
+    border-left: 4px solid var(--color-alerta);
+    font-size: 0.9rem;
+}
+
 
 .logo {
     display: flex;

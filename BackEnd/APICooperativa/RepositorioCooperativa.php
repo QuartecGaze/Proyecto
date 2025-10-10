@@ -322,6 +322,18 @@ require __DIR__ .'/../Consultas.php';
             }
             return $integrantesFamiliares;
         }
+        public function integranteExiste($ci) {
+            $consulta = "
+                SELECT 1
+                FROM integrante_familiar
+                WHERE CI = ?
+            ";
+            $resultado = consulta($this->conn, $consulta, "s", [$ci]); 
+            if ($resultado === false) {
+                return false;
+            }
+            return mysqli_num_rows($resultado) > 0;
+        }
         
         public function eliminarIntegrante($idIntegrante) {
             $consulta = "

@@ -104,7 +104,8 @@
             <div class="tabs-content">
                 <!-- DESDE EL JS SE CARGAN LAS PERSONAS -->
             </div>
-
+        <div class="mensaje-exito" style="display: none;">integrantes cargados correctamente, puede agregar o eliminarlos si es necesario</div>
+        <div class="mensaje-error" style="display: none;">Error al cargar integrantes, por favor intente nuevamente</div>
             <div class="form-actions">
                 <button class="btn-guardar">
                     <i class="material-icons">save</i> Guardar todos los datos

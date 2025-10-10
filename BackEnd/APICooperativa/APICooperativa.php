@@ -129,10 +129,13 @@
                         $servicio->ingresarIntegrante($idPersona, $nombre, $apelido, $ci, $fechaNacimiento, $genero, $email);
                             $ingresados++;
                         } catch (Throwable $e) {
-                            //si falla seguimos con el foreach
+                            $error = $e->getMessage();
                         }
                     }
                     $total = count($integrantes);
+                    if($ingresados < $total){
+                        throw new Exception("Solo se ingresaron $ingresados de $total integrantes. Error: $error", 400);
+                    }
                     respuesta("Integrantes ingresados con exito $ingresados/$total", "exito", 200);
                 } catch (Exception $e){
                     respuesta($e->getMessage(), "error", $e->getCode());
