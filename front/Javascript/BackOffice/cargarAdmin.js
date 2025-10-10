@@ -29,6 +29,15 @@ formAdmin.addEventListener("submit", async function (event) {
             console.log(datos);
         try {
             const data = await cargarAdmin(datos);
+            if (data.status == "exito") {
+                document.getElementById("mensajeExito").innerText = "Admin creado con éxito";
+                document.getElementById("mensajeExito").style.display = "block";
+                document.getElementById("mensajeError").style.display = "none";
+            } else {
+                document.getElementById("mensajeError").innerText = data.message || "Error al crear el admin";
+                document.getElementById("mensajeError").style.display = "block";
+                document.getElementById("mensajeExito").style.display = "none";
+            }
         } catch (error){
             throw new Error("error en la api: " + error.message);
         }

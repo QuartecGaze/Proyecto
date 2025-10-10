@@ -118,6 +118,8 @@
 
                         <div id="mensajeError" class="mensaje-error" style="display: none;">
                         </div>
+                        <div id="mensajeExito" class="mensaje-exito" style="display: none;">
+                        </div>
 
                         <form action="#" id="cargarAdmin" class="registro-form">
                             <div class="fieldInfo">

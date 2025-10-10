@@ -12,6 +12,8 @@ const pagosAtrasadosTotal = document.getElementById("pagosAtrasadosTotal");
 const pagoMensual = document.getElementById("pagoMensual");
 const cardPagosAtrasados = document.getElementById("cardPagosAtrasados");
 const btnConfirmarPago = document.getElementById("confirmar-pago");
+const inputModal = document.getElementById("seleccionar-pago");
+const inputPago = document.getElementById("comprobante-pago");
 const sesion = await getIdSesion();
 const id = Number(sesion.message);
 const usr = await getUsuario(id);
@@ -54,7 +56,12 @@ function renderPagos(dataMessage) {
 
   tbody.innerHTML = '';
   for (const c of lista) {
-
+    if (c.estadoPago == "En espera") {
+    var opcion = new Option(c.motivoPago + " - $" + c.monto, c.idComprobantePago);
+    }
+    if(opcion){
+      inputModal.add(opcion);
+    }
     const monto = c.monto;
     if(c.estadoPago === "En espera"){
       var estado = "Atrasado";
@@ -157,7 +164,6 @@ if (tablaBody) {
 document.querySelectorAll('.btn-pago').forEach(boton => {
         boton.addEventListener('click', function () {
             console.log('Abriendo modal de pago');
-            btnConfirmarPago.dataset.id = boton.dataset.id;
             modalPago.style.display = 'flex';
         });
     });
@@ -166,8 +172,22 @@ document.querySelectorAll('.btn-pago').forEach(boton => {
         boton.addEventListener('click', function () {
             console.log('Cerrando modal de pago');
             modalPago.style.display = 'none';
-            delete btnConfirmarPago.dataset.id;
         });
     });
 
+btnConfirmarPago.addEventListener('click', async () => {
+    const idComprobantePago = inputModal.value;
+    if (idComprobantePago) {
+        const archivo = inputPago.files[0];
+        if(archivo){
+        const formData = new FormData();
+        formData.append('comprobante', archivo);
+        const respuesta = await subirComprobante(formData, Number(idComprobantePago));
+        if (respuesta.status === "exito") {
+        document.querySelector('.mensaje-exito').style.display = 'block';
+          modalPago.style.display = 'none';
+        }
+      }
+    }
+});
 

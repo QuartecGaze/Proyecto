@@ -42,13 +42,15 @@
                     $this->repositorio->cargarUsuario($admin);
             } else {
                 $idPersona = $this->repositorio->getIDPersonaConCi($ci);
+                if($this->repositorio->adminExisteID($idPersona)){
+                    throw new Exception("Este admin ya existe", 409);
+                }
                 $admin = new Admin($ci, $email, $telefono, $idPersona, $nombre, $apellido, $contraseña, "Admin", //datos heredados de persona
                 $nivelPermisos, null, $fechaIngreso); //datos de Admin
                 $this->repositorio->cargarAdmin($admin);
                 $this->repositorio->cambiarRolAdmin($admin);
             }
         }
-
 
 
         public function getAdmin($id) {

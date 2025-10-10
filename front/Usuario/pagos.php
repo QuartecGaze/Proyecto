@@ -184,8 +184,6 @@ verificarAcceso(['Usuario', 'Admin']);
                         <label for="seleccionar-pago">Seleccionar pago a realizar:</label>
                         <select id="seleccionar-pago" name="seleccionar-pago" required>
                             <option value="">Seleccione un pago</option>
-                            <option value="aporte-mensual">Aporte mensual - $1.500</option>
-                            <option value="cuota-especial">Cuota especial - $2.000</option>
                         </select>
                     </div>
 
