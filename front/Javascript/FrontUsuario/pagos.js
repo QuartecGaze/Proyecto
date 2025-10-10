@@ -11,10 +11,11 @@ const pagosAtrasadosCantidad = document.getElementById("pagosAtrasadosCantidad")
 const pagosAtrasadosTotal = document.getElementById("pagosAtrasadosTotal");
 const pagoMensual = document.getElementById("pagoMensual");
 const cardPagosAtrasados = document.getElementById("cardPagosAtrasados");
-
+const btnConfirmarPago = document.getElementById("confirmar-pago");
 const sesion = await getIdSesion();
 const id = Number(sesion.message);
 const usr = await getUsuario(id);
+const modalPago = document.getElementById("modal-pago");
 setDatosUsuario(usr.message);
 
 const coop = await getPagos(id);
@@ -43,7 +44,6 @@ function setDatosCooperativa(data) {
   //para mostrar los pagos pendientes y luego vamos a poder enviarlos
   renderPagos(data);
 }
-
 //creamos una fila por cada comprobante
 function renderPagos(dataMessage) {
   const tbody = document.querySelector('.tabla-pagos tbody');
@@ -56,14 +56,17 @@ function renderPagos(dataMessage) {
   for (const c of lista) {
 
     const monto = c.monto;
-    const estado = c.estadoPago;
-
+    if(c.estadoPago === "En espera"){
+      var estado = "Atrasado";
+    } else {
+      var estado = c.estadoPago;
+    }
     const tr = document.createElement('tr');
     tr.innerHTML = `
       <td>${c.motivoPago}</td>
       <td>${'$' + monto}</td>
       <td>${c.mes}</td>
-      <td><span class="estado-pago">${estado}</span></td>
+      <td><span class="estado-pago ${estado}">${estado}</span></td>
       <td>
         <button class="boton-icono" title="Pagar" data-id="${c.idComprobantePago}" data-estado="${c.estadoPago}">
           <i class="material-icons">payment</i>
@@ -132,6 +135,39 @@ if (tablaBody) {
     const formData = new FormData();
     formData.append('comprobante', archivo);
 
-    await subirComprobante(formData, Number(idComprobante));
+    const respuesta = await subirComprobante(formData, Number(idComprobante));
+    if (respuesta.status === "exito") {
+  document.querySelector('.mensaje-exito').style.display = 'block';
+
+  // Actualiza el estado en la tabla
+  const fila = btnPagar.closest('tr');
+  if (fila) {
+    const estadoSpan = fila.querySelector('.estado-pago');
+    if (estadoSpan) {
+      estadoSpan.textContent = "Pendiente";
+      estadoSpan.className = "estado-pago Pendiente"; // actualiza la clase
+    }
+    // Opcional: deshabilita el botón de pagar
+    btnPagar.disabled = true;
+  }
+}
   });
 }
+//modal para abrir el pago
+document.querySelectorAll('.btn-pago').forEach(boton => {
+        boton.addEventListener('click', function () {
+            console.log('Abriendo modal de pago');
+            btnConfirmarPago.dataset.id = boton.dataset.id;
+            modalPago.style.display = 'flex';
+        });
+    });
+
+     document.querySelectorAll('.cerrar-modal').forEach(boton => {
+        boton.addEventListener('click', function () {
+            console.log('Cerrando modal de pago');
+            modalPago.style.display = 'none';
+            delete btnConfirmarPago.dataset.id;
+        });
+    });
+
+

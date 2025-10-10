@@ -109,7 +109,8 @@ verificarAcceso(['Usuario', 'Admin']);
             </div>
 
             <section class="seccion-pagos">
-                <h2>Detalle de Pagos Pendientes</h2>
+                 <div class="mensaje-exito" style="display: none;">Pago general registrado correctamente, a la espera de la aprobacion de un administrador</div>
+                <h2>Detalle de Pagos Atrasados</h2>
 
                 <div class="filtros-pagos">
                     <div class="grupo-filtro">
@@ -134,7 +135,7 @@ verificarAcceso(['Usuario', 'Admin']);
                         <i class="material-icons">filter_list</i> Aplicar Filtros
                     </button>
 
-                    <button class="boton-primario" id="abrirModalPago">
+                    <button class="boton-primario btn-pago">
                         <i class="material-icons">payment</i> Realizar Pago
                     </button>
                 </div>
@@ -170,7 +171,7 @@ verificarAcceso(['Usuario', 'Admin']);
     </div>
 
     <!-- Modal para realizar pagos -->
-    <div id="modalPago" class="modal">
+    <div id="modal-pago" class="modal">
         <div class="modal-contenido">
             <div class="modal-header">
                 <h2>Realizar Pago</h2>
@@ -213,7 +214,7 @@ verificarAcceso(['Usuario', 'Admin']);
 
                     <div class="modal-acciones">
                         <button type="button" class="boton-secundario cerrar-modal">Cancelar</button>
-                        <button type="submit" class="boton-primario">Confirmar Pago</button>
+                        <button type="submit" class="boton-primario" id="confirmar-pago">Confirmar Pago</button>
                     </div>
                 </form>
             </div>

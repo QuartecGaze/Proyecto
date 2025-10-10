@@ -412,6 +412,16 @@ a {
     text-align: left;
     padding: 12px 15px;
 }
+.mensaje-exito {
+    background-color: rgba(39, 174, 96, 0.1);
+    color: var(--color-exito);
+    padding: 12px;
+    border-radius: 4px;
+    margin-bottom: 15px;
+    text-align: center;
+    border-left: 4px solid var(--color-exito);
+    font-size: 0.9rem;
+}
 
 .tabla-pagos td {
     padding: 12px 15px;
@@ -438,9 +448,14 @@ a {
     min-width: 80px;
 }
 
-.estado-pendiente {
+.Pendiente {
     background-color: rgba(243, 156, 18, 0.2);
     color: #f39c12;
+}
+
+.Atrasado {
+    background-color: #da776d7a;;
+    color: #e74c3c;
 }
 
 .estado-proximo {
