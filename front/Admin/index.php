@@ -132,19 +132,16 @@ verificarAcceso(['Admin']);
                     </div>
                 </a>
 
-                <!-- Tarjeta de reuniones pendientes -->
-                <a href="">
-                    <div class="tarjeta-dashboard">
-                        <div class="tarjeta-icono">
-                            <i class="material-icons">event</i>
-                        </div>
-                        <div class="tarjeta-contenido">
-                            <h3>Reuniones</h3>
-                            <p class="tarjeta-valor">2</p>
-                            <p class="tarjeta-subtexto">Próximas</p>
-                        </div>
+                <div class="tarjeta-dashboard">
+                    <div class="tarjeta-icono">
+                        <i class="material-icons">event</i>
                     </div>
-                </a>
+                    <div class="tarjeta-contenido">
+                        <h3>Reuniones</h3>
+                        <p class="tarjeta-valor" id="reunionesPendientes">.</p>
+                        <p class="tarjeta-subtexto">Próximas</p>
+                    </div>
+                </div>
 
                 <!-- Tarjeta de estado financiero -->
                 <a href="">
@@ -166,12 +163,13 @@ verificarAcceso(['Admin']);
                 <section class="seccion-actividades">
                     <h2>Reuniones Completadas</h2>
                     <div class="lista-actividades">
-
-                        <div class="actividad">
-                            <i class="material-icons actividad-icono">event_available</i>
-                            <div class="actividad-detalle">
-                                <p>Reunion Actividades Comerciales</p>
-                                <span class="actividad-fecha">Hoy, 10:30 AM</span>
+                        <div id="contenedorTerminadas">
+                            <div class="actividad">
+                                <i class="material-icons actividad-icono">event_available</i>
+                                <div class="actividad-detalle">
+                                    <p>Reunion Actividades Comerciales</p>
+                                    <span class="actividad-fecha">Hoy, 10:30 AM</span>
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -181,14 +179,16 @@ verificarAcceso(['Admin']);
                 <section class="seccion-eventos">
                     <h2>Proximas Reuniones</h2>
                     <div class="lista-eventos">
-                        <div class="evento">
-                            <div class="evento-fecha">
-                                <span class="evento-dia">15</span>
-                                <span class="evento-mes">Jul</span>
-                            </div>
-                            <div class="evento-detalle">
-                                <h3>Reunión general</h3>
-                                <p>Acciones Comerciales Avanzadas - 4:00 PM</p>
+                        <div id="contenedorPendientes">
+                            <div class="evento">
+                                <div class="evento-fecha">
+                                    <span class="evento-dia">15</span>
+                                    <span class="evento-mes">Jul</span>
+                                </div>
+                                <div class="evento-detalle">
+                                    <h3>Reunión general</h3>
+                                    <p>Acciones Comerciales Avanzadas - 4:00 PM</p>
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -196,8 +196,69 @@ verificarAcceso(['Admin']);
             </div>
         </main>
     </div>
+
+    <!-- Modal para información detallada de reunión -->
+    <div id="modalReunion" class="modal-reunion">
+  <div class="modal-contenido">
+    <div class="modal-header" style="display:flex; align-items:center; gap:12px;">
+      <h2 id="modalTitulo" style="margin:0; flex:1;">Detalles de la Reunión</h2>
+      <!-- Tipo a la derecha del título -->
+      <span id="modalTipo" class="modal-tipo" style="font-size:0.95rem; color:#666;"></span>
+      <span class="cerrar-modal" style="cursor:pointer;">&times;</span>
+    </div>
+
+    <div class="modal-body">
+      <div class="info-reunion">
+
+        <!-- Estado debajo del título -->
+        <div class="info-item" style="margin-bottom:0.75rem;">
+          <i class="material-icons">flag</i>
+          <div class="info-detalle">
+            <h3>Estado</h3>
+            <p id="modalEstado">-</p>
+          </div>
+        </div>
+
+        <div class="info-item">
+          <i class="material-icons">event</i>
+          <div class="info-detalle">
+            <h3>Fecha y Hora</h3>
+            <p id="modalFechaHora">-</p>
+          </div>
+        </div>
+
+        <div class="info-item">
+          <i class="material-icons">location_on</i>
+          <div class="info-detalle">
+            <h3>Ubicación</h3>
+            <p id="modalUbicacion">-</p>
+          </div>
+        </div>
+
+        <div class="info-item">
+          <i class="material-icons">description</i>
+          <div class="info-detalle">
+            <h3>Descripción</h3>
+            <p id="modalDescripcion">-</p>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+    <div class="modal-footer">
+      <button class="boton-modal boton-secundario" id="botonCerrarModal">Cerrar</button>
+    </div>
+  </div>
+</div>
+   
+
+
+
+
     <script src="../Javascript/BackOffice/index.js" type="module"></script>
     <script src="../Javascript/BackOffice/generalidades.js" type="module"></script>
+    <script src="../Javascript/BackOffice/reunionesAdmin.js" type="module"></script>
     <script>
         document.querySelectorAll(".item-menu > a").forEach(boton => {
             boton.addEventListener("click", function (e) {

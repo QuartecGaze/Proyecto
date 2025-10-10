@@ -134,13 +134,7 @@ verificarAcceso(['Admin', 'Usuario']);
                     <h2>Reuniones Completadas</h2>
                     <div class="lista-actividades">
                         <div id="contenedorTerminadas">
-                            <div class="actividad">
-                                <i class="material-icons actividad-icono">event_available</i>
-                                <div class="actividad-detalle">
-                                    <p>Reunion Actividades Comerciales</p>
-                                    <span class="actividad-fecha">Hoy, 10:30 AM</span>
-                                </div>
-                            </div>
+                            
                         </div>
                     </div>
                 </section>
@@ -169,54 +163,65 @@ verificarAcceso(['Admin', 'Usuario']);
 
     <!-- Modal para información detallada de reunión -->
     <div id="modalReunion" class="modal-reunion">
-        <div class="modal-contenido">
-            <div class="modal-header">
-                <h2 id="modalTitulo">Detalles de la Reunión</h2>
-                <span class="cerrar-modal">&times;</span>
-            </div>
-            <div class="modal-body">
-                <div class="info-reunion">
-                    <div class="info-item">
-                        <i class="material-icons">event</i>
-                        <div class="info-detalle">
-                            <h3>Fecha y Hora</h3>
-                            <p id="modalFechaHora">-</p>
-                        </div>
-                    </div>
-                    <div class="info-item">
-                        <i class="material-icons">location_on</i>
-                        <div class="info-detalle">
-                            <h3>Ubicación</h3>
-                            <p id="modalUbicacion">-</p>
-                        </div>
-                    </div>
-                    <div class="info-item">
-                        <i class="material-icons">description</i>
-                        <div class="info-detalle">
-                            <h3>Descripción</h3>
-                            <p id="modalDescripcion">-</p>
-                        </div>
-                    </div>
-                    <div class="info-item">
-                        <i class="material-icons">assignment</i>
-                        <div class="info-detalle">
-                            <h3>Orden del Día</h3>
-                            <ul id="modalOrdenDia" class="lista-orden-dia">
-                                <!-- Los puntos del orden del día se insertarán aquí -->
-                            </ul>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="modal-footer">
-                <button class="boton-modal boton-secundario" id="botonCerrarModal">Cerrar</button>
-            </div>
-        </div>
+  <div class="modal-contenido">
+    <div class="modal-header" style="display:flex; align-items:center; gap:12px;">
+      <h2 id="modalTitulo" style="margin:0; flex:1;">Detalles de la Reunión</h2>
+      <!-- Tipo a la derecha del título -->
+      <span id="modalTipo" class="modal-tipo" style="font-size:0.95rem; color:#666;"></span>
+      <span class="cerrar-modal" style="cursor:pointer;">&times;</span>
     </div>
+
+    <div class="modal-body">
+      <div class="info-reunion">
+
+        <!-- Estado debajo del título -->
+        <div class="info-item" style="margin-bottom:0.75rem;">
+          <i class="material-icons">flag</i>
+          <div class="info-detalle">
+            <h3>Estado</h3>
+            <p id="modalEstado">-</p>
+          </div>
+        </div>
+
+        <div class="info-item">
+          <i class="material-icons">event</i>
+          <div class="info-detalle">
+            <h3>Fecha y Hora</h3>
+            <p id="modalFechaHora">-</p>
+          </div>
+        </div>
+
+        <div class="info-item">
+          <i class="material-icons">location_on</i>
+          <div class="info-detalle">
+            <h3>Ubicación</h3>
+            <p id="modalUbicacion">-</p>
+          </div>
+        </div>
+
+        <div class="info-item">
+          <i class="material-icons">description</i>
+          <div class="info-detalle">
+            <h3>Descripción</h3>
+            <p id="modalDescripcion">-</p>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+    <div class="modal-footer">
+      <button class="boton-modal boton-secundario" id="botonCerrarModal">Cerrar</button>
+    </div>
+  </div>
+</div>
+   
+
+
+
     <script src="../Javascript/FrontUsuario/cooperativa.js" type="module"></script>
     <script src="../Javascript/FrontUsuario/generalidades.js" type="module"></script>
     <script src="../Javascript/FrontUsuario/reuniones.js" type="module"></script>
-    <script src="../Javascript/FrontUsuario/modalReuniones.js" type="module"></script>
     <script>
         document.querySelectorAll(".item-menu > a").forEach(boton => {
             boton.addEventListener("click", function (e) {

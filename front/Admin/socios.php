@@ -497,6 +497,8 @@ verificarAcceso(['Admin']);
         </main>
     </div>
 
+
+
     <!-- Modal para mostrar datos del usuario -->
     <div id="modalUsuario" class="modal">
         <div class="modal-contenido">
@@ -515,6 +517,10 @@ verificarAcceso(['Admin']);
                             <span id="modalNombre">Nombre Apellido</span>
                         </div>
                         <div class="campo">
+                            <label>Cedula</label>
+                            <span id="modalEstado" >5 705 183-0</span>
+                        </div>
+                        <div class="campo">
                             <label>Dirección:</label>
                             <span id="modalDireccion">Pasillo P-1, Puerta 100</span>
                         </div>
@@ -530,31 +536,36 @@ verificarAcceso(['Admin']);
                             <label>Fecha de registro:</label>
                             <span id="modalFechaRegistro">01/01/2023</span>
                         </div>
-                        <div class="campo">
-                            <label>Estado:</label>
-                            <span id="modalEstado" class="estado-activo">Activo</span>
-                        </div>
                     </div>
                 </div>
 
                 <div class="historial">
                     <h3>Integrantes Familiares</h3>
-                    <div class="historial-lista">
-                        <div class="historial-item">
-                            <span class="fecha">15/10/2023</span>
-                            <span class="descripcion">Pago mensual realizado</span>
-                            <span class="monto positivo">$150</span>
-                        </div>
-                        <div class="historial-item">
-                            <span class="fecha">10/10/2023</span>
-                            <span class="descripcion">Horas trabajadas: 4h</span>
-                            <span class="monto positivo">+4h</span>
-                        </div>
-                        <div class="historial-item">
-                            <span class="fecha">01/10/2023</span>
-                            <span class="descripcion">Cuota mensual adeudada</span>
-                            <span class="monto negativo">-$150</span>
-                        </div>
+                    <div class="tabla-contenedor">
+                        <table class="tabla-pagos">
+                            <thead>
+                                <tr>
+                                    <th>Nombre</th>
+                                    <th>Apellido</th>
+                                    <th>Cedula</th>
+                                    <th>Email</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>Luis</td>
+                                    <td>Pascuali</td>
+                                    <td>12345678</td>
+                                    <td>luis@gmail.com</td>
+                                </tr>
+                                <tr>
+                                    <td>Luis</td>
+                                    <td>Pascuali</td>
+                                    <td>12345678</td>
+                                    <td>luis@gmail.com</td>
+                                </tr>
+                            </tbody>
+                        </table>
                     </div>
                 </div>
 
@@ -576,26 +587,6 @@ verificarAcceso(['Admin']);
                     </div>
                 </div>
 
-                <div class="historial">
-                    <h3>Historial reciente</h3>
-                    <div class="historial-lista">
-                        <div class="historial-item">
-                            <span class="fecha">15/10/2023</span>
-                            <span class="descripcion">Pago mensual realizado</span>
-                            <span class="monto positivo">$150</span>
-                        </div>
-                        <div class="historial-item">
-                            <span class="fecha">10/10/2023</span>
-                            <span class="descripcion">Horas trabajadas: 4h</span>
-                            <span class="monto positivo">+4h</span>
-                        </div>
-                        <div class="historial-item">
-                            <span class="fecha">01/10/2023</span>
-                            <span class="descripcion">Cuota mensual adeudada</span>
-                            <span class="monto negativo">-$150</span>
-                        </div>
-                    </div>
-                </div>
                 <div class="modal-footer">
                     <button class="btn btn-secundario cerrar-modal" id="btnCerrarModal">Cerrar</button>
                     <button class="btn btn-primario" id="btnEditarUsuario">Editar información</button>

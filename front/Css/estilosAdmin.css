@@ -400,6 +400,17 @@ a{
     padding-bottom: 5px;
 }
 
+.actividad {
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    padding: 10px;
+    border-radius: 4px;
+}
+
+.actividad:hover {
+    background-color: rgba(52, 152, 219, 0.1);
+}
+
 /* Responsive */
 @media (max-width: 992px) {
     .contenedor-secciones {
