@@ -258,7 +258,7 @@ body {
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 }
 
-.login-link {
+.login-link, .login-link-2 {
     text-align: center;
     font-size: 0.9rem;
     display: flex;
@@ -266,16 +266,52 @@ body {
     gap: 10px;
 }
 
-.login-link a {
+.login-link a, .login-link-2 a {
     color: var(--primario);
     text-decoration: none;
     font-weight: 500;
 }
 
-.login-link a:hover {
+.login-link a:hover, .login-link-2 a:hover {
     text-decoration: underline;
 }
 
+/* Estilos adicionales para el flujo de recuperación de contraseña */
+
+/* Mensaje de éxito */
+.mensaje-exito {
+    background-color: var(--exito);
+    color: white;
+    padding: 1rem;
+    border-radius: 8px;
+    margin-bottom: 1.5rem;
+    text-align: center;
+    font-weight: 500;
+    animation: fadeIn 0.3s ease-in-out;
+}
+
+/* Texto de ayuda */
+.texto-ayuda {
+    color: #666;
+    font-size: 0.8rem;
+    margin-top: 0.25rem;
+    display: block;
+}
+
+/* Contador para reenvío de código */
+.contador-reenvio {
+    text-align: center;
+    margin-top: 1rem;
+    font-size: 0.9rem;
+    color: var(--primarioOscuro);
+}
+
+/* Enlace deshabilitado temporalmente */
+.enlace-deshabilitado {
+    color: #999 !important;
+    pointer-events: none;
+    text-decoration: none !important;
+}
 
 /* Footer */
 .footer-registro {

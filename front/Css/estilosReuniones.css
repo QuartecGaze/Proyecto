@@ -550,10 +550,6 @@ body {
     justify-content: center;
     align-items: center;
     backdrop-filter: blur(3px);
-}
-
-.modal-asistencia.mostrar {
-    display: flex;
     animation: fadeIn 0.3s ease;
 }
 
@@ -809,21 +805,22 @@ body {
         width: 100%;
         justify-content: center;
     }
-        .modal-asistencia .modal-contenido {
+
+    .modal-asistencia .modal-contenido {
         padding: 20px;
         margin: 20px;
     }
-    
+
     .controles-asistencia {
         gap: 15px;
     }
-    
+
     .btn-asistencia {
         width: 50px;
         height: 50px;
         font-size: 1.2rem;
     }
-    
+
     .tarjeta-socio {
         padding: 20px;
     }
