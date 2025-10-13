@@ -18,6 +18,7 @@ const btnCancelarUnidad = modalUnidad.querySelector('.btn-cancelar-unidad');
 const btnConfirmarUnidad = modalUnidad.querySelector('.btn-confirmar-unidad');
 const selectUnidad = document.getElementById('selectUnidadHabitacional');
 const infoUnidad = document.getElementById('infoUnidad');
+const solicitudesIcon = document.getElementById('solicitudesIcon');
 
 
 //cerrar modal rechazar Interesado
@@ -37,10 +38,11 @@ btnCancelarPago.addEventListener('click', function () {
 
 
 
-
+let interesados = [];
 try {
     const data = await getInteresados();
-    let interesados = Object.values(data.message);
+    interesados = Object.values(data.message);
+    solicitudesIcon.style.display = "none";
     if (data.status === "exito") {
         actualizarSolicitudes(interesados);
     }
@@ -55,11 +57,22 @@ function snakeCamel(snakeStr) {
 }
 
 function actualizarEstadoArray(array, idPersona, campo, nuevoValor) {
-    const interesado = array.find(i => i.idPersona === idPersona);
-    if (interesado) {
-        interesado[campo] = nuevoValor;
+  const idNum = Number(idPersona); // asegura comparación numérica
+  let encontrado = false;
+
+  const nuevoArray = array.map(item => {
+    if (Number(item.idPersona) === idNum) {
+      encontrado = true;
+      // devolvemos copia con la propiedad actualizada
+      return { ...item, [campo]: nuevoValor };
     }
-    return array;
+    return item;
+  });
+
+  if (!encontrado) {
+    console.warn(`actualizarEstadoArray: no se encontró interesado con id ${idPersona}`);
+  }
+  return nuevoArray;
 }
 
 

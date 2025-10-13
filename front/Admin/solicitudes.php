@@ -107,6 +107,10 @@ verificarAcceso(['Admin']);
             <h1>Solicitudes Pendientes</h1>
             <div id="contenedor-solicitudes">
             </div>
+            <div id="solicitudesIcon">
+            <i class="material-icons">person_search</i>
+            <h1>No hay solicitudes pendientes</h1>
+            </div>
         </main>
     </div>
 
