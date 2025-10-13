@@ -628,7 +628,7 @@ require __DIR__ .'/../Consultas.php';
                 $consulta = "
                     SELECT * 
                     FROM reunion 
-                    WHERE Estado_Reunion = 'Finalizada';
+                    WHERE Estado_Reunion = 'Finalizada' OR Estado_Reunion = 'Cancelada';
                 ";
                 $resultado = consulta($this->conn, $consulta); 
                 $reunionesPendientes = [];
@@ -674,6 +674,57 @@ require __DIR__ .'/../Consultas.php';
                 ]);
             }
             
+            public function getUsuariosAsistencias(){
+                $consulta1 = "
+                    SELECT ID_Persona, Nombre , Apellido, CI
+                    FROM Persona
+                    WHERE Rol = 'Usuario';
+                ";
+                $personas = consulta($this->conn, $consulta1); 
+                $consulta2 = "
+                    SELECT ID_Persona, ID_Unidad_habitacional, Foto
+                    FROM Usuario
+                ";
+                $usuarios = consulta($this->conn, $consulta2); 
+                $consulta3 = "
+                SELECT ID_Unidad_habitacional, Numero_puerta, Pasillo
+                FROM unidad_habitacional
+                ";
+                $unidades = consulta($this->conn, $consulta3); 
+
+                $persona = [];
+                while ($filaPersona = mysqli_fetch_assoc($personas)) {
+                    $persona[$filaPersona['ID_Persona']] = $filaPersona;
+                }
+                $usuario = [];
+                while ($filaUsuario = mysqli_fetch_assoc($usuarios)) {
+                    $usuario[$filaUsuario['ID_Persona']] = $filaUsuario;
+                }
+                $unidad = [];
+                while ($filaUnidad = mysqli_fetch_assoc($unidades)) {
+                    $unidad[$filaUnidad['ID_Unidad_habitacional']] = $filaUnidad;
+                }
+
+                $respuesta = [];
+                foreach($persona as $idPersona => $filaPersona) {
+                    $filaUsuario = $usuario[$idPersona];
+                    $filaUnidad = $filaUsuario && isset($unidad[$filaUsuario['ID_Unidad_habitacional']])
+                    ? $unidad[$filaUsuario['ID_Unidad_habitacional']]
+                    : null;
+
+                    $respuesta[] = [
+                        'idPersona' => $idPersona,
+                        'Nombre' => $persona['Nombre'],
+                        'Apellido' => $persona['Apellido'],
+                        'ci' => $persona['ci'],
+                        'foto' => $usuario['foto'],
+                        'idUnidad' => $usuario['ID_Unidad_habitacional'],
+                        'nroPuerta' => $unidad['Numero_puerta'],
+                        'pasillo' => $unidad['Pasillo']
+                    ];
+                }
+                return $respuesta;
+            }
             
     }
 ?>

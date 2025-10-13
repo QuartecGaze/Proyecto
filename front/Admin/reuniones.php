@@ -303,7 +303,8 @@ verificarAcceso(['Admin']);
             </div>
         </div>
     </div>
-
+    
+    <script src="../Javascript/BackOffice/asistencias.js" type="module"></script>
     <script src="../Javascript/BackOffice/generalidades.js" type="module"></script>
     <script src="../Javascript/BackOffice/reuniones.js" type="module"></script>
     <script>

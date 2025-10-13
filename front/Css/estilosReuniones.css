@@ -403,7 +403,7 @@ body {
 
 /* Modales */
 .modal-reunion {
-    display: none;
+
     position: fixed;
     top: 0;
     left: 0;
@@ -539,7 +539,7 @@ body {
 
 /* Modal de confirmación de asistencia */
 .modal-asistencia {
-    display: none;
+
     position: fixed;
     top: 0;
     left: 0;
