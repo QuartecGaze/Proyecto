@@ -134,6 +134,16 @@
         
         }   
 
+        public function actualizarUsuario($id, $email, $telefono, $nombre, $apellido, $fechaNacimiento) {
+            if (!$this->repositorio->usuarioExisteID($id)) {
+                throw new Exception("El usuario no existe", 404);
+            } else {
+                $usuario = new Usuario(null, $email, $telefono, $id, $nombre, $apellido, null, null, $fechaNacimiento, null, null);
+                $this->repositorio->actualizarUsuario($usuario);
+                return true;
+            }
+        }
+
 
 
 

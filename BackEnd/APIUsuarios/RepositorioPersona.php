@@ -162,6 +162,21 @@ class RepositorioPersona {
         );
     }
 
+    public function actualizarUsuario($usuario) {
+        $id = $usuario->getIdPersona();
+        $email = $usuario->getEmail();
+        $nombre = $usuario->getNombre();
+        $apellido = $usuario->getApellido();
+        $fechaNacimiento = $usuario->getFechaNacimiento();
+        $consulta = "
+            UPDATE persona 
+            SET Email = ?, Nombre = ?, Apellido = ?
+            WHERE ID_Persona = ?";
+        
+        consulta($this->conn, $consulta, "sssi", [$email, $nombre, $apellido, $id]);
+        $this->cargarFechaNacimientoUsuario($id, $fechaNacimiento);
+    }
+
     // Funciones auxiliares
     public function getIdPersona($persona){
         $ci = $persona->getCi();

@@ -35,3 +35,7 @@ export function getUsuario(id){
 export function getIdSesion(){
     return apiRequest(`/APIUsuarios/ApiUsuarios.php?accion=getIdSesion`, "GET");
 }
+
+export function actualizarUsuario(datos) {
+    return apiRequest(`/APIUsuarios/ApiUsuarios.php?accion=actualizarUsuario`, 'POST', datos);
+}

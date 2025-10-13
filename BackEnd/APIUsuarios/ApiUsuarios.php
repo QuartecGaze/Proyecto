@@ -120,6 +120,33 @@
 
 
             }
+            elseif($accion === "actualizarUsuario"){
+                $datos = json_decode(file_get_contents('php://input'), true);
+                session_start();
+                $id = $_SESSION['id'] ?? null;
+                if($id != null){
+                    $email = $datos['email'];
+                    $telefono = $datos['telefono'] ?? null;
+                    $nombre = $datos['nombre'] ?? null;
+                    $apellido = $datos['apellido'] ?? null;
+                    $fechaNacimiento = $datos['fechaNacimiento'] ?? null;
+                    try{
+                        $servicio->actualizarUsuario(
+                            $id,
+                            $email,
+                            $telefono,
+                            $nombre,
+                            $apellido,
+                            $fechaNacimiento
+                        );
+                        respuesta("Usuario actualizado con exito", "exito", 200);
+                    } catch(Exception $e) {
+                        respuesta($e->getMessage(), "error", $e->getCode());
+                    }
+                } else {
+                    respuesta("No se encontro una id para actualizar", "error", 0);
+                }
+            }
 
         break;
 
@@ -190,6 +217,9 @@
         }
 
         break;
+
+        case "PUT":
+            
 
         default:
             respuesta("Método no permitido", "error", 405);

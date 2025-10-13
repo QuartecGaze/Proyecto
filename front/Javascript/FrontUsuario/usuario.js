@@ -1,7 +1,7 @@
 import { getUsuario } from '../../../BackEnd/APIFetchs/APIUsuario.js';
 import { getIdSesion } from '../../../BackEnd/APIFetchs/APIUsuario.js';
 import { subirFoto } from '../../../BackEnd/APIFetchs/APIUsuario.js';
-//import { actualizarUsuario } from '../../../BackEnd/APIFetchs/APIUsuario.js'; //Esto no esta hecho todavia por lo tanto no funciona
+import { actualizarUsuario } from '../../../BackEnd/APIFetchs/APIUsuario.js'; //Esto no esta hecho todavia por lo tanto no funciona
 
 const nombre = document.querySelectorAll(".nombreUsuario");
 const foto = document.querySelectorAll(".fotoPerfil");
@@ -80,19 +80,19 @@ document.querySelector('.boton-cancelar').addEventListener('click', function() {
 formularioEditar.addEventListener('submit', async function(e) {
     e.preventDefault();
     
-    const datosActualizados = {
+    const datos = {
         nombre: document.getElementById('nombreInput').value,
         apellido: document.getElementById('apellidoInput').value,
         email: document.getElementById('emailInput').value,
         telefono: document.getElementById('telefonoInput').value,
         fechaNacimiento: document.getElementById('fechaNacimientoInput').value
-        // NOTA: La dirección NO se incluye aquí para que no se pueda cambiar
+        //La dirección NO se incluye aquí para que no se pueda cambiar
     };
-
+    console.log(datos);
     try {
-        const resultado = await actualizarUsuario(idSesion.message, datosActualizados);
+        const resultado = await actualizarUsuario(datos);
         
-        if (resultado.success) {
+        if (resultado.status === 'exito') {
             // Actualizar la visualización con los nuevos datos
             const dataActualizada = await getUsuario(idSesion.message);
             setDatos(dataActualizada.message);
@@ -101,7 +101,6 @@ formularioEditar.addEventListener('submit', async function(e) {
             formularioEditar.style.display = 'none';
             infoSoloLectura.style.display = 'block';
             
-            alert('Datos actualizados correctamente');
         } else {
             alert('Error al actualizar los datos: ' + resultado.message);
         }
