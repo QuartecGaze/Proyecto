@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+    <title>Recuperar Contraseña - Senda Firme</title>
+    <link rel="stylesheet" href="../Css/estilosLogin.css">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+</head>
+
+<body>
+    <header class="header-registro">
+        <div class="contenedor-header">
+            <div class="logo">
+                <a href="../Landing Page/index.html">
+                    <img src="../../Fotos/logo.webp" alt="Logo Cooperativa">
+                </a>
+                <span>Senda Firme</span>
+            </div>
+        </div>
+    </header>
+
+    <main class="contenedor-login">
+        <div class="divForm">
+            <div class="form-header">
+                <img src="../../Fotos/logo.webp" alt="Logo Cooperativa" class="form-logo">
+                <h1 class="login-titulo">Recuperar Contraseña</h1>
+                <p class="textoInfo">Ingresa tu correo electrónico para recibir un código de verificación</p>
+            </div>
+
+            <div id="mensajeError" class="mensaje-error" style="display: none;"></div>
+            <div id="mensajeExito" class="mensaje-exito" style="display: none;"></div>
+
+            <form action="#" id="form-solicitar-codigo" class="form-login">
+                <div class="fieldInfo">
+                    <label for="email">Correo Electrónico</label>
+                    <input type="email" id="email" name="email" title="Ingrese su correo electrónico" required>
+                </div>
+
+                <button type="submit" class="btnIngresar login-btn">Enviar Código</button>
+            </form>
+
+            <div class="login-link">
+                <a href="../Landing Page/login.html" class="no-cuenta-link">Volver al Inicio de Sesión</a>
+            </div>
+        </div>
+
+        <div class="infoSide">
+            <div class="contenidoInfo">
+                <h2 class="login-titulo-side">¿Problemas para acceder?</h2>
+                <p class="textoInfo login-texto-side">Te enviaremos un código de verificación a tu correo para
+                    restablecer tu contraseña</p>
+
+                <div class="beneficios">
+                    <div class="beneficiosItem">
+                        <span class="material-icons">security</span>
+                        <p class="login-beneficio1">Proceso seguro</p>
+                    </div>
+                    <div class="beneficiosItem">
+                        <span class="material-icons">email</span>
+                        <p class="login-beneficio2">Código por correo</p>
+                    </div>
+                    <div class="beneficiosItem">
+                        <span class="material-icons">lock_reset</span>
+                        <p class="login-beneficio3">Restablece tu acceso</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <footer class="footer-registro">
+        <p class="footer">&copy; 2025 Senda Firme. Todos los derechos reservados.</p>
+    </footer>
+
+    <script>
+        // Lógica para enviar código de verificación
+        document.addEventListener('DOMContentLoaded', function () {
+            const form = document.getElementById('form-solicitar-codigo');
+            const mensajeError = document.getElementById('mensajeError');
+            const mensajeExito = document.getElementById('mensajeExito');
+
+            form.addEventListener('submit', function (e) {
+                e.preventDefault();
+
+                const email = document.getElementById('email').value;
+
+                // Validación básica
+                if (!validarEmail(email)) {
+                    mostrarMensaje(mensajeError, 'Por favor, ingresa un correo electrónico válido');
+                    return;
+                }
+
+                // Simulación de envío de código
+                mostrarMensaje(mensajeExito, 'Se ha enviado un código de verificación a tu correo electrónico');
+
+                // Redirigir a la página de verificación después de 2 segundos
+                setTimeout(() => {
+                    window.location.href = 'verificar-codigo.html';
+                }, 2000);
+            });
+
+            function validarEmail(email) {
+                const regex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+                return regex.test(email);
+            }
+
+            function mostrarMensaje(elemento, mensaje) {
+                elemento.textContent = mensaje;
+                elemento.style.display = 'block';
+
+                // Ocultar otros mensajes
+                if (elemento === mensajeError) {
+                    mensajeExito.style.display = 'none';
+                } else {
+                    mensajeError.style.display = 'none';
+                }
+            }
+        });
+    </script>
+
+</body>
+
+</html>

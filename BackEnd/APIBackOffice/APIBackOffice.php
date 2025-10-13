@@ -301,6 +301,20 @@
                     respuesta($e->getMessage(), "error", $e->getCode() ?: 500);
                 }
             }
+
+            if ($accion === "pasarAsistencia") {
+                try {
+                    $datos = json_decode(file_get_contents('php://input'), true);
+                    $idReunion = $datos['idReunion'];
+                    $asistencias = $datos['Asistencias'];
+                    if(empty($asistencias)){
+                        respuesta('Sin registros para guardar','exito', 400);
+                    }
+                    $resultado = $servicio->pasarAsistencia($idReunion, $asistencias); //asistencias es un array as
+                    } catch(Exception $e) {
+                    respuesta($e->getMessage(), "error", $e->getCode());
+                }
+            }
             
 
 
@@ -381,6 +395,15 @@
                 try {
                     $reuniones = $servicio->getReunionesCompletadas();
                     respuesta($reuniones, "exito", 201);
+                } catch(Exception $e) {
+                    respuesta($e->getMessage(), "error", $e->getCode());
+                }
+            }
+
+            if($accion == "getUsuariosAsistencias"){
+                try {
+                    $usuarios = $servicio->getUsuariosAsistencias();
+                    respuesta($usuarios, "exito", 201);
                 } catch(Exception $e) {
                     respuesta($e->getMessage(), "error", $e->getCode());
                 }

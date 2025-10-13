@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+    <title>Nueva Contraseña - Senda Firme</title>
+    <link rel="stylesheet" href="../Css/estilosLogin.css">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+</head>
+
+<body>
+    <header class="header-registro">
+        <div class="contenedor-header">
+            <div class="logo">
+                <a href="../Landing Page/index.html">
+                    <img src="../../Fotos/logo.webp" alt="Logo Cooperativa">
+                </a>
+                <span>Senda Firme</span>
+            </div>
+        </div>
+    </header>
+
+    <main class="contenedor-login">
+        <div class="divForm">
+            <div class="form-header">
+                <img src="../../Fotos/logo.webp" alt="Logo Cooperativa" class="form-logo">
+                <h1 class="login-titulo">Nueva Contraseña</h1>
+                <p class="textoInfo">Crea una nueva contraseña para tu cuenta</p>
+            </div>
+
+            <div id="mensajeError" class="mensaje-error" style="display: none;"></div>
+            <div id="mensajeExito" class="mensaje-exito" style="display: none;"></div>
+
+            <form action="#" id="form-nueva-contrasena" class="form-login">
+                <div class="fieldInfo">
+                    <label for="nuevaPassword">Nueva Contraseña</label>
+                    <div class="password-container">
+                        <input type="password" id="nuevaPassword" name="nuevaPassword" required minlength="8">
+                        <span class="toggle-password material-icons" id="mostrarNuevaContraseña">visibility</span>
+                    </div>
+                    <small class="texto-ayuda">La contraseña debe tener al menos 8 caracteres</small>
+                </div>
+
+                <div class="fieldInfo">
+                    <label for="confirmarPassword">Confirmar Contraseña</label>
+                    <div class="password-container">
+                        <input type="password" id="confirmarPassword" name="confirmarPassword" required>
+                        <span class="toggle-password material-icons" id="mostrarConfirmarContraseña">visibility</span>
+                    </div>
+                </div>
+
+                <button type="submit" class="btnIngresar login-btn">Establecer Nueva Contraseña</button>
+            </form>
+
+            <div class="login-link">
+                <a href="../Landing Page/login.html" class="no-cuenta-link">Volver al Inicio de Sesión</a>
+            </div>
+        </div>
+
+        <div class="infoSide">
+            <div class="contenidoInfo">
+                <h2 class="login-titulo-side">Contraseña Segura</h2>
+                <p class="textoInfo login-texto-side">Crea una contraseña segura para proteger tu cuenta</p>
+
+                <div class="beneficios">
+                    <div class="beneficiosItem">
+                        <span class="material-icons">password</span>
+                        <p class="login-beneficio1">Mínimo 8 caracteres</p>
+                    </div>
+                    <div class="beneficiosItem">
+                        <span class="material-icons">check_circle</span>
+                        <p class="login-beneficio2">Las contraseñas deben coincidir</p>
+                    </div>
+                    <div class="beneficiosItem">
+                        <span class="material-icons">shield</span>
+                        <p class="login-beneficio3">Tu cuenta está protegida</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <footer class="footer-registro">
+        <p class="footer">&copy; 2025 Senda Firme. Todos los derechos reservados.</p>
+    </footer>
+
+    <script>// Lógica para establecer nueva contraseña
+        document.addEventListener('DOMContentLoaded', function () {
+            const form = document.getElementById('form-nueva-contrasena');
+            const mensajeError = document.getElementById('mensajeError');
+            const mensajeExito = document.getElementById('mensajeExito');
+
+            // Toggle para mostrar/ocultar contraseñas
+            document.getElementById('mostrarNuevaContraseña').addEventListener('click', function () {
+                togglePasswordVisibility('nuevaPassword', this);
+            });
+
+            document.getElementById('mostrarConfirmarContraseña').addEventListener('click', function () {
+                togglePasswordVisibility('confirmarPassword', this);
+            });
+
+            form.addEventListener('submit', function (e) {
+                e.preventDefault();
+
+                const nuevaPassword = document.getElementById('nuevaPassword').value;
+                const confirmarPassword = document.getElementById('confirmarPassword').value;
+
+                // Validaciones
+                if (nuevaPassword.length < 8) {
+                    mostrarMensaje(mensajeError, 'La contraseña debe tener al menos 8 caracteres');
+                    return;
+                }
+
+                if (nuevaPassword !== confirmarPassword) {
+                    mostrarMensaje(mensajeError, 'Las contraseñas no coinciden');
+                    return;
+                }
+
+                // Simulación de cambio exitoso
+                mostrarMensaje(mensajeExito, 'Contraseña cambiada exitosamente');
+
+                // Redirigir al login después de 2 segundos
+                setTimeout(() => {
+                    window.location.href = '../Landing Page/login.html';
+                }, 2000);
+            });
+
+            function togglePasswordVisibility(inputId, icon) {
+                const input = document.getElementById(inputId);
+                if (input.type === 'password') {
+                    input.type = 'text';
+                    icon.textContent = 'visibility_off';
+                } else {
+                    input.type = 'password';
+                    icon.textContent = 'visibility';
+                }
+            }
+
+            function mostrarMensaje(elemento, mensaje) {
+                elemento.textContent = mensaje;
+                elemento.style.display = 'block';
+
+                // Ocultar otros mensajes
+                if (elemento === mensajeError) {
+                    mensajeExito.style.display = 'none';
+                } else {
+                    mensajeError.style.display = 'none';
+                }
+            }
+        });</script>
+</body>
+
+</html>

@@ -358,8 +358,41 @@
         public function eliminarReunion($idReunion) {
             $this->repositorio->eliminarReunion($idReunion);
         }
+
         public function editarReunion($idReunion, $titulo, $descripcion, $fecha, $hora, $lugar, $tipoDeReunion){
             $this->repositorio->editarReunion($idReunion, $titulo, $descripcion, $fecha, $hora, $lugar, $tipoDeReunion);
+        }
+
+        public function getUsuariosAsistencias(){
+            $filas = $this->repositorio->getUsuariosAsistencias();
+        
+            if (empty($filas)) {
+                return ['usuariosEncontrados' => 0, 'usuarios' => []];
+            }
+        
+            $usuarios = [];
+            foreach ($filas as $r) {
+                if (is_object($r)) $r = get_object_vars($r);
+                $usuarios[] = [
+                    'idPersona' => $r['ID_Persona'],
+                    'Nombre' => $r['Nombre'],
+                    'Apellido' => $r['Apellido'],
+                    'ci' => $r['CI'],
+                    'foto' => $r['Foto'],// de usuario
+                    'idUnidad' => $r['ID_Unidad_habitacional'],// de unidad habitacional
+                    'nroPuerta' => $r['Numero_puerta'],// de unidad habitacional
+                    'pasillo' => $r['Pasillo'],// de unidad habitacional
+                ];
+            }
+        
+            return [
+                'usuariosEncontrados' => count($usuarios),
+                'usuarios'           => $usuarios
+            ];
+        }
+
+        public function pasarAsistencia($idReunion, $asistencias){
+            
         }
         
     }
