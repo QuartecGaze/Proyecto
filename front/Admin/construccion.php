@@ -21,8 +21,8 @@
         <!-- Sidebar (igual que en index.php) -->
         <aside class="sidebar">
             <div class="logo-dashboard">
-                <img src="../../Fotos/Logo-1.png" alt="Logo Cooperativa">
-                <span>Cooperativa Nombre</span>
+                <img src="../../Fotos/logoBack.webp" alt="Logo Cooperativa">
+                <span>Senda Firme</span>
                 <p>Construyendo oportunidades juntos</p>
             </div>
 
@@ -32,19 +32,37 @@
                         <a href="index.php"><i class="material-icons">home</i> Inicio</a>
                     </li>
                     <li class="item-menu">
-                        <a href="#"><i class="material-icons">event</i> Reuniones</a>
+                        <a href="reuniones.php"><i class="material-icons">event</i> Reuniones</a>
                     </li>
                     <li class="item-menu">
-                        <a href="#"><i class="material-icons">people</i> Socios</a>
+                        <a href="socios.php"><i class="material-icons">people</i> Socios</a>
                     </li>
                     <li class="item-menu">
-                        <a href="#"><i class="material-icons">apartment</i> Proyectos</a>
+                        <a href="#">
+                            <i class="material-icons">apartment</i> Unidades Habitacionales
+                        </a>
+                        <ul class="submenu">
+                            <a href="proyectos.php"><i class="material-icons">home_work</i>Gestionar Proyectos</a>
+                            <a href="crearUnidad.php"><i class="material-icons">add_circle</i> Crear Unidad</a>
+                        </ul>
                     </li>
                     <li class="item-menu">
-                        <a href="#"><i class="material-icons">payments</i> Finanzas</a>
+                        <a href="#">
+                            <i class="material-icons">payments</i> Pagos
+                        </a>
+                        <ul class="submenu">
+                            <li><a href="confirmarPagos.php"><i class="material-icons">receipt_long</i> Corroborar
+                                    Comprobantes</a></li>
+                            <li><a href="pagos.php"><i class="material-icons">point_of_sale</i> Gestor de Pagos</a></li>
+                        </ul>
                     </li>
                     <li class="item-menu">
                         <a href="solicitudes.php"><i class="material-icons">email</i> Solicitudes</a>
+                    </li>
+                    <li class="item-menu">
+                        <a href="faltas.php">
+                            <i class="material-icons">punch_clock</i> Faltas de Horas
+                        </a>
                     </li>
                     <li class="item-menu">
                         <a href="#">
@@ -73,6 +91,9 @@
                         <i class="material-icons">logout</i> Cerrar sesión
                     </button>
                 </form>
+                <button id="boton-cambiar-sesion">
+                    <i class="material-icons">switch_account</i> Cambiar a Usuario
+                </button>
             </div>
         </aside>
 

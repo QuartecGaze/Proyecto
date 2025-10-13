@@ -386,7 +386,7 @@ a {
 
 /* Estilos para el modal */
 .modal {
-    display: flex;
+    display: none;
     position: fixed;
     z-index: 1000;
     left: 0;
@@ -507,6 +507,20 @@ a {
     border: none;
 }
 
+.btn-terciario {
+    padding: 8px 20px;
+    border-radius: 5px;
+    cursor: pointer;
+    font-weight: bold;
+    transition: all 0.3s;
+    display: inline-flex;
+    align-items: center;
+    gap: 5px;
+    background-color: grey;
+    color: white;
+    border: none;
+}
+
 .btn-primario:hover {
     background-color: #229652;
 }
@@ -577,13 +591,10 @@ a {
 }
 
 .estadisticas {
-    margin-bottom: 30px;
     margin-top: 30px;
     padding-top: 20px;
     padding-bottom: 20px;
-    border-bottom: 1px solid var(--color-borde);
     border-top: 1px solid var(--color-borde);
-
 }
 
 .estadisticas h3 {
@@ -667,9 +678,68 @@ a {
 .modal-footer {
     display: flex;
     justify-content: flex-end;
-    padding: 20px 30px;
     gap: 15px;
 }
+
+/* Estilos para campos editables */
+.campo-editable {
+    width: 100%;
+    padding: 8px 12px;
+    border: 2px solid var(--color-secundario);
+    border-radius: 6px;
+    font-size: 1rem;
+    font-family: 'Montserrat', sans-serif;
+    transition: all 0.3s ease;
+    background-color: var(--color-fondo-claro);
+}
+
+.campo-editable:focus {
+    border-color: var(--color-primario);
+    outline: none;
+    box-shadow: 0 0 0 3px rgba(44, 62, 80, 0.1);
+    background-color: white;
+}
+
+/* Estilos específicos para input de fecha */
+input[type="date"].campo-editable {
+    padding: 7px 12px;
+    cursor: pointer;
+}
+
+/* Personalizar el calendario nativo */
+input[type="date"].campo-editable::-webkit-calendar-picker-indicator {
+    cursor: pointer;
+    padding: 5px;
+    border-radius: 3px;
+    background-color: var(--color-fondo-claro);
+}
+
+input[type="date"].campo-editable::-webkit-calendar-picker-indicator:hover {
+    background-color: var(--color-secundario);
+}
+
+/* Mejora visual para los campos en modo edición */
+.campo {
+    position: relative;
+    transition: all 0.3s ease;
+}
+
+.campo:has(.campo-editable:focus) {
+    transform: translateX(5px);
+}
+
+/* Responsive para inputs en móviles */
+@media (max-width: 768px) {
+    .campo-editable {
+        font-size: 16px; /* Previene zoom en iOS */
+        padding: 10px 12px;
+    }
+    
+    input[type="date"].campo-editable {
+        padding: 9px 12px;
+    }
+}
+
 
 /* Responsive */
 @media (max-width: 768px) {

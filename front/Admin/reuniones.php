@@ -34,7 +34,7 @@ verificarAcceso(['Admin']);
                     <li class="item-menu">
                         <a href="index.php"><i class="material-icons">home</i> Inicio</a>
                     </li>
-                    <li class="item-menu activo">
+                    <li class="item-menu">
                         <a href="reuniones.php"><i class="material-icons">event</i> Reuniones</a>
                     </li>
                     <li class="item-menu">
@@ -63,6 +63,11 @@ verificarAcceso(['Admin']);
                         <a href="solicitudes.php"><i class="material-icons">email</i> Solicitudes</a>
                     </li>
                     <li class="item-menu">
+                        <a href="faltas.php">
+                            <i class="material-icons">punch_clock</i> Faltas de Horas
+                        </a>
+                    </li>
+                    <li class="item-menu">
                         <a href="#">
                             <i class="material-icons">settings</i> Configuracion
                         </a>
@@ -70,6 +75,7 @@ verificarAcceso(['Admin']);
                             <a href="configuracion.php"><i class="material-icons">star</i> Mi Perfil</a>
                             <a href="crearAdmin.php"><i class="material-icons">key</i> Crear Admin</a>
                             <a href="borrarAdmin.php"><i class="material-icons">backspace</i> Borrar Admin</a>
+
                         </ul>
                     </li>
                 </ul>

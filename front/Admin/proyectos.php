@@ -52,22 +52,28 @@ verificarAcceso(['Admin']);
                             <i class="material-icons">payments</i> Pagos
                         </a>
                         <ul class="submenu">
-                            <li><a href="confirmarPagos.php">Corroborar Comprobantes</a></li>
-                            <li><a href="pagos.php">Gestor de Pagos</a></li>
+                            <li><a href="confirmarPagos.php"><i class="material-icons">receipt_long</i> Corroborar
+                                    Comprobantes</a></li>
+                            <li><a href="pagos.php"><i class="material-icons">point_of_sale</i> Gestor de Pagos</a></li>
                         </ul>
                     </li>
                     <li class="item-menu">
                         <a href="solicitudes.php"><i class="material-icons">email</i> Solicitudes</a>
                     </li>
                     <li class="item-menu">
+                        <a href="faltas.php">
+                            <i class="material-icons">punch_clock</i> Faltas de Horas
+                        </a>
+                    </li>
+                    <li class="item-menu">
                         <a href="#">
                             <i class="material-icons">settings</i> Configuracion
                         </a>
                         <ul class="submenu">
-                            <a href="proyectos.php"><i class="material-icons">home_work</i>Gestionar Proyectos</a>
                             <a href="configuracion.php"><i class="material-icons">star</i> Mi Perfil</a>
                             <a href="crearAdmin.php"><i class="material-icons">key</i> Crear Admin</a>
                             <a href="borrarAdmin.php"><i class="material-icons">backspace</i> Borrar Admin</a>
+
                         </ul>
                     </li>
                 </ul>
@@ -87,7 +93,7 @@ verificarAcceso(['Admin']);
                     </button>
                 </form>
                 <button id="boton-cambiar-sesion">
-                        <i class="material-icons">switch_account</i> Cambiar a Usuario
+                    <i class="material-icons">switch_account</i> Cambiar a Usuario
                 </button>
             </div>
         </aside>

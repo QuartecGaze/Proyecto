@@ -37,7 +37,7 @@ verificarAcceso(['Admin']);
                         <a href="index.php"><i class="material-icons">home</i> Inicio</a>
                     </li>
                     <li class="item-menu">
-                        <a href="#"><i class="material-icons">event</i> Reuniones</a>
+                        <a href="reuniones.php"><i class="material-icons">event</i> Reuniones</a>
                     </li>
                     <li class="item-menu">
                         <a href="socios.php"><i class="material-icons">people</i> Socios</a>
@@ -56,12 +56,18 @@ verificarAcceso(['Admin']);
                             <i class="material-icons">payments</i> Pagos
                         </a>
                         <ul class="submenu">
-                            <li><a href="confirmarPagos.php">Corroborar Comprobantes</a></li>
-                            <li><a href="pagos.php">Gestor de Pagos</a></li>
+                            <li><a href="confirmarPagos.php"><i class="material-icons">receipt_long</i> Corroborar
+                                    Comprobantes</a></li>
+                            <li><a href="pagos.php"><i class="material-icons">point_of_sale</i> Gestor de Pagos</a></li>
                         </ul>
                     </li>
-                    <li class="item-menu activo">
+                    <li class="item-menu">
                         <a href="solicitudes.php"><i class="material-icons">email</i> Solicitudes</a>
+                    </li>
+                    <li class="item-menu">
+                        <a href="faltas.php">
+                            <i class="material-icons">punch_clock</i> Faltas de Horas
+                        </a>
                     </li>
                     <li class="item-menu">
                         <a href="#">

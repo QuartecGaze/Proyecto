@@ -419,6 +419,65 @@ a {
     background-color: var(--color-secundario);
 }
 
+/* Estilos para el formulario de edición */
+.input-editar {
+    width: 100%;
+    padding: 8px 12px;
+    border: 1px solid var(--color-borde);
+    border-radius: 4px;
+    font-size: 1rem;
+    transition: border-color 0.3s ease;
+}
+
+.input-editar:focus {
+    outline: none;
+    border-color: var(--color-secundario);
+}
+
+.botones-edicion {
+    display: flex;
+    gap: 10px;
+    margin-top: 20px;
+}
+
+.boton-guardar {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    background-color: var(--color-exito);
+    color: white;
+    border: none;
+    border-radius: 4px;
+    padding: 10px 20px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.boton-guardar:hover {
+    background-color: #219653;
+}
+
+.boton-cancelar {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    background-color: var(--color-alerta);
+    color: white;
+    border: none;
+    border-radius: 4px;
+    padding: 10px 20px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.boton-cancelar:hover {
+    background-color: #c0392b;
+}
+
+#info-solo-lectura {
+    display: block;
+}
+
 .submenu {
     list-style: none;
     padding-left: 30px;

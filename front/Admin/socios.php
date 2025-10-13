@@ -51,27 +51,28 @@ verificarAcceso(['Admin']);
                             <i class="material-icons">payments</i> Pagos
                         </a>
                         <ul class="submenu">
-                            <li><a href="confirmarPagos.php">Corroborar Comprobantes</a></li>
-                            <li><a href="pagos.php">Gestor de Pagos</a></li>
+                            <li><a href="confirmarPagos.php"><i class="material-icons">receipt_long</i> Corroborar
+                                    Comprobantes</a></li>
+                            <li><a href="pagos.php"><i class="material-icons">point_of_sale</i> Gestor de Pagos</a></li>
                         </ul>
                     </li>
                     <li class="item-menu">
                         <a href="solicitudes.php"><i class="material-icons">email</i> Solicitudes</a>
                     </li>
                     <li class="item-menu">
+                        <a href="faltas.php">
+                            <i class="material-icons">punch_clock</i> Faltas de Horas
+                        </a>
+                    </li>
+                    <li class="item-menu">
                         <a href="#">
                             <i class="material-icons">settings</i> Configuracion
                         </a>
                         <ul class="submenu">
-                            <li class="item-menu activo">
-                                <a href="configuracion.php"><i class="material-icons">star</i> Mi Perfil</a>
-                            </li>
-                            <li>
-                                <a href="crearAdmin.php"><i class="material-icons">key</i> Crear Admin</a>
-                            </li>
-                            <li>
-                                <a href="borrarAdmin.php"><i class="material-icons">backspace</i> Borrar Admin</a>
-                            </li>
+                            <a href="configuracion.php"><i class="material-icons">star</i> Mi Perfil</a>
+                            <a href="crearAdmin.php"><i class="material-icons">key</i> Crear Admin</a>
+                            <a href="borrarAdmin.php"><i class="material-icons">backspace</i> Borrar Admin</a>
+
                         </ul>
                     </li>
                 </ul>
@@ -129,375 +130,9 @@ verificarAcceso(['Admin']);
                     </div>
                 </div>
 
-
-                <div class="etiqueta">
-                    <div class="card">
-                        <div class="card-header">
-                            <img src="avatar.jpg" alt="Usuario" class="avatar">
-                            <div class="info">
-                                <h3>Nombre Apellido</h3>
-                                <p>Pasillo P-1 <br> Puerta 100</p>
-                            </div>
-                        </div>
-                        <div class="card-footer">
-                            <span class="tag gray">0 Horas Trabajadas Totales</span>
-                            <span class="tag red">0/21</span>
-                            <span class="tag green">$ 0</span>
-                        </div>
-                    </div>
-                    <div class="actions">
-                        <button>
-                            <i class="material-icons" style="font-size: 40px;">visibility</i>
-                        </button>
-                    </div>
-                </div>
-
-
-                <div class="etiqueta">
-                    <div class="card">
-                        <div class="card-header">
-                            <img src="avatar.jpg" alt="Usuario" class="avatar">
-                            <div class="info">
-                                <h3>Nombre Apellido</h3>
-                                <p>Pasillo P-1 <br> Puerta 100</p>
-                            </div>
-                        </div>
-                        <div class="card-footer">
-                            <span class="tag gray">0 Horas Trabajadas Totales</span>
-                            <span class="tag red">0/21</span>
-                            <span class="tag green">$ 0</span>
-                        </div>
-                    </div>
-                    <div class="actions">
-                        <button>
-                            <i class="material-icons" style="font-size: 40px;">visibility</i>
-                        </button>
-                    </div>
-                </div>
-
-
-                <div class="etiqueta">
-                    <div class="card">
-                        <div class="card-header">
-                            <img src="avatar.jpg" alt="Usuario" class="avatar">
-                            <div class="info">
-                                <h3>Nombre Apellido</h3>
-                                <p>Pasillo P-1 <br> Puerta 100</p>
-                            </div>
-                        </div>
-                        <div class="card-footer">
-                            <span class="tag gray">0 Horas Trabajadas Totales</span>
-                            <span class="tag red">0/21</span>
-                            <span class="tag green">$ 0</span>
-                        </div>
-                    </div>
-                    <div class="actions">
-                        <button>
-                            <i class="material-icons" style="font-size: 40px;">visibility</i>
-                        </button>
-                    </div>
-                </div>
-
-
-                <div class="etiqueta">
-                    <div class="card">
-                        <div class="card-header">
-                            <img src="avatar.jpg" alt="Usuario" class="avatar">
-                            <div class="info">
-                                <h3>Nombre Apellido</h3>
-                                <p>Pasillo P-1 <br> Puerta 100</p>
-                            </div>
-                        </div>
-                        <div class="card-footer">
-                            <span class="tag gray">0 Horas Trabajadas Totales</span>
-                            <span class="tag red">0/21</span>
-                            <span class="tag green">$ 0</span>
-                        </div>
-                    </div>
-                    <div class="actions">
-                        <button>
-                            <i class="material-icons" style="font-size: 40px;">visibility</i>
-                        </button>
-                    </div>
-                </div>
-
-                <div class="etiqueta">
-                    <div class="card">
-                        <div class="card-header">
-                            <img src="avatar.jpg" alt="Usuario" class="avatar">
-                            <div class="info">
-                                <h3>Nombre Apellido</h3>
-                                <p>Pasillo P-1 <br> Puerta 100</p>
-                            </div>
-                        </div>
-                        <div class="card-footer">
-                            <span class="tag gray">0 Horas Trabajadas Totales</span>
-                            <span class="tag red">0/21</span>
-                            <span class="tag green">$ 0</span>
-                        </div>
-                    </div>
-                    <div class="actions">
-                        <button>
-                            <i class="material-icons" style="font-size: 40px;">visibility</i>
-                        </button>
-                    </div>
-                </div>
-
-
-                <div class="etiqueta">
-                    <div class="card">
-                        <div class="card-header">
-                            <img src="avatar.jpg" alt="Usuario" class="avatar">
-                            <div class="info">
-                                <h3>Nombre Apellido</h3>
-                                <p>Pasillo P-1 <br> Puerta 100</p>
-                            </div>
-                        </div>
-                        <div class="card-footer">
-                            <span class="tag gray">0 Horas Trabajadas Totales</span>
-                            <span class="tag red">0/21</span>
-                            <span class="tag green">$ 0</span>
-                        </div>
-                    </div>
-                    <div class="actions">
-                        <button>
-                            <i class="material-icons" style="font-size: 40px;">visibility</i>
-                        </button>
-                    </div>
-                </div>
-
-
-                <div class="etiqueta">
-                    <div class="card">
-                        <div class="card-header">
-                            <img src="avatar.jpg" alt="Usuario" class="avatar">
-                            <div class="info">
-                                <h3>Nombre Apellido</h3>
-                                <p>Pasillo P-1 <br> Puerta 100</p>
-                            </div>
-                        </div>
-                        <div class="card-footer">
-                            <span class="tag gray">0 Horas Trabajadas Totales</span>
-                            <span class="tag red">0/21</span>
-                            <span class="tag green">$ 0</span>
-                        </div>
-                    </div>
-                    <div class="actions">
-                        <button>
-                            <i class="material-icons" style="font-size: 40px;">visibility</i>
-                        </button>
-                    </div>
-                </div>
-
-
-                <div class="etiqueta">
-                    <div class="card">
-                        <div class="card-header">
-                            <img src="avatar.jpg" alt="Usuario" class="avatar">
-                            <div class="info">
-                                <h3>Nombre Apellido</h3>
-                                <p>Pasillo P-1 <br> Puerta 100</p>
-                            </div>
-                        </div>
-                        <div class="card-footer">
-                            <span class="tag gray">0 Horas Trabajadas Totales</span>
-                            <span class="tag red">0/21</span>
-                            <span class="tag green">$ 0</span>
-                        </div>
-                    </div>
-                    <div class="actions">
-                        <button>
-                            <i class="material-icons" style="font-size: 40px;">visibility</i>
-                        </button>
-                    </div>
-                </div>
-
-
-                <div class="etiqueta">
-                    <div class="card">
-                        <div class="card-header">
-                            <img src="avatar.jpg" alt="Usuario" class="avatar">
-                            <div class="info">
-                                <h3>Nombre Apellido</h3>
-                                <p>Pasillo P-1 <br> Puerta 100</p>
-                            </div>
-                        </div>
-                        <div class="card-footer">
-                            <span class="tag gray">0 Horas Trabajadas Totales</span>
-                            <span class="tag red">0/21</span>
-                            <span class="tag green">$ 0</span>
-                        </div>
-                    </div>
-                    <div class="actions">
-                        <button>
-                            <i class="material-icons" style="font-size: 40px;">visibility</i>
-                        </button>
-                    </div>
-                </div>
-
-
-                <div class="etiqueta">
-                    <div class="card">
-                        <div class="card-header">
-                            <img src="avatar.jpg" alt="Usuario" class="avatar">
-                            <div class="info">
-                                <h3>Nombre Apellido</h3>
-                                <p>Pasillo P-1 <br> Puerta 100</p>
-                            </div>
-                        </div>
-                        <div class="card-footer">
-                            <span class="tag gray">0 Horas Trabajadas Totales</span>
-                            <span class="tag red">0/21</span>
-                            <span class="tag green">$ 0</span>
-                        </div>
-                    </div>
-                    <div class="actions">
-                        <button>
-                            <i class="material-icons" style="font-size: 40px;">visibility</i>
-                        </button>
-                    </div>
-                </div>
-
-                <div class="etiqueta">
-                    <div class="card">
-                        <div class="card-header">
-                            <img src="avatar.jpg" alt="Usuario" class="avatar">
-                            <div class="info">
-                                <h3>Nombre Apellido</h3>
-                                <p>Pasillo P-1 <br> Puerta 100</p>
-                            </div>
-                        </div>
-                        <div class="card-footer">
-                            <span class="tag gray">0 Horas Trabajadas Totales</span>
-                            <span class="tag red">0/21</span>
-                            <span class="tag green">$ 0</span>
-                        </div>
-                    </div>
-                    <div class="actions">
-                        <button>
-                            <i class="material-icons" style="font-size: 40px;">visibility</i>
-                        </button>
-                    </div>
-                </div>
-
-
-                <div class="etiqueta">
-                    <div class="card">
-                        <div class="card-header">
-                            <img src="avatar.jpg" alt="Usuario" class="avatar">
-                            <div class="info">
-                                <h3>Nombre Apellido</h3>
-                                <p>Pasillo P-1 <br> Puerta 100</p>
-                            </div>
-                        </div>
-                        <div class="card-footer">
-                            <span class="tag gray">0 Horas Trabajadas Totales</span>
-                            <span class="tag red">0/21</span>
-                            <span class="tag green">$ 0</span>
-                        </div>
-                    </div>
-                    <div class="actions">
-                        <button>
-                            <i class="material-icons" style="font-size: 40px;">visibility</i>
-                        </button>
-                    </div>
-                </div>
-
-
-
-                <div class="etiqueta">
-                    <div class="card">
-                        <div class="card-header">
-                            <img src="avatar.jpg" alt="Usuario" class="avatar">
-                            <div class="info">
-                                <h3>Nombre Apellido</h3>
-                                <p>Pasillo P-1 <br> Puerta 100</p>
-                            </div>
-                        </div>
-                        <div class="card-footer">
-                            <span class="tag gray">0 Horas Trabajadas Totales</span>
-                            <span class="tag red">0/21</span>
-                            <span class="tag green">$ 0</span>
-                        </div>
-                    </div>
-                    <div class="actions">
-                        <button>
-                            <i class="material-icons" style="font-size: 40px;">visibility</i>
-                        </button>
-                    </div>
-                </div>
-
-
-                <div class="etiqueta">
-                    <div class="card">
-                        <div class="card-header">
-                            <img src="avatar.jpg" alt="Usuario" class="avatar">
-                            <div class="info">
-                                <h3>Nombre Apellido</h3>
-                                <p>Pasillo P-1 <br> Puerta 100</p>
-                            </div>
-                        </div>
-                        <div class="card-footer">
-                            <span class="tag gray">0 Horas Trabajadas Totales</span>
-                            <span class="tag red">0/21</span>
-                            <span class="tag green">$ 0</span>
-                        </div>
-                    </div>
-                    <div class="actions">
-                        <button>
-                            <i class="material-icons" style="font-size: 40px;">visibility</i>
-                        </button>
-                    </div>
-                </div>
-
-                <div class="etiqueta">
-                    <div class="card">
-                        <div class="card-header">
-                            <img src="avatar.jpg" alt="Usuario" class="avatar">
-                            <div class="info">
-                                <h3>Nombre Apellido</h3>
-                                <p>Pasillo P-1 <br> Puerta 100</p>
-                            </div>
-                        </div>
-                        <div class="card-footer">
-                            <span class="tag gray">0 Horas Trabajadas Totales</span>
-                            <span class="tag red">0/21</span>
-                            <span class="tag green">$ 0</span>
-                        </div>
-                    </div>
-                    <div class="actions">
-                        <button>
-                            <i class="material-icons" style="font-size: 40px;">visibility</i>
-                        </button>
-                    </div>
-                </div>
-
-                <div class="etiqueta">
-                    <div class="card">
-                        <div class="card-header">
-                            <img src="avatar.jpg" alt="Usuario" class="avatar">
-                            <div class="info">
-                                <h3>Nombre Apellido</h3>
-                                <p>Pasillo P-1 <br> Puerta 100</p>
-                            </div>
-                        </div>
-                        <div class="card-footer">
-                            <span class="tag gray">0 Horas Trabajadas Totales</span>
-                            <span class="tag red">0/21</span>
-                            <span class="tag green">$ 0</span>
-                        </div>
-                    </div>
-                    <div class="actions">
-                        <button>
-                            <i class="material-icons" style="font-size: 40px;">visibility</i>
-                        </button>
-                    </div>
-                </div>
             </div>
         </main>
     </div>
-
-
 
     <!-- Modal para mostrar datos del usuario -->
     <div id="modalUsuario" class="modal">
@@ -515,22 +150,32 @@ verificarAcceso(['Admin']);
                         <div class="campo">
                             <label>Nombre completo:</label>
                             <span id="modalNombre">Nombre Apellido</span>
+                            <input type="text" id="inputNombre" class="campo-editable" style="display: none;">
                         </div>
                         <div class="campo">
-                            <label>Cedula</label>
-                            <span id="modalEstado" >5 705 183-0</span>
+                            <label>Cédula:</label>
+                            <span id="modalCedula">5 705 183-0</span>
+                            <input type="text" id="inputCedula" class="campo-editable" style="display: none;">
+                        </div>
+                        <div class="campo">
+                            <label>Fecha de nacimiento:</label>
+                            <span id="modalFechaNacimiento">15/03/1985</span>
+                            <input type="date" id="inputFechaNacimiento" class="campo-editable" style="display: none;">
                         </div>
                         <div class="campo">
                             <label>Dirección:</label>
                             <span id="modalDireccion">Pasillo P-1, Puerta 100</span>
+                            <input type="text" id="inputDireccion" class="campo-editable" style="display: none;">
                         </div>
                         <div class="campo">
                             <label>Email:</label>
                             <span id="modalEmail">usuario@ejemplo.com</span>
+                            <input type="email" id="inputEmail" class="campo-editable" style="display: none;">
                         </div>
                         <div class="campo">
                             <label>Teléfono:</label>
                             <span id="modalTelefono">+34 123 456 789</span>
+                            <input type="tel" id="inputTelefono" class="campo-editable" style="display: none;">
                         </div>
                         <div class="campo">
                             <label>Fecha de registro:</label>
@@ -547,11 +192,11 @@ verificarAcceso(['Admin']);
                                 <tr>
                                     <th>Nombre</th>
                                     <th>Apellido</th>
-                                    <th>Cedula</th>
+                                    <th>Cédula</th>
                                     <th>Email</th>
                                 </tr>
                             </thead>
-                            <tbody>
+                            <tbody id="tablaFamiliares">
                                 <tr>
                                     <td>Luis</td>
                                     <td>Pascuali</td>
@@ -590,13 +235,16 @@ verificarAcceso(['Admin']);
                 <div class="modal-footer">
                     <button class="btn btn-secundario cerrar-modal" id="btnCerrarModal">Cerrar</button>
                     <button class="btn btn-primario" id="btnEditarUsuario">Editar información</button>
+                    <button class="btn btn-primario" id="btnGuardarCambios" style="display: none;">Guardar
+                        cambios</button>
+                    <button class="btn btn-terciario" id="btnCancelarEdicion" style="display: none;">Cancelar
+                        Edicion</button>
                 </div>
             </div>
-
         </div>
     </div>
 
-    <script src="../Javascript/BackOffice/cargarAdmin.js" type="module"></script>
+    <script src="../Javascript/BackOffice/socios.js" type="module"></script>
     <script>
         document.querySelectorAll(".item-menu > a").forEach(boton => {
             boton.addEventListener("click", function (e) {

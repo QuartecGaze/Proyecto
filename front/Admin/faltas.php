@@ -53,7 +53,8 @@
                             <i class="material-icons">payments</i> Pagos
                         </a>
                         <ul class="submenu">
-                            <li><a href="confirmarPagos.php"><i class="material-icons">receipt_long</i> Corroborar Comprobantes</a></li>
+                            <li><a href="confirmarPagos.php"><i class="material-icons">receipt_long</i> Corroborar
+                                    Comprobantes</a></li>
                             <li><a href="pagos.php"><i class="material-icons">point_of_sale</i> Gestor de Pagos</a></li>
                         </ul>
                     </li>
@@ -62,7 +63,7 @@
                     </li>
                     <li class="item-menu">
                         <a href="faltas.php">
-                            <i class="material-icons">warning</i> Faltas de Horas
+                            <i class="material-icons">punch_clock</i> Faltas de Horas
                         </a>
                     </li>
                     <li class="item-menu">
@@ -73,6 +74,7 @@
                             <a href="configuracion.php"><i class="material-icons">star</i> Mi Perfil</a>
                             <a href="crearAdmin.php"><i class="material-icons">key</i> Crear Admin</a>
                             <a href="borrarAdmin.php"><i class="material-icons">backspace</i> Borrar Admin</a>
+
                         </ul>
                     </li>
                 </ul>
@@ -328,6 +330,16 @@
             if (e.target === this) {
                 cerrarModal();
             }
+        });
+
+        document.querySelectorAll(".item-menu > a").forEach(boton => {
+            boton.addEventListener("click", function (e) {
+                // Evita que redireccione si tiene submenu
+                if (this.nextElementSibling && this.nextElementSibling.classList.contains("submenu")) {
+                    e.preventDefault();
+                    this.parentElement.classList.toggle("open");
+                }
+            });
         });
     </script>
 </body>

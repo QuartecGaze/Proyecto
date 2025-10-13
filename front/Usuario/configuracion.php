@@ -1,9 +1,10 @@
-<?php 
-    require_once '../verificarSesion.php';
-    verificarAcceso(['Usuario', 'Admin']);
+<?php
+require_once '../verificarSesion.php';
+verificarAcceso(['Usuario', 'Admin']);
 ?>
 <!DOCTYPE html>
 <html lang="es">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -48,7 +49,7 @@
 
             <div class="perfil-usuario">
                 <a href="configuracion.php">
-                <div class="info-usuario">
+                    <div class="info-usuario">
                         <img src="" alt="Foto perfil" class="fotoPerfil">
                         <div>
                             <p class="nombre-usuario nombreUsuario">Nombre User</p>
@@ -57,12 +58,12 @@
                     </div>
                 </a>
                 <form action="../cerrarSesion.php">
-                <button class="boton-cerrar-sesion">
-                    <i class="material-icons">logout</i> Cerrar sesión
-                </button>
+                    <button class="boton-cerrar-sesion">
+                        <i class="material-icons">logout</i> Cerrar sesión
+                    </button>
                 </form>
                 <button id="boton-cambiar-sesion">
-                        <i class="material-icons">switch_account</i> Cambiar a Admin
+                    <i class="material-icons">switch_account</i> Cambiar a Admin
                 </button>
             </div>
         </aside>
@@ -89,29 +90,70 @@
 
                     <div class="info-personal">
                         <h2>Información personal</h2>
-                        <div class="campo-perfil">
-                            <label>Nombre completo</label>
-                            <p class="valor-perfil nombreUsuario">Nombre User</p>
-                        </div>
-                        <div class="campo-perfil">
-                            <label>Correo electrónico</label>
-                            <p class="valor-perfil" id="emailUsuario">alainarce39@gmail.com</p>
-                        </div>
-                        <div class="campo-perfil">
-                            <label>Teléfono</label>
-                            <p class="valor-perfil" id="telefonoUsuario">+598 92 343 168</p>
-                        </div>
-                        <div class="campo-perfil">
-                            <label>Dirección</label>
-                            <p class="valor-perfil" id="direccionUsuario">Pasaje 2 unidad 31</p>
-                        </div>
-                        <div class="campo-perfil">
-                            <label>Fecha de Nacimiento</label>
-                            <p class="valor-perfil" id="cumpleUsuario">15 de Enero, 2020</p>
-                        </div>
-                        <div class="campo-perfil">
-                            <label>Fecha de Ingreso a la cooperativa</label>
-                            <p class="valor-perfil" id="fechaIngreso">15 de Enero, 2020</p>
+                        <form id="formulario-editar-datos" style="display: none;">
+                            <div class="campo-perfil">
+                                <label for="nombreInput">Nombre</label>
+                                <input type="text" id="nombreInput" class="input-editar">
+                            </div>
+                            <div class="campo-perfil">
+                                <label for="apellidoInput">Apellido</label>
+                                <input type="text" id="apellidoInput" class="input-editar">
+                            </div>
+                            <div class="campo-perfil">
+                                <label for="emailInput">Correo electrónico</label>
+                                <input type="email" id="emailInput" class="input-editar">
+                            </div>
+                            <div class="campo-perfil">
+                                <label for="telefonoInput">Teléfono</label>
+                                <input type="tel" id="telefonoInput" class="input-editar">
+                            </div>
+                            <div class="campo-perfil">
+                                <label for="fechaNacimientoInput">Fecha de Nacimiento</label>
+                                <input type="date" id="fechaNacimientoInput" class="input-editar">
+                            </div>
+                            <div class="campo-perfil">
+                                <label>Dirección</label>
+                                <p class="valor-perfil" id="direccionUsuarioDisplay">Pasaje 2 unidad 31</p>
+                            </div>
+                            <div class="campo-perfil">
+                                <label>Fecha de Ingreso a la cooperativa</label>
+                                <p class="valor-perfil" id="fechaIngreso">15 de Enero, 2020</p>
+                            </div>
+                            <div class="botones-edicion">
+                                <button type="submit" class="boton-guardar">
+                                    <i class="material-icons">save</i> Guardar cambios
+                                </button>
+                                <button type="button" class="boton-cancelar">
+                                    <i class="material-icons">cancel</i> Cancelar
+                                </button>
+                            </div>
+                        </form>
+
+                        <div id="info-solo-lectura">
+                            <div class="campo-perfil">
+                                <label>Nombre completo</label>
+                                <p class="valor-perfil nombreUsuario">Nombre User</p>
+                            </div>
+                            <div class="campo-perfil">
+                                <label>Correo electrónico</label>
+                                <p class="valor-perfil" id="emailUsuario">alainarce39@gmail.com</p>
+                            </div>
+                            <div class="campo-perfil">
+                                <label>Teléfono</label>
+                                <p class="valor-perfil" id="telefonoUsuario">+598 92 343 168</p>
+                            </div>
+                            <div class="campo-perfil">
+                                <label>Dirección</label>
+                                <p class="valor-perfil" id="direccionUsuario">Pasaje 2 unidad 31</p>
+                            </div>
+                            <div class="campo-perfil">
+                                <label>Fecha de Nacimiento</label>
+                                <p class="valor-perfil" id="cumpleUsuario">15 de Enero, 2020</p>
+                            </div>
+                            <div class="campo-perfil">
+                                <label>Fecha de Ingreso a la cooperativa</label>
+                                <p class="valor-perfil" id="fechaIngreso">15 de Enero, 2020</p>
+                            </div>
                         </div>
                     </div>
                 </section>
@@ -160,4 +202,5 @@
         });
     </script>
 </body>
+
 </html>
