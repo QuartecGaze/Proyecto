@@ -130,6 +130,9 @@
                     $nombre = $datos['nombre'] ?? null;
                     $apellido = $datos['apellido'] ?? null;
                     $fechaNacimiento = $datos['fechaNacimiento'] ?? null;
+                    if($datos['fechaNacimiento'] == null){
+                        $fechaNacimiento = null; //soluciona un error que daba fechaNacimiento null nose medio random
+                    }
                     try{
                         $servicio->actualizarUsuario(
                             $id,
@@ -203,7 +206,8 @@
                     'fechaNacimiento' => $usuario->getFechaNacimiento(),
                     'fechaIngreso' => $usuario->getFechaIngreso(),
                     'foto' => $usuario->getFoto(),
-                     'rol' => $usuario->getRol()
+                    'rol' => $usuario->getRol()
+                    //agregar direccion
                     ];
                         respuesta($respuesta, "exito", 200);
                     }
@@ -217,8 +221,6 @@
         }
 
         break;
-
-        case "PUT":
             
 
         default:

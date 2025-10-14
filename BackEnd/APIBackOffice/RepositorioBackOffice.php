@@ -725,6 +725,13 @@ require __DIR__ .'/../Consultas.php';
                 }
                 return $respuesta;
             }
+
+            public function pasarAsistencia($idReunion, $asistencias) {
+                $consulta = "
+                
+                ";
+
+            }
             
     }
 ?>

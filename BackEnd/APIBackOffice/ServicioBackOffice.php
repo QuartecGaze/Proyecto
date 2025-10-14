@@ -392,7 +392,7 @@
         }
 
         public function pasarAsistencia($idReunion, $asistencias){
-            
+            $this->repositorio->pasarAsistencia($idReunion, $asistencias);
         }
         
     }
