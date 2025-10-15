@@ -1,7 +1,3 @@
-<?php
-require_once '../verificarSesion.php';
-verificarAcceso(['Usuario', 'Admin']);
-?>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -13,12 +9,19 @@ verificarAcceso(['Usuario', 'Admin']);
         rel="stylesheet">
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
     <link rel="stylesheet" href="../Css/estilosPagosUsuario.css">
-    <link rel="stylesheet" href="../Css/genFrontUsuario.css">
 </head>
 
 <body>
+    <!-- Botón hamburguesa para móviles -->
+    <button class="boton-hamburguesa" id="botonHamburguesa">
+        <span></span>
+    </button>
+
+    <!-- Overlay para móviles -->
+    <div class="overlay" id="overlay"></div>
+
     <div class="contenedor-dashboard">
-        <aside class="sidebar">
+        <aside class="sidebar" id="sidebar">
             <div class="logo-dashboard">
                 <img src="../../Fotos/LogoNegro.webp" alt="Logo Cooperativa">
                 <span>Senda Firme</span>
@@ -73,7 +76,6 @@ verificarAcceso(['Usuario', 'Admin']);
             </header>
 
             <div class="contenedor-tarjetas">
-
                 <div class="tarjeta-dashboard" id="cardPagosAtrasados">
                     <div class="tarjeta-icono" id="iconPagosAtrasados">
                         <i class="material-icons">warning</i>
@@ -109,7 +111,8 @@ verificarAcceso(['Usuario', 'Admin']);
             </div>
 
             <section class="seccion-pagos">
-                 <div class="mensaje-exito" style="display: none;">Pago general registrado correctamente, a la espera de la aprobacion de un administrador</div>
+                <div class="mensaje-exito" style="display: none;">Pago general registrado correctamente, a la espera de
+                    la aprobacion de un administrador</div>
                 <h2>Detalle de Pagos Atrasados</h2>
 
                 <div class="filtros-pagos">
@@ -152,17 +155,6 @@ verificarAcceso(['Usuario', 'Admin']);
                             </tr>
                         </thead>
                         <tbody>
-                            <tr>
-                                <td>Aporte mensual</td>
-                                <td>$1.500</td>
-                                <td>05/18/2025</td>
-                                <td><span class="estado-pago estado-pendiente">Pendiente</span></td>
-                                <td>
-                                    <button class="boton-icono" title="Ver detalles">
-                                        <i class="material-icons">visibility</i>
-                                    </button>
-                                </td>
-                            </tr>
                         </tbody>
                     </table>
                 </div>
@@ -219,9 +211,42 @@ verificarAcceso(['Usuario', 'Admin']);
         </div>
     </div>
 
-    <script src="../Javascript/FrontUsuario/pagos.js" type="module"></script>
-    <script src="../Javascript/FrontUsuario/generalidades.js" type="module"></script>
     <script>
+        // Funcionalidad del menú hamburguesa
+        const botonHamburguesa = document.getElementById('botonHamburguesa');
+        const sidebar = document.getElementById('sidebar');
+        const overlay = document.getElementById('overlay');
+
+        function toggleMenu() {
+            botonHamburguesa.classList.toggle('activo');
+            sidebar.classList.toggle('activo');
+            overlay.classList.toggle('activo');
+            document.body.style.overflow = sidebar.classList.contains('activo') ? 'hidden' : 'auto';
+        }
+
+        botonHamburguesa.addEventListener('click', toggleMenu);
+        overlay.addEventListener('click', toggleMenu);
+
+        // Cerrar menú al hacer clic en un enlace (en móviles)
+        document.querySelectorAll('.item-menu a').forEach(enlace => {
+            enlace.addEventListener('click', () => {
+                if (window.innerWidth <= 768) {
+                    toggleMenu();
+                }
+            });
+        });
+
+        // Ajustar el menú al cambiar el tamaño de la ventana
+        window.addEventListener('resize', () => {
+            if (window.innerWidth > 768) {
+                botonHamburguesa.classList.remove('activo');
+                sidebar.classList.remove('activo');
+                overlay.classList.remove('activo');
+                document.body.style.overflow = 'auto';
+            }
+        });
+
+        // Funcionalidad para submenús
         document.querySelectorAll(".item-menu > a").forEach(boton => {
             boton.addEventListener("click", function (e) {
                 if (this.nextElementSibling && this.nextElementSibling.classList.contains("submenu")) {
@@ -230,7 +255,30 @@ verificarAcceso(['Usuario', 'Admin']);
                 }
             });
         });
+
+        // Funcionalidad del modal de pago
+        document.querySelectorAll('.btn-pago').forEach(boton => {
+            boton.addEventListener('click', function () {
+                console.log('Abriendo modal de pago');
+                document.getElementById('modal-pago').style.display = 'flex';
+            });
+        });
+
+        document.querySelectorAll('.cerrar-modal').forEach(boton => {
+            boton.addEventListener('click', function () {
+                console.log('Cerrando modal de pago');
+                document.getElementById('modal-pago').style.display = 'none';
+            });
+        });
+
+        // Funcionalidad para mostrar nombre del archivo seleccionado
+        document.getElementById('comprobante-pago').addEventListener('change', function () {
+            const nombreArchivo = this.files[0] ? this.files[0].name : 'Ningún archivo seleccionado';
+            document.getElementById('nombre-archivo').textContent = nombreArchivo;
+        });
     </script>
+    <script src="../Javascript/FrontUsuario/pagos.js" type="module"></script>
+    <script src="../Javascript/FrontUsuario/generalidades.js" type="module"></script>
 </body>
 
 </html>

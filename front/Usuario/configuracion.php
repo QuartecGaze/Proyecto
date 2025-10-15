@@ -9,18 +9,25 @@ verificarAcceso(['Usuario', 'Admin']);
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Senda Firme - Perfil</title>
-    <link rel="stylesheet" href="../Css/estilosConfiguracion.css">
-    <link rel="stylesheet" href="../Css/genFrontUsuario.css">
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap"
         rel="stylesheet">
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link rel="stylesheet" href="../Css/estilosConfiguracion.css">
 </head>
 
 <body>
+    <!-- Botón hamburguesa para móviles -->
+    <button class="boton-hamburguesa" id="botonHamburguesa">
+        <span></span>
+    </button>
+
+    <!-- Overlay para móviles -->
+    <div class="overlay" id="overlay"></div>
+
     <div class="contenedor-dashboard">
         <!-- Sidebar (igual que en index.html) -->
-        <aside class="sidebar">
+        <aside class="sidebar" id="sidebar">
             <div class="logo-dashboard">
                 <img src="../../Fotos/LogoNegro.webp" alt="Logo Cooperativa">
                 <span>Senda Firme</span>
@@ -188,9 +195,42 @@ verificarAcceso(['Usuario', 'Admin']);
         </main>
     </div>
 
-    <script src="../Javascript/FrontUsuario/usuario.js" type="module"></script>
-    <script src="../Javascript/FrontUsuario/generalidades.js" type="module"></script>
     <script>
+        // Funcionalidad del menú hamburguesa
+        const botonHamburguesa = document.getElementById('botonHamburguesa');
+        const sidebar = document.getElementById('sidebar');
+        const overlay = document.getElementById('overlay');
+
+        function toggleMenu() {
+            botonHamburguesa.classList.toggle('activo');
+            sidebar.classList.toggle('activo');
+            overlay.classList.toggle('activo');
+            document.body.style.overflow = sidebar.classList.contains('activo') ? 'hidden' : 'auto';
+        }
+
+        botonHamburguesa.addEventListener('click', toggleMenu);
+        overlay.addEventListener('click', toggleMenu);
+
+        // Cerrar menú al hacer clic en un enlace (en móviles)
+        document.querySelectorAll('.item-menu a').forEach(enlace => {
+            enlace.addEventListener('click', () => {
+                if (window.innerWidth <= 768) {
+                    toggleMenu();
+                }
+            });
+        });
+
+        // Ajustar el menú al cambiar el tamaño de la ventana
+        window.addEventListener('resize', () => {
+            if (window.innerWidth > 768) {
+                botonHamburguesa.classList.remove('activo');
+                sidebar.classList.remove('activo');
+                overlay.classList.remove('activo');
+                document.body.style.overflow = 'auto';
+            }
+        });
+
+        // Funcionalidad para submenús
         document.querySelectorAll(".item-menu > a").forEach(boton => {
             boton.addEventListener("click", function (e) {
                 // Evita que redireccione si tiene submenu
@@ -200,7 +240,32 @@ verificarAcceso(['Usuario', 'Admin']);
                 }
             });
         });
+
+        // Funcionalidad para cambiar entre vista y edición de datos
+        document.querySelector('.boton-cambiar-datos').addEventListener('click', function () {
+            const formulario = document.getElementById('formulario-editar-datos');
+            const infoSoloLectura = document.getElementById('info-solo-lectura');
+
+            if (formulario.style.display === 'none') {
+                formulario.style.display = 'block';
+                infoSoloLectura.style.display = 'none';
+                this.innerHTML = '<i class="material-icons">visibility</i> Ver datos personales';
+            } else {
+                formulario.style.display = 'none';
+                infoSoloLectura.style.display = 'block';
+                this.innerHTML = '<i class="material-icons">edit</i> Cambiar datos personales';
+            }
+        });
+
+        // Funcionalidad para cancelar edición
+        document.querySelector('.boton-cancelar').addEventListener('click', function () {
+            document.getElementById('formulario-editar-datos').style.display = 'none';
+            document.getElementById('info-solo-lectura').style.display = 'block';
+            document.querySelector('.boton-cambiar-datos').innerHTML = '<i class="material-icons">edit</i> Cambiar datos personales';
+        });
     </script>
+    <script src="../Javascript/FrontUsuario/usuario.js" type="module"></script>
+    <script src="../Javascript/FrontUsuario/generalidades.js" type="module"></script>
 </body>
 
 </html>

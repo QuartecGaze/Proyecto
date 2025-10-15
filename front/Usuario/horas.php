@@ -1,7 +1,3 @@
-<?php
-require_once '../verificarSesion.php';
-verificarAcceso(['Usuario', 'Admin']);
-?>
 <!DOCTYPE html>
 <html lang="es">
 
@@ -9,17 +5,24 @@ verificarAcceso(['Usuario', 'Admin']);
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Senda Firme - Horas Trabajadas</title>
-    <link rel="stylesheet" href="../Css/estilosHoras.css">
-    <link rel="stylesheet" href="../Css/genFrontUsuario.css">
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap"
         rel="stylesheet">
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <link rel="stylesheet" href="../Css/estilosHoras.css">
 </head>
 
 <body>
+    <!-- Botón hamburguesa para móviles -->
+    <button class="boton-hamburguesa" id="botonHamburguesa">
+        <span></span>
+    </button>
+
+    <!-- Overlay para móviles -->
+    <div class="overlay" id="overlay"></div>
+
     <div class="contenedor-dashboard">
         <!-- Sidebar (igual que antes) -->
-        <aside class="sidebar">
+        <aside class="sidebar" id="sidebar">
             <div class="logo-dashboard">
                 <img src="../../Fotos/LogoNegro.webp" alt="Logo Cooperativa">
                 <span>Senda Firme</span>
@@ -159,7 +162,8 @@ verificarAcceso(['Usuario', 'Admin']);
                                 <ul>
                                     <li><strong>Exoneración:</strong> Se descuentan las horas faltadas de tu objetivo
                                         semanal</li>
-                                    <li><strong>Compensación monetaria:</strong> Pagas una tarifa establecida por la cooperativa por las horas que no trabajaste</li>
+                                    <li><strong>Compensación monetaria:</strong> Pagas una tarifa establecida por la
+                                        cooperativa por las horas que no trabajaste</li>
                                 </ul>
                             </div>
 
@@ -281,10 +285,41 @@ verificarAcceso(['Usuario', 'Admin']);
         </div>
     </div>
 
-    <script src="../Javascript/FrontUsuario/horas.js" type="module"></script>
-    <script src="../Javascript/FrontUsuario/generalidades.js" type="module"></script>
-
     <script>
+        // Funcionalidad del menú hamburguesa
+        const botonHamburguesa = document.getElementById('botonHamburguesa');
+        const sidebar = document.getElementById('sidebar');
+        const overlay = document.getElementById('overlay');
+
+        function toggleMenu() {
+            botonHamburguesa.classList.toggle('activo');
+            sidebar.classList.toggle('activo');
+            overlay.classList.toggle('activo');
+            document.body.style.overflow = sidebar.classList.contains('activo') ? 'hidden' : 'auto';
+        }
+
+        botonHamburguesa.addEventListener('click', toggleMenu);
+        overlay.addEventListener('click', toggleMenu);
+
+        // Cerrar menú al hacer clic en un enlace (en móviles)
+        document.querySelectorAll('.item-menu a').forEach(enlace => {
+            enlace.addEventListener('click', () => {
+                if (window.innerWidth <= 768) {
+                    toggleMenu();
+                }
+            });
+        });
+
+        // Ajustar el menú al cambiar el tamaño de la ventana
+        window.addEventListener('resize', () => {
+            if (window.innerWidth > 768) {
+                botonHamburguesa.classList.remove('activo');
+                sidebar.classList.remove('activo');
+                overlay.classList.remove('activo');
+                document.body.style.overflow = 'auto';
+            }
+        });
+
         // Funcionalidad para las pestañas
         document.addEventListener('DOMContentLoaded', function () {
             const pestanas = document.querySelectorAll('.pestana');
@@ -320,6 +355,8 @@ verificarAcceso(['Usuario', 'Admin']);
             actualizarProgreso();
         });
     </script>
+    <script src="../Javascript/FrontUsuario/horas.js" type="module"></script>
+    <script src="../Javascript/FrontUsuario/generalidades.js" type="module"></script>
 </body>
 
 </html>
