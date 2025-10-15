@@ -228,7 +228,9 @@
                             //precio pago mensual
                             'pagoMensual' => $comprobantes['pagoMensual'],
                             //todos los comprobantespendientes con todos sus datos para usar en la zona de hacer los pagos
-                            'comprobantesPendientes' => $comprobantes['comprobantesPendientes']
+                            'comprobantesPendientes' => $comprobantes['comprobantesPendientes'],
+
+                            'porcentajeFaltas' => $servicio->getPorcentajeFaltas($id)
 
                             //el ultimo va sin coma
                         ];
@@ -360,20 +362,10 @@
 
 
 
-
-
-
-/*
-        $resultado = $servicio->horasAtrasadasUsuario($idPersona);
-
-        echo "Pendientes: " . $resultado['horasPendientes'];
-        echo "A favor: "   . $resultado['horasAFavor'];
-*/
-
         break;
     }
 
-     function respuesta($mensaje, $estado, $codigo) { // $rol = null hace que sea opcional ponerlo para usar el metodo
+     function respuesta($mensaje, $estado, $codigo) {
         header('Content-Type: application/json');
         http_response_code($codigo);
         $respuesta = [

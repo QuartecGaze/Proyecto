@@ -99,3 +99,6 @@ export function pasarAsistencia(data){
 export function getUsuariosAsistencias(){
     return apiRequest(`/APIBackOffice/ApiBackOffice.php?accion=getUsuariosAsistencias`, "GET");
 }
+export function getFaltasPendientes(){
+    return apiRequest(`/APIBackOffice/ApiBackOffice.php?accion=getFaltasPendientes`, "GET");
+}

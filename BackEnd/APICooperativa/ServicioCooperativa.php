@@ -279,6 +279,14 @@
             ];
         }
 
+        public function getPorcentajeFaltas($id) {
+            $asistencias = $this->repositorio->getAsistencias($id);
+            $totalReuniones = $asistencias['cantidadReuniones'];
+            $asistio = $asistencias['asistencias'] ?? 0;
+            $porcentaje = 0;
+            $porcentaje = round(($asistio / $totalReuniones) * 100);
+            return $porcentaje;
+        }
 
 
     }

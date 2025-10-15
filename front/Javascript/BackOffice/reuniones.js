@@ -165,6 +165,12 @@ function normalizeReunion(f) {
   const est  = mapEstadoAUI(f.estado ?? f.Estado_Reunion ?? f.estado_reunion);
   const fechaRaw = (f.fecha ?? f.Fecha ?? '').toString();
   const fecha = fechaRaw ? fechaRaw.slice(0, 10) : '';
+
+  const asistenciasTexto =
+    (f.asistencias && typeof f.asistencias === 'object' && f.asistencias.texto)
+      ? f.asistencias.texto
+      : (typeof f.asistencias === 'string' ? f.asistencias : null);
+
   return {
     id: String(id),
     titulo: f.titulo ?? f.Nombre ?? f.nombre ?? '(Sin título)',
@@ -174,10 +180,12 @@ function normalizeReunion(f) {
     lugar: f.lugar ?? f.Lugar ?? '',
     tipo,
     estado: est,
-    asistentes: f.asistentes ?? 0,
+    asistentes: f.asistentes ?? 0,       // lo dejo por compatibilidad
+    asistenciasTexto,
     fechaCreacion: f.fecha_creacion ?? f.fechaCreacion ?? ''
   };
 }
+
 async function finalizarReunionDespuesDeGuardar(id) {
   const res = await apiCompletarReunion({ idReunion: Number(id) });
   const estado = (res?.estado || res?.status || '').toLowerCase();
@@ -236,6 +244,13 @@ function crearTarjetaReunion(reunion) {
   const fechaISO = fRaw ? fRaw.slice(0, 10) : '';
   const fechaFormateada = fechaISO ? new Date(fechaISO + 'T00:00:00').toLocaleDateString('es-ES') : '';
 
+  const lineaAsistencias = reunion.asistenciasTexto
+    ? `<div class="info-item"><i class="material-icons">groups</i><span>${reunion.asistenciasTexto}</span></div>`
+    // fallback viejo por si alguna reunión no trae el campo nuevo:
+    : (reunion.asistentes != null
+        ? `<div class="info-item"><i class="material-icons">group</i><span>${reunion.asistentes} asistentes</span></div>`
+        : '');
+
   return `
     <div class="tarjeta-reunion ${reunion.estado} ${reunion.tipo === 'emergencia' ? 'emergencia' : ''}"
          data-action="abrir-detalles"
@@ -250,7 +265,7 @@ function crearTarjetaReunion(reunion) {
         <div class="info-item"><i class="material-icons">event</i><span>${fechaFormateada}</span></div>
         <div class="info-item"><i class="material-icons">schedule</i><span>${reunion.hora || ''}</span></div>
         <div class="info-item"><i class="material-icons">place</i><span>${reunion.lugar || ''}</span></div>
-        <div class="info-item"><i class="material-icons">group</i><span>${reunion.asistentes ?? 0} asistentes</span></div>
+        ${lineaAsistencias}
       </div>
       <div class="descripcion-reunion">${reunion.descripcion || ''}</div>
       <div class="acciones-reunion">
@@ -268,6 +283,7 @@ function crearTarjetaReunion(reunion) {
     </div>
   `;
 }
+
 
 function aplicarFiltros(lista) {
   let res = [...lista];
@@ -336,9 +352,13 @@ function abrirModalDetalles(reunion) {
   $('#detalleLugar').textContent       = reunion.lugar;
   $('#detalleTipo').textContent        = obtenerTextoTipo(reunion.tipo);
   $('#detalleEstado').textContent      = obtenerTextoEstado(reunion.estado);
-  $('#detalleAsistentes').textContent  = reunion.asistentes || 'Por confirmar';
+
+  const txtAsist = reunion.asistenciasTexto ?? (reunion.asistentes != null ? `${reunion.asistentes} asistentes` : '—');
+  $('#detalleAsistentes').textContent  = txtAsist;
+
   if (modalDetalles) modalDetalles.style.display = 'flex';
 }
+
 function cerrarModalDetalles() { if (modalDetalles) modalDetalles.style.display = 'none'; }
 
 function abrirModalAsistenciaUI() {

@@ -365,10 +365,13 @@ require __DIR__ .'/../Consultas.php';
 
         public function getReunionesTerminadas(){
             $consulta = "
-                SELECT * 
-                FROM reunion 
-                WHERE Estado_Reunion = 'Finalizada' OR Estado_Reunion = 'Cancelada';
+                SELECT *
+                FROM reunion
+                WHERE Estado_Reunion IN ('Finalizada', 'Cancelada')
+                ORDER BY Fecha DESC
+                LIMIT 5;
             ";
+
             $resultado = consulta($this->conn, $consulta); 
             $reunionesPendientes = [];
         
@@ -376,6 +379,31 @@ require __DIR__ .'/../Consultas.php';
                 $reunionesPendientes[] = $fila;
             }
             return $reunionesPendientes;
+        }
+
+        public function getAsistencias($id) {
+            $consulta = "
+                SELECT Asistencia FROM asistencia WHERE ID_Persona = ?
+            ";
+            $resultado = consulta($this->conn, $consulta, "i", [$id]);
+
+            $asistio = 0;
+            $falto = 0;
+
+            if (mysqli_num_rows($resultado) > 0) {
+                while ($fila = mysqli_fetch_assoc($resultado)) {
+                    if ($fila['Asistencia'] === 1) {
+                        $asistio++;
+                    } else {
+                        $falto++;
+                    }
+                }
+            }
+
+            return [
+                'cantidadReuniones' => $asistio + $falto,
+                'asistencias' => $asistio
+            ];
         }
     }
 ?>

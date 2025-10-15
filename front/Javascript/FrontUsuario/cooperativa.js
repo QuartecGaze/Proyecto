@@ -15,6 +15,7 @@ const pagosAtrasadosTotal = document.getElementById("pagosAtrasadosTotal");
 const cardPagosAtrasados = document.getElementById("cardPagosAtrasados");
 const horasTrabajadas = document.getElementById("horasTrabajadas");
 const objetivoHoras = document.getElementById("horasObjetivo");
+const porcentajeFaltas = document.getElementById("porcentajeFaltas");
 
 // opcional: barra de progreso si existe en index
 const barraDeProgreso = document.getElementById('progresoHoras');
@@ -41,7 +42,7 @@ function setDatosUsuario(data) {
 function setDatosCooperativa(data) {
   if (horasTrabajadas) horasTrabajadas.textContent = data.horasTrabajadas;
   if (objetivoHoras) objetivoHoras.textContent = data.horasObjetivo;
-
+  if (porcentajeFaltas) porcentajeFaltas.textContent = data.porcentajeFaltas + "%";
   if (pagosAtrasadosCantidad) {
     pagosAtrasadosCantidad.textContent = data.pagosAtrasados;
     if (data.pagosAtrasados > 0) {

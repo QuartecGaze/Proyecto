@@ -214,8 +214,15 @@
         
             $reuniones = [];
             foreach ($filas as $r) {
-                if (is_object($r)) $r = get_object_vars($r);
-                // claves del repo son tal cual columnas:
+                $asistencias = $this->repositorio->getAsistenciasPorReunion($r['ID_Reunion']);
+
+                // Cuenta en PHP
+                $presentes = 0;
+                $total = count($asistencias);
+                foreach ($asistencias as $a) {
+                    if ($a == 1) $presentes++;
+                }
+
                 $reuniones[] = [
                     'idReunion'     => $r['ID_Reunion'],
                     'titulo'        => $r['Nombre'],
@@ -225,6 +232,7 @@
                     'lugar'         => $r['Lugar'],
                     'tipoDeReunion' => $r['Tipo_Reunion'],
                     'estado'        => $r['Estado_Reunion'],
+                    'asistencias'   => "{$presentes}/{$total}"
                 ];
             }
         
@@ -235,17 +243,25 @@
         }
 
 
-        public function getReunionesPendientes(){
+        public function getReunionesPendientes() {
             $filas = $this->repositorio->getReunionesPendientes();
-        
+
             if (empty($filas)) {
                 return ['reunionesPendientes' => 0, 'reuniones' => []];
             }
-        
+
             $reuniones = [];
             foreach ($filas as $r) {
-                if (is_object($r)) $r = get_object_vars($r);
-                // claves del repo son tal cual columnas:
+                $asistencias = $this->repositorio->getAsistenciasPorReunion($r['ID_Reunion']);
+
+                // Cuenta en PHP
+                $presentes = 0;
+                $total = count($asistencias);
+                foreach ($asistencias as $a) {
+                    if ($a == 1) $presentes++;
+                }
+
+                // Arma el formato final
                 $reuniones[] = [
                     'idReunion'     => $r['ID_Reunion'],
                     'titulo'        => $r['Nombre'],
@@ -255,15 +271,16 @@
                     'lugar'         => $r['Lugar'],
                     'tipoDeReunion' => $r['Tipo_Reunion'],
                     'estado'        => $r['Estado_Reunion'],
+                    'asistencias'   => "{$presentes}/{$total}"
                 ];
             }
-        
+
             return [
                 'reunionesPendientes' => count($reuniones),
                 'reuniones'           => $reuniones
             ];
         }
-        
+
         
         
 
@@ -391,14 +408,66 @@
         }
 
         public function pasarAsistencia($idReunion, $asistencias){
-<<<<<<< Updated upstream
-            $this->repositorio->pasarAsistencia($idReunion, $asistencias);
-=======
             $this->repositorio->cargarAsistencia($idReunion, $asistencias);
         }
+        
         public function getFaltasPendientes() {
-            $this->repositorio->getFaltasPendientes();
->>>>>>> Stashed changes
+            $faltas = $this->repositorio->getFaltasPendientes();
+
+            if (empty($faltas)) {
+                return [
+                    'faltasPendientes' => 0,
+                    'faltas'           => []
+                ];
+            }
+
+            $ids = [];
+            foreach ($faltas as $f) {
+                $id = $f['ID_Persona'];
+                $existe = false;
+
+                foreach ($ids as $guardado) {
+                    if ($guardado == $id) {
+                        $existe = true;
+                        break;
+                    }
+                }
+
+                if (!$existe) {
+                    $ids[] = $id;
+                }
+            }
+
+            $usuarios = $this->repositorio->getUsuariosConID($ids);
+
+            $respuesta = [];
+            foreach ($faltas as $f) {
+                $idPersona = $f['ID_Persona'];
+                $u = isset($usuarios[$idPersona]) ? $usuarios[$idPersona] : null;
+
+                $respuesta[] = [
+                    'idFalta' => $f['ID_Falta'],
+                    'idPersona' => $f['ID_Persona'],
+                    'idSemanaTrabajo' => $f['ID_Semana_trabajo'],
+                    'motivo' => $f['Motivo_falta'],
+                    'horasExonerar' => $f['Horas_solicitadas'],
+                    'fecha'=> $f['Fecha'],
+                    'tipoCompensacion' => $f['Tipo_falta'],
+                    'nombre' => $u['Nombre'],
+                    'apellido' => $u['Apellido'],
+                    'cedula' => $u['CI'],
+                    'nroPuerta' => $u['Numero_puerta'] ?? null,
+                    'pasillo' => $u['Pasillo'] ?? null,
+                    'foto' => $u['Foto'] ?? null,
+                ];
+            }
+
+            return [
+                'faltasPendientes' => count($respuesta),
+                'faltas'           => $respuesta
+            ];
         }
+
+
     }
 ?>

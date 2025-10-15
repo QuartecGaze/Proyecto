@@ -609,20 +609,32 @@ require __DIR__ .'/../Consultas.php';
                 consulta($this->conn, $consulta, "ssssss", [$titulo, $descripcion, $fecha, $hora, $lugar, $tipoDeReunion]);
             }
 
-            public function getReunionesPendientes(){
+            public function getReunionesPendientes() {
                 $consulta = "
-                    SELECT * 
-                    FROM reunion 
-                    WHERE Estado_Reunion = 'Pendiente';
+                    SELECT * FROM reunion WHERE Estado_Reunion = 'Pendiente'
                 ";
-                $resultado = consulta($this->conn, $consulta); 
-                $reunionesPendientes = [];
-            
-                while ($fila = mysqli_fetch_assoc($resultado)) {
-                    $reunionesPendientes[] = $fila;
+                $respuesta = consulta($this->conn, $consulta);
+
+                $reuniones = [];
+                while ($fila = mysqli_fetch_assoc($respuesta)) {
+                    $reuniones[] = $fila;
                 }
-                return $reunionesPendientes;
+                return $reuniones;
             }
+
+            public function getAsistenciasPorReunion($idReunion) {
+                $consulta = "
+                    SELECT Asistencia FROM asistencia WHERE ID_Reunion = ?
+                ";
+                $respuesta = consulta($this->conn, $consulta, "i", [$idReunion]);
+
+                $asistencias = [];
+                while ($fila = mysqli_fetch_assoc($respuesta)) {
+                    $asistencias[] = $fila['Asistencia'];
+                }
+                return $asistencias;
+            }
+
             
             public function getReunionesCompletadas(){
                 $consulta = "
@@ -676,7 +688,7 @@ require __DIR__ .'/../Consultas.php';
             
             public function getUsuariosAsistencias(){
                 $sql = "
-                    SELECT 
+                    SELECT
                         p.ID_Persona,
                         p.Nombre,
                         p.Apellido,
@@ -686,12 +698,14 @@ require __DIR__ .'/../Consultas.php';
                         uh.Numero_puerta,
                         uh.Pasillo
                     FROM Persona p
-                    LEFT JOIN Usuario u 
-                        ON u.ID_Persona = p.ID_Persona
-                    LEFT JOIN unidad_habitacional uh 
-                        ON uh.ID_Persona = p.ID_Persona
+                    LEFT JOIN Usuario u
+                    ON u.ID_Persona = p.ID_Persona
+                    LEFT JOIN unidad_habitacional uh
+                    ON uh.ID_Persona = p.ID_Persona
                     WHERE p.Rol = 'Usuario'
-                    ORDER BY p.Apellido, p.Nombre
+                    OR (p.Rol = 'Admin' AND u.ID_Persona IS NOT NULL)
+                    ORDER BY p.Apellido, p.Nombre;
+
                 ";
                 $res = consulta($this->conn, $sql);
 
@@ -714,14 +728,6 @@ require __DIR__ .'/../Consultas.php';
                 return $respuesta;
             }
 
-<<<<<<< Updated upstream
-            public function pasarAsistencia($idReunion, $asistencias) {
-                $consulta = "
-                
-                ";
-
-            }
-=======
 
             public function cargarAsistencia($idReunion, $asistencias) {
                 $total = count($asistencias);
@@ -750,8 +756,71 @@ require __DIR__ .'/../Consultas.php';
                 consulta($this->conn, $consulta);
             }
 
+            public function getFaltasPendientes() {
+                $consulta = "
+                    SELECT * FROM falta WHERE Estado = 'En Espera'
+                ";
+                $respuesta = consulta($this->conn, $consulta);
+                $faltasPendientes = [];
+                while ($fila = $respuesta->fetch_assoc()) {
+                    $faltasPendientes[] = [
+                        'ID_Falta' => $fila['ID_Falta'],
+                        'ID_Persona' => $fila['ID_Persona'],
+                        'ID_Semana_trabajo' => $fila['ID_Semana_trabajo'],
+                        'Motivo_falta' => $fila['Motivo_falta'],
+                        'Horas_solicitadas' => $fila['Horas_solicitadas'],
+                        'Estado' => $fila['Estado'],
+                        'Fecha' => $fila['Fecha'],
+                        'Tipo_falta' => $fila['Tipo_falta']
+                    ];
+                }
+                return $faltasPendientes;
+            }
 
->>>>>>> Stashed changes
+            public function getUsuariosConID($ids) {
+                if (empty($ids)) return [];
+
+                // Convertimos todos los IDs a enteros para evitar inyecciones
+                $idsLimpios = array_map('intval', $ids);
+                $listaIds = implode(',', $idsLimpios);
+
+                $consulta = "
+                    SELECT 
+                        p.ID_Persona,
+                        p.Nombre,
+                        p.Apellido,
+                        p.CI,
+                        u.Foto,
+                        uh.Numero_puerta,
+                        uh.Pasillo
+                    FROM Persona p
+                    LEFT JOIN Usuario u ON u.ID_Persona = p.ID_Persona
+                    LEFT JOIN unidad_habitacional uh ON uh.ID_Persona = p.ID_Persona
+                    WHERE p.ID_Persona IN ($listaIds)
+                ";
+
+                $resultado = consulta($this->conn, $consulta);
+
+                $usuarios = [];
+                while ($fila = $resultado->fetch_assoc()) {
+                    $usuarios[$fila['ID_Persona']] = [
+                        'ID_Persona'    => $fila['ID_Persona'],
+                        'Nombre'        => $fila['Nombre'],
+                        'Apellido'      => $fila['Apellido'],
+                        'CI'            => $fila['CI'],
+                        'Foto'          => $fila['Foto'],
+                        'Numero_puerta' => $fila['Numero_puerta'],
+                        'Pasillo'       => $fila['Pasillo']
+                    ];
+                }
+
+                return $usuarios;
+            }
+
+
+
+
+
             
     }
 ?>

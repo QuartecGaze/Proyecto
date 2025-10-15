@@ -122,9 +122,9 @@
                         <i class="material-icons">analytics</i>
                     </div>
                     <div class="tarjeta-contenido">
-                        <h3>Porcentaje Faltas</h3>
-                        <p class="tarjeta-valor">5</p>
-                        <p class="tarjeta-subtexto">Esta semana</p>
+                        <h3>Asistencias</h3>
+                        <p class="tarjeta-valor" id="porcentajeFaltas">.</p>
+                        <p class="tarjeta-subtexto">De las reuniones</p>
                     </div>
                 </div>
             </div>
