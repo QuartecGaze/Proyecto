@@ -403,7 +403,7 @@ body {
 
 /* Modales */
 .modal-reunion {
-
+    display: none;
     position: fixed;
     top: 0;
     left: 0;

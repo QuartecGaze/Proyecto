@@ -307,10 +307,11 @@
                     $datos = json_decode(file_get_contents('php://input'), true);
                     $idReunion = $datos['idReunion'];
                     $asistencias = $datos['Asistencias'];
-                    if(empty($asistencias)){
-                        respuesta('Sin registros para guardar','exito', 400);
+                    if(!isset($asistencias)){
+                        respuesta('Sin registros para guardar','error', 400);
                     }
                     $resultado = $servicio->pasarAsistencia($idReunion, $asistencias); //asistencias es un array as
+                    respuesta('Asistencias cargadas correctamente', 'exito', 200);
                     } catch(Exception $e) {
                     respuesta($e->getMessage(), "error", $e->getCode());
                 }
@@ -404,6 +405,15 @@
                 try {
                     $usuarios = $servicio->getUsuariosAsistencias();
                     respuesta($usuarios, "exito", 201);
+                } catch(Exception $e) {
+                    respuesta($e->getMessage(), "error", $e->getCode());
+                }
+            }
+
+            if($accion == "getFaltasPendientes"){
+                try {
+                    $faltas = $servicio->getFaltasPendientes();
+                    respuesta($faltas, "exito", 201);
                 } catch(Exception $e) {
                     respuesta($e->getMessage(), "error", $e->getCode());
                 }

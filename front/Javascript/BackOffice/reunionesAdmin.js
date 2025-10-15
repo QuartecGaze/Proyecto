@@ -1,4 +1,3 @@
-// ===== Reuniones (estilo "horas/faltas") =====
 import { getReunionesTerminadas, getReunionesPendientes } from '../../../BackEnd/APIFetchs/APICooperativa.js';
 
 // --- DOM principales (coinciden con tu maquetado) ---
@@ -7,17 +6,17 @@ const contenedorPendientes   = document.getElementById('contenedorPendientes');
 const spanReunionesPendientes = document.getElementById('reunionesPendientes');
 
 // --- DOM del modal (usa el HTML que pasaste modificado: tipo a la derecha; estado debajo) ---
-const modalReunion      = document.getElementById('modalReunion');
-const btnCerrarModal    = document.getElementById('botonCerrarModal');
-const btnCerrarX        = document.querySelector('#modalReunion .cerrar-modal');
+const modalReunion = document.getElementById('modalReunion');
+const btnCerrarModal = document.getElementById('botonCerrarModal');
+const btnCerrarX = document.querySelector('#modalReunion .cerrar-modal');
 
-const elTitulo   = document.getElementById('modalTitulo');
-const elTipo     = document.getElementById('modalTipo');       // a la derecha del título
-const elEstado   = document.getElementById('modalEstado');     // debajo del título
-const elId       = document.getElementById('modalId');         // opcional
-const elFechaHora= document.getElementById('modalFechaHora');
-const elUbic     = document.getElementById('modalUbicacion');
-const elDesc     = document.getElementById('modalDescripcion');
+const elTitulo = document.getElementById('modalTitulo');
+const elTipo = document.getElementById('modalTipo');       // a la derecha del título
+const elEstado = document.getElementById('modalEstado');     // debajo del título
+const elId = document.getElementById('modalId');         // opcional
+const elFechaHora = document.getElementById('modalFechaHora');
+const elUbic = document.getElementById('modalUbicacion');
+const elDesc = document.getElementById('modalDescripcion');
 
 // --- Estado en memoria ---
 let reunionesTerminadas = [];

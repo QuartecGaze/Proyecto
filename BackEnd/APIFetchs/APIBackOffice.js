@@ -93,3 +93,9 @@ export function eliminarReunion(data){
 export function editarReunion(data){
     return apiRequest('/APIBackOffice/ApiBackOffice.php?accion=editarReunion', 'POST', data);
 }
+export function pasarAsistencia(data){
+    return apiRequest('/APIBackOffice/ApiBackOffice.php?accion=pasarAsistencia', 'POST', data);
+}
+export function getUsuariosAsistencias(){
+    return apiRequest(`/APIBackOffice/ApiBackOffice.php?accion=getUsuariosAsistencias`, "GET");
+}

@@ -372,16 +372,15 @@
         
             $usuarios = [];
             foreach ($filas as $r) {
-                if (is_object($r)) $r = get_object_vars($r);
-                $usuarios[] = [
-                    'idPersona' => $r['ID_Persona'],
+                    $usuarios[] = [
+                    'idPersona' => $r['idPersona'],
                     'Nombre' => $r['Nombre'],
                     'Apellido' => $r['Apellido'],
-                    'ci' => $r['CI'],
-                    'foto' => $r['Foto'],// de usuario
-                    'idUnidad' => $r['ID_Unidad_habitacional'],// de unidad habitacional
-                    'nroPuerta' => $r['Numero_puerta'],// de unidad habitacional
-                    'pasillo' => $r['Pasillo'],// de unidad habitacional
+                    'ci' => $r['ci'],
+                    'foto' => $r['foto'] ?? null,
+                    'idUnidad' => $r['idUnidad'] ?? null,
+                    'nroPuerta' => $r['nroPuerta'] ?? null,
+                    'pasillo' => $r['pasillo'] ?? null,
                 ];
             }
         
@@ -392,8 +391,14 @@
         }
 
         public function pasarAsistencia($idReunion, $asistencias){
+<<<<<<< Updated upstream
             $this->repositorio->pasarAsistencia($idReunion, $asistencias);
+=======
+            $this->repositorio->cargarAsistencia($idReunion, $asistencias);
         }
-        
+        public function getFaltasPendientes() {
+            $this->repositorio->getFaltasPendientes();
+>>>>>>> Stashed changes
+        }
     }
 ?>

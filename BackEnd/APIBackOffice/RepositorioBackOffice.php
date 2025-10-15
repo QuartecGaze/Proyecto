@@ -675,63 +675,83 @@ require __DIR__ .'/../Consultas.php';
             }
             
             public function getUsuariosAsistencias(){
-                $consulta1 = "
-                    SELECT ID_Persona, Nombre , Apellido, CI
-                    FROM Persona
-                    WHERE Rol = 'Usuario';
+                $sql = "
+                    SELECT 
+                        p.ID_Persona,
+                        p.Nombre,
+                        p.Apellido,
+                        p.CI,
+                        u.Foto,
+                        uh.ID_Unidad_habitacional,
+                        uh.Numero_puerta,
+                        uh.Pasillo
+                    FROM Persona p
+                    LEFT JOIN Usuario u 
+                        ON u.ID_Persona = p.ID_Persona
+                    LEFT JOIN unidad_habitacional uh 
+                        ON uh.ID_Persona = p.ID_Persona
+                    WHERE p.Rol = 'Usuario'
+                    ORDER BY p.Apellido, p.Nombre
                 ";
-                $personas = consulta($this->conn, $consulta1); 
-                $consulta2 = "
-                    SELECT ID_Persona, ID_Unidad_habitacional, Foto
-                    FROM Usuario
-                ";
-                $usuarios = consulta($this->conn, $consulta2); 
-                $consulta3 = "
-                SELECT ID_Unidad_habitacional, Numero_puerta, Pasillo
-                FROM unidad_habitacional
-                ";
-                $unidades = consulta($this->conn, $consulta3); 
-
-                $persona = [];
-                while ($filaPersona = mysqli_fetch_assoc($personas)) {
-                    $persona[$filaPersona['ID_Persona']] = $filaPersona;
-                }
-                $usuario = [];
-                while ($filaUsuario = mysqli_fetch_assoc($usuarios)) {
-                    $usuario[$filaUsuario['ID_Persona']] = $filaUsuario;
-                }
-                $unidad = [];
-                while ($filaUnidad = mysqli_fetch_assoc($unidades)) {
-                    $unidad[$filaUnidad['ID_Unidad_habitacional']] = $filaUnidad;
-                }
+                $res = consulta($this->conn, $sql);
 
                 $respuesta = [];
-                foreach($persona as $idPersona => $filaPersona) {
-                    $filaUsuario = $usuario[$idPersona];
-                    $filaUnidad = $filaUsuario && isset($unidad[$filaUsuario['ID_Unidad_habitacional']])
-                    ? $unidad[$filaUsuario['ID_Unidad_habitacional']]
-                    : null;
-
-                    $respuesta[] = [
-                        'idPersona' => $idPersona,
-                        'Nombre' => $persona['Nombre'],
-                        'Apellido' => $persona['Apellido'],
-                        'ci' => $persona['ci'],
-                        'foto' => $usuario['foto'],
-                        'idUnidad' => $usuario['ID_Unidad_habitacional'],
-                        'nroPuerta' => $unidad['Numero_puerta'],
-                        'pasillo' => $unidad['Pasillo']
-                    ];
+                if ($res && mysqli_num_rows($res) > 0) {
+                    while ($r = mysqli_fetch_assoc($res)) {
+                        $respuesta[] = [
+                            'idPersona' => $r['ID_Persona'],
+                            'Nombre' => $r['Nombre'],
+                            'Apellido' => $r['Apellido'],
+                            'ci'=> $r['CI'],
+                            'foto' => $r['Foto'] ?? null,
+                            'idUnidad' => $r['ID_Unidad_habitacional'] ?? null,
+                            'nroPuerta' => $r['Numero_puerta'] ?? null,
+                            'pasillo' => $r['Pasillo'] ?? null,
+                        ];
+                    }
                 }
+
                 return $respuesta;
             }
 
+<<<<<<< Updated upstream
             public function pasarAsistencia($idReunion, $asistencias) {
                 $consulta = "
                 
                 ";
 
             }
+=======
+
+            public function cargarAsistencia($idReunion, $asistencias) {
+                $total = count($asistencias);
+                if ($total === 0) return;
+
+                $valores = '';
+
+                for ($i = 0; $i < $total; $i++) {
+                    $fila = $asistencias[$i];
+                    $idPersona = $fila['ID_Persona'];
+                    $asistencia = !empty($fila['Asistencia']) ? 1 : 0; //para evitar que se rompa la consulta
+
+                    if ($i > 0) {
+                        $valores .= ',';
+                    }
+
+                    $valores .= "($idReunion, $idPersona, $asistencia)";
+                }
+
+                $consulta = "
+                    INSERT INTO asistencia (ID_Reunion, ID_Persona, Asistencia)
+                    VALUES $valores
+                    ON DUPLICATE KEY UPDATE Asistencia = VALUES(Asistencia);
+                ";
+
+                consulta($this->conn, $consulta);
+            }
+
+
+>>>>>>> Stashed changes
             
     }
 ?>
