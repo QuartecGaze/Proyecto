@@ -8,7 +8,6 @@ const btnAplicar = document.getElementById('btn-aplicar-filtros');
 function safe(v, fb = '—') {
   return (v !== null && v !== undefined && v !== '') ? v : fb;
 }
-
 function fmtFecha(iso) {
   if (!iso) return '—';
   const d = new Date((iso + '').slice(0, 10) + 'T00:00:00');
