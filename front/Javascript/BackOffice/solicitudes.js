@@ -5,6 +5,8 @@ import { rechazarEstado } from '../../../BackEnd/APIFetchs/APIBackOffice.js';
 import { rechazarInteresado } from '../../../BackEnd/APIFetchs/APIBackOffice.js';
 import { asignarEntrevista } from '../../../BackEnd/APIFetchs/APIBackOffice.js';
 import { asignarPagoInicial } from '../../../BackEnd/APIFetchs/APIBackOffice.js';
+import { getIntegrantesFamiliares } from '../../../BackEnd/APIFetchs/APICooperativa.js';
+
 
 
 const contenedor = document.getElementById("contenedor-solicitudes");
@@ -181,19 +183,21 @@ function actualizarSolicitudes(interesados) {
                                     <tr>
                                         <th>Nombre</th>
                                         <th>Apellido</th>
-                                        <th>Cedeula</th>
+                                        <th>Cédula</th>
                                         <th>Fecha de Nac.</th>
                                         <th>Email</th>
-                                        <th>Genero</th>
+                                        <th>Género</th>
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    <td data-label="Nombre">Alain</td>
-                                    <td data-label="Apellido">Arce</td>
-                                    <td data-label="Cedula">57051830<td>
-                                    <td data-label="Fecha Nac">06/02/2026<td>
-                                    <td data-label="Género">Masculino</td>
-                                    <td data-label="Email">alain@gmail.com</td>
+                                    <tr>
+                                        <td data-label="Nombre">Alain</td>
+                                        <td data-label="Apellido">Arce</td>
+                                        <td data-label="Cédula">57051830</td>
+                                        <td data-label="Fecha de Nac.">06/02/2026</td>
+                                        <td data-label="Email">alain@gmail.com</td>
+                                        <td data-label="Género">Masculino</td>
+                                    </tr>
                                 </tbody>
                             </table>
                         </div>
@@ -309,6 +313,86 @@ function actualizarSolicitudes(interesados) {
             }
         });
     });
+const integrantesCount = $('#integrantes-count', panel);
+const integrantesEmpty = $('#integrantes-empty', panel);
+const integrantesTableWrapper = $('#integrantes-table-wrapper', panel);
+const integrantesTbody = $('#integrantes-tbody', panel);
+// ====== LISTADO (mostrar todos) ======
+(async function initListado() {
+  try {
+    const ses = await getIdSesion();
+    idPersonaLog = ses?.message;
+    await cargarListadoIntegrantes();
+    wireDelete(); // activar eventos de borrar
+  } catch (e) {
+    console.error('initListado error:', e);
+  }
+})();
+
+async function cargarListadoIntegrantes() {
+  try {
+    toggleSpinner(true);
+    const resp = await getIntegrantesFamiliares(idPersonaLog);
+    const arr = Array.isArray(resp?.message) ? resp.message
+      : (Array.isArray(resp?.message?.data) ? resp.message.data : []);
+    integrantesGuardados = normalizarIntegrantes(arr);
+    renderTablaIntegrantes();
+  } catch (e) {
+    console.error('getIntegrantesFamiliares falló:', e);
+    integrantesGuardados = [];
+    renderTablaIntegrantes();
+  } finally {
+    toggleSpinner(false);
+  }
+}
+
+function normalizarIntegrantes(arr) {
+  return (arr || []).map(f => ({
+    id: f.id ?? f.ID_Integrante ?? '',
+    nombre: f.nombre ?? f.Nombre ?? '',
+    apellido: f.apellido ?? f.Apellido ?? '',
+    ci: f.ci ?? f.CI ?? '',
+    fechaNacimiento: f.fecha_nacimiento ?? f.FechaNacimiento ?? '',
+    genero: f.genero ?? f.Genero ?? '',
+    email: f.email ?? f.Email ?? ''
+  }));
+}
+
+function renderTablaIntegrantes() {
+  integrantesCount.textContent = String(integrantesGuardados.length);
+
+  if (integrantesGuardados.length === 0) {
+    integrantesTableWrapper.style.display = 'none';
+    integrantesEmpty.style.display = 'flex';
+    integrantesTbody.innerHTML = '';
+    return;
+  }
+
+  integrantesEmpty.style.display = 'none';
+  integrantesTableWrapper.style.display = 'block';
+
+  integrantesTbody.innerHTML = integrantesGuardados.map((integrante, index) => `
+        <tr data-id="${esc(integrante.id)}">
+            <td data-label="Nombre">${esc(integrante.nombre)}</td>
+            <td data-label="Apellido">${esc(integrante.apellido)}</td>
+            <td data-label="Cédula">${esc(integrante.ci)}</td>
+            <td data-label="Fecha Nac.">${esc(formatDate(integrante.fechaNacimiento))}</td>
+            <td data-label="Género">${esc(integrante.genero)}</td>
+            <td data-label="Email">${esc(integrante.email)}</td>
+            <td class="panel-integrantes__actions" data-label="Acciones">
+                <button type="button" class="btn btn--danger btn--sm btn-delete-integrante" 
+                        data-id="${esc(integrante.id)}" title="Eliminar integrante">
+                    <i class="material-icons">delete</i>
+                </button>
+            </td>
+        </tr>
+    `).join('');
+}
+
+
+
+
+
 
 
     //abrir modal rechazar Interesado

@@ -244,6 +244,7 @@
     </div>
 
     <script src="../Javascript/BackOffice/generalidades.js" type="module"></script>
+    <script src="../Javascript/BackOffice/faltaHoras.js" type="module"></script>
     <script>
         let faltaActualId = null;
 

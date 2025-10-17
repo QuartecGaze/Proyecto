@@ -191,6 +191,7 @@
             </div>
         </main>
     </div>
+    <script src="../Javascript/BackOffice/generalidades.js" type="module"></script>
     <script src="../Javascript/BackOffice/crearUnidad.js" type="module"></script>
     <script>
         // Manejo del selector de tipo de unidad

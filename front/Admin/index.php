@@ -125,9 +125,9 @@ verificarAcceso(['Admin']);
                             <i class="material-icons">apartment</i>
                         </div>
                         <div class="tarjeta-contenido">
-                            <h3>Proyectos activos</h3>
+                            <h3>Unidades Habitacionales</h3>
                             <p class="tarjeta-valor">3</p>
-                            <p class="tarjeta-subtexto">Participando</p>
+                            <p class="tarjeta-subtexto">En Construccion</p>
                         </div>
                     </div>
                 </a>

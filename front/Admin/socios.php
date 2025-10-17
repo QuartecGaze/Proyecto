@@ -243,7 +243,7 @@ verificarAcceso(['Admin']);
             </div>
         </div>
     </div>
-
+    <script src="../Javascript/BackOffice/generalidades.js" type="module"></script>
     <script src="../Javascript/BackOffice/socios.js" type="module"></script>
     <script>
         document.querySelectorAll(".item-menu > a").forEach(boton => {

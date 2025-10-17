@@ -316,6 +316,27 @@
                     respuesta($e->getMessage(), "error", $e->getCode());
                 }
             }
+
+            if($accion === "aprobarFalta"){
+                try {
+                    $datos = json_decode(file_get_contents('php://input'), true);
+                    $servicio->aprobarFalta($datos['idFalta']);
+                    respuesta("Pago aprobado con exito", "exito", 201);
+                } catch(Exception $e) {
+                    respuesta($e->getMessage(), "error", $e->getCode());
+                }
+            }
+
+            if($accion === "rechazarFalta"){
+                try {
+                    $datos = json_decode(file_get_contents('php://input'), true);
+                    $servicio->rechazarFalta($datos['idFalta']);
+                    respuesta("Pago rechazado con exito", "exito", 201);
+                } catch(Exception $e) {
+                    respuesta($e->getMessage(), "error", $e->getCode());
+                }
+            }
+            
             
 
 

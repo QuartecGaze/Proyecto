@@ -115,7 +115,7 @@
 
                 <main class="contenedor-registro">
                     <div class="divForm">
-                        <h1 class="registro-titulo">Crea tu cuenta</h1>
+                        <h1 class="registro-titulo">Registra al proximo Admin</h1>
 
                         <div id="mensajeError" class="mensaje-error" style="display: none;">
                         </div>
@@ -211,6 +211,7 @@
             </div>
         </main>
     </div>
+    <script src="../Javascript/BackOffice/generalidades.js" type="module"></script>
     <script src="../Javascript/BackOffice/cargarAdmin.js" type="module"></script>
     <script>
         document.querySelectorAll(".item-menu > a").forEach(boton => {
