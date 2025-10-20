@@ -89,7 +89,7 @@
                         <i class="material-icons">logout</i> Cerrar sesión
                     </button>
                 </form>
-                <button id="boton-cambiar-sesion">
+                <button id="boton-cambiar-sesion" class="boton-cambiar-sesion">
                     <i class="material-icons">switch_account</i> Cambiar a Usuario
                 </button>
             </div>

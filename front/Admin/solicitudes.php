@@ -108,8 +108,8 @@ verificarAcceso(['Admin']);
             <div id="contenedor-solicitudes">
             </div>
             <div id="solicitudesIcon">
-            <i class="material-icons">person_search</i>
-            <h1>No hay solicitudes pendientes</h1>
+                <i class="material-icons">person_search</i>
+                <h1>No hay solicitudes pendientes</h1>
             </div>
         </main>
     </div>
@@ -211,6 +211,9 @@ verificarAcceso(['Admin']);
             <div class="modal-acciones">
                 <button class="btn-cancelar-unidad">
                     <i class="material-icons">arrow_back</i> Cancelar
+                </button>
+                <button class="btn-asignar-unidad" onclick="window.location.href='crearUnidad.php'">
+                    <i class="material-icons">balcony</i> Asignar Unidad Personalizada
                 </button>
                 <button class="btn-confirmar-unidad" id="btnConfirmarUnidad" disabled>
                     <i class="material-icons">check_circle</i> Asignar Unidad
