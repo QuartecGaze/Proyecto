@@ -174,8 +174,8 @@ formularioFaltas?.addEventListener('submit', async (e) => {
   // <option value="compensacion_monetaria"> → 'Pago compensatorio'
   const compensacion = (tipo_comp === 'exoneracion')
     ? 'Exoneracion'
-    : (tipo_comp === 'compensacion_monetaria')
-      ? 'Pago compensatorio'
+    : (tipo_comp === 'Pago Compensatorio')
+      ? 'Pago Compensatorio'
       : null;
 
   if (!compensacion) {

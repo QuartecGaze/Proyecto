@@ -14,7 +14,7 @@ if(data.message.rol != "Admin"){
   cambiarSesion.style.display = "none";
 }
 cambiarSesion.addEventListener('click', function(){
-   window.location.href = "http://localhost/Proyecto/front/Admin/index.php";
+   window.location.href = "http://localhost:8888/Proyecto/front/Admin/index.php";
 });
 
 

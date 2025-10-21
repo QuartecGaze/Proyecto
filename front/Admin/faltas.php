@@ -127,99 +127,7 @@
 
             <!-- Lista de faltas -->
             <div class="contenedor-faltas">
-                <!-- Ejemplo de falta -->
-                <div class="tarjeta-falta" data-id="1" data-estado="pendiente" data-tipo="horas">
-                    <div class="info-socio">
-                        <div class="foto-socio">
-                            <img src="" alt="Foto socio">
-                        </div>
-                        <div class="datos-socio">
-                            <h3>Juan Pérez</h3>
-                            <p>ID: SOC-001</p>
-                            <p>Proyecto: Residencial Las Flores</p>
-                        </div>
-                    </div>
-                    
-                    <div class="detalles-falta">
-                        <div class="dato-falta">
-                            <span class="etiqueta">Horas faltantes:</span>
-                            <span class="valor">8 horas</span>
-                        </div>
-                        <div class="dato-falta">
-                            <span class="etiqueta">Fecha de falta:</span>
-                            <span class="valor">15 Nov 2024</span>
-                        </div>
-                        <div class="dato-falta">
-                            <span class="etiqueta">Motivo:</span>
-                            <span class="valor">Falta injustificada</span>
-                        </div>
-                        <div class="dato-falta">
-                            <span class="etiqueta">Tipo de compensación:</span>
-                            <span class="valor">Horas extra</span>
-                        </div>
-                    </div>
-                    
-                    <div class="acciones-falta">
-                        <button class="btn-aprovar" onclick="aprobarFalta(1, 'horas')">
-                            <i class="material-icons">check_circle</i> Aprobar
-                        </button>
-                        <button class="btn-compensar" onclick="mostrarModalCompensacion(1)">
-                            <i class="material-icons">attach_money</i> Asignar monto
-                        </button>
-                        <button class="btn-rechazar" onclick="rechazarFalta(1)">
-                            <i class="material-icons">cancel</i> Rechazar
-                        </button>
-                    </div>
-                </div>
-
-                <!-- Ejemplo de falta monetaria -->
-                <div class="tarjeta-falta" data-id="2" data-estado="pendiente" data-tipo="monetaria">
-                    <div class="info-socio">
-                        <div class="foto-socio">
-                            <img src="" alt="Foto socio">
-                        </div>
-                        <div class="datos-socio">
-                            <h3>María García</h3>
-                            <p>ID: SOC-002</p>
-                            <p>Proyecto: Condominio Verde</p>
-                        </div>
-                    </div>
-                    
-                    <div class="detalles-falta">
-                        <div class="dato-falta">
-                            <span class="etiqueta">Horas faltantes:</span>
-                            <span class="valor">12 horas</span>
-                        </div>
-                        <div class="dato-falta">
-                            <span class="etiqueta">Fecha de falta:</span>
-                            <span class="valor">20 Nov 2024</span>
-                        </div>
-                        <div class="dato-falta">
-                            <span class="etiqueta">Motivo:</span>
-                            <span class="valor">Enfermedad</span>
-                        </div>
-                        <div class="dato-falta">
-                            <span class="etiqueta">Tipo de compensación:</span>
-                            <span class="valor">Monetaria</span>
-                        </div>
-                        <div class="dato-falta monto-asignado">
-                            <span class="etiqueta">Monto asignado:</span>
-                            <span class="valor">$150.00</span>
-                        </div>
-                    </div>
-                    
-                    <div class="acciones-falta">
-                        <button class="btn-aprovar" onclick="aprobarFalta(2, 'monetaria')">
-                            <i class="material-icons">check_circle</i> Aprobar
-                        </button>
-                        <button class="btn-compensar" onclick="mostrarModalCompensacion(2)">
-                            <i class="material-icons">attach_money</i> Asignar monto
-                        </button>
-                        <button class="btn-rechazar" onclick="rechazarFalta(2)">
-                            <i class="material-icons">cancel</i> Rechazar
-                        </button>
-                    </div>
-                </div>
+               <!-- ACA el js trae todas las faltas -->
             </div>
         </main>
     </div>
@@ -230,11 +138,7 @@
             <h3>Asignar Compensación Monetaria</h3>
             <div class="form-group">
                 <label for="montoCompensacion">Monto a asignar ($):</label>
-                <input type="number" id="montoCompensacion" step="0.01" min="0">
-            </div>
-            <div class="form-group">
-                <label for="descripcionCompensacion">Descripción:</label>
-                <textarea id="descripcionCompensacion" rows="3"></textarea>
+                <input type="number" id="montoCompensacion" min="0">
             </div>
             <div class="modal-acciones">
                 <button onclick="cerrarModal()">Cancelar</button>

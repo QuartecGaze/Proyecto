@@ -59,22 +59,22 @@ function snakeCamel(snakeStr) {
 }
 
 function actualizarEstadoArray(array, idPersona, campo, nuevoValor) {
-    const idNum = Number(idPersona); // asegura comparación numérica
-    let encontrado = false;
+  const idNum = Number(idPersona); // asegura comparación numérica
+  let encontrado = false;
 
-    const nuevoArray = array.map(item => {
-        if (Number(item.idPersona) === idNum) {
-            encontrado = true;
-            // devolvemos copia con la propiedad actualizada
-            return { ...item, [campo]: nuevoValor };
-        }
-        return item;
-    });
-
-    if (!encontrado) {
-        console.warn(`actualizarEstadoArray: no se encontró interesado con id ${idPersona}`);
+  const nuevoArray = array.map(item => {
+    if (Number(item.idPersona) === idNum) {
+      encontrado = true;
+      // devolvemos copia con la propiedad actualizada
+      return { ...item, [campo]: nuevoValor };
     }
-    return nuevoArray;
+    return item;
+  });
+
+  if (!encontrado) {
+    console.warn(`actualizarEstadoArray: no se encontró interesado con id ${idPersona}`);
+  }
+  return nuevoArray;
 }
 
 
@@ -231,15 +231,13 @@ function actualizarSolicitudes(interesados) {
                             </div>
                         </div>
                         <div class="acciones">
+
                             <button class="btn-rechazar btn-${interesado.estadoPagoInicial}" data-id="${interesado.idPersona}" data-campo="Estado_pago_inicial">
 
                                 <i class="material-icons">close</i> Rechazar
                             </button>
                             <button class="btn-aprobar btn-${interesado.estadoPagoInicial}" data-id="${interesado.idPersona}" data-campo="Estado_pago_inicial">
                                 <i class="material-icons">check</i> Aprobar
-                            </button>
-                            <button class="btn-reenviar" data-campo="Reenviar_pago_inicial">
-                                <i class="material-icons">refresh</i> Reenviar Pago Inicial
                             </button>
                         </div>
                     </div>
@@ -315,65 +313,65 @@ function actualizarSolicitudes(interesados) {
             }
         });
     });
-    const integrantesCount = $('#integrantes-count', panel);
-    const integrantesEmpty = $('#integrantes-empty', panel);
-    const integrantesTableWrapper = $('#integrantes-table-wrapper', panel);
-    const integrantesTbody = $('#integrantes-tbody', panel);
-    // ====== LISTADO (mostrar todos) ======
-    (async function initListado() {
-        try {
-            const ses = await getIdSesion();
-            idPersonaLog = ses?.message;
-            await cargarListadoIntegrantes();
-            wireDelete(); // activar eventos de borrar
-        } catch (e) {
-            console.error('initListado error:', e);
-        }
-    })();
+const integrantesCount = $('#integrantes-count', panel);
+const integrantesEmpty = $('#integrantes-empty', panel);
+const integrantesTableWrapper = $('#integrantes-table-wrapper', panel);
+const integrantesTbody = $('#integrantes-tbody', panel);
+// ====== LISTADO (mostrar todos) ======
+(async function initListado() {
+  try {
+    const ses = await getIdSesion();
+    idPersonaLog = ses?.message;
+    await cargarListadoIntegrantes();
+    wireDelete(); // activar eventos de borrar
+  } catch (e) {
+    console.error('initListado error:', e);
+  }
+})();
 
-    async function cargarListadoIntegrantes() {
-        try {
-            toggleSpinner(true);
-            const resp = await getIntegrantesFamiliares(idPersonaLog);
-            const arr = Array.isArray(resp?.message) ? resp.message
-                : (Array.isArray(resp?.message?.data) ? resp.message.data : []);
-            integrantesGuardados = normalizarIntegrantes(arr);
-            renderTablaIntegrantes();
-        } catch (e) {
-            console.error('getIntegrantesFamiliares falló:', e);
-            integrantesGuardados = [];
-            renderTablaIntegrantes();
-        } finally {
-            toggleSpinner(false);
-        }
-    }
+async function cargarListadoIntegrantes() {
+  try {
+    toggleSpinner(true);
+    const resp = await getIntegrantesFamiliares(idPersonaLog);
+    const arr = Array.isArray(resp?.message) ? resp.message
+      : (Array.isArray(resp?.message?.data) ? resp.message.data : []);
+    integrantesGuardados = normalizarIntegrantes(arr);
+    renderTablaIntegrantes();
+  } catch (e) {
+    console.error('getIntegrantesFamiliares falló:', e);
+    integrantesGuardados = [];
+    renderTablaIntegrantes();
+  } finally {
+    toggleSpinner(false);
+  }
+}
 
-    function normalizarIntegrantes(arr) {
-        return (arr || []).map(f => ({
-            id: f.id ?? f.ID_Integrante ?? '',
-            nombre: f.nombre ?? f.Nombre ?? '',
-            apellido: f.apellido ?? f.Apellido ?? '',
-            ci: f.ci ?? f.CI ?? '',
-            fechaNacimiento: f.fecha_nacimiento ?? f.FechaNacimiento ?? '',
-            genero: f.genero ?? f.Genero ?? '',
-            email: f.email ?? f.Email ?? ''
-        }));
-    }
+function normalizarIntegrantes(arr) {
+  return (arr || []).map(f => ({
+    id: f.id ?? f.ID_Integrante ?? '',
+    nombre: f.nombre ?? f.Nombre ?? '',
+    apellido: f.apellido ?? f.Apellido ?? '',
+    ci: f.ci ?? f.CI ?? '',
+    fechaNacimiento: f.fecha_nacimiento ?? f.FechaNacimiento ?? '',
+    genero: f.genero ?? f.Genero ?? '',
+    email: f.email ?? f.Email ?? ''
+  }));
+}
 
-    function renderTablaIntegrantes() {
-        integrantesCount.textContent = String(integrantesGuardados.length);
+function renderTablaIntegrantes() {
+  integrantesCount.textContent = String(integrantesGuardados.length);
 
-        if (integrantesGuardados.length === 0) {
-            integrantesTableWrapper.style.display = 'none';
-            integrantesEmpty.style.display = 'flex';
-            integrantesTbody.innerHTML = '';
-            return;
-        }
+  if (integrantesGuardados.length === 0) {
+    integrantesTableWrapper.style.display = 'none';
+    integrantesEmpty.style.display = 'flex';
+    integrantesTbody.innerHTML = '';
+    return;
+  }
 
-        integrantesEmpty.style.display = 'none';
-        integrantesTableWrapper.style.display = 'block';
+  integrantesEmpty.style.display = 'none';
+  integrantesTableWrapper.style.display = 'block';
 
-        integrantesTbody.innerHTML = integrantesGuardados.map((integrante, index) => `
+  integrantesTbody.innerHTML = integrantesGuardados.map((integrante, index) => `
         <tr data-id="${esc(integrante.id)}">
             <td data-label="Nombre">${esc(integrante.nombre)}</td>
             <td data-label="Apellido">${esc(integrante.apellido)}</td>
@@ -389,7 +387,7 @@ function actualizarSolicitudes(interesados) {
             </td>
         </tr>
     `).join('');
-    }
+}
 
 
 

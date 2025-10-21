@@ -320,6 +320,16 @@
             if($accion === "aprobarFalta"){
                 try {
                     $datos = json_decode(file_get_contents('php://input'), true);
+                    $falta = $servicio->getFalta($datos['idFalta']);
+                    if($falta['Tipo_falta'] == "Exoneracion"){
+                        $servicio->acreditarHoras($falta['ID_Persona'], $falta['Horas_solicitadas'], $falta['Fecha'], $falta['ID_Semana_trabajo']);
+                    }elseif($falta['Tipo_falta'] == "Pago Compensatorio"){
+                        // ver que hacer al aprobar, todavia nose al asignar el pago se va a crear 
+                        //el comprobante pero podriamos hacer una confirmacion si fue pagado el comprobante 
+                        //si traemos el id del comprobante ademas del monto (que probablemente habra que hacer)
+                    }else{
+                        respuesta("tipo de falta invalido", "error", 404);
+                    }
                     $servicio->aprobarFalta($datos['idFalta']);
                     respuesta("Pago aprobado con exito", "exito", 201);
                 } catch(Exception $e) {
@@ -336,6 +346,25 @@
                     respuesta($e->getMessage(), "error", $e->getCode());
                 }
             }
+
+            if($accion === "asignarMontoFalta"){ //traer idFalta y monto
+                try {
+                    $datos = json_decode(file_get_contents('php://input'), true);
+                    $monto = $datos['monto'];
+                    $falta = $servicio->getFalta($datos['idFalta']);
+
+                    if($falta['Tipo_falta'] == "Pago Compensatorio"){
+                        $servicio->crearPagoFalta($falta['ID_Persona'], $falta['Fecha'], $monto);
+                        respuesta("Monto asignado con exito", "exito", 201);
+                    }else{
+                        respuesta("Campo incorrecto", "error", 404);
+                    }
+                    
+                } catch(Exception $e) {
+                    respuesta($e->getMessage(), "error", $e->getCode());
+                }
+            }
+
             
             
 

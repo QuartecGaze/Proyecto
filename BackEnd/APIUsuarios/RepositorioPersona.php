@@ -244,5 +244,31 @@ class RepositorioPersona {
 
         return mysqli_num_rows($resultado) > 0;
     }
+    
+    public function getDireccion($idPersona){
+        $consulta = "
+            SELECT Pasillo, Numero_Puerta
+            FROM unidad_habitacional
+            WHERE ID_Persona = ?
+        ";
+        $resultado = consulta($this->conn, $consulta, "i", [$idPersona]);
+        $datos = mysqli_fetch_assoc($resultado);
+        $direccion = "";
+        $direccion = $datos['Numero_Puerta'] . " " . $datos['Pasillo'];
+        return $direccion;
+    }
+
+    public function unidadHabitacionalExisteID($idPersona){
+        $consulta = "
+            SELECT * FROM unidad_habitacional 
+            WHERE ID_Persona = ?
+            ";
+        $resultado = consulta($this->conn, $consulta, "i", [$idPersona]);
+        if(mysqli_num_rows($resultado) > 0){
+            return true;
+        }else{
+            return false;
+        }
+    }
 }
 ?>

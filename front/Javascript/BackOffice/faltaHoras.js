@@ -71,7 +71,7 @@ function buildCard(f) {
       <button class="btn-aprovar" data-action="aprobar" data-id="${f.idFalta}" data-tipo="${tipoAttr}">
         <i class="material-icons">check_circle</i> Aprobar
       </button>
-      <button class="btn-compensar" data-action="compensar" data-id="${f.idFalta}">
+      <button class="btn-compensar" data-action="compensar" data-id="${f.idFalta}"style="display:${tipoAttr === 'monetaria' ? 'flex' : 'none'}">
         <i class="material-icons">attach_money</i> Asignar monto
       </button>
       <button class="btn-rechazar" data-action="rechazar" data-id="${f.idFalta}">
@@ -92,6 +92,13 @@ function renderLista(data) {
       </div>`;
     return;
   }
+
+
+  
+  //hacer un if para saber si es exoneracion o pago compensatorio
+
+
+  
   data.forEach(f => contenedor.appendChild(buildCard(f)));
 }
 

@@ -10,7 +10,7 @@ const telefono = document.getElementById("telefonoUsuario");
 const direccion = document.getElementById("direccionUsuario");
 const direccionDisplay = document.getElementById("direccionUsuarioDisplay");
 const cumple = document.getElementById("cumpleUsuario");
-const fechaIngreso = document.getElementById("fechaIngreso");
+const fechaIngreso = document.getElementById("fechaIngresoUsuario");
 const botonCambiarDatos = document.querySelector(".boton-cambiar-datos");
 const inputFoto = document.getElementById("subir-foto");
 const formularioEditar = document.getElementById("formulario-editar-datos");
@@ -54,7 +54,7 @@ function setDatos(data) {
     direccion.textContent = data.direccion;
     direccionDisplay.textContent = data.direccion;
     cumple.textContent = formatearFechaParaMostrar(data.fechaNacimiento);
-    fechaIngreso.textContent = formatearFechaParaMostrar(data.fechaIngreso);
+    fechaIngreso.textContent = data.fechaIngreso;
 
     // Llenar los campos del formulario de edición
     document.getElementById('nombreInput').value = data.nombre || '';

@@ -144,6 +144,14 @@
             }
         }
 
+        public function getDireccion($idPersona){
+            if (!$this->repositorio->unidadHabitacionalExisteID($idPersona)) {
+                throw new Exception("Este usuario no tiene unidad habitaciona", 404);
+            } else {
+                return $this->repositorio->getDireccion($idPersona);
+            }
+        }
+
 
 
 

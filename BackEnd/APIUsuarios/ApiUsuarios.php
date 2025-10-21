@@ -196,6 +196,7 @@
                 if($id != null){
                     try{
                     $usuario = $servicio->getUsuario($id);
+                    $direccion = $servicio->getDireccion($id);
                     $respuesta = [
                     'ci' => $usuario->getCi(),
                     'email' => $usuario->getEmail(),
@@ -206,8 +207,8 @@
                     'fechaNacimiento' => $usuario->getFechaNacimiento(),
                     'fechaIngreso' => $usuario->getFechaIngreso(),
                     'foto' => $usuario->getFoto(),
-                    'rol' => $usuario->getRol()
-                    //agregar direccion
+                    'rol' => $usuario->getRol(),
+                    'direccion' => $direccion
                     ];
                         respuesta($respuesta, "exito", 200);
                     }

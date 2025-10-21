@@ -476,6 +476,19 @@
             $this->repositorio->aprobarFalta($idFalta);
         }
 
+        public function getFalta($idFalta){
+            $datos = $this->repositorio->getFalta($idFalta);
+            return $datos;
+        }
+
+        public function acreditarHoras($idPersona, $horas, $fechaHoras, $idSemana){
+            $this->repositorio->cargarHoras($idPersona, $horas, $fechaHoras, $idSemana);
+        }
+
+        public function crearPagoFalta($idPersona, $fecha, $monto){
+            $this->repositorio->crearPagoPersonalizado($idPersona, "Pago Compensatorio por Horas Faltadas", $monto, $fecha);
+        }
+
 
     }
 ?>

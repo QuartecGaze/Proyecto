@@ -124,7 +124,7 @@ verificarAcceso(['Usuario', 'Admin']);
                             </div>
                             <div class="campo-perfil">
                                 <label>Fecha de Ingreso a la cooperativa</label>
-                                <p class="valor-perfil" id="fechaIngreso">15 de Enero, 2020</p>
+                                <p class="valor-perfil" id="fechaIngreso"></p>
                             </div>
                             <div class="botones-edicion">
                                 <button type="submit" class="boton-guardar">
@@ -139,27 +139,27 @@ verificarAcceso(['Usuario', 'Admin']);
                         <div id="info-solo-lectura">
                             <div class="campo-perfil">
                                 <label>Nombre completo</label>
-                                <p class="valor-perfil nombreUsuario">Nombre User</p>
+                                <p class="valor-perfil nombreUsuario"></p>
                             </div>
                             <div class="campo-perfil">
                                 <label>Correo electrónico</label>
-                                <p class="valor-perfil" id="emailUsuario">alainarce39@gmail.com</p>
+                                <p class="valor-perfil" id="emailUsuario"></p>
                             </div>
                             <div class="campo-perfil">
                                 <label>Teléfono</label>
-                                <p class="valor-perfil" id="telefonoUsuario">+598 92 343 168</p>
+                                <p class="valor-perfil" id="telefonoUsuario"></p>
                             </div>
                             <div class="campo-perfil">
                                 <label>Dirección</label>
-                                <p class="valor-perfil" id="direccionUsuario">Pasaje 2 unidad 31</p>
+                                <p class="valor-perfil" id="direccionUsuario"></p>
                             </div>
                             <div class="campo-perfil">
                                 <label>Fecha de Nacimiento</label>
-                                <p class="valor-perfil" id="cumpleUsuario">15 de Enero, 2020</p>
+                                <p class="valor-perfil" id="cumpleUsuario"></p>
                             </div>
                             <div class="campo-perfil">
                                 <label>Fecha de Ingreso a la cooperativa</label>
-                                <p class="valor-perfil" id="fechaIngreso">15 de Enero, 2020</p>
+                                <p class="valor-perfil" id="fechaIngresoUsuario"></p>
                             </div>
                         </div>
                     </div>

@@ -835,6 +835,42 @@ require __DIR__ .'/../Consultas.php';
             consulta($this->conn, $consulta, "i", [$idFalta]);
         }
 
+        public function getFalta($idFalta) {
+            $consulta = "
+                SELECT * FROM falta WHERE ID_Falta = $idFalta
+            ";
+
+            $respuesta = consulta($this->conn, $consulta);
+            $falta = [];
+
+            while ($fila = $respuesta->fetch_assoc()) {
+                $falta = [
+                    'ID_Falta' => $fila['ID_Falta'],
+                    'ID_Persona' => $fila['ID_Persona'],
+                    'ID_Semana_trabajo' => $fila['ID_Semana_trabajo'],
+                    'Motivo_falta' => $fila['Motivo_falta'],
+                    'Horas_solicitadas' => $fila['Horas_solicitadas'],
+                    'Estado' => $fila['Estado'],
+                    'Fecha' => $fila['Fecha'],
+                    'Tipo_falta' => $fila['Tipo_falta']
+                ];
+            }
+            return $falta;
+        }
+
+        public function cargarHoras($idPersona, $horas, $fechaHoras, $idSemana){
+            $consulta = "
+                INSERT INTO Horas_trabajadas 
+                (ID_Persona, Horas, Fecha_registro_horas, ID_Semana_trabajo)
+                VALUES (?, ?, ?, ?)
+            ";
+            // horas puede ser decimal -> usar 'd' si corresponde; si es entero usar 'i'
+            $resultado = consulta($this->conn, $consulta, "idsi", [$idPersona, $horas, $fechaHoras, $idSemana]);
+            if ($resultado === false) {
+                return false;
+            }
+            return true;
+        }
 
 
 

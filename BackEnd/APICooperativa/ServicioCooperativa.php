@@ -284,9 +284,12 @@
             $totalReuniones = $asistencias['cantidadReuniones'];
             $asistio = $asistencias['asistencias'] ?? 0;
             $porcentaje = 0;
+            if ($totalReuniones <= 0) {
+                return 0; // evita división por cero
+            }
             $porcentaje = round(($asistio / $totalReuniones) * 100);
             return $porcentaje;
         }
-
+        
 
     }
