@@ -32,6 +32,7 @@ export function getUsuario(id){
     return apiRequest(`/APIUsuarios/ApiUsuarios.php?accion=getUsuario&id=` + id, 'GET');
 }
 
+
 export function getIdSesion(){
     return apiRequest(`/APIUsuarios/ApiUsuarios.php?accion=getIdSesion`, "GET");
 }

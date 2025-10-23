@@ -346,6 +346,7 @@
                     respuesta($e->getMessage(), "error", $e->getCode());
                 }
             }
+<<<<<<< Updated upstream
 
             if($accion === "asignarMontoFalta"){ //traer idFalta y monto
                 try {
@@ -366,6 +367,16 @@
             }
 
             
+=======
+            if($accion === "getHorasTrabajadasUsuarios"){
+            try {
+                $horasUsuarios = $servicio->getHorasTrabajadasUsuarios();
+                respuesta($horasUsuarios, "exito", 201);
+            } catch(Exception $e) {
+                respuesta($e->getMessage(), "error", $e->getCode());
+            }
+        }
+>>>>>>> Stashed changes
             
 
 
@@ -403,6 +414,18 @@
                     respuesta("No se encontro una id para buscar", "error", 0);
                 }
             }
+
+            if($accion === "getUsuarios"){
+                    try{
+                    $usuarios = $servicio->getUsuarios();
+                    respuesta($usuarios, "exito", 200);
+                    }
+                    catch(Exception $e) {
+                    respuesta($e->getMessage(), "error", $e->getCode());
+                }
+
+            } 
+        
 
             if($accion == "getIdSesion"){
                 session_start();
@@ -468,7 +491,7 @@
                     respuesta($e->getMessage(), "error", $e->getCode());
                 }
             }
-            
+        
         break;
         
         default:

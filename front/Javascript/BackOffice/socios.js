@@ -1,5 +1,78 @@
 // socios.js - Funcionalidad para editar información personal de socios
+import { getUsuarios } from '../../../BackEnd/APIFetchs/APIBackOffice.js';
 
+
+let usuarios = [];
+const dataUsuarios = await getUsuarios();
+usuarios = Object.values(dataUsuarios.message);
+console.log(usuarios);
+const contenedor = document.querySelectorAll(".contenedor-socios")[0];
+contenedor.innerHTML = "";
+    usuarios.forEach((usuario, index) => {
+        contenedor.innerHTML += `
+                <div class="etiqueta">
+                    <div class="card">
+                        <div class="card-header">
+                            <img src="avatar.jpg" alt="Usuario" class="avatar">
+                            <div class="info">
+                                <h3>${usuario.nombre} ${usuario.apellido}</h3>
+                                <p>Pasillo P-1 <br> Puerta 100</p>
+                            </div>
+                        </div>
+                        <div class="card-footer">
+                            <span class="tag gray">${usuario.horasTrabajadas.Total_Horas} Horas Trabajadas Totales</span>
+                            <span class="tag red">0/21</span>
+                            <span class="tag green">$ 0</span>
+                        </div>
+                    </div>
+                    <div class="actions">
+                        <button data-index="${index}" class="boton-ver-usuario">
+                            <i class="material-icons" style="font-size: 40px;">visibility</i>
+                        </button>
+                    </div>
+                </div>
+    `;
+    
+    });
+
+    const modal = document.getElementById('modalUsuario');
+     const spans = {
+        nombre: document.getElementById('modalNombre'),
+        cedula: document.getElementById('modalCedula'),
+        fechaNacimiento: document.getElementById('modalFechaNacimiento'),
+        direccion: document.getElementById('modalDireccion'),
+        email: document.getElementById('modalEmail'),
+        telefono: document.getElementById('modalTelefono'),
+        fechaRegistro: document.getElementById('modalFechaRegistro')
+    };
+
+    document.querySelectorAll('.actions button').forEach(boton => {
+        boton.addEventListener('click', function () {
+             spans['telefono'].textContent = "";
+            const index = this.getAttribute('data-index');
+            const usuario = usuarios[index];
+            spans['nombre'].textContent = usuario.nombre + ' ' + usuario.apellido;
+            spans['cedula'].textContent = usuario.ci;
+            spans['fechaNacimiento'].textContent = usuario.fechaNacimiento || 'No proporcionada';
+            spans['direccion'].textContent = usuario.direccion || 'No proporcionada';
+            spans['email'].textContent = usuario.email || 'No proporcionado';
+            spans['fechaRegistro'].textContent = usuario.fechaIngreso || 'No proporcionada';
+            console.log('Abriendo modal de usuario:', usuario);
+            modal.style.display = 'flex';
+            usuario.telefono.forEach(tel => {
+                console.log('Agregando teléfono al modal:', tel);
+                spans['telefono'].innerHTML += tel + '<br>';
+            });
+        });
+    });
+
+    document.querySelectorAll('.cerrar-modal').forEach(cerrar => {
+        cerrar.addEventListener('click', function () {
+            console.log('Cerrando modal de usuario');
+            modal.style.display = 'none';
+        });
+    });
+/*
 document.addEventListener('DOMContentLoaded', function () {
     // Elementos del modal
     const modal = document.getElementById('modalUsuario');
@@ -302,6 +375,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
     document.querySelectorAll('.actions button').forEach(boton => {
         boton.addEventListener('click', function () {
+            console.log('Abriendo modal de usuario');
             abrirModal();
         });
     });
@@ -321,3 +395,5 @@ document.addEventListener('DOMContentLoaded', function () {
         }
     });
 });
+
+/*/

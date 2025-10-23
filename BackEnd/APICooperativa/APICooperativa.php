@@ -325,6 +325,8 @@
             }
         }
 
+        
+
 
         if($accion === "getIntegrantesFamiliares"){
             $idPersona = $_GET['id'];

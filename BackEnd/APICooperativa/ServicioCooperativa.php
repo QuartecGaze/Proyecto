@@ -81,6 +81,8 @@
             }
         }
 
+        
+
         public function horasAtrasadasUsuario($idPersona){
             $fecha = $this->lunesdeestasemana();
             $idSemanaActual =  $this->repositorio->getIdSemana($fecha); //traer el idsemana de esta semana

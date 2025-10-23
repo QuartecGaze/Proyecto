@@ -206,6 +206,9 @@ a {
     transition: all 0.3s ease;
 }
 
+.cerrar-modal{
+    cursor: pointer;
+}
 .boton-cerrar-sesion:hover,
 #boton-cambiar-sesion:hover {
     background-color: var(--color-hover);
@@ -280,7 +283,7 @@ a {
     box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
     max-width: 350px;
     transition: transform 0.3s ease, box-shadow 0.3s ease;
-
+    height: 100%;
 }
 
 .etiqueta:hover {
@@ -321,7 +324,6 @@ a {
 
 .actions {
     width: 68.5px;
-    height: 100%;
     background-color: #00000008;
     border-radius: 0 12px 12px 0;
     display: flex;

@@ -122,6 +122,17 @@
             return $interesadoArrayAsociativo;
         }
 
+        public function getUsuarios(){
+            $usuariosObj = $this->repositorio->getUsuarios();
+            $usuariosArrayAsociativo = [];
+            foreach($usuariosObj as $usuario){
+                $horasTrabajadas = $this->repositorio->getHorasTrabajadasPorUsuario($usuario->getIdPersona());
+                $usuariosArrayAsociativo[$usuario->getIdPersona()] = $usuario->toArray($horasTrabajadas);
+            }
+
+
+            return $usuariosArrayAsociativo;
+        }
         public function subirFoto($nombreArchivo, $nombreTemp) {
             session_start();
             $rutaCarpeta = "../../Recursos/FotosPerfil/";
@@ -240,6 +251,18 @@
                 'reunionesCompletadas' => count($reuniones),
                 'reuniones'           => $reuniones
             ];
+        }
+        public function getHorasTrabajadasUsuarios(){
+            $usuariosHoras = $this->repositorio->getHorasTrabajadasUsuarios();
+            $resultado = [];
+
+            foreach ($usuariosHoras as $usuario) {
+                $resultado[$usuario['ID_Persona']] = [
+                    'horasTrabajadas'=> $usuario['Total_Horas']
+                ];
+            }
+
+            return $resultado;
         }
 
 

@@ -102,3 +102,6 @@ export function getUsuariosAsistencias(){
 export function getFaltasPendientes(){
     return apiRequest(`/APIBackOffice/ApiBackOffice.php?accion=getFaltasPendientes`, "GET");
 }
+export function getUsuarios(){
+    return apiRequest(`/APIBackoffice/ApiBackoffice.php?accion=getUsuarios`, 'GET');
+}

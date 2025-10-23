@@ -50,3 +50,6 @@ import { apiRequest } from './apiConfig.js';
         export function getReunionesPendientes() {
                 return apiRequest('/APICooperativa/ApiCooperativa.php?accion=getReunionesPendientes', 'GET');
         }
+        export function getHorasTrabajadasUsuarios(){
+                return apiRequest(`/APICooperativa/ApiCooperativa.php?accion=getHorasTrabajadasUsuarios`, "GET");
+        }

@@ -168,6 +168,34 @@ require __DIR__ .'/../Consultas.php';
             return $interesados;
             }
 
+        public function getUsuarios(){
+            $consulta = "
+            SELECT * 
+            FROM Persona 
+            JOIN Usuario ON Persona.ID_Persona = Usuario.ID_Persona 
+            WHERE Rol = 'Usuario' OR (Rol = 'Admin' AND Usuario.ID_Persona IS NOT NULL);
+                ";
+            $resultado = consulta($this->conn, $consulta); 
+            $usuarios = [];
+            while ($fila = mysqli_fetch_assoc($resultado)) {
+                $telefonos = $this->getTelefonosPersona($fila['ID_Persona']);
+                $usuarios[] = new Usuario(
+                $fila['CI'], 
+                $fila['Email'], 
+                $telefonos,
+                $fila['ID_Persona'], 
+                $fila['Nombre'], 
+                $fila['Apellido'], 
+                null, 
+                $fila['Rol'],
+                $fila['Fecha_nacimiento'],
+                $fila['Fecha_ingreso'],
+                $fila['Foto']
+            );
+            }
+            return $usuarios;
+            }
+
         public function soloInteresados(){
             $consulta = "
                 SELECT ID_Persona
@@ -834,6 +862,42 @@ require __DIR__ .'/../Consultas.php';
             ";
             consulta($this->conn, $consulta, "i", [$idFalta]);
         }
+        
+        public function getHorasTrabajadasUsuarios(){
+            $consulta = "
+                SELECT ID_Persona, SUM(Horas) AS Total_Horas
+                FROM Horas_trabajadas
+                GROUP BY ID_Persona
+            ";
+        $resultado = consulta($this->conn, $consulta); 
+        $horasUsuarios = [];
+    
+        while ($fila = mysqli_fetch_assoc($resultado)) {
+            $horasUsuarios[] = [
+                'ID_Persona' => $fila['ID_Persona'],
+                'Total_Horas' => $fila['Total_Horas']
+            ];
+        }
+        return $horasUsuarios;
+        }
+
+       public function getHorasTrabajadasPorUsuario($idPersona){
+            $consulta = "
+                SELECT SUM(Horas) AS Total_Horas
+                FROM Horas_trabajadas
+                WHERE ID_Persona = ?
+                GROUP BY ID_Persona
+            ";
+            $resultado = consulta($this->conn, $consulta, "i", [$idPersona]);
+            $fila = mysqli_fetch_assoc($resultado);
+
+            // Si no hay filas o Total_Horas es null, devolver 0 para mantener forma consistente
+            if (!$fila || !isset($fila['Total_Horas']) || $fila['Total_Horas'] === null) {
+                return ['Total_Horas' => 0];
+            }
+            return $fila;
+        }
+    }
 
         public function getFalta($idFalta) {
             $consulta = "
@@ -875,5 +939,5 @@ require __DIR__ .'/../Consultas.php';
 
 
             
-    }
+
 ?>
