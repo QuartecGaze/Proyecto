@@ -426,6 +426,12 @@ a {
     text-align: center;
 }
 
+.seleccion-unidad {
+    width: 20px;
+    height: 20px;
+    cursor: pointer;
+}
+
 .botones-flotantes {
     position: fixed;
     bottom: 30px;
