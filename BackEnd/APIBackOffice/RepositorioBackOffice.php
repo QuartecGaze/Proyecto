@@ -171,6 +171,7 @@ require __DIR__ .'/../Consultas.php';
         public function getUsuarios(){
             $consulta = "
             SELECT * 
+<<<<<<< Updated upstream
             FROM persona 
             JOIN usuario ON persona.ID_Persona = usuario.ID_Persona 
             WHERE Rol = 'Usuario' OR (Rol = 'Admin' AND usuario.ID_Persona IS NOT NULL);
@@ -885,6 +886,7 @@ require __DIR__ .'/../Consultas.php';
             $consulta = "
                 SELECT SUM(Horas) AS Total_Horas
                 FROM horas_trabajadas
+                FROM Horas_trabajadas
                 WHERE ID_Persona = ?
                 GROUP BY ID_Persona
             ";
@@ -897,6 +899,7 @@ require __DIR__ .'/../Consultas.php';
             }
             return $fila;
         }
+<<<<<<< Updated upstream
     
 
         public function getFalta($idFalta) {

@@ -9,6 +9,7 @@ const btnCancelar = document.getElementById('btnCancelarEdicion');
 const tablaFamiliares = document.getElementById('tablaFamiliares');
 let usuarios = [];
 let id = null;
+let usuarios = [];
 const dataUsuarios = await getUsuarios();
 usuarios = Object.values(dataUsuarios.message);
 console.log(usuarios);
@@ -68,6 +69,11 @@ contenedor.innerHTML = "";
             const index = this.getAttribute('data-index');
             const usuario = usuarios[index];
             id = usuario.idPersona;
+    document.querySelectorAll('.actions button').forEach(boton => {
+        boton.addEventListener('click', function () {
+             spans['telefono'].textContent = "";
+            const index = this.getAttribute('data-index');
+            const usuario = usuarios[index];
             spans['nombre'].textContent = usuario.nombre + ' ' + usuario.apellido;
             spans['cedula'].textContent = usuario.ci;
             spans['fechaNacimiento'].textContent = usuario.fechaNacimiento || 'No proporcionada';
@@ -92,6 +98,8 @@ contenedor.innerHTML = "";
         });
     });
 })
+        });
+    });
 
     document.querySelectorAll('.cerrar-modal').forEach(cerrar => {
         cerrar.addEventListener('click', function () {
@@ -163,6 +171,8 @@ contenedor.innerHTML = "";
         console.log('Datos para guardar:', datosParaGuardar);
         return datosParaGuardar;
     }
+=======
+>>>>>>> Stashed changes
 /*
 document.addEventListener('DOMContentLoaded', function () {
     // Elementos del modal
