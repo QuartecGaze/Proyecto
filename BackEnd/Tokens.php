@@ -62,4 +62,3 @@ function obtenerToken() {
 
     return null;
 }
-?>

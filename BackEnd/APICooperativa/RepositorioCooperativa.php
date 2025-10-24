@@ -406,4 +406,3 @@ require __DIR__ .'/../Consultas.php';
             ];
         }
     }
-?>

@@ -15,7 +15,7 @@ require __DIR__ .'/../Consultas.php';
         //Persona
         public function personaExiste($id){
             $consulta = "
-            SELECT * FROM Persona WHERE ID_Persona=?
+            SELECT * FROM persona WHERE ID_Persona=?
             ";
             $resultado = consulta($this->conn, $consulta, "i", [$id]);
             if(mysqli_num_rows($resultado) > 0){
@@ -28,7 +28,7 @@ require __DIR__ .'/../Consultas.php';
         }
 
         public function personaExisteConCI($ci){
-            $consulta = "SELECT * FROM Persona WHERE CI = ?";
+            $consulta = "SELECT * FROM persona WHERE CI = ?";
             $resultado = consulta($this->conn, $consulta, "s", [$ci]);
             if(mysqli_num_rows($resultado) > 0){
                 return true;
@@ -39,21 +39,21 @@ require __DIR__ .'/../Consultas.php';
         
         public function borrarTelefono($id){
             $consulta = "
-                DELETE FROM Numero_de_telefono WHERE ID_Persona=?
+                DELETE FROM numero_de_telefono WHERE ID_Persona=?
             ";
             consulta($this->conn, $consulta, "i", [$id]);
         }
 
         public function borrarPersona($id){
             $consulta = "
-                DELETE FROM Persona WHERE ID_Persona=?
+                DELETE FROM persona WHERE ID_Persona=?
             ";
             consulta($this->conn, $consulta, "i", [$id]);
         }
 
         public function getPersona($id){
             $consulta = "
-                SELECT * FROM Persona WHERE ID_Persona=?
+                SELECT * FROM persona WHERE ID_Persona=?
             ";
             $resultado = consulta($this->conn, $consulta, "i", [$id]);
             $fila = mysqli_fetch_assoc($resultado);
@@ -86,7 +86,7 @@ require __DIR__ .'/../Consultas.php';
             //trae solo el id persona para no traer a todo el interesado y poder lekear datos sin querer
             $consulta = "
                 SELECT ID_Persona 
-                FROM Persona 
+                FROM persona 
                 WHERE Rol = 'Interesado'
             ";
         
@@ -101,7 +101,7 @@ require __DIR__ .'/../Consultas.php';
         
         public function borrarInteresado($id){
             $consulta = "
-                DELETE FROM Interesado WHERE ID_Persona=?
+                DELETE FROM interesado WHERE ID_Persona=?
             ";
             consulta($this->conn, $consulta, "i", [$id]);
         }
@@ -109,7 +109,7 @@ require __DIR__ .'/../Consultas.php';
 
         public function cargarEntrevista($id, $fechaEntrevista, $horaEntrevista){
             $consulta = "
-                UPDATE Interesado
+                UPDATE interesado
                 SET Fecha_entrevista = ?, Hora_entrevista = ?
                 WHERE ID_Persona = ?
             ";
@@ -118,7 +118,7 @@ require __DIR__ .'/../Consultas.php';
 
         public function revisarEstado($id, $tipo, $estado){
             $consulta = "
-                UPDATE Interesado
+                UPDATE interesado
                 SET $tipo = ?
                 WHERE ID_Persona = ?
             ";
@@ -127,7 +127,7 @@ require __DIR__ .'/../Consultas.php';
 
         public function setMontoPagoInicial($id, $montoPagoInicial){
             $consulta = "
-                UPDATE Interesado
+                UPDATE interesado
                 SET Monto_pago_inicial = ?
                 WHERE ID_Persona = ?
             ";
@@ -137,8 +137,8 @@ require __DIR__ .'/../Consultas.php';
         public function getInteresados(){
             $consulta = "
             SELECT * 
-            FROM Persona 
-            JOIN Interesado ON Persona.ID_Persona = Interesado.ID_Persona 
+            FROM persona 
+            JOIN interesado ON persona.ID_Persona = interesado.ID_Persona 
             WHERE Rol = 'Interesado';
             
                 ";
@@ -171,9 +171,9 @@ require __DIR__ .'/../Consultas.php';
         public function getUsuarios(){
             $consulta = "
             SELECT * 
-            FROM Persona 
-            JOIN Usuario ON Persona.ID_Persona = Usuario.ID_Persona 
-            WHERE Rol = 'Usuario' OR (Rol = 'Admin' AND Usuario.ID_Persona IS NOT NULL);
+            FROM persona 
+            JOIN usuario ON persona.ID_Persona = usuario.ID_Persona 
+            WHERE Rol = 'Usuario' OR (Rol = 'Admin' AND usuario.ID_Persona IS NOT NULL);
                 ";
             $resultado = consulta($this->conn, $consulta); 
             $usuarios = [];
@@ -199,7 +199,7 @@ require __DIR__ .'/../Consultas.php';
         public function soloInteresados(){
             $consulta = "
                 SELECT ID_Persona
-                FROM Persona
+                FROM persona
                 WHERE Rol = 'Interesado';
             ";
             $resultado = consulta($this->conn, $consulta); 
@@ -208,7 +208,7 @@ require __DIR__ .'/../Consultas.php';
         //Usuario
         public function subirFoto($id, $nombre) {
         $consulta = "
-            UPDATE Admin
+            UPDATE admin
             SET Foto = ?
             WHERE ID_Persona = ?
         ";
@@ -217,7 +217,7 @@ require __DIR__ .'/../Consultas.php';
 
         public function getFoto($id) {
             $consulta = "
-                SELECT Foto FROM Admin
+                SELECT Foto FROM admin
                 WHERE ID_Persona = ?
             ";
 
@@ -231,7 +231,7 @@ require __DIR__ .'/../Consultas.php';
 
         public function borrarFoto($id) {
             $consulta = "
-                UPDATE Admin
+                UPDATE admin
                 SET Foto = NULL
                 WHERE ID_Persona = ?
             ";
@@ -242,7 +242,7 @@ require __DIR__ .'/../Consultas.php';
             $idPersona = $Usuario->getIdPersona();
             $fechaIngreso = $Usuario->getFechaIngreso();
             $consulta = "
-                INSERT INTO Usuario (ID_Persona, Fecha_ingreso)
+                INSERT INTO usuario (ID_Persona, Fecha_ingreso)
                 VALUES (?,?)
             ";
             consulta($this->conn, $consulta, "is", [$idPersona, $fechaIngreso]);
@@ -250,14 +250,14 @@ require __DIR__ .'/../Consultas.php';
         
         public function borrarUsuario($id){
             $consulta = "
-                DELETE FROM Usuario WHERE ID_Persona=?
+                DELETE FROM usuario WHERE ID_Persona=?
             ";
             consulta($this->conn, $consulta, "i", [$id]);
         }
         
         public function cambiarRol($id){
             $consulta = "
-            UPDATE Persona
+            UPDATE persona
             SET Rol = 'Usuario'
             WHERE ID_Persona = ?
         ";
@@ -271,7 +271,7 @@ require __DIR__ .'/../Consultas.php';
             $nivelPermisos = $admin->getNivelPermisos();
             $fechaIngreso = $admin->getFechaIngreso();
             $consulta = "
-                INSERT INTO Admin (ID_Persona, Nivel_permisos, Fecha_ingreso) 
+                INSERT INTO admin (ID_Persona, Nivel_permisos, Fecha_ingreso) 
                 VALUES (?,?,?)
             ";
             consulta($this->conn, $consulta, "iis", [$idPersona, $nivelPermisos, $fechaIngreso]);
@@ -281,13 +281,13 @@ require __DIR__ .'/../Consultas.php';
         
          public function borrarAdmin($id){
             $consulta = "
-                DELETE FROM Admin WHERE ID_Persona=?
+                DELETE FROM admin WHERE ID_Persona=?
             ";
             consulta($this->conn, $consulta, "i", [$id]);
         }
 
         public function adminExisteID($id){
-            $consulta = "SELECT * FROM Admin WHERE ID_Persona = ?";
+            $consulta = "SELECT * FROM admin WHERE ID_Persona = ?";
             $resultado = consulta($this->conn, $consulta, "i", [$id]);
             if(mysqli_num_rows($resultado) > 0){
                 return true;
@@ -301,7 +301,7 @@ require __DIR__ .'/../Consultas.php';
              $idPersona = $admin->getIdPersona();
 
              $consulta = "
-                UPDATE Persona
+                UPDATE persona
                 SET Rol = 'Admin'
                 WHERE ID_Persona = ?
             ";
@@ -311,9 +311,9 @@ require __DIR__ .'/../Consultas.php';
 
         public function getDatosAdmin($id) {
             $consulta = "
-                SELECT * FROM Persona 
-                JOIN Admin ON Persona.ID_Persona = Admin.ID_Persona
-                WHERE Persona.ID_Persona = ?;
+                SELECT * FROM persona 
+                JOIN admin ON persona.ID_Persona = admin.ID_Persona
+                WHERE persona.ID_Persona = ?;
             ";
             $resultado = consulta($this->conn, $consulta, "i", [$id]); 
             $fila = mysqli_fetch_assoc($resultado);
@@ -339,14 +339,14 @@ require __DIR__ .'/../Consultas.php';
         public function getIDUsuarios() {
             $consulta = "
                 SELECT p.ID_Persona
-                FROM Persona p
+                FROM persona p
                 WHERE p.Rol = 'Usuario'
 
                 UNION
 
                 SELECT p.ID_Persona
-                FROM Persona p
-                INNER JOIN Usuario u ON p.ID_Persona = u.ID_Persona
+                FROM persona p
+                INNER JOIN usuario u ON p.ID_Persona = u.ID_Persona
                 WHERE p.Rol = 'Admin'
             ";
 
@@ -376,7 +376,7 @@ require __DIR__ .'/../Consultas.php';
                 $valoresConsulta .= "($idPersona , 'Aportes mensuales' , 'En espera', '$fecha', $montoPagoMensual)"; 
             } //haciendo esto nos evitamos sobrecargar el servidor haciendo 100 consultas para 100 usuarios, lo hacemos todo en una un insert gigante como el de cuando creamos la tabla traducciones
             $consulta = "
-                    INSERT INTO Comprobante_pago (ID_Persona, Motivo_pago, Estado_pago, Mes, Monto)
+                    INSERT INTO comprobante_pago (ID_Persona, Motivo_pago, Estado_pago, Mes, Monto)
                     VALUES $valoresConsulta;
                 ";
             consulta($this->conn, $consulta); 
@@ -384,7 +384,7 @@ require __DIR__ .'/../Consultas.php';
 
         public function getIDPersonaConCi($ci){
             $consulta = "
-                SELECT ID_Persona FROM Persona WHERE CI = ?
+                SELECT ID_Persona FROM persona WHERE CI = ?
             ";
             $resultado = consulta($this->conn, $consulta, "s", [$ci]);
             if(mysqli_num_rows($resultado) > 0) {
@@ -398,7 +398,7 @@ require __DIR__ .'/../Consultas.php';
 
         public function crearPagoPersonalizado($idPersona, $motivoPago, $montoPagoPersonalizado, $fecha) {
             $consulta = "
-                INSERT INTO Comprobante_pago (ID_Persona, Motivo_pago, Estado_pago, Mes, Monto)
+                INSERT INTO comprobante_pago (ID_Persona, Motivo_pago, Estado_pago, Mes, Monto)
                 VALUES (? , ? , 'En Espera' , ? , ?);
             ";
             consulta($this->conn, $consulta, "issd", [$idPersona, $motivoPago, $fecha, $montoPagoPersonalizado]); 
@@ -408,7 +408,7 @@ require __DIR__ .'/../Consultas.php';
         public function getComprobantePago($idComprobante) {
             $consulta = "
                 SELECT ID_Persona, Monto, Mes
-                FROM   Comprobante_pago
+                FROM   comprobante_pago
                 WHERE  ID_Comprobante_pago = ?
             ";
 
@@ -428,7 +428,7 @@ require __DIR__ .'/../Consultas.php';
         
         public function rechazarPago($idComprobantePago){
             $consulta = "
-                UPDATE Comprobante_pago
+                UPDATE comprobante_pago
                 SET    Estado_pago = 'Rechazado'
                 WHERE  ID_Comprobante_pago = ?
             ";
@@ -437,7 +437,7 @@ require __DIR__ .'/../Consultas.php';
 
         public function aprobarPago($idComprobantePago){
             $consulta = "
-                UPDATE Comprobante_pago
+                UPDATE comprobante_pago
                 SET    Estado_pago = 'Aprobado'
                 WHERE  ID_Comprobante_pago = ?
             ";
@@ -447,7 +447,7 @@ require __DIR__ .'/../Consultas.php';
         public function unidadHabitacionalAsignada($idUnidadHabitacional) {
             $consulta = "
                 SELECT ID_Persona
-                FROM   Unidad_Habitacional
+                FROM   unidad_habitacional
                 WHERE  ID_Unidad_Habitacional = ?
             ";
             $resultado = consulta($this->conn, $consulta, "i", [$idUnidadHabitacional]);
@@ -463,7 +463,7 @@ require __DIR__ .'/../Consultas.php';
         public function unidadesHabitacionalesSinUsuario(){
             $consulta = "
                 SELECT *
-                FROM   Unidad_Habitacional
+                FROM   unidad_habitacional
                 WHERE  ID_Persona IS NULL
             ";
             $resultado = consulta($this->conn, $consulta);
@@ -477,7 +477,7 @@ require __DIR__ .'/../Consultas.php';
         public function usuariosSinUnidadHabitacional(){
             $consulta = "
                 SELECT *
-                FROM   Unidad_Habitacional
+                FROM   unidad_habitacional
                 WHERE  ID_Persona IS NULL
             ";
             $resultado = consulta($this->conn, $consulta);
@@ -533,7 +533,7 @@ require __DIR__ .'/../Consultas.php';
                 $nombre = $persona->getNombre();
                 $apellido = $persona->getApellido();
                 $consulta = "
-                    INSERT INTO Persona (CI, Email, Contraseña, Rol, Nombre, Apellido) 
+                    INSERT INTO persona (CI, Email, Contraseña, Rol, Nombre, Apellido) 
                     VALUES (?, ?, ?, ?, ?, ?)
                 ";
                 consulta($this->conn, $consulta, "ssssss", [$ci, $email, $contraseña, $rol, $nombre, $apellido]);
@@ -725,8 +725,8 @@ require __DIR__ .'/../Consultas.php';
                         uh.ID_Unidad_habitacional,
                         uh.Numero_puerta,
                         uh.Pasillo
-                    FROM Persona p
-                    LEFT JOIN Usuario u
+                    FROM persona p
+                    LEFT JOIN usuario u
                     ON u.ID_Persona = p.ID_Persona
                     LEFT JOIN unidad_habitacional uh
                     ON uh.ID_Persona = p.ID_Persona
@@ -821,8 +821,8 @@ require __DIR__ .'/../Consultas.php';
                         u.Foto,
                         uh.Numero_puerta,
                         uh.Pasillo
-                    FROM Persona p
-                    LEFT JOIN Usuario u ON u.ID_Persona = p.ID_Persona
+                    FROM persona p
+                    LEFT JOIN usuario u ON u.ID_Persona = p.ID_Persona
                     LEFT JOIN unidad_habitacional uh ON uh.ID_Persona = p.ID_Persona
                     WHERE p.ID_Persona IN ($listaIds)
                 ";
@@ -866,7 +866,7 @@ require __DIR__ .'/../Consultas.php';
         public function getHorasTrabajadasUsuarios(){
             $consulta = "
                 SELECT ID_Persona, SUM(Horas) AS Total_Horas
-                FROM Horas_trabajadas
+                FROM horas_trabajadas
                 GROUP BY ID_Persona
             ";
         $resultado = consulta($this->conn, $consulta); 
@@ -884,7 +884,7 @@ require __DIR__ .'/../Consultas.php';
        public function getHorasTrabajadasPorUsuario($idPersona){
             $consulta = "
                 SELECT SUM(Horas) AS Total_Horas
-                FROM Horas_trabajadas
+                FROM horas_trabajadas
                 WHERE ID_Persona = ?
                 GROUP BY ID_Persona
             ";
@@ -897,7 +897,7 @@ require __DIR__ .'/../Consultas.php';
             }
             return $fila;
         }
-    }
+    
 
         public function getFalta($idFalta) {
             $consulta = "
@@ -924,7 +924,7 @@ require __DIR__ .'/../Consultas.php';
 
         public function cargarHoras($idPersona, $horas, $fechaHoras, $idSemana){
             $consulta = "
-                INSERT INTO Horas_trabajadas 
+                INSERT INTO horas_trabajadas 
                 (ID_Persona, Horas, Fecha_registro_horas, ID_Semana_trabajo)
                 VALUES (?, ?, ?, ?)
             ";
@@ -938,6 +938,4 @@ require __DIR__ .'/../Consultas.php';
 
 
 
-            
-
-?>
+    }

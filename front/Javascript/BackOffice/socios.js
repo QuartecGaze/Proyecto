@@ -1,7 +1,9 @@
 // socios.js - Funcionalidad para editar información personal de socios
 import { getUsuarios } from '../../../BackEnd/APIFetchs/APIBackOffice.js';
 
-
+const btnEditar = document.getElementById('btnEditarUsuario');
+const btnGuardar = document.getElementById('btnGuardarCambios');
+const btnCancelar = document.getElementById('btnCancelarEdicion');
 let usuarios = [];
 const dataUsuarios = await getUsuarios();
 usuarios = Object.values(dataUsuarios.message);
@@ -46,6 +48,15 @@ contenedor.innerHTML = "";
         fechaRegistro: document.getElementById('modalFechaRegistro')
     };
 
+    const inputs = {
+        nombre: document.getElementById('inputNombre'),
+        cedula: document.getElementById('inputCedula'),
+        fechaNacimiento: document.getElementById('inputFechaNacimiento'),
+        direccion: document.getElementById('inputDireccion'),
+        email: document.getElementById('inputEmail'),
+        telefono: document.getElementById('inputTelefono')
+    };
+
     document.querySelectorAll('.actions button').forEach(boton => {
         boton.addEventListener('click', function () {
              spans['telefono'].textContent = "";
@@ -63,6 +74,7 @@ contenedor.innerHTML = "";
                 console.log('Agregando teléfono al modal:', tel);
                 spans['telefono'].innerHTML += tel + '<br>';
             });
+            desactivarModoEdicion();
         });
     });
 
@@ -72,6 +84,42 @@ contenedor.innerHTML = "";
             modal.style.display = 'none';
         });
     });
+
+    btnEditar.addEventListener('click', function () {
+        activarModoEdicion();
+    });
+
+    function activarModoEdicion() {        // Ocultar spans y mostrar inputs
+        Object.keys(spans).forEach(key => {
+            if (inputs[key]) {
+                spans[key].style.display = 'none';
+                inputs[key].style.display = 'block';
+
+                // Caso especial para fecha de nacimiento
+        
+                    inputs[key].value = spans[key].textContent;
+                    btnGuardar.style.display = 'block';
+                    btnEditar.style.display = 'none'
+                
+            }
+        });
+        };
+    function desactivarModoEdicion() {
+        // Ocultar inputs y mostrar spans
+        Object.keys(spans).forEach(key => {
+            if (inputs[key]) {
+                spans[key].style.display = 'block';
+                inputs[key].style.display = 'none';
+            }
+        });
+
+        // Cambiar visibilidad de botones
+        btnEditar.style.display = 'block';
+        btnGuardar.style.display = 'none';
+        btnCancelar.style.display = 'none';
+    }
+
+
 /*
 document.addEventListener('DOMContentLoaded', function () {
     // Elementos del modal

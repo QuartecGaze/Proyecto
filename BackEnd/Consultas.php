@@ -23,4 +23,3 @@ function consulta($conn, $query, $types = "", $params = []) {
         return true; // Para INSERT, UPDATE, DELETE
     }
 }
-?>
