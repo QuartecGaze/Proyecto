@@ -122,8 +122,12 @@
             }
             elseif($accion === "actualizarUsuario"){
                 $datos = json_decode(file_get_contents('php://input'), true);
-                session_start();
-                $id = $_SESSION['id'] ?? null;
+                if(isset($datos['id'])){
+                    $id = $datos['id'];
+                } else {
+                    session_start();
+                    $id = $_SESSION['id'] ?? null;
+                }
                 if($id != null){
                     $email = $datos['email'];
                     $telefono = $datos['telefono'] ?? null;

@@ -197,18 +197,7 @@ verificarAcceso(['Admin']);
                                 </tr>
                             </thead>
                             <tbody id="tablaFamiliares">
-                                <tr>
-                                    <td>Luis</td>
-                                    <td>Pascuali</td>
-                                    <td>12345678</td>
-                                    <td>luis@gmail.com</td>
-                                </tr>
-                                <tr>
-                                    <td>Luis</td>
-                                    <td>Pascuali</td>
-                                    <td>12345678</td>
-                                    <td>luis@gmail.com</td>
-                                </tr>
+                                
                             </tbody>
                         </table>
                     </div>

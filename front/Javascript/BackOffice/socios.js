@@ -1,10 +1,14 @@
 // socios.js - Funcionalidad para editar información personal de socios
 import { getUsuarios } from '../../../BackEnd/APIFetchs/APIBackOffice.js';
+import { actualizarUsuario } from '../../../BackEnd/APIFetchs/APIUsuario.js';
+import { getIntegrantesFamiliares } from '../../../BackEnd/APIFetchs/APICooperativa.js';
 
 const btnEditar = document.getElementById('btnEditarUsuario');
 const btnGuardar = document.getElementById('btnGuardarCambios');
 const btnCancelar = document.getElementById('btnCancelarEdicion');
+const tablaFamiliares = document.getElementById('tablaFamiliares');
 let usuarios = [];
+let id = null;
 const dataUsuarios = await getUsuarios();
 usuarios = Object.values(dataUsuarios.message);
 console.log(usuarios);
@@ -58,10 +62,12 @@ contenedor.innerHTML = "";
     };
 
     document.querySelectorAll('.actions button').forEach(boton => {
-        boton.addEventListener('click', function () {
+        boton.addEventListener('click', async function () {
+            desactivarModoEdicion();
              spans['telefono'].textContent = "";
             const index = this.getAttribute('data-index');
             const usuario = usuarios[index];
+            id = usuario.idPersona;
             spans['nombre'].textContent = usuario.nombre + ' ' + usuario.apellido;
             spans['cedula'].textContent = usuario.ci;
             spans['fechaNacimiento'].textContent = usuario.fechaNacimiento || 'No proporcionada';
@@ -74,9 +80,18 @@ contenedor.innerHTML = "";
                 console.log('Agregando teléfono al modal:', tel);
                 spans['telefono'].innerHTML += tel + '<br>';
             });
-            desactivarModoEdicion();
+            let integrantes = await getIntegrantesFamiliares(id);
+            integrantes.message.forEach(integrante => {
+                tablaFamiliares.innerHTML += `
+                   <tr>
+                                    <td>${integrante.nombre}</td>
+                                    <td>${integrante.apellido}</td>
+                                    <td>${integrante.ci}</td>
+                                    <td>${integrante.email}</td>
+                                </tr>`;
         });
     });
+})
 
     document.querySelectorAll('.cerrar-modal').forEach(cerrar => {
         cerrar.addEventListener('click', function () {
@@ -87,6 +102,19 @@ contenedor.innerHTML = "";
 
     btnEditar.addEventListener('click', function () {
         activarModoEdicion();
+    });
+
+    btnCancelar.addEventListener('click', function () {
+        desactivarModoEdicion();
+    });
+
+    btnGuardar.addEventListener('click', async function () {
+        console.log('Guardando cambios de usuario');
+        const datosParaGuardar = actualizarDatosUsuario();
+        await actualizarUsuario(datosParaGuardar);
+        desactivarModoEdicion();
+        modal.style.display = 'none';
+
     });
 
     function activarModoEdicion() {        // Ocultar spans y mostrar inputs
@@ -111,6 +139,8 @@ contenedor.innerHTML = "";
                 spans[key].style.display = 'block';
                 inputs[key].style.display = 'none';
             }
+            tablaFamiliares.innerHTML = `
+                `;
         });
 
         // Cambiar visibilidad de botones
@@ -118,8 +148,21 @@ contenedor.innerHTML = "";
         btnGuardar.style.display = 'none';
         btnCancelar.style.display = 'none';
     }
-
-
+    
+    function actualizarDatosUsuario() {
+        const datosParaGuardar = {
+            id: id,
+            nombre: inputs.nombre.value,
+            apellido: "perez",
+            ci: inputs.cedula.value,
+            fechaNacimiento: inputs.fechaNacimiento.value,
+            direccion: inputs.direccion.value,
+            email: inputs.email.value,
+            telefono: spans['telefono'].textContent.split('<br>').filter(tel => tel.trim() !== '')
+        };
+        console.log('Datos para guardar:', datosParaGuardar);
+        return datosParaGuardar;
+    }
 /*
 document.addEventListener('DOMContentLoaded', function () {
     // Elementos del modal
