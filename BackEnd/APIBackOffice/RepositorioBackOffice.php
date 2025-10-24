@@ -872,11 +872,7 @@ require __DIR__ .'/../Consultas.php';
         public function getHorasTrabajadasUsuarios(){
             $consulta = "
                 SELECT ID_Persona, SUM(Horas) AS Total_Horas
-<<<<<<< Updated upstream
                 FROM horas_trabajadas
-=======
-                FROM Horas_trabajadas
->>>>>>> Stashed changes
                 GROUP BY ID_Persona
             ";
         $resultado = consulta($this->conn, $consulta); 
@@ -907,7 +903,6 @@ require __DIR__ .'/../Consultas.php';
             }
             return $fila;
         }
-<<<<<<< Updated upstream
     
 
         public function getFalta($idFalta) {
@@ -950,13 +945,9 @@ require __DIR__ .'/../Consultas.php';
 
 
     }
-=======
-    }
+    
 
 
 
 
             
-
-?>
->>>>>>> Stashed changes
