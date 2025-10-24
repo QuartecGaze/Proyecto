@@ -346,6 +346,7 @@
                     respuesta($e->getMessage(), "error", $e->getCode());
                 }
             }
+<<<<<<< Updated upstream
 
             if($accion === "asignarMontoFalta"){ //traer idFalta y monto
                 try {
@@ -366,6 +367,8 @@
             }
 
             
+=======
+>>>>>>> Stashed changes
             if($accion === "getHorasTrabajadasUsuarios"){
             try {
                 $horasUsuarios = $servicio->getHorasTrabajadasUsuarios();
@@ -374,7 +377,10 @@
                 respuesta($e->getMessage(), "error", $e->getCode());
             }
         }
+<<<<<<< Updated upstream
 
+=======
+>>>>>>> Stashed changes
             
 
 

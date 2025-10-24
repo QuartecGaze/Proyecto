@@ -175,6 +175,11 @@ require __DIR__ .'/../Consultas.php';
             FROM persona 
             JOIN usuario ON persona.ID_Persona = usuario.ID_Persona 
             WHERE Rol = 'Usuario' OR (Rol = 'Admin' AND usuario.ID_Persona IS NOT NULL);
+=======
+            FROM Persona 
+            JOIN Usuario ON Persona.ID_Persona = Usuario.ID_Persona 
+            WHERE Rol = 'Usuario' OR (Rol = 'Admin' AND Usuario.ID_Persona IS NOT NULL);
+>>>>>>> Stashed changes
                 ";
             $resultado = consulta($this->conn, $consulta); 
             $usuarios = [];
@@ -867,7 +872,11 @@ require __DIR__ .'/../Consultas.php';
         public function getHorasTrabajadasUsuarios(){
             $consulta = "
                 SELECT ID_Persona, SUM(Horas) AS Total_Horas
+<<<<<<< Updated upstream
                 FROM horas_trabajadas
+=======
+                FROM Horas_trabajadas
+>>>>>>> Stashed changes
                 GROUP BY ID_Persona
             ";
         $resultado = consulta($this->conn, $consulta); 
@@ -886,7 +895,6 @@ require __DIR__ .'/../Consultas.php';
             $consulta = "
                 SELECT SUM(Horas) AS Total_Horas
                 FROM horas_trabajadas
-                FROM Horas_trabajadas
                 WHERE ID_Persona = ?
                 GROUP BY ID_Persona
             ";
@@ -942,3 +950,13 @@ require __DIR__ .'/../Consultas.php';
 
 
     }
+=======
+    }
+
+
+
+
+            
+
+?>
+>>>>>>> Stashed changes

@@ -1,5 +1,6 @@
 // socios.js - Funcionalidad para editar información personal de socios
 import { getUsuarios } from '../../../BackEnd/APIFetchs/APIBackOffice.js';
+<<<<<<< Updated upstream
 import { actualizarUsuario } from '../../../BackEnd/APIFetchs/APIUsuario.js';
 import { getIntegrantesFamiliares } from '../../../BackEnd/APIFetchs/APICooperativa.js';
 
@@ -9,7 +10,11 @@ const btnCancelar = document.getElementById('btnCancelarEdicion');
 const tablaFamiliares = document.getElementById('tablaFamiliares');
 let usuarios = [];
 let id = null;
+=======
+
+
 let usuarios = [];
+>>>>>>> Stashed changes
 const dataUsuarios = await getUsuarios();
 usuarios = Object.values(dataUsuarios.message);
 console.log(usuarios);
@@ -53,6 +58,7 @@ contenedor.innerHTML = "";
         fechaRegistro: document.getElementById('modalFechaRegistro')
     };
 
+<<<<<<< Updated upstream
     const inputs = {
         nombre: document.getElementById('inputNombre'),
         cedula: document.getElementById('inputCedula'),
@@ -69,11 +75,13 @@ contenedor.innerHTML = "";
             const index = this.getAttribute('data-index');
             const usuario = usuarios[index];
             id = usuario.idPersona;
+=======
     document.querySelectorAll('.actions button').forEach(boton => {
         boton.addEventListener('click', function () {
              spans['telefono'].textContent = "";
             const index = this.getAttribute('data-index');
             const usuario = usuarios[index];
+>>>>>>> Stashed changes
             spans['nombre'].textContent = usuario.nombre + ' ' + usuario.apellido;
             spans['cedula'].textContent = usuario.ci;
             spans['fechaNacimiento'].textContent = usuario.fechaNacimiento || 'No proporcionada';
@@ -86,6 +94,7 @@ contenedor.innerHTML = "";
                 console.log('Agregando teléfono al modal:', tel);
                 spans['telefono'].innerHTML += tel + '<br>';
             });
+<<<<<<< Updated upstream
             let integrantes = await getIntegrantesFamiliares(id);
             integrantes.message.forEach(integrante => {
                 tablaFamiliares.innerHTML += `
@@ -98,8 +107,10 @@ contenedor.innerHTML = "";
         });
     });
 })
+=======
         });
     });
+>>>>>>> Stashed changes
 
     document.querySelectorAll('.cerrar-modal').forEach(cerrar => {
         cerrar.addEventListener('click', function () {
@@ -107,6 +118,7 @@ contenedor.innerHTML = "";
             modal.style.display = 'none';
         });
     });
+<<<<<<< Updated upstream
 
     btnEditar.addEventListener('click', function () {
         activarModoEdicion();
