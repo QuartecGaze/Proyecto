@@ -25,7 +25,7 @@ export async function apiRequest(endpoint, method = 'GET', body = null) {
     }
 
     const response = await fetch(`${baseUrl}${endpoint}`, config);
-    const data = await response.json(); 
+    const data = await response.text(); 
     console.log(data);
     if(data.message == "Token invalido"){
          window.location.href = "http://localhost:8888/Proyecto/front/Landing Page/login.html";
