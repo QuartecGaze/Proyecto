@@ -43,7 +43,7 @@ verificarAcceso(['Admin']);
                             <i class="material-icons">apartment</i> Unidades Habitacionales
                         </a>
                         <ul class="submenu">
-                            <a href="proyectos.php"><i class="material-icons">home_work</i>Gestionar Proyectos</a>
+                            <a href="unidades.php"><i class="material-icons">home_work</i>Gestionar Proyectos</a>
                             <a href="crearUnidad.php"><i class="material-icons">add_circle</i> Crear Unidad</a>
                         </ul>
                     </li>
