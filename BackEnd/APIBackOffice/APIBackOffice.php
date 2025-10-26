@@ -489,6 +489,15 @@
                     respuesta($e->getMessage(), "error", $e->getCode());
                 }
             }
+
+            if($accion == "getUnidadesLibres"){
+                try {
+                    $unidades = $servicio->getUnidadesLibres();
+                    respuesta($unidades, "exito", 201);
+                } catch(Exception $e) {
+                    respuesta($e->getMessage(), "error", $e->getCode());
+                }
+            }
         
         break;
         

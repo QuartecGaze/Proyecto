@@ -141,8 +141,8 @@
                 <input type="number" id="montoCompensacion" min="0">
             </div>
             <div class="modal-acciones">
-                <button onclick="cerrarModal()">Cancelar</button>
-                <button onclick="asignarMonto()">Asignar</button>
+                <button class="btn-cancelar-pago">Cancelar</button>
+                <button class="btn-confirmar-pago">Asignar</button>
             </div>
         </div>
     </div>

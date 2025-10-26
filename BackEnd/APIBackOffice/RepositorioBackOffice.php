@@ -168,8 +168,15 @@ require __DIR__ .'/../Consultas.php';
             return $interesados;
             }
 
-        public function getUsuarios(){
+        public function getUsuarios(){ 
+            //cambiar esta consulta para ademas de traer todos los datos de los socios traiga:
+            //pagos pendientes valor
+            //horas trabajadas esta semana sobre el total de horas total
+            //total de horas rabajadas
+            //direccion
+            //integrantes familiares
             $consulta = "
+<<<<<<< Updated upstream
             SELECT * 
 <<<<<<< Updated upstream
             FROM persona 
@@ -179,6 +186,12 @@ require __DIR__ .'/../Consultas.php';
             FROM Persona 
             JOIN Usuario ON Persona.ID_Persona = Usuario.ID_Persona 
             WHERE Rol = 'Usuario' OR (Rol = 'Admin' AND Usuario.ID_Persona IS NOT NULL);
+>>>>>>> Stashed changes
+=======
+                SELECT * 
+                FROM persona 
+                JOIN usuario ON persona.ID_Persona = usuario.ID_Persona 
+                WHERE Rol = 'Usuario' OR (Rol = 'Admin' AND usuario.ID_Persona IS NOT NULL);
 >>>>>>> Stashed changes
                 ";
             $resultado = consulta($this->conn, $consulta); 
@@ -806,6 +819,7 @@ require __DIR__ .'/../Consultas.php';
                         'Estado' => $fila['Estado'],
                         'Fecha' => $fila['Fecha'],
                         'Tipo_falta' => $fila['Tipo_falta']
+                        //tengo que traer el monto de pago para las compensaciones, tengo que agregar el ID_Comprobante_pago a la tabla falta
                     ];
                 }
                 return $faltasPendientes;
@@ -940,6 +954,26 @@ require __DIR__ .'/../Consultas.php';
                 return false;
             }
             return true;
+        }
+
+        public function getUnidadesLibres() {
+            $consulta = "
+                SELECT * FROM unidad_habitacional WHERE ID_Persona = null
+            ";
+
+            $respuesta = consulta($this->conn, $consulta);
+            $unidades = [];
+
+            while ($fila = $respuesta->fetch_assoc()) {
+                $unidades = [
+                    'ID_Unidad_habitacional' => $fila['ID_Unidad_habitacional'],
+                    'Numero_puerta' => $fila['Numero_puerta'],
+                    'Pasillo' => $fila['Pasillo'],
+                    'Estado_unidad' => $fila['Estado_unidad'],
+                    'Cantidad_habitaciones' => $fila['Cantidad_habitaciones']
+                ];
+            }
+            return $unidades;
         }
 
 

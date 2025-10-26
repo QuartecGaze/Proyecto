@@ -9,7 +9,6 @@ const nivelPermisos = document.getElementById("nivelPermisosAdmin");
 const nombre = document.querySelectorAll(".nombreAdmin");
 const foto = document.querySelectorAll(".fotoPerfil");
 const rol = document.getElementById("rolAdmin");
-const editarDatos = document.querySelectorAll("boton-cambiar-datos");
 const inputFoto = document.getElementById("subir-foto");
 
 const fotoruta = "../../Recursos/FotosPerfil/";

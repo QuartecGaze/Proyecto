@@ -1,9 +1,15 @@
 import { getFaltasPendientes } from '../../../BackEnd/APIFetchs/APIBackOffice.js';
+import { aprobarFalta } from '../../../BackEnd/APIFetchs/APIBackOffice.js';
+import { rechazarFalta } from '../../../BackEnd/APIFetchs/APIBackOffice.js';
+import { asignarMontoFalta } from '../../../BackEnd/APIFetchs/APIBackOffice.js';
 
 const contenedor = document.querySelector('.contenedor-faltas');
 const filtroEstado = document.getElementById('filtro-estado');
 const filtroTipo = document.getElementById('filtro-tipo');
 const btnAplicar = document.getElementById('btn-aplicar-filtros');
+const btnConfirmarPago = document.querySelector('.btn-confirmar-pago');
+const btnCancelarPago = document.querySelector('.btn-cancelar-pago');
+const btnCompensar = document.querySelector('.btn-compensar');
 
 function safe(v, fb = '—') {
   return (v !== null && v !== undefined && v !== '') ? v : fb;
@@ -20,6 +26,14 @@ function tipoToAttr(t) {
   if (v.includes('pago') || v.includes('monet')) return 'monetaria';
   return 'horas';
 }
+
+
+//cerrar modal de pago
+btnCancelarPago.addEventListener('click', function () {
+  document.getElementById('modalCompensacion').style.display = 'none';
+  delete btnConfirmarPago.dataset.id;
+});
+
 
 function buildCard(f) {
   const fotoPath = f.foto ? `../../Recursos/FotosPerfil/${f.foto}` : '../../Recursos/FotosPerfil/usuario.webp';
@@ -68,7 +82,7 @@ function buildCard(f) {
     </div>
 
     <div class="acciones-falta">
-      <button class="btn-aprovar" data-action="aprobar" data-id="${f.idFalta}" data-tipo="${tipoAttr}">
+      <button class="btn-aprobar" data-action="aprobar" data-id="${f.idFalta}" data-tipo="${tipoAttr}">
         <i class="material-icons">check_circle</i> Aprobar
       </button>
       <button class="btn-compensar" data-action="compensar" data-id="${f.idFalta}"style="display:${tipoAttr === 'monetaria' ? 'flex' : 'none'}">
@@ -125,27 +139,103 @@ contenedor.addEventListener('click', (e) => {
 
   if (btn.dataset.action === 'compensar') {
     if (typeof window.mostrarModalCompensacion === 'function') {
-      window.mostrarModalCompensacion(id);
+      document.getElementById('modalCompensacion').style.display = 'flex';
+
+      //tendria quehacer algo asi para mandar el id   btnConfirmarPago.dataset.id;
     } else {
       alert('Función mostrarModalCompensacion no encontrada');
     }
   }
 
-  if (btn.dataset.action === 'aprobar') {
-    if (typeof window.aprobarFalta === 'function') {
-      window.aprobarFalta(id, tipo);
-    } else {
-      alert('Función aprobarFalta no encontrada');
-    }
-  }
+  const botonAprobar = document.querySelectorAll(".btn-aprobar");
+  botonAprobar.forEach(boton => {
+      boton.addEventListener("click", async () => {
+          const idFalta = boton.dataset.id;
+          const datos = {
+              idFalta: idFalta
+          };
 
-  if (btn.dataset.action === 'rechazar') {
-    if (typeof window.rechazarFalta === 'function') {
-      window.rechazarFalta(id);
-    } else {
-      alert('Función rechazarFalta no encontrada');
+          try {
+            const respuesta = await aprobarFalta(datos); 
+
+              if (respuesta.status === "exito") {
+                  alert("Falta aprobada con exito.");
+
+              } else {
+                  alert("Error " + respuesta.message);
+              }
+          } catch (error) {
+              console.error("Error al aprobar la falta", error)
+              alert("Error del servidor");
+          }
+      });
+  });
+
+
+  const botonRechazar = document.querySelectorAll(".btn-rechazar");
+  botonRechazar.forEach(boton => {
+      boton.addEventListener("click", async () => {
+          const idFalta = boton.dataset.id;
+          const datos = {
+              idFalta: idFalta
+          };
+
+          try {
+            const respuesta = await rechazarFalta(datos); 
+
+              if (respuesta.status === "exito") {
+                  alert("Falta rechazada con exito.");
+
+              } else {
+                  alert("Error " + respuesta.message);
+              }
+          } catch (error) {
+              console.error("Error al rechazar la falta", error)
+              alert("Error del servidor");
+          }
+      });
+  });
+
+      // Abrir modal de pago
+
+
+  //asignar monto
+  btnConfirmarPago.addEventListener('click', async function () {
+    console.log('Confirmando pago');
+    document.getElementById('modalCompensacion').style.display = 'none';
+    const idFalta = btnConfirmarPago.dataset.id; 
+    //hay que arreglar un error aca que no se esta trayendo el idFalta, 
+    //porque estoy tratando de traerlo de botones que hay muchos
+    //en vez de btnconfirmarpago tengo que traer del boton de antes
+    delete btnConfirmarPago.dataset.id;
+    const monto = document.getElementById('montoCompensacion').value;
+    if (!monto) {
+        alert('Por favor ingrese un monto válido');
+        return;
     }
-  }
+
+    const datos = {
+        idFalta: idFalta,
+        monto: monto
+    };
+
+    try {
+        const respuesta = await asignarMontoFalta(datos);
+        if (respuesta.status === 'exito') {
+            alert('Pago asignado correctamente.');
+            // Actualizar la vista si es necesario
+        } else {
+            alert('Error: ' + respuesta.message);
+        }
+    } catch (error) {
+        console.error('Error al asignar pago ', error);
+        alert('Error del servidor');
+    }
+  });
+
+
+
+
 });
 
 (async function init() {

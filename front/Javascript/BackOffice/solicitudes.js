@@ -22,6 +22,13 @@ const selectUnidad = document.getElementById('selectUnidadHabitacional');
 const infoUnidad = document.getElementById('infoUnidad');
 const solicitudesIcon = document.getElementById('solicitudesIcon');
 
+//mostrarintegrantesfamiliares
+const $ = (sel, ctx = document) => ctx.querySelector(sel);
+const $$ = (sel, ctx = document) => Array.from(ctx.querySelectorAll(sel));
+//const integrantesCount = $('#integrantes-count', panel);
+//const integrantesEmpty = $('#integrantes-empty', panel);
+//const integrantesTableWrapper = $('#integrantes-table-wrapper', panel);
+//const integrantesTbody = $('#integrantes-tbody', panel);
 
 //cerrar modal rechazar Interesado
 btnCancelar.addEventListener('click', function () {
@@ -124,19 +131,6 @@ function actualizarSolicitudes(interesados) {
                         </div>
                     </div>
 
-                    <div class="asignacion-unidad">
-                        <div class="documento-card">
-                            <div class="documento-info">
-                                <h4>Unidad Habitacional Asignada</h4>
-                                <p><strong>Unidad:</strong> ${interesado.unidadAsignada || '<em>No asignada</em>'}</p>
-                            </div>
-                            <div class="documento-acciones">
-                                <button class="btn-asignar-unidad" data-id="${interesado.idPersona}">
-                                    <i class="material-icons">apartment</i> Asignar Unidad
-                                </button>
-                            </div>
-                        </div>
-                    </div>
 
                     <div class="acciones">
 
@@ -148,6 +142,33 @@ function actualizarSolicitudes(interesados) {
                             <i class="material-icons">check</i> Aprobar
                         </button>
                     </div>
+
+
+                    <div class="tabla-contenedor">
+                            <h3>Integrantes Familiares</h3>
+                            <table class="tabla-pagos">
+                                <thead>
+                                    <tr>
+                                        <th>Nombre</th>
+                                        <th>Apellido</th>
+                                        <th>Cédula</th>
+                                        <th>Fecha de Nac.</th>
+                                        <th>Email</th>
+                                        <th>Género</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td data-label="Nombre">Alain</td>
+                                        <td data-label="Apellido">Arce</td>
+                                        <td data-label="Cédula">57051830</td>
+                                        <td data-label="Fecha de Nac.">06/02/2026</td>
+                                        <td data-label="Email">alain@gmail.com</td>
+                                        <td data-label="Género">Masculino</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
 
 
                     <div class="solicitud documentos">
@@ -176,31 +197,7 @@ function actualizarSolicitudes(interesados) {
                             </button>
                         </div>
 
-                        <div class="tabla-contenedor">
-                            <h3>Integrantes Familiares</h3>
-                            <table class="tabla-pagos">
-                                <thead>
-                                    <tr>
-                                        <th>Nombre</th>
-                                        <th>Apellido</th>
-                                        <th>Cédula</th>
-                                        <th>Fecha de Nac.</th>
-                                        <th>Email</th>
-                                        <th>Género</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    <tr>
-                                        <td data-label="Nombre">Alain</td>
-                                        <td data-label="Apellido">Arce</td>
-                                        <td data-label="Cédula">57051830</td>
-                                        <td data-label="Fecha de Nac.">06/02/2026</td>
-                                        <td data-label="Email">alain@gmail.com</td>
-                                        <td data-label="Género">Masculino</td>
-                                    </tr>
-                                </tbody>
-                            </table>
-                        </div>
+                        
 
                         <div class="documento-card">
                             <div class="documento-info">
@@ -240,6 +237,22 @@ function actualizarSolicitudes(interesados) {
                                 <i class="material-icons">check</i> Aprobar
                             </button>
                         </div>
+
+
+                        <h3>Asignar Unidad Habitacional</h3>
+                        <div class="asignacion-unidad">
+                        <div class="documento-card">
+                            <div class="documento-info">
+                                <h4>Unidad Habitacional Asignada</h4>
+                                <p><strong>Unidad:</strong> ${interesado.unidadAsignada || '<em>No asignada</em>'}</p>
+                            </div>
+                            <div class="documento-acciones">
+                                <button class="btn-asignar-unidad" data-id="${interesado.idPersona}">
+                                    <i class="material-icons">apartment</i> Asignar Unidad
+                                </button>
+                            </div>
+                        </div>
+                    </div>
                     </div>
                 </div>
                 <div class="contador">
@@ -313,10 +326,7 @@ function actualizarSolicitudes(interesados) {
             }
         });
     });
-const integrantesCount = $('#integrantes-count', panel);
-const integrantesEmpty = $('#integrantes-empty', panel);
-const integrantesTableWrapper = $('#integrantes-table-wrapper', panel);
-const integrantesTbody = $('#integrantes-tbody', panel);
+
 // ====== LISTADO (mostrar todos) ======
 (async function initListado() {
   try {
@@ -567,6 +577,12 @@ btnConfirmarUnidad.addEventListener('click', async function () {
     };
 
     try {
+        //tengo que enviar la ci de la persona y el idUnidad habitacional 
+        //que va a salir del array de la lista
+        //usar el metodo asignarUnidadHabitacional
+
+
+
         // Aquí llamarías a tu API para asignar la unidad
         // const respuesta = await asignarUnidad(datos);
 

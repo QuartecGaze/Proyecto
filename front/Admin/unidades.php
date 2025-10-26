@@ -43,7 +43,7 @@ verificarAcceso(['Admin']);
                             <i class="material-icons">apartment</i> Unidades Habitacionales
                         </a>
                         <ul class="submenu">
-                            <a href="unidades.php"><i class="material-icons">home_work</i>Gestionar Unidadess</a>
+                            <a href="unidades.php"><i class="material-icons">home_work</i>Gestionar Proyectos</a>
                             <a href="crearUnidad.php"><i class="material-icons">add_circle</i> Crear Unidad</a>
                         </ul>
                     </li>
@@ -543,6 +543,16 @@ verificarAcceso(['Admin']);
             if (e.target === modal) {
                 modal.style.display = 'none';
             }
+        });
+
+        document.querySelectorAll(".item-menu > a").forEach(boton => {
+            boton.addEventListener("click", function (e) {
+                // Evita que redireccione si tiene submenu
+                if (this.nextElementSibling && this.nextElementSibling.classList.contains("submenu")) {
+                    e.preventDefault();
+                    this.parentElement.classList.toggle("open");
+                }
+            });
         });
     </script>
 

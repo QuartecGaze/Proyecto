@@ -13,7 +13,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Senda Firme - Perfil</title>
-    <link rel="stylesheet" href="../Css/estilosConfiguracion.css">
+    <link rel="stylesheet" href="../Css/estilosConfiguracionAdmin.css">
     <link rel="stylesheet" href="../Css/backoffice.css">
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap"
         rel="stylesheet">
@@ -116,9 +116,6 @@
                         <button class="boton-cambiar-foto" onclick="document.getElementById('subir-foto').click()">
                             <input type="file" style="display: none;" id="subir-foto">
                             <i class="material-icons">image_search</i> Cambiar foto
-                        </button>
-                        <button class="boton-cambiar-datos">
-                            <i class="material-icons">edit</i> Cambiar datos personales
                         </button>
                     </div>
 

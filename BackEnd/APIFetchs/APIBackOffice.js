@@ -105,3 +105,15 @@ export function getFaltasPendientes(){
 export function getUsuarios(){
     return apiRequest(`/APIBackoffice/ApiBackoffice.php?accion=getUsuarios`, 'GET');
 }
+
+export function aprobarFalta(data) {
+    return apiRequest('/APIBackOffice/ApiBackOffice.php?accion=aprobarFalta', 'POST', data);
+}
+
+export function rechazarFalta(data) {
+    return apiRequest('/APIBackOffice/ApiBackOffice.php?accion=rechazarFalta', 'POST', data);
+}
+
+export function asignarMontoFalta(data) {
+    return apiRequest('/APIBackOffice/ApiBackOffice.php?accion=asignarMontoFalta', 'POST', data);
+}

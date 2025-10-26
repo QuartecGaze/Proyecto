@@ -8,6 +8,7 @@ const btnEditar = document.getElementById('btnEditarUsuario');
 const btnGuardar = document.getElementById('btnGuardarCambios');
 const btnCancelar = document.getElementById('btnCancelarEdicion');
 const tablaFamiliares = document.getElementById('tablaFamiliares');
+
 let usuarios = [];
 let id = null;
 =======
@@ -21,11 +22,12 @@ console.log(usuarios);
 const contenedor = document.querySelectorAll(".contenedor-socios")[0];
 contenedor.innerHTML = "";
     usuarios.forEach((usuario, index) => {
+        const fotoPath = usuario.foto ? `../../Recursos/FotosPerfil/${usuario.foto}` : '../../Recursos/FotosPerfil/usuario.webp';
         contenedor.innerHTML += `
                 <div class="etiqueta">
                     <div class="card">
                         <div class="card-header">
-                            <img src="avatar.jpg" alt="Usuario" class="avatar">
+                            <img src="${fotoPath}" alt="Usuario" class="avatar">
                             <div class="info">
                                 <h3>${usuario.nombre} ${usuario.apellido}</h3>
                                 <p>Pasillo P-1 <br> Puerta 100</p>

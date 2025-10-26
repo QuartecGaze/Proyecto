@@ -144,7 +144,7 @@ verificarAcceso(['Admin']);
             <div class="modal-body">
                 <div class="perfil-completo">
                     <div class="foto-perfil-modal">
-                        <img id="modalAvatar" src="avatar.jpg" alt="Foto del usuario">
+                        <img id="modalAvatar" src="avatar.jpg" alt="Foto del usuario"> <!-- hay que traer la foto aca-->
                     </div>
                     <div class="info-completa">
                         <div class="campo">

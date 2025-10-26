@@ -512,5 +512,10 @@
             $this->repositorio->crearPagoPersonalizado($idPersona, "Pago Compensatorio por Horas Faltadas", $monto, $fecha);
         }
 
+        public function getUnidadesLibres(){
+            $datos = $this->repositorio->getUnidadesLibres();
+            return $datos;
+        }
+
 
     }
