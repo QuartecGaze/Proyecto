@@ -176,23 +176,10 @@ require __DIR__ .'/../Consultas.php';
             //direccion
             //integrantes familiares
             $consulta = "
-<<<<<<< Updated upstream
-            SELECT * 
-<<<<<<< Updated upstream
-            FROM persona 
-            JOIN usuario ON persona.ID_Persona = usuario.ID_Persona 
-            WHERE Rol = 'Usuario' OR (Rol = 'Admin' AND usuario.ID_Persona IS NOT NULL);
-=======
-            FROM Persona 
-            JOIN Usuario ON Persona.ID_Persona = Usuario.ID_Persona 
-            WHERE Rol = 'Usuario' OR (Rol = 'Admin' AND Usuario.ID_Persona IS NOT NULL);
->>>>>>> Stashed changes
-=======
                 SELECT * 
                 FROM persona 
                 JOIN usuario ON persona.ID_Persona = usuario.ID_Persona 
                 WHERE Rol = 'Usuario' OR (Rol = 'Admin' AND usuario.ID_Persona IS NOT NULL);
->>>>>>> Stashed changes
                 ";
             $resultado = consulta($this->conn, $consulta); 
             $usuarios = [];
