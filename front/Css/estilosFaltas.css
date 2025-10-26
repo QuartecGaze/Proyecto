@@ -588,7 +588,7 @@ textarea {
     transition: background-color 0.3s;
 }
 
-.btn-aprovar {
+.btn-aprobar {
     background-color: var(--color-exito);
     color: white;
 }

@@ -9,7 +9,8 @@ const filtroTipo = document.getElementById('filtro-tipo');
 const btnAplicar = document.getElementById('btn-aplicar-filtros');
 const btnConfirmarPago = document.querySelector('.btn-confirmar-pago');
 const btnCancelarPago = document.querySelector('.btn-cancelar-pago');
-const btnCompensar = document.querySelector('.btn-compensar');
+
+let idFaltaSeleccionada = null;
 
 function safe(v, fb = '—') {
   return (v !== null && v !== undefined && v !== '') ? v : fb;
@@ -20,20 +21,64 @@ function fmtFecha(iso) {
   if (isNaN(d.getTime())) return iso;
   return d.toLocaleDateString('es-ES', { day: '2-digit', month: 'short', year: 'numeric' });
 }
-
 function tipoToAttr(t) {
   const v = (t || '').toLowerCase();
   if (v.includes('pago') || v.includes('monet')) return 'monetaria';
   return 'horas';
 }
 
-
-//cerrar modal de pago
+// Cerrar modal de pago
 btnCancelarPago.addEventListener('click', function () {
   document.getElementById('modalCompensacion').style.display = 'none';
+  idFaltaSeleccionada = null;
   delete btnConfirmarPago.dataset.id;
 });
 
+// Confirmar pago (registrado UNA VEZ)
+btnConfirmarPago.addEventListener('click', async function () {
+  const modal = document.getElementById('modalCompensacion');
+  const monto = document.getElementById('montoCompensacion').value;
+
+  const idFalta = btnConfirmarPago.dataset.id || idFaltaSeleccionada; // cualquiera de los dos
+  if (!idFalta) {
+    alert('No se pudo identificar la falta.');
+    return;
+  }
+  if (!monto || Number(monto) <= 0) {
+    alert('Por favor ingrese un monto válido');
+    return;
+  }
+
+  try {
+    const datos = { idFalta, monto };
+    const respuesta = await asignarMontoFalta(datos);
+
+    if (respuesta?.status === 'exito') {
+      alert('Pago asignado correctamente.');
+
+      // Actualizar tarjeta en UI
+      const tarjeta = contenedor.querySelector(`[data-id="${idFalta}"]`);
+      if (tarjeta) {
+        tarjeta.setAttribute('data-tipo', 'monetaria');
+        const montoEl = tarjeta.querySelector('.monto-asignado');
+        if (montoEl) {
+          montoEl.style.display = 'flex';
+          const val = montoEl.querySelector('.valor');
+          if (val) val.textContent = `$${parseFloat(monto).toFixed(2)}`;
+        }
+      }
+    } else {
+      alert('Error: ' + (respuesta?.message ?? 'desconocido'));
+    }
+  } catch (error) {
+    console.error('Error al asignar pago ', error);
+    alert('Error del servidor');
+  } finally {
+    modal.style.display = 'none';
+    idFaltaSeleccionada = null;
+    delete btnConfirmarPago.dataset.id;
+  }
+});
 
 function buildCard(f) {
   const fotoPath = f.foto ? `../../Recursos/FotosPerfil/${f.foto}` : '../../Recursos/FotosPerfil/usuario.webp';
@@ -85,7 +130,7 @@ function buildCard(f) {
       <button class="btn-aprobar" data-action="aprobar" data-id="${f.idFalta}" data-tipo="${tipoAttr}">
         <i class="material-icons">check_circle</i> Aprobar
       </button>
-      <button class="btn-compensar" data-action="compensar" data-id="${f.idFalta}"style="display:${tipoAttr === 'monetaria' ? 'flex' : 'none'}">
+      <button class="btn-compensar" data-action="compensar" data-id="${f.idFalta}" style="display:${tipoAttr === 'monetaria' ? 'flex' : 'none'}">
         <i class="material-icons">attach_money</i> Asignar monto
       </button>
       <button class="btn-rechazar" data-action="rechazar" data-id="${f.idFalta}">
@@ -106,13 +151,6 @@ function renderLista(data) {
       </div>`;
     return;
   }
-
-
-  
-  //hacer un if para saber si es exoneracion o pago compensatorio
-
-
-  
   data.forEach(f => contenedor.appendChild(buildCard(f)));
 }
 
@@ -130,112 +168,61 @@ function aplicarFiltrosUI() {
   });
 }
 
-contenedor.addEventListener('click', (e) => {
+contenedor.addEventListener('click', async (e) => {
   const btn = e.target.closest('button[data-action]');
   if (!btn) return;
 
   const id = btn.dataset.id;
+  const action = btn.dataset.action;
   const tipo = btn.dataset.tipo;
 
-  if (btn.dataset.action === 'compensar') {
+  if (action === 'compensar') {
+    idFaltaSeleccionada = id;
+    btnConfirmarPago.dataset.id = id;
     if (typeof window.mostrarModalCompensacion === 'function') {
-      document.getElementById('modalCompensacion').style.display = 'flex';
-
-      //tendria quehacer algo asi para mandar el id   btnConfirmarPago.dataset.id;
+      window.mostrarModalCompensacion(id);
     } else {
-      alert('Función mostrarModalCompensacion no encontrada');
+      document.getElementById('modalCompensacion').style.display = 'flex';
     }
+    return;
   }
 
-  const botonAprobar = document.querySelectorAll(".btn-aprobar");
-  botonAprobar.forEach(boton => {
-      boton.addEventListener("click", async () => {
-          const idFalta = boton.dataset.id;
-          const datos = {
-              idFalta: idFalta
-          };
-
-          try {
-            const respuesta = await aprobarFalta(datos); 
-
-              if (respuesta.status === "exito") {
-                  alert("Falta aprobada con exito.");
-
-              } else {
-                  alert("Error " + respuesta.message);
-              }
-          } catch (error) {
-              console.error("Error al aprobar la falta", error)
-              alert("Error del servidor");
-          }
-      });
-  });
-
-
-  const botonRechazar = document.querySelectorAll(".btn-rechazar");
-  botonRechazar.forEach(boton => {
-      boton.addEventListener("click", async () => {
-          const idFalta = boton.dataset.id;
-          const datos = {
-              idFalta: idFalta
-          };
-
-          try {
-            const respuesta = await rechazarFalta(datos); 
-
-              if (respuesta.status === "exito") {
-                  alert("Falta rechazada con exito.");
-
-              } else {
-                  alert("Error " + respuesta.message);
-              }
-          } catch (error) {
-              console.error("Error al rechazar la falta", error)
-              alert("Error del servidor");
-          }
-      });
-  });
-
-      // Abrir modal de pago
-
-
-  //asignar monto
-  btnConfirmarPago.addEventListener('click', async function () {
-    console.log('Confirmando pago');
-    document.getElementById('modalCompensacion').style.display = 'none';
-    const idFalta = btnConfirmarPago.dataset.id; 
-    //hay que arreglar un error aca que no se esta trayendo el idFalta, 
-    //porque estoy tratando de traerlo de botones que hay muchos
-    //en vez de btnconfirmarpago tengo que traer del boton de antes
-    delete btnConfirmarPago.dataset.id;
-    const monto = document.getElementById('montoCompensacion').value;
-    if (!monto) {
-        alert('Por favor ingrese un monto válido');
-        return;
-    }
-
-    const datos = {
-        idFalta: idFalta,
-        monto: monto
-    };
-
+  if (action === 'aprobar') {
     try {
-        const respuesta = await asignarMontoFalta(datos);
-        if (respuesta.status === 'exito') {
-            alert('Pago asignado correctamente.');
-            // Actualizar la vista si es necesario
-        } else {
-            alert('Error: ' + respuesta.message);
+      const respuesta = await aprobarFalta({ idFalta: id });
+      if (respuesta?.status === "exito") {
+        alert("Falta aprobada con éxito.");
+        const tarjeta = contenedor.querySelector(`[data-id="${id}"]`);
+        if (tarjeta) {
+          tarjeta.setAttribute('data-estado', 'aprobada');
+          tarjeta.style.opacity = '0.7';
         }
+      } else {
+        alert("Error " + (respuesta?.message ?? 'desconocido'));
+      }
     } catch (error) {
-        console.error('Error al asignar pago ', error);
-        alert('Error del servidor');
+      console.error("Error al aprobar la falta", error);
+      alert("Error del servidor");
     }
-  });
+    return;
+  }
 
-
-
-
+  if (action === 'rechazar') {
+    try {
+      const respuesta = await rechazarFalta({ idFalta: id });
+      if (respuesta?.status === "exito") {
+        alert("Falta rechazada con éxito.");
+        const tarjeta = contenedor.querySelector(`[data-id="${id}"]`);
+        if (tarjeta) tarjeta.remove();
+      } else {
+        alert("Error " + (respuesta?.message ?? 'desconocido'));
+      }
+    } catch (error) {
+      console.error("Error al rechazar la falta", error);
+      alert("Error del servidor");
+    }
+    return;
+  }
 });
 
 (async function init() {

@@ -215,16 +215,6 @@
                 document.getElementById(`form${tipo.charAt(0).toUpperCase() + tipo.slice(1)}`).classList.add('activo');
             });
         });
-        
-        // Manejo de menús desplegables
-        document.querySelectorAll(".item-menu > a").forEach(boton => {
-            boton.addEventListener("click", function (e) {
-                if (this.nextElementSibling && this.nextElementSibling.classList.contains("submenu")) {
-                    e.preventDefault();
-                    this.parentElement.classList.toggle("open");
-                }
-            });
-        });
     </script>
 </body>
 </html>

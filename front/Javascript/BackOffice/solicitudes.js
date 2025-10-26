@@ -43,6 +43,79 @@ btnCancelarPago.addEventListener('click', function () {
     delete btnConfirmarPago.dataset.id;
 });
 
+function esc(s) {
+  if (s === null || s === undefined) return '';
+  return String(s)
+    .replace(/&/g, '&amp;')
+    .replace(/</g, '&lt;')
+    .replace(/>/g, '&gt;')
+    .replace(/"/g, '&quot;')
+    .replace(/'/g, '&#039;');
+}
+
+function formatDate(iso) {
+  if (!iso) return '';
+  // acepta tanto 'YYYY-MM-DD' como 'DD/MM/YYYY'
+  if (/^\d{4}-\d{2}-\d{2}$/.test(iso)) {
+    const [y, m, d] = iso.split('-');
+    return `${d}/${m}/${y}`;
+  }
+  return iso;
+}
+
+function normalizarIntegrantes(arr) {
+  return (arr || []).map(f => ({
+    id:            f.id ?? f.ID_Integrante ?? f.idIntegrante ?? '',
+    nombre:        f.nombre ?? f.Nombre ?? '',
+    apellido:      f.apellido ?? f.Apellido ?? '',
+    ci:            f.ci ?? f.CI ?? f.cedula ?? f.Cédula ?? '',
+    fechaNac:      f.fecha_nacimiento ?? f.FechaNacimiento ?? f.fechaNac ?? f.fecha ?? '',
+    genero:        f.genero ?? f.Genero ?? '',
+    email:         f.email ?? f.Email ?? ''
+  }));
+}
+
+async function renderIntegrantesPara(idPersona, panel) {
+  const tbody = panel.querySelector('.tabla-pagos tbody');
+  if (!tbody) return;
+
+  // placeholder mientras carga
+  tbody.innerHTML = `
+    <tr><td colspan="6" style="text-align:center; opacity:.7;">Cargando integrantes...</td></tr>
+  `;
+
+  try {
+    const resp = await getIntegrantesFamiliares(idPersona);
+    const crudos = Array.isArray(resp?.message) ? resp.message
+                : Array.isArray(resp?.data) ? resp.data
+                : Array.isArray(resp) ? resp
+                : [];
+    const integrantes = normalizarIntegrantes(crudos);
+
+    if (!integrantes.length) {
+      tbody.innerHTML = `
+        <tr><td colspan="6" style="text-align:center; opacity:.7;">Sin integrantes cargados</td></tr>
+      `;
+      return;
+    }
+
+    tbody.innerHTML = integrantes.map(int => `
+      <tr data-id="${esc(int.id)}">
+        <td data-label="Nombre">${esc(int.nombre)}</td>
+        <td data-label="Apellido">${esc(int.apellido)}</td>
+        <td data-label="Cédula">${esc(int.ci)}</td>
+        <td data-label="Fecha de Nac.">${esc(formatDate(int.fechaNac))}</td>
+        <td data-label="Email">${esc(int.email)}</td>
+        <td data-label="Género">${esc(int.genero)}</td>
+      </tr>
+    `).join('');
+  } catch (e) {
+    console.error('Error obteniendo integrantes de', idPersona, e);
+    tbody.innerHTML = `
+      <tr><td colspan="6" style="text-align:center; color:#b00;">No se pudieron cargar los integrantes</td></tr>
+    `;
+  }
+}
 
 
 
@@ -263,6 +336,10 @@ function actualizarSolicitudes(interesados) {
             </div>
             `;
         contenedor.appendChild(div);
+
+        //cargar los integrantes familiares
+        renderIntegrantesPara(interesado.idPersona, div);
+
     });
 
     const botonesAprobar = document.querySelectorAll(".btn-aprobar");

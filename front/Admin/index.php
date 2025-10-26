@@ -259,17 +259,6 @@ verificarAcceso(['Admin']);
     <script src="../Javascript/BackOffice/index.js" type="module"></script>
     <script src="../Javascript/BackOffice/generalidades.js" type="module"></script>
     <script src="../Javascript/BackOffice/reunionesAdmin.js" type="module"></script>
-    <script>
-        document.querySelectorAll(".item-menu > a").forEach(boton => {
-            boton.addEventListener("click", function (e) {
-                // Evita que redireccione si tiene submenu
-                if (this.nextElementSibling && this.nextElementSibling.classList.contains("submenu")) {
-                    e.preventDefault();
-                    this.parentElement.classList.toggle("open");
-                }
-            });
-        });
-    </script>
 </body>
 
 </html>

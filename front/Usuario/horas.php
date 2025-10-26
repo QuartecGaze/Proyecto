@@ -186,7 +186,7 @@ verificarAcceso(['Usuario', 'Admin']);
                                     <select id="tipo_compensacion" name="tipo_compensacion" required>
                                         <option value="">Selecciona una opción</option>
                                         <option value="exoneracion">Exoneración de horas</option>
-                                        <option value="Pago Compensatorio">Compensación monetaria</option>
+                                        <option value="pagoCompensatorio">Compensación monetaria</option>
                                     </select>
                                 </div>
 
