@@ -200,7 +200,11 @@
                 if($id != null){
                     try{
                     $usuario = $servicio->getUsuario($id);
+                    try{
                     $direccion = $servicio->getDireccion($id);
+                    } catch(Exception $e) {
+                        $direccion = null;
+                    }
                     $respuesta = [
                     'ci' => $usuario->getCi(),
                     'email' => $usuario->getEmail(),
