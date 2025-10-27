@@ -1,18 +1,18 @@
 /* Variables de color */
 :root {
-    --color-primario: #2c3e50;       
-    --color-secundario: #3498db;     
-    --color-fondo-claro: #ecf0f1;  
-    --color-fondo-header: #1a2b3c;   
-    --color-texto-oscuro: #2c3e50;   
-    --color-texto-claro: #ffffff;    
-    --color-borde: #bdc3c7;          
-    --color-destacado: #e74c3c;      
+    --color-primario: #2c3e50;
+    --color-secundario: #3498db;
+    --color-fondo-claro: #ecf0f1;
+    --color-fondo-header: #1a2b3c;
+    --color-texto-oscuro: #2c3e50;
+    --color-texto-claro: #ffffff;
+    --color-borde: #bdc3c7;
+    --color-destacado: #e74c3c;
     --color-sombra: rgba(0, 0, 0, 0.171);
-    --color-hover: #3498db;          
-    --color-exito: #27ae60;       
-    --color-alerta: #e74c3c;     
-    
+    --color-hover: #3498db;
+    --color-exito: #27ae60;
+    --color-alerta: #e74c3c;
+
     /* Variables específicas de backoffice */
     --color-backoffice-primary: #0497FF;
     --color-backoffice-secondary: #0F1530;
@@ -31,7 +31,7 @@
 }
 
 ::-webkit-scrollbar {
-  display: none;
+    display: none;
 }
 
 body {
@@ -99,6 +99,15 @@ body {
     padding: 15px;
     border-top: 1px solid var(--color-borde);
     width: 100%;
+}
+
+#estadoVacio {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    color: var(--color-secundario);
+    margin-top: 20%;
 }
 
 /* Menú del sidebar */
@@ -176,7 +185,8 @@ body {
     color: var(--color-texto-oscuro);
 }
 
-.boton-cerrar-sesion, .boton-cambiar-sesion {
+.boton-cerrar-sesion,
+.boton-cambiar-sesion {
     display: flex;
     align-items: center;
     justify-content: center;
@@ -190,12 +200,14 @@ body {
     transition: all 0.3s ease;
 }
 
-.boton-cerrar-sesion:hover, .boton-cambiar-sesion:hover {
+.boton-cerrar-sesion:hover,
+.boton-cambiar-sesion:hover {
     background-color: var(--color-hover);
     color: white;
 }
 
-.boton-cerrar-sesion i, .boton-cambiar-sesion i {
+.boton-cerrar-sesion i,
+.boton-cambiar-sesion i {
     margin-right: 5px;
 }
 
@@ -295,7 +307,8 @@ a {
 }
 
 /* Secciones de actividades y eventos */
-.seccion-actividades, .seccion-eventos {
+.seccion-actividades,
+.seccion-eventos {
     background-color: white;
     border-radius: 8px;
     padding: 20px;
@@ -303,7 +316,8 @@ a {
     margin-bottom: 20px;
 }
 
-.seccion-actividades h2, .seccion-eventos h2 {
+.seccion-actividades h2,
+.seccion-eventos h2 {
     font-size: 1.3rem;
     color: var(--color-primario);
     margin-bottom: 15px;
@@ -404,7 +418,7 @@ a {
     color: white;
 }
 
-.item-menu.open > .submenu {
+.item-menu.open>.submenu {
     max-height: 200px;
     padding-top: 5px;
     padding-bottom: 5px;
@@ -505,24 +519,58 @@ a {
 }
 
 .tarjeta-falta {
-    background: white;
-    border-radius: 8px;
+    background: linear-gradient(180deg, #ffffff 0%, #f9fafc 100%);
+    border-radius: 12px;
     padding: 20px;
-    margin-bottom: 15px;
-    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    gap: 20px;
-    border-left: 4px solid var(--color-alerta);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.06);
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+    position: relative;
+}
+
+.tarjeta-falta:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.08);
+}
+
+.tarjeta-falta::before {
+    content: attr(data-estado);
+    position: absolute;
+    top: 10px;
+    right: 35px;
+    font-size: 0.75rem;
+    text-transform: uppercase;
+    font-weight: 700;
+    color: white;
+    padding: 3px 10px;
+    border-radius: 12px;
 }
 
 textarea {
     resize: none;
 }
 
+.tarjeta-falta[data-estado="pendiente"]::before {
+    background-color: #f39c12;
+}
+
+.tarjeta-falta[data-estado="aprobada"]::before {
+    background-color: #27ae60;
+}
+
+.tarjeta-falta[data-estado="compensada"]::before {
+    background-color: #2980b9;
+}
+
 .tarjeta-falta[data-estado="aprobada"] {
     border-left-color: var(--color-exito);
+    animation: fadeOut 0.5s ease forwards;
+}
+
+@keyframes fadeOut {
+    to {
+        opacity: 0.6;
+        transform: scale(0.98);
+    }
 }
 
 .tarjeta-falta[data-estado="compensada"] {
@@ -534,17 +582,24 @@ textarea {
     align-items: center;
     gap: 15px;
     flex: 1;
+    border-right: 1px solid #e0e6eb;
+    padding: 10px;
+    padding-right: 15px;
+    background: linear-gradient(90deg, rgba(44, 167, 255, 0.274) 0%, rgba(237, 239, 239, 0.1) 100%);
+    border-radius: 50px 5px 5px 50px;
+    margin-bottom: 10px;
 }
 
 .datos-socio h3 {
-    margin: 0 0 5px 0;
     color: var(--color-primario);
+    font-size: 1.1rem;
+    margin-bottom: 6px;
 }
 
 .datos-socio p {
+    color: var(--color-backoffice-text-light);
+    font-size: 0.85rem;
     margin: 2px 0;
-    font-size: 0.9rem;
-    color: var(--color-texto-oscuro);
 }
 
 .detalles-falta {
@@ -552,59 +607,69 @@ textarea {
     display: grid;
     grid-template-columns: 1fr 1fr;
     gap: 10px;
+    margin-bottom: 10px;
 }
 
 .dato-falta {
     display: flex;
     justify-content: space-between;
     padding: 5px 0;
+    background-color: #0000000a;
+    padding: 6px 10px;
+    border-radius: 6px;
 }
 
 .etiqueta {
     font-weight: 600;
     color: var(--color-primario);
+    font-weight: 600;
 }
 
 .valor {
     color: var(--color-texto-oscuro);
+    font-weight: 500;
 }
 
 .acciones-falta {
     display: flex;
-    flex-direction: column;
-    gap: 8px;
     flex: 1;
+    flex-direction: row;
+    gap: 10px;
+    justify-content: flex-end;
 }
 
 .acciones-falta button {
     display: flex;
     align-items: center;
-    gap: 5px;
-    padding: 8px 12px;
+    padding: 10px 12px;
     border: none;
-    border-radius: 4px;
     cursor: pointer;
     font-size: 0.9rem;
     transition: background-color 0.3s;
-}
-
-.btn-aprobar {
-    background-color: var(--color-exito);
+    border-radius: 4px;
+    padding: 8px 14px;
+    font-weight: 600;
+    gap: 6px;
     color: white;
 }
 
-.btn-compensar {
-    background-color: var(--color-secundario);
-    color: white;
-}
-
-.btn-rechazar {
-    background-color: var(--color-alerta);
-    color: white;
-}
 
 .acciones-falta button:hover {
     opacity: 0.9;
+    filter: brightness(1.1);
+}
+
+
+.btn-aprobar {
+    background-color: #2ecc71;
+}
+
+.btn-compensar {
+    background-color: #3498db;
+}
+
+.btn-rechazar {
+    background-color: #e74c3c;
 }
 
 .filtros-faltas {
@@ -636,7 +701,7 @@ textarea {
     left: 0;
     width: 100%;
     height: 100%;
-    background: rgba(0,0,0,0.5);
+    background: rgba(0, 0, 0, 0.5);
     z-index: 1000;
     justify-content: center;
     align-items: center;
@@ -706,7 +771,7 @@ textarea {
     .contenedor-secciones {
         grid-template-columns: 1fr;
     }
-    
+
     .sidebar {
         width: 250px;
     }
@@ -716,7 +781,7 @@ textarea {
     .contenedor-dashboard {
         flex-direction: column;
     }
-    
+
     .sidebar {
         width: 100%;
         position: relative;
@@ -727,21 +792,21 @@ textarea {
         width: 100%;
         padding: 15px;
     }
-    
+
     .tarjeta-falta {
         flex-direction: column;
         align-items: stretch;
     }
-    
+
     .detalles-falta {
         grid-template-columns: 1fr;
     }
-    
+
     .acciones-falta {
         flex-direction: row;
         justify-content: space-between;
     }
-    
+
     .filtros-faltas {
         flex-direction: column;
         align-items: stretch;
@@ -759,16 +824,17 @@ textarea {
         padding: 2px 8px;
     }
 }
+
 .foto-socio {
-  width: 80px;
-  height: 80px;
-  border-radius: 50%;
-  overflow: hidden;
-  border: 2px solid var(--color-borde);
+    width: 80px;
+    height: 80px;
+    border-radius: 50%;
+    overflow: hidden;
+    border: 2px solid var(--color-borde);
 }
 
 .foto-socio img {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
 }

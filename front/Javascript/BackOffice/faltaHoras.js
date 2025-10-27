@@ -145,9 +145,9 @@ function renderLista(data) {
   contenedor.innerHTML = '';
   if (!Array.isArray(data) || !data.length) {
     contenedor.innerHTML = `
-      <div class="estado-vacio">
-        <i class="material-icons">inbox</i>
-        <p>No hay faltas pendientes.</p>
+      <div class="estado-vacio" id="estadoVacio" style="display:flex;">
+        <i class="material-icons" style="font-size: 68px;">inbox</i>
+        <h1>No hay faltas pendientes.</h1>
       </div>`;
     return;
   }
@@ -164,7 +164,7 @@ function aplicarFiltrosUI() {
     const visible =
       (estadoSel === 'todas' || estado === estadoSel) &&
       (tipoSel === 'todos' || tipo === tipoSel);
-    tarjeta.style.display = visible ? 'flex' : 'none';
+    tarjeta.style.display = visible ? 'block' : 'none';
   });
 }
 
