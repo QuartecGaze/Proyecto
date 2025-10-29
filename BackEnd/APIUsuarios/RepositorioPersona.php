@@ -18,7 +18,7 @@ class RepositorioPersona {
         $nombre = $persona->getNombre();
         $apellido = $persona->getApellido();
 
-        $consulta = "INSERT INTO Persona (CI, Email, Contraseña, Rol, Nombre, Apellido) VALUES (?, ?, ?, ?, ?, ?)";
+        $consulta = "INSERT INTO persona (CI, Email, Contraseña, Rol, Nombre, Apellido) VALUES (?, ?, ?, ?, ?, ?)";
         consulta($this->conn, $consulta, "ssssss", [$ci, $email, $contraseña, $rol, $nombre, $apellido]);
     }
 
@@ -28,7 +28,7 @@ class RepositorioPersona {
     }
 
     public function getPersona($id){
-        $consulta = "SELECT * FROM Persona WHERE ID_Persona = ?";
+        $consulta = "SELECT * FROM persona WHERE ID_Persona = ?";
         $resultado = consulta($this->conn, $consulta, "i", [$id]);
         $fila = mysqli_fetch_assoc($resultado);
 
@@ -51,7 +51,7 @@ class RepositorioPersona {
         $estadoEntrevista = $interesado->getEstadoEntrevista();
         $estadoPagoInicial = $interesado->getEstadoPagoInicial();
 
-        $consulta = "INSERT INTO Interesado (ID_Persona, Estado_antecedentes, Estado_entrevista, Estado_pago_inicial) VALUES (?, ?, ?, ?)";
+        $consulta = "INSERT INTO interesado (ID_Persona, Estado_antecedentes, Estado_entrevista, Estado_pago_inicial) VALUES (?, ?, ?, ?)";
         consulta($this->conn, $consulta, "isss", [$idPersona, $estadoAntecedentes, $estadoEntrevista, $estadoPagoInicial]);
     }
 
@@ -68,9 +68,9 @@ class RepositorioPersona {
 
     public function getDatosInteresado($id) {
         $consulta = "
-            SELECT * FROM Persona 
-            JOIN Interesado ON Persona.ID_Persona = Interesado.ID_Persona
-            WHERE Persona.ID_Persona = ?";
+            SELECT * FROM persona 
+            JOIN interesado ON persona.ID_Persona = interesado.ID_Persona
+            WHERE persona.ID_Persona = ?";
         $resultado = consulta($this->conn, $consulta, "i", [$id]); 
         $fila = mysqli_fetch_assoc($resultado);
 
@@ -97,7 +97,7 @@ class RepositorioPersona {
 
     public function subirComprobante($nombre, $id) {
         $consulta = "
-            UPDATE Interesado
+            UPDATE interesado
             SET Pago_inicial = ?, Estado_pago_inicial = 'Pendiente'
             WHERE ID_Persona = ?";
         consulta($this->conn, $consulta, "si", [$nombre, $id]);
@@ -105,7 +105,7 @@ class RepositorioPersona {
 
     public function subirAntecedentes($nombre, $id) {
         $consulta = "
-            UPDATE Interesado
+            UPDATE interesado
             SET Antecedentes = ?, Estado_antecedentes = 'Pendiente'
             WHERE ID_Persona = ?";
         consulta($this->conn, $consulta, "si", [$nombre, $id]);
@@ -113,12 +113,12 @@ class RepositorioPersona {
 
     // CRUD Usuario
     public function subirFoto($id, $nombre) {
-        $consulta = "UPDATE Usuario SET Foto = ? WHERE ID_Persona = ?";
+        $consulta = "UPDATE usuario SET Foto = ? WHERE ID_Persona = ?";
         consulta($this->conn, $consulta, "si", [$nombre, $id]);
     }
 
     public function getFoto($id) {
-        $consulta = "SELECT Foto FROM Usuario WHERE ID_Persona = ?";
+        $consulta = "SELECT Foto FROM usuario WHERE ID_Persona = ?";
         $resultado = consulta($this->conn, $consulta, "i", [$id]);
 
         if ($resultado && mysqli_num_rows($resultado) > 0) {
@@ -129,20 +129,20 @@ class RepositorioPersona {
     }
 
     public function borrarFoto($id) {
-        $consulta = "UPDATE Usuario SET Foto = NULL WHERE ID_Persona = ?";
+        $consulta = "UPDATE usuario SET Foto = NULL WHERE ID_Persona = ?";
         return consulta($this->conn, $consulta, "i", [$id]);
     }
 
     public function cargarFechaNacimientoUsuario($id, $fechaNacimiento){
-        $consulta = "UPDATE Usuario SET Fecha_nacimiento = ? WHERE ID_Persona = ?";
+        $consulta = "UPDATE usuario SET Fecha_nacimiento = ? WHERE ID_Persona = ?";
         consulta($this->conn, $consulta, "si", [$fechaNacimiento, $id]);
     }
 
     public function getDatosUsuario($id) {
         $consulta = "
-            SELECT * FROM Persona 
-            JOIN Usuario ON Persona.ID_Persona = Usuario.ID_Persona
-            WHERE Persona.ID_Persona = ?";
+            SELECT * FROM persona 
+            JOIN usuario ON persona.ID_Persona = usuario.ID_Persona
+            WHERE persona.ID_Persona = ?";
         $resultado = consulta($this->conn, $consulta, "i", [$id]); 
         $fila = mysqli_fetch_assoc($resultado);
         $telefonos = $this->getTelefonosPersona($fila['ID_Persona']);
@@ -180,7 +180,7 @@ class RepositorioPersona {
     // Funciones auxiliares
     public function getIdPersona($persona){
         $ci = $persona->getCi();
-        $consulta = "SELECT ID_Persona FROM Persona WHERE CI = ?";
+        $consulta = "SELECT ID_Persona FROM persona WHERE CI = ?";
         $resultado = consulta($this->conn, $consulta, "s", [$ci]);
 
         if(mysqli_num_rows($resultado) > 0) {
@@ -192,7 +192,7 @@ class RepositorioPersona {
     }
 
     public function getIdPersonaCi($ci){
-        $consulta = "SELECT ID_Persona FROM Persona WHERE CI = ?";
+        $consulta = "SELECT ID_Persona FROM persona WHERE CI = ?";
         $resultado = consulta($this->conn, $consulta, "s", [$ci]);
 
         if(mysqli_num_rows($resultado) > 0) {
@@ -204,14 +204,14 @@ class RepositorioPersona {
     }
 
     public function personaExiste($ci){
-        $consulta = "SELECT 1 FROM Persona WHERE CI = ?";
+        $consulta = "SELECT 1 FROM persona WHERE CI = ?";
         $resultado = consulta($this->conn, $consulta, "s", [$ci]);
 
         return mysqli_num_rows($resultado) > 0;
     }
 
     public function InteresadoExisteID($id){
-        $consulta = "SELECT 1 FROM Interesado WHERE ID_Persona = ?";
+        $consulta = "SELECT 1 FROM interesado WHERE ID_Persona = ?";
         $resultado = consulta($this->conn, $consulta, "i", [$id]);
 
         return mysqli_num_rows($resultado) > 0;
@@ -219,7 +219,7 @@ class RepositorioPersona {
 
     public function getContraseña($ci){
         if($this->personaExiste($ci)){
-            $consulta = "SELECT Contraseña FROM Persona WHERE CI = ?";
+            $consulta = "SELECT Contraseña FROM persona WHERE CI = ?";
             $resultado = consulta($this->conn, $consulta, "s", [$ci]);
             $fila = mysqli_fetch_assoc($resultado);
             return $fila['Contraseña'];
@@ -227,7 +227,7 @@ class RepositorioPersona {
     }
 
     public function getRol($ci){
-        $consulta = "SELECT Rol FROM Persona WHERE CI = ?";
+        $consulta = "SELECT Rol FROM persona WHERE CI = ?";
         $resultado = consulta($this->conn, $consulta, "s", [$ci]);
 
         if(mysqli_num_rows($resultado) > 0) {
@@ -239,7 +239,7 @@ class RepositorioPersona {
     }
 
     public function usuarioExisteID($id){
-        $consulta = "SELECT 1 FROM Usuario WHERE ID_Persona = ?";
+        $consulta = "SELECT 1 FROM usuario WHERE ID_Persona = ?";
         $resultado = consulta($this->conn, $consulta, "i", [$id]);
 
         return mysqli_num_rows($resultado) > 0;

@@ -47,7 +47,7 @@ require __DIR__ .'/../Consultas.php';
 
         public function subirComprobante($nombre, $idComprobantePago) {
             $consulta = "
-                UPDATE Comprobante_pago
+                UPDATE comprobante_pago
                 SET Foto = ?, Estado_pago = 'Pendiente'
                 WHERE ID_Comprobante_pago = ?
             ";
@@ -56,7 +56,7 @@ require __DIR__ .'/../Consultas.php';
         
         public function cargarHoras($idPersona, $horas, $fechaHoras, $idSemana){
             $consulta = "
-                INSERT INTO Horas_trabajadas 
+                INSERT INTO horas_trabajadas 
                 (ID_Persona, Horas, Fecha_registro_horas, ID_Semana_trabajo)
                 VALUES (?, ?, ?, ?)
             ";
@@ -71,7 +71,7 @@ require __DIR__ .'/../Consultas.php';
         public function horasTrabajadasXSemana($idPersona, $idSemana){
             $consulta = "
                 SELECT Horas
-                FROM Horas_Trabajadas
+                FROM horas_trabajadas
                 WHERE ID_Persona = ? AND ID_Semana_trabajo = ?
             ";
             $resultado = consulta($this->conn, $consulta, "ii", [$idPersona, $idSemana]);
@@ -89,7 +89,7 @@ require __DIR__ .'/../Consultas.php';
         public function cuantoDebo($idPersona){
             $consulta = "
                 SELECT Monto 
-                FROM Comprobante_Pago
+                FROM comprobante_pago
                 WHERE ID_Persona = ? AND Estado_Pago = 'En Espera'
             ";
             $resultado = consulta($this->conn, $consulta, "i", [$idPersona]);
@@ -107,7 +107,7 @@ require __DIR__ .'/../Consultas.php';
         public function horasTrabajadas($idPersona){
             $consulta = "
                 SELECT Horas
-                FROM Horas_Trabajadas
+                FROM horas_trabajadas
                 WHERE ID_Persona = ?
             ";
             $resultado = consulta($this->conn, $consulta, "i", [$idPersona]);
@@ -126,7 +126,7 @@ require __DIR__ .'/../Consultas.php';
         public function getHorasNecesariasSemana($semana){
             $consulta = "
                 SELECT Horas_semanales
-                FROM   Semana_trabajo
+                FROM   semana_trabajo
                 WHERE  Fecha_semana = ?
             ";
             $resultado = consulta($this->conn, $consulta, "s", [$semana]);
@@ -142,7 +142,7 @@ require __DIR__ .'/../Consultas.php';
         public function getIdSemana($fecha){
             $consulta = "
                 SELECT ID_Semana_trabajo
-                FROM   Semana_trabajo
+                FROM   semana_trabajo
                 WHERE  Fecha_semana = ?
                 LIMIT 1 
             "; //para solo traer uno
@@ -159,7 +159,7 @@ require __DIR__ .'/../Consultas.php';
         public function getHorasHistorial($idPersona) {
             $consulta = "
                 SELECT *
-                FROM Horas_Trabajadas
+                FROM horas_trabajadas
                 WHERE ID_Persona = ?
             ";
             
@@ -185,7 +185,7 @@ require __DIR__ .'/../Consultas.php';
     
         //FUNCIONES
         public function usuarioExisteID($id){
-            $consulta = "SELECT * FROM Usuario WHERE ID_Persona = ?";
+            $consulta = "SELECT * FROM usuario WHERE ID_Persona = ?";
             $resultado = consulta($this->conn, $consulta, "i", [$id]);
             if ($resultado === false) {
                 return false;
@@ -202,7 +202,7 @@ require __DIR__ .'/../Consultas.php';
         public function crearSemana($fecha){
             $consulta = "
                 INSERT INTO 
-                Semana_trabajo
+                semana_trabajo
                 (Fecha_semana)
                 VALUES (?)
             ";
@@ -212,7 +212,7 @@ require __DIR__ .'/../Consultas.php';
         public function semanaExiste($fecha){
             $consulta = "
                 SELECT ID_Semana_trabajo
-                FROM   Semana_trabajo
+                FROM   semana_trabajo
                 WHERE  Fecha_semana = ?
                 LIMIT 1 
             "; //para solo traer uno
@@ -228,7 +228,7 @@ require __DIR__ .'/../Consultas.php';
         
         public function editarHoras($idHoras, $horas, $fecha){
             $consulta = "
-                UPDATE Horas_trabajadas
+                UPDATE horas_trabajadas
                 SET Horas = ?, 
                 Fecha_registro_horas = ?
                 WHERE ID_Horas_trabajadas = ?
@@ -242,7 +242,7 @@ require __DIR__ .'/../Consultas.php';
 
         public function borrarHoras($idHoras){
             $consulta = "
-                DELETE FROM Horas_trabajadas
+                DELETE FROM horas_trabajadas
                 WHERE ID_Horas_trabajadas = ?
             ";
             $resultado = consulta($this->conn, $consulta, "i", [$idHoras]);
@@ -265,7 +265,7 @@ require __DIR__ .'/../Consultas.php';
                 
         public function cargarFalta($idPersona, $horas, $fechaHoras, $idSemana, $compensacion, $motivo){
             $consulta = "
-                INSERT INTO Falta
+                INSERT INTO falta
                     (ID_Persona, Horas_solicitadas, Fecha, ID_Semana_trabajo, Tipo_falta, Motivo_falta, Estado)
                 VALUES (?, ?, ?, ?, ?, ?, ?)
             ";
@@ -282,7 +282,7 @@ require __DIR__ .'/../Consultas.php';
                 SELECT
                     ID_Semana_trabajo,
                     Fecha_semana
-                FROM Semana_trabajo
+                FROM semana_trabajo
                 ORDER BY Fecha_semana DESC
             ";
             $res = consulta($this->conn, $sql);

@@ -1,7 +1,3 @@
-<?php
-    require_once '../verificarSesion.php';
-    verificarAcceso(['Admin']);
-?>
 <!DOCTYPE html>
 <html lang="es">
 

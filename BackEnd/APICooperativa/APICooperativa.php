@@ -1,4 +1,4 @@
-    <?php
+<?php
     require_once __DIR__ . '/RepositorioCooperativa.php';
     require_once __DIR__ . '/ServicioCooperativa.php'; 
     require_once __DIR__ .'/Modelos/UnidadHabitacional.php';
