@@ -23,7 +23,7 @@
         
         $metodo = $_SERVER['REQUEST_METHOD'];
         $accion = $_GET['accion'] ?? ''; // USAMOS QUERY STRING EN VEZ DE PATH_INFO
-
+        
         if(!validarToken(obtenerToken(), $conn)){
         respuesta("Token invalido", "error", 401);
         } 

@@ -13,7 +13,7 @@ const data = await getAdmin(idSesion.message);
 setDatos(data.message);
 
 cambiarUsuario.addEventListener('click', function(){
-   window.location.href = "http://localhost/Proyecto/front/Usuario/index.php";
+   window.location.href = "../Usuario/index.php";
 });
 
 

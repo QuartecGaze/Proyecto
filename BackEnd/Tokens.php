@@ -1,6 +1,11 @@
 <?php 
 function validarToken($token, $conn){
+    // validaciones tempranas
+    if (empty($token) || !is_string($token) || !$conn) return false;
+
     $token = trim($token);
+    if ($token === '') return false;
+
     if (stripos($token, 'Bearer ') === 0) $token = trim(substr($token, 7));
     $token = mysqli_real_escape_string($conn, $token);
 

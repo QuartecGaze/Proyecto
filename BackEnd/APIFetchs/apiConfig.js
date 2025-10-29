@@ -28,6 +28,7 @@ export async function apiRequest(endpoint, method = 'GET', body = null) {
     const data = await response.json(); 
     console.log(data);
     if(data.message == "Token invalido"){
+        //IMPORTANTE CAMBIAR LA RUTA CUANDO SE SUBA A UN SERVIDOR
          window.location.href = "http://localhost/Proyecto/front/Landing Page/login.html";
     }
     return data;
