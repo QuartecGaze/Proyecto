@@ -7,6 +7,7 @@ const btnEditar = document.getElementById('btnEditarUsuario');
 const btnGuardar = document.getElementById('btnGuardarCambios');
 const btnCancelar = document.getElementById('btnCancelarEdicion');
 const tablaFamiliares = document.getElementById('tablaFamiliares');
+const modalAvatar = document.getElementById('modalAvatar');
 
 let usuarios = [];
 let id = null;
@@ -46,6 +47,7 @@ contenedor.innerHTML = "";
     const modal = document.getElementById('modalUsuario');
      const spans = {
         nombre: document.getElementById('modalNombre'),
+        apellido: document.getElementById('modalApellido'),
         cedula: document.getElementById('modalCedula'),
         fechaNacimiento: document.getElementById('modalFechaNacimiento'),
         direccion: document.getElementById('modalDireccion'),
@@ -56,6 +58,7 @@ contenedor.innerHTML = "";
 
     const inputs = {
         nombre: document.getElementById('inputNombre'),
+        apellido: document.getElementById('inputApellido'),
         cedula: document.getElementById('inputCedula'),
         fechaNacimiento: document.getElementById('inputFechaNacimiento'),
         direccion: document.getElementById('inputDireccion'),
@@ -70,7 +73,9 @@ contenedor.innerHTML = "";
             const index = this.getAttribute('data-index');
             const usuario = usuarios[index];
             id = usuario.idPersona;
-            spans['nombre'].textContent = usuario.nombre + ' ' + usuario.apellido;
+            modalAvatar.src = usuario.foto ? `../../Recursos/FotosPerfil/${usuario.foto}` : '../../Recursos/FotosPerfil/usuario.webp';
+            spans['nombre'].textContent = usuario.nombre;
+            spans['apellido'].textContent = usuario.apellido;
             spans['cedula'].textContent = usuario.ci;
             spans['fechaNacimiento'].textContent = usuario.fechaNacimiento || 'No proporcionada';
             spans['direccion'].textContent = usuario.direccion || 'No proporcionada';
@@ -155,7 +160,7 @@ contenedor.innerHTML = "";
         const datosParaGuardar = {
             id: id,
             nombre: inputs.nombre.value,
-            apellido: "perez",
+            apellido: inputs.apellido.value,
             ci: inputs.cedula.value,
             fechaNacimiento: inputs.fechaNacimiento.value,
             direccion: inputs.direccion.value,

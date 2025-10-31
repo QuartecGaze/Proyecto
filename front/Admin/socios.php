@@ -144,9 +144,14 @@
                     </div>
                     <div class="info-completa">
                         <div class="campo">
-                            <label>Nombre completo:</label>
-                            <span id="modalNombre">Nombre Apellido</span>
+                            <label>Nombre:</label>
+                            <span id="modalNombre">Nombre</span>
                             <input type="text" id="inputNombre" class="campo-editable" style="display: none;">
+                        </div>
+                        <div class="campo">
+                            <label>Apellido:</label>
+                            <span id="modalApellido">Apellido</span>
+                            <input type="text" id="inputApellido" class="campo-editable" style="display: none;">
                         </div>
                         <div class="campo">
                             <label>Cédula:</label>
