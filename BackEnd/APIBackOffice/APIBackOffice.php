@@ -211,6 +211,22 @@
                 }
             }
 
+            if($accion === "modificarUnidadHabitacional"){
+                try {
+                    $datos = json_decode(file_get_contents('php://input'), true);
+                    $servicio->modificarUnidadHabitacional(
+                        $datos['id'],
+                        $datos['habitaciones'],
+                        $datos['estado'],
+                        $datos['puerta'], 
+                        $datos['pasillo'], 
+                    );
+                    respuesta("La unidad habitacional se ha modificado con éxito", "exito", 201);
+                } catch(Exception $e) {
+                    respuesta($e->getMessage(), "error", $e->getCode());
+                }
+            }
+
             if($accion == "crearUnidad"){
                 try {
                     $datos = json_decode(file_get_contents('php://input'), true);
@@ -493,6 +509,15 @@
             if($accion == "getUnidadesLibres"){
                 try {
                     $unidades = $servicio->getUnidadesLibres();
+                    respuesta($unidades, "exito", 201);
+                } catch(Exception $e) {
+                    respuesta($e->getMessage(), "error", $e->getCode());
+                }
+            }
+
+            if($accion == "getUnidades"){
+                try {
+                    $unidades = $servicio->getUnidades();
                     respuesta($unidades, "exito", 201);
                 } catch(Exception $e) {
                     respuesta($e->getMessage(), "error", $e->getCode());

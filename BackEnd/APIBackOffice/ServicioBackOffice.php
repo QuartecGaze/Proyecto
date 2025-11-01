@@ -62,6 +62,20 @@
         
         }  
 
+        public function getUnidades(){
+            $unidadesObj = $this->repositorio->getUnidadesHabitacionales();
+            $unidadesArrayAsociativo = [];
+            foreach($unidadesObj as $unidad){
+                $unidadArray = $unidad->toArray();
+                // Obtener CI si existe (devuelve null si no hay socio asignado)
+                $ciPersona = $this->repositorio->getCiUsuarioUnidad($unidad->getIdUnidadHabitacional());
+                // Usar la clave en mayúsculas para mantener compatibilidad con el frontend que espera `CI`
+                $unidadArray["CI"] = $ciPersona;
+                $unidadesArrayAsociativo[$unidad->getIdUnidadHabitacional()] = $unidadArray;
+            }
+            return $unidadesArrayAsociativo;
+        }
+
         public function rechazarInteresado($idPersona){
             if($this->repositorio->personaExiste($idPersona)){
                 $this->repositorio->borrarTelefono($idPersona);
@@ -490,7 +504,12 @@
                 'faltas'           => $respuesta
             ];
         }
-
+        public function modificarUnidadHabitacional($idUnidadHabitacional, $cantidadHabitaciones, $estadoUnidad, $numeroPuerta, $pasillo){
+            if(!$this->repositorio->unidadHabitacionalExisteID($idUnidadHabitacional)){
+                throw new Exception("La unidad habitacional no existe", 404);
+            }
+            $this->repositorio->modificarUnidadHabitacional($idUnidadHabitacional, $numeroPuerta, $pasillo, $estadoUnidad, $cantidadHabitaciones);
+        }
         public function rechazarFalta($idFalta){
             $this->repositorio->rechazarFalta($idFalta);
         }

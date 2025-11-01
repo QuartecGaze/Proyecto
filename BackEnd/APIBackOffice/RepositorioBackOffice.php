@@ -578,6 +578,31 @@ require __DIR__ .'/../Consultas.php';
             }
         }
 
+        public function unidadHabitacionalExisteID($idUnidadHabitacional){
+            $consulta = "
+                SELECT * FROM unidad_habitacional 
+                WHERE ID_Unidad_habitacional = ?
+                ";
+            $resultado = consulta($this->conn, $consulta, "i", [$idUnidadHabitacional]);
+            if(mysqli_num_rows($resultado) > 0){
+                return true;
+            }else{
+                return false;
+            }
+        }
+
+        public function modificarUnidadHabitacional($idUnidadHabitacional, $numeroPuerta, $pasillo, $estadoUnidad, $cantidadHabitaciones){
+            $consulta = "
+                UPDATE unidad_habitacional
+                SET Numero_puerta = ?, 
+                    Pasillo = ?, 
+                    Estado_unidad = ?, 
+                    Cantidad_habitaciones = ?
+                WHERE ID_Unidad_habitacional = ?
+            ";
+            consulta($this->conn, $consulta, "isiii", [$numeroPuerta, $pasillo, $estadoUnidad, $cantidadHabitaciones, $idUnidadHabitacional]);
+        }
+
         public function getIntegrantesFamiliares($idPersona){
             $consulta = "
                 SELECT * 
@@ -962,9 +987,43 @@ require __DIR__ .'/../Consultas.php';
             }
             return $unidades;
         }
+        public function getUnidadesHabitacionales(){
+            $consulta = "
+                SELECT * 
+                FROM   unidad_habitacional;
+            ";
+            $resultado = consulta($this->conn, $consulta); 
+            $unidades = [];
+            while ($fila = mysqli_fetch_assoc($resultado)) {
+                $unidades[] = new UnidadHabitacional(
+                $fila['Numero_puerta'], 
+                $fila['Pasillo'], 
+                $fila['Cantidad_habitaciones'],
+                $fila['Estado_unidad'],
+                $fila['ID_Persona'],
+                $fila['ID_Unidad_habitacional'],  
+            );
+            }
+            return $unidades;
+            }
+        public function getCiUsuarioUnidad($idUnidadHabitacional){
+            $consulta = "
+                SELECT p.CI
+                FROM persona p
+                JOIN unidad_habitacional uh ON uh.ID_Persona = p.ID_Persona
+                WHERE uh.ID_Unidad_habitacional = ?
+            ";
 
+            $resultado = consulta($this->conn, $consulta, "i", [$idUnidadHabitacional]);
 
-
+            if ($resultado && mysqli_num_rows($resultado) > 0) {
+                $fila = mysqli_fetch_assoc($resultado);
+                return $fila['CI'];
+            } else {
+                    // No hay usuario asignado a la unidad: devolver null para que el servicio/cliente lo maneje
+                    return null;
+            }
+        }
     }
     
 

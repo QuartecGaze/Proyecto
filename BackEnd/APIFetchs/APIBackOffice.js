@@ -117,3 +117,19 @@ export function rechazarFalta(data) {
 export function asignarMontoFalta(data) {
     return apiRequest('/APIBackOffice/ApiBackOffice.php?accion=asignarMontoFalta', 'POST', data);
 }
+
+export function getUnidadesLibres() {
+    return apiRequest(`/APIBackOffice/ApiBackOffice.php?accion=getUnidadesLibres`, 'GET');
+}
+
+export function getUnidades()  {
+    return apiRequest(`/APIBackOffice/ApiBackOffice.php?accion=getUnidades`, 'GET');
+}
+export function asignarUnidad(data) {
+    return apiRequest('/APIBackOffice/ApiBackOffice.php?accion=asignarUnidad', 'POST', data);
+}
+
+export function modificarUnidadHabitacional(data) {
+    return apiRequest('/APIBackOffice/ApiBackOffice.php?accion=modificarUnidadHabitacional', 'POST', data);
+}
+

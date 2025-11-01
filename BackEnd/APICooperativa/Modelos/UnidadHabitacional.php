@@ -66,4 +66,15 @@
     public function setCantidadHabitaciones($cantidadHabitaciones) {
         $this->cantidadHabitaciones = $cantidadHabitaciones;
     }
+
+    public function toArray() {
+        return [
+            'ID_Unidad_habitacional' => $this->idUnidadHabitacional,
+            'ID_Persona' => $this->idPersona,
+            'Numero_puerta' => $this->numeroPuerta,
+            'Pasillo' => $this->pasillo,
+            'Estado_unidad' => $this->estadoUnidad,
+            'Cantidad_habitaciones' => $this->cantidadHabitaciones
+        ];
+    }
 }

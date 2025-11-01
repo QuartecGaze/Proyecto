@@ -148,7 +148,7 @@
                 <h2>Proyectos Activas</h2>
                 <table class="tabla-datos">
                     <thead>
-                        <tr>
+                     <tr>
                             <th>Numero Unidad</th>
                             <th>CI</th>
                             <th>Habitaciones</th>
@@ -156,7 +156,7 @@
                             <th>Pasillo</th>
                             <th>Estado</th>
                             <th class="checkbox-seleccion">Seleccionar</th>
-                        </tr>
+                        </tr>`
                     </thead>
                     <tbody id="tablaProyectos">
                         <tr>
@@ -203,9 +203,10 @@
                     <h3>Cambiar Estado Unidades</h3>
                     <select class="select-estado" id="selectEstadoUnidad">
                         <option value="">Seleccionar estado...</option>
-                        <option value="planificacion">En Espera</option>
-                        <option value="construccion">En Construcción</option>
-                        <option value="completado">En Pausa</option>
+                        <option value="En espera">En espera</option>
+                        <option value="En pausa">En pausa</option>
+                        <option value="En construccion">En construccion</option>
+                        <option value="Finalizada">Finalizada</option>
                     </select>
                     <button class="btn-accion btn-cambiar-estado" id="btnCambiarEstado">
                         <i class="material-icons">swap_horiz</i> Cambiar Estado
@@ -249,10 +250,10 @@
                         <div class="grupo-formulario">
                             <label for="estadoUnidad">Estado </label>
                             <select id="estadoUnidad" required>
-                                <option value="planificacion">En Espera</option>
-                                <option value="construccion">En Construcción</option>
-                                <option value="completado">Completada</option>
-                                <option value="suspendido">Suspendida</option>
+                                <option value="En espera">En espera</option>
+                                <option value="En pausa">En pausa</option>
+                                <option value="En construcción">En construccion</option>
+                                <option value="Finalizada">Finalizada</option>
                             </select>
                         </div>
                     </div>
@@ -289,258 +290,10 @@
         </div>
     </div>
     <script src="../Javascript/BackOffice/generalidades.js" type="module"></script>
-
-    <script>
-        document.querySelectorAll(".item-menu > a").forEach(boton => {
-            boton.addEventListener("click", function (e) {
-                // Evita que redireccione si tiene submenu
-                if (this.nextElementSibling && this.nextElementSibling.classList.contains("submenu")) {
-                    e.preventDefault();
-                    this.parentElement.classList.toggle("open");
-                }
-            });
-        });
-
-        // Funcionalidad para los checkboxes y botones flotantes
-        document.addEventListener('DOMContentLoaded', function () {
-            const checkboxes = document.querySelectorAll('.seleccion-unidad');
-            const contador = document.getElementById('contadorSeleccionados');
-            const botonAcciones = document.getElementById('botonAcciones');
-            const botonFlotante = document.querySelector(".boton-flotante");
-            const accionesMultiples = document.getElementById('accionesMultiples');
-            const btnBorrarUnidades = document.getElementById('btnBorrarUnidades');
-            const btnCambiarEstado = document.getElementById('btnCambiarEstado');
-            const btnModificarUnidades = document.getElementById('btnModificarUnidades');
-            const selectEstado = document.getElementById('selectEstadoUnidad');
-
-            // Actualizar contador de seleccionados y visibilidad del botón modificar
-            function actualizarContador() {
-                const seleccionados = document.querySelectorAll('.seleccion-unidad:checked').length;
-                contador.textContent = seleccionados;
-
-                // Mostrar/ocultar botón de modificar según la cantidad seleccionada
-                if (seleccionados === 1) {
-                    btnModificarUnidades.style.display = 'flex';
-                } else {
-                    btnModificarUnidades.style.display = 'none';
-                }
-
-                if (seleccionados > 0) {
-                    botonAcciones.classList.add('activo');
-                    accionesMultiples.classList.add('mostrar');
-                } else {
-                    accionesMultiples.classList.remove('mostrar');
-                    botonAcciones.classList.remove('activo');
-                }
-            }
-
-            // Event listeners para checkboxes
-            checkboxes.forEach(checkbox => {
-                checkbox.addEventListener('change', actualizarContador);
-            });
-
-            // Mostrar/ocultar acciones múltiples con el botón flotante
-            botonAcciones.addEventListener('click', function () {
-                const seleccionados = document.querySelectorAll('.seleccion-unidad:checked').length;
-                if (seleccionados > 0) {
-                    accionesMultiples.classList.toggle('mostrar');
-                    botonFlotante.classList.toggle('activo');
-                } else {
-                    botonFlotante.classList.remove('activo');
-                }
-            });
-
-            // Acción de borrar unidades seleccionadas
-            btnBorrarUnidades.addEventListener('click', function () {
-                const seleccionados = document.querySelectorAll('.seleccion-unidad:checked');
-                if (seleccionados.length > 0) {
-                    if (confirm(`¿Está seguro de que desea eliminar las ${seleccionados.length} unidades seleccionadas?`)) {
-                        // Aquí iría la lógica para eliminar las unidades
-                        alert(`Se eliminarían ${seleccionados.length} unidades (simulación)`);
-                    }
-                }
-            });
-
-            // Acción de cambiar estado
-            btnCambiarEstado.addEventListener('click', function () {
-                if (selectEstado.value) {
-                    const seleccionados = document.querySelectorAll('.seleccion-unidad:checked');
-                    if (seleccionados.length > 0) {
-                        if (confirm(`¿Cambiar el estado de ${seleccionados.length} unidades a "${selectEstado.options[selectEstado.selectedIndex].text}"?`)) {
-                            // Aquí iría la lógica para cambiar el estado
-                            alert(`Se cambiaría el estado de ${seleccionados.length} unidades a ${selectEstado.value} (simulación)`);
-                        }
-                    } else {
-                        alert('Por favor, seleccione al menos una unidad.');
-                    }
-                } else {
-                    alert('Por favor, seleccione un estado.');
-                }
-            });
-
-            // Acción de modificar unidad (solo cuando hay exactamente 1 seleccionada)
-            btnModificarUnidades.addEventListener('click', function () {
-                const seleccionados = document.querySelectorAll('.seleccion-unidad:checked');
-
-                if (seleccionados.length === 1) {
-                    // Obtener datos de la unidad seleccionada (simulación)
-                    const unidadId = seleccionados[0].value;
-                    abrirModalModificar(unidadId);
-                }
-            });
-        });
-
-        // Función para abrir el modal con datos de la unidad
-        function abrirModalModificar(unidadId) {
-            // Simulación de datos - en una implementación real, esto vendría de una API
-            const datosUnidad = {
-                id: unidadId,
-                numero: `U-00${unidadId}`,
-                cedula: '8.765.432-1',
-                habitaciones: 3,
-                estado: 'completado',
-                puerta: '101',
-                pasillo: 'Pasillo A',
-                observaciones: 'Unidad en buen estado, lista para entrega.'
-            };
-
-            // Llenar el formulario con los datos
-            document.getElementById('unidadId').value = datosUnidad.id;
-            document.getElementById('numeroUnidad').value = datosUnidad.numero;
-            document.getElementById('cedulaUnidad').value = datosUnidad.cedula;
-            document.getElementById('habitacionesUnidad').value = datosUnidad.habitaciones;
-            document.getElementById('estadoUnidad').value = datosUnidad.estado;
-            document.getElementById('puertaUnidad').value = datosUnidad.puerta;
-            document.getElementById('pasilloUnidad').value = datosUnidad.pasillo;
-            document.getElementById('observacionesUnidad').value = datosUnidad.observaciones;
-
-            // Mostrar el modal
-            document.getElementById('modalUnidad').style.display = 'block';
-        }
-
-        // Cerrar modal
-        document.querySelectorAll('.cerrar-modal').forEach(btn => {
-            btn.addEventListener('click', function () {
-                document.getElementById('modalUnidad').style.display = 'none';
-            });
-        });
-
-        // Enviar formulario
-        document.getElementById('formUnidad').addEventListener('submit', function (e) {
-            e.preventDefault();
-
-            // Aquí iría la lógica para guardar los cambios
-            const datosModificados = {
-                id: document.getElementById('unidadId').value,
-                habitaciones: document.getElementById('habitacionesUnidad').value,
-                estado: document.getElementById('estadoUnidad').value,
-                puerta: document.getElementById('puertaUnidad').value,
-                pasillo: document.getElementById('pasilloUnidad').value,
-                observaciones: document.getElementById('observacionesUnidad').value
-            };
-
-            console.log('Datos a guardar:', datosModificados);
-            alert('Cambios guardados correctamente (simulación)');
-            document.getElementById('modalUnidad').style.display = 'none';
-        });
-
-        // Cerrar modal al hacer clic fuera del contenido
-        window.addEventListener('click', function (e) {
-            const modal = document.getElementById('modalUnidad');
-            if (e.target === modal) {
-                modal.style.display = 'none';
-            }
-        });
-
-        // Funcionalidad para el menú desplegable
-        document.querySelectorAll(".item-menu > a").forEach(boton => {
-            boton.addEventListener("click", function (e) {
-                // Evita que redireccione si tiene submenu
-                if (this.nextElementSibling && this.nextElementSibling.classList.contains("submenu")) {
-                    e.preventDefault();
-                    this.parentElement.classList.toggle("open");
-                }
-            });
-        });
+    <script src="../Javascript/BackOffice/unidades.js" type="module"></script>
 
 
-        // Funcionalidad para abrir el modal de modificación
-        document.getElementById('btnModificarUnidades').addEventListener('click', function () {
-            const seleccionados = document.querySelectorAll('.seleccion-unidad:checked');
-
-            if (seleccionados.length === 1) {
-                // Obtener datos de la unidad seleccionada (simulación)
-                const unidadId = seleccionados[0].value;
-                abrirModalModificar(unidadId);
-            } else if (seleccionados.length > 1) {
-                alert('Por favor, seleccione solo una unidad para modificar.');
-            } else {
-                alert('Por favor, seleccione una unidad para modificar.');
-            }
-        });
-
-        // Función para abrir el modal con datos de la unidad
-        function abrirModalModificar(unidadId) {
-            // Simulación de datos - en una implementación real, esto vendría de una API
-            const datosUnidad = {
-                id: unidadId,
-                numero: `U-00${unidadId}`,
-                cedula: '8.765.432-1',
-                habitaciones: 3,
-                estado: 'completado',
-                puerta: '101',
-                pasillo: 'Pasillo A',
-                observaciones: 'Unidad en buen estado, lista para entrega.'
-            };
-
-            // Llenar el formulario con los datos
-            document.getElementById('unidadId').value = datosUnidad.id;
-            document.getElementById('numeroUnidad').value = datosUnidad.numero;
-            document.getElementById('cedulaUnidad').value = datosUnidad.cedula;
-            document.getElementById('habitacionesUnidad').value = datosUnidad.habitaciones;
-            document.getElementById('estadoUnidad').value = datosUnidad.estado;
-            document.getElementById('puertaUnidad').value = datosUnidad.puerta;
-            document.getElementById('pasilloUnidad').value = datosUnidad.pasillo;
-            document.getElementById('observacionesUnidad').value = datosUnidad.observaciones;
-
-            // Mostrar el modal
-            document.getElementById('modalUnidad').style.display = 'block';
-        }
-
-        // Cerrar modal
-        document.querySelectorAll('.cerrar-modal').forEach(btn => {
-            btn.addEventListener('click', function () {
-                document.getElementById('modalUnidad').style.display = 'none';
-            });
-        });
-
-        // Enviar formulario
-        document.getElementById('formUnidad').addEventListener('submit', function (e) {
-            e.preventDefault();
-
-            // Aquí iría la lógica para guardar los cambios
-            const datosModificados = {
-                id: document.getElementById('unidadId').value,
-                habitaciones: document.getElementById('habitacionesUnidad').value,
-                estado: document.getElementById('estadoUnidad').value,
-                puerta: document.getElementById('puertaUnidad').value,
-                pasillo: document.getElementById('pasilloUnidad').value,
-                observaciones: document.getElementById('observacionesUnidad').value
-            };
-
-            console.log('Datos a guardar:', datosModificados);
-            alert('Cambios guardados correctamente (simulación)');
-            document.getElementById('modalUnidad').style.display = 'none';
-        });
-
-        // Cerrar modal al hacer clic fuera del contenido
-        window.addEventListener('click', function (e) {
-            const modal = document.getElementById('modalUnidad');
-            if (e.target === modal) {
-                modal.style.display = 'none';
-            }
-        });
-    </script>
+  
 
 </body>
 
