@@ -41,7 +41,7 @@
                             <i class="material-icons">apartment</i> Unidades Habitacionales
                         </a>
                         <ul class="submenu">
-                            <a href="unidades.php"><i class="material-icons">home_work</i>Gestionar Unidades</a>
+                            <a href="unidades.php"><i class="material-icons">home_work</i>Gestionar Proyectos</a>
                             <a href="crearUnidad.php"><i class="material-icons">add_circle</i> Crear Unidad</a>
                         </ul>
                     </li>
@@ -71,6 +71,7 @@
                             <a href="configuracion.php"><i class="material-icons">star</i> Mi Perfil</a>
                             <a href="crearAdmin.php"><i class="material-icons">key</i> Crear Admin</a>
                             <a href="borrarAdmin.php"><i class="material-icons">backspace</i> Borrar Admin</a>
+
                         </ul>
                     </li>
                 </ul>
@@ -114,9 +115,9 @@
 
                 <!-- Gráfico de barras por ubicación -->
                 <div class="tarjeta-grafico">
-                    <h3>Unidades por Ubicación</h3>
+                    <h3>Unidades por habitaciones</h3>
                     <div class="canvas-container">
-                        <canvas id="graficoUbicaciones"></canvas>
+                        <canvas id="graficoHabitaciones"></canvas>
                     </div>
                 </div>
 
@@ -133,7 +134,7 @@
                         </div>
                         <div class="estadistica-item">
                             <div class="estadistica-valor" id="unidadesCompletadas">15</div>
-                            <div class="estadistica-etiqueta">Completadas</div>
+                            <div class="estadistica-etiqueta">Finalizada</div>
                         </div>
                         <div class="estadistica-item">
                             <div class="estadistica-valor" id="porcentajeCompletado">36%</div>
@@ -148,72 +149,19 @@
                 <h2>Unidades Activas</h2>
                 <table class="tabla-datos">
                     <thead>
-                        <tr>
-                            <th>Número Unidad</th>
-                            <th>CI</th>
-                            <th>Habitaciones</th>
-                            <th>Estado</th>
-                            <th>Nº Puerta</th>
-                            <th>Pasillo</th>
-                            <th class="checkbox-seleccion">Seleccionar</th>
-                        </tr>
+                    <tr>
+                        <th>Número Unidad</th>
+                        <th>CI</th>
+                        <th>Habitaciones</th>
+                        <th>Estado</th>
+                        <th>Nº Puerta</th>
+                        <th>Pasillo</th>
+                        <th class="checkbox-seleccion">Seleccionar</th>
+                    </tr>
                     </thead>
-                    <tbody id="tablaUnidades">
-                        <tr>
-                            <td>U-001</td>
-                            <td>8.765.432-1</td>
-                            <td>3</td>
-                            <td><span class="estado-badge estado-completado">Completada</span></td>
-                            <td>101</td>
-                            <td>Pasillo A</td>
-                            <td class="checkbox-seleccion">
-                                <input type="checkbox" class="seleccion-unidad" name="seleccionUnidad" value="1">
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>U-002</td>
-                            <td>5.432.198-7</td>
-                            <td>2</td>
-                            <td><span class="estado-badge estado-construccion">En Construcción</span></td>
-                            <td>102</td>
-                            <td>Pasillo A</td>
-                            <td class="checkbox-seleccion">
-                                <input type="checkbox" class="seleccion-unidad" name="seleccionUnidad" value="2">
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>U-003</td>
-                            <td>3.456.789-0</td>
-                            <td>4</td>
-                            <td><span class="estado-badge estado-planificacion">En Espera</span></td>
-                            <td>201</td>
-                            <td>Pasillo B</td>
-                            <td class="checkbox-seleccion">
-                                <input type="checkbox" class="seleccion-unidad" name="seleccionUnidad" value="3">
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>U-004</td>
-                            <td>2.345.678-9</td>
-                            <td>3</td>
-                            <td><span class="estado-badge estado-construccion">En Construcción</span></td>
-                            <td>202</td>
-                            <td>Pasillo B</td>
-                            <td class="checkbox-seleccion">
-                                <input type="checkbox" class="seleccion-unidad" name="seleccionUnidad" value="4">
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>U-005</td>
-                            <td>1.234.567-8</td>
-                            <td>2</td>
-                            <td><span class="estado-badge estado-completado">Completada</span></td>
-                            <td>301</td>
-                            <td>Pasillo C</td>
-                            <td class="checkbox-seleccion">
-                                <input type="checkbox" class="seleccion-unidad" name="seleccionUnidad" value="5">
-                            </td>
-                        </tr>
+
+                    <tbody id="tablaProyectos"></tbody>
+
                     </tbody>
                 </table>
             </div>
@@ -234,11 +182,13 @@
                 </button>
 
                 <div>
+                    <h3>Cambiar Estado Unidades</h3>
                     <select class="select-estado" id="selectEstadoUnidad">
                         <option value="">Seleccionar estado...</option>
-                        <option value="planificacion">En Espera</option>
-                        <option value="construccion">En Construcción</option>
-                        <option value="completado">Completada</option>
+                        <option value="1">En espera</option>
+                        <option value="2">En pausa</option>
+                        <option value="3">En construccion</option>
+                        <option value="4">Finalizada</option>
                     </select>
                     <button class="btn-accion btn-cambiar-estado" id="btnCambiarEstado">
                         <i class="material-icons">swap_horiz</i> Cambiar Estado
@@ -252,251 +202,72 @@
         </div>
     </div>
 
+    <!-- Modal para modificar unidad -->
+<div class="modal" id="modalUnidad">
+        <div class="modal-contenido">
+            <div class="modal-header">
+                <h2 id="tituloModal">Modificar Unidad Habitacional</h2>
+                <span class="cerrar-modal">&times;</span>
+            </div>
+            <div class="modal-body">
+                <form id="formUnidad">
+                    <input type="hidden" id="unidadId">
+
+                    <div class="grupo-formulario-doble">
+                        <div class="grupo-formulario">
+                            <label for="numeroUnidad">Número de Unidad</label>
+                            <input type="text" id="numeroUnidad" readonly class="campo-no-editable">
+                        </div>
+                        <div class="grupo-formulario">
+                            <label for="cedulaUnidad">Cédula</label>
+                            <input type="text" id="cedulaUnidad" required>
+                        </div>
+                    </div>
+
+                    <div class="grupo-formulario-doble">
+                        <div class="grupo-formulario">
+                            <label for="habitacionesUnidad">Habitaciones </label>
+                            <input type="number" id="habitacionesUnidad" min="1" max="10" required>
+                        </div>
+                        <div class="grupo-formulario">
+                            <label for="estadoUnidad">Estado </label>
+                            <select id="estadoUnidad" required>
+                                <option value="En espera">En espera</option>
+                                <option value="En pausa">En pausa</option>
+                                <option value="En construcción">En construccion</option>
+                                <option value="Finalizada">Finalizada</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="grupo-formulario-doble">
+                        <div class="grupo-formulario">
+                            <label for="puertaUnidad">Número de Puerta </label>
+                            <input type="text" id="puertaUnidad" required>
+                        </div>
+                        <div class="grupo-formulario">
+                            <label for="pasilloUnidad">Pasillo </label>
+                            <input type="text" id="pasilloUnidad" required>
+                        </div>
+                    </div>
+
+                    <div class="grupo-formulario">
+                        <label for="observacionesUnidad">Observaciones</label>
+                        <textarea id="observacionesUnidad" rows="3"
+                            placeholder="Observaciones adicionales sobre la unidad..."></textarea>
+                    </div>
+
+                    <div class="modal-footer">
+                        <button type="button" class="btn-secundario cerrar-modal">Cerrar</button>
+                        <button type="submit" class="btn-primario">Guardar Cambios</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
     <script src="../Javascript/BackOffice/generalidades.js" type="module"></script>
+    <script src="../Javascript/BackOffice/unidades.js" type="module"></script>
 
-    <script>
-        // Datos de ejemplo para las unidades
-        const datosUnidades = {
-            estados: {
-                'Completada': 15,
-                'En Construcción': 20,
-                'En Espera': 7
-            },
-            ubicaciones: {
-                'Pasillo A': 12,
-                'Pasillo B': 15,
-                'Pasillo C': 10,
-                'Pasillo D': 5
-            },
-            totalUnidades: 42,
-            unidadesCompletadas: 15
-        };
-
-        // Colores para los gráficos
-        const colores = {
-            completado: '#27ae60',
-            construccion: '#3498db',
-            planificacion: '#f39c12',
-            suspendido: '#e74c3c'
-        };
-
-        // Inicializar gráficos cuando el DOM esté listo
-        document.addEventListener('DOMContentLoaded', function() {
-            // Gráfico circular de distribución por estado
-            const ctxEstados = document.getElementById('graficoEstados').getContext('2d');
-            const graficoEstados = new Chart(ctxEstados, {
-                type: 'doughnut',
-                data: {
-                    labels: Object.keys(datosUnidades.estados),
-                    datasets: [{
-                        data: Object.values(datosUnidades.estados),
-                        backgroundColor: [
-                            colores.completado,
-                            colores.construccion,
-                            colores.planificacion
-                        ],
-                        borderWidth: 2,
-                        borderColor: '#fff',
-                        hoverOffset: 15
-                    }]
-                },
-                options: {
-                    responsive: true,
-                    maintainAspectRatio: false,
-                    plugins: {
-                        legend: {
-                            display: false
-                        },
-                        tooltip: {
-                            callbacks: {
-                                label: function(context) {
-                                    const label = context.label || '';
-                                    const value = context.raw || 0;
-                                    const total = context.dataset.data.reduce((a, b) => a + b, 0);
-                                    const percentage = Math.round((value / total) * 100);
-                                    return `${label}: ${value} (${percentage}%)`;
-                                }
-                            }
-                        }
-                    },
-                    cutout: '60%'
-                }
-            });
-
-            // Crear leyenda personalizada
-            const leyendaEstados = document.getElementById('leyendaEstados');
-            Object.keys(datosUnidades.estados).forEach((estado, index) => {
-                const item = document.createElement('div');
-                item.className = 'item-leyenda';
-                
-                const color = document.createElement('div');
-                color.className = 'color-leyenda';
-                color.style.backgroundColor = Object.values(colores)[index];
-                
-                const texto = document.createElement('span');
-                texto.textContent = `${estado}: ${datosUnidades.estados[estado]}`;
-                
-                item.appendChild(color);
-                item.appendChild(texto);
-                leyendaEstados.appendChild(item);
-            });
-
-            // Gráfico de barras por ubicación
-            const ctxUbicaciones = document.getElementById('graficoUbicaciones').getContext('2d');
-            const graficoUbicaciones = new Chart(ctxUbicaciones, {
-                type: 'bar',
-                data: {
-                    labels: Object.keys(datosUnidades.ubicaciones),
-                    datasets: [{
-                        label: 'Unidades',
-                        data: Object.values(datosUnidades.ubicaciones),
-                        backgroundColor: colores.construccion,
-                        borderColor: colores.construccion,
-                        borderWidth: 1
-                    }]
-                },
-                options: {
-                    responsive: true,
-                    maintainAspectRatio: false,
-                    plugins: {
-                        legend: {
-                            display: false
-                        },
-                        tooltip: {
-                            callbacks: {
-                                label: function(context) {
-                                    return `Unidades: ${context.raw}`;
-                                }
-                            }
-                        }
-                    },
-                    scales: {
-                        y: {
-                            beginAtZero: true,
-                            ticks: {
-                                stepSize: 5
-                            }
-                        }
-                    }
-                }
-            });
-
-            // Gráfico de progreso general
-            const ctxProgreso = document.getElementById('graficoProgreso').getContext('2d');
-            const graficoProgreso = new Chart(ctxProgreso, {
-                type: 'doughnut',
-                data: {
-                    labels: ['Completadas', 'Restantes'],
-                    datasets: [{
-                        data: [
-                            datosUnidades.unidadesCompletadas,
-                            datosUnidades.totalUnidades - datosUnidades.unidadesCompletadas
-                        ],
-                        backgroundColor: [
-                            colores.completado,
-                            '#ecf0f1'
-                        ],
-                        borderWidth: 0
-                    }]
-                },
-                options: {
-                    responsive: true,
-                    maintainAspectRatio: false,
-                    plugins: {
-                        legend: {
-                            display: false
-                        },
-                        tooltip: {
-                            callbacks: {
-                                label: function(context) {
-                                    const label = context.label || '';
-                                    const value = context.raw || 0;
-                                    const total = datosUnidades.totalUnidades;
-                                    const percentage = Math.round((value / total) * 100);
-                                    return `${label}: ${value} (${percentage}%)`;
-                                }
-                            }
-                        }
-                    },
-                    cutout: '75%'
-                }
-            });
-
-            // Actualizar estadísticas
-            document.getElementById('totalUnidades').textContent = datosUnidades.totalUnidades;
-            document.getElementById('unidadesCompletadas').textContent = datosUnidades.unidadesCompletadas;
-            document.getElementById('porcentajeCompletado').textContent = 
-                Math.round((datosUnidades.unidadesCompletadas / datosUnidades.totalUnidades) * 100) + '%';
-
-            // Funcionalidad para los checkboxes y botones flotantes
-            const checkboxes = document.querySelectorAll('.seleccion-unidad');
-            const contador = document.getElementById('contadorSeleccionados');
-            const botonAcciones = document.getElementById('botonAcciones');
-            const botonFlotante = document.querySelector(".boton-flotante");
-            const accionesMultiples = document.getElementById('accionesMultiples');
-            const btnBorrarUnidades = document.getElementById('btnBorrarUnidades');
-            const btnCambiarEstado = document.getElementById('btnCambiarEstado');
-            const selectEstado = document.getElementById('selectEstadoUnidad');
-
-            // Actualizar contador de seleccionados
-            function actualizarContador() {
-                const seleccionados = document.querySelectorAll('.seleccion-unidad:checked').length;
-                contador.textContent = seleccionados;
-
-                if (seleccionados > 0) {
-                    botonAcciones.classList.add('activo');
-                    accionesMultiples.classList.add('mostrar');
-                } else {
-                    accionesMultiples.classList.remove('mostrar');
-                    botonAcciones.classList.remove('activo');
-                }
-            }
-
-            // Event listeners para checkboxes
-            checkboxes.forEach(checkbox => {
-                checkbox.addEventListener('change', actualizarContador);
-            });
-
-            // Mostrar/ocultar acciones múltiples con el botón flotante
-            botonAcciones.addEventListener('click', function() {
-                const seleccionados = document.querySelectorAll('.seleccion-unidad:checked').length;
-                if (seleccionados > 0) {
-                    accionesMultiples.classList.toggle('mostrar');
-                    botonFlotante.classList.toggle('activo');
-                } else {
-                    botonFlotante.classList.remove('activo');
-                }
-            });
-
-            // Acción de borrar unidades seleccionadas
-            btnBorrarUnidades.addEventListener('click', function() {
-                const seleccionados = document.querySelectorAll('.seleccion-unidad:checked');
-                if (seleccionados.length > 0) {
-                    if (confirm(`¿Está seguro de que desea eliminar las ${seleccionados.length} unidades seleccionadas?`)) {
-                        // Aquí iría la lógica para eliminar las unidades
-                        alert(`Se eliminarían ${seleccionados.length} unidades (simulación)`);
-                    }
-                }
-            });
-
-            // Acción de cambiar estado
-            btnCambiarEstado.addEventListener('click', function() {
-                if (selectEstado.value) {
-                    const seleccionados = document.querySelectorAll('.seleccion-unidad:checked');
-                    if (seleccionados.length > 0) {
-                        if (confirm(`¿Cambiar el estado de ${seleccionados.length} unidades a "${selectEstado.options[selectEstado.selectedIndex].text}"?`)) {
-                            // Aquí iría la lógica para cambiar el estado
-                            alert(`Se cambiaría el estado de ${seleccionados.length} unidades a ${selectEstado.value} (simulación)`);
-                        }
-                    } else {
-                        alert('Por favor, seleccione al menos una unidad.');
-                    }
-                } else {
-                    alert('Por favor, seleccione un estado.');
-                }
-            });
-        });
-    </script>
 
 </body>
 

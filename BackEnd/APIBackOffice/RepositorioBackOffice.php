@@ -202,15 +202,33 @@ require __DIR__ .'/../Consultas.php';
             return $usuarios;
             }
 
-        public function soloInteresados(){
+        public function contarInteresados(){
             $consulta = "
                 SELECT ID_Persona
                 FROM persona
                 WHERE Rol = 'Interesado';
             ";
             $resultado = consulta($this->conn, $consulta); 
-            return $resultado;
+            return mysqli_num_rows($resultado);
         }    
+
+        public function contarFaltasEnEspera(){
+            $consulta = "
+                SELECT * FROM falta WHERE Estado = 'En Espera'
+            ";
+            $resultado = consulta($this->conn, $consulta); 
+            return mysqli_num_rows($resultado);
+        }  
+        
+        public function contarComprobantesPendientes(){
+            $consulta = "
+                SELECT * FROM comprobante_pago WHERE Estado_pago = 'Pendiente'
+            ";
+            $resultado = consulta($this->conn, $consulta); 
+            return mysqli_num_rows($resultado);
+        }  
+
+        
         //Usuario
         public function subirFoto($id, $nombre) {
         $consulta = "
@@ -591,16 +609,17 @@ require __DIR__ .'/../Consultas.php';
             }
         }
 
-        public function modificarUnidadHabitacional($idUnidadHabitacional, $numeroPuerta, $pasillo, $estadoUnidad, $cantidadHabitaciones){
+        public function modificarUnidadHabitacional($idUnidadHabitacional, $numeroPuerta, $pasillo, $estadoUnidad, $cantidadHabitaciones, $idPersona){
             $consulta = "
                 UPDATE unidad_habitacional
                 SET Numero_puerta = ?, 
                     Pasillo = ?, 
                     Estado_unidad = ?, 
-                    Cantidad_habitaciones = ?
+                    Cantidad_habitaciones = ?,
+                    ID_Persona = ?
                 WHERE ID_Unidad_habitacional = ?
             ";
-            consulta($this->conn, $consulta, "isiii", [$numeroPuerta, $pasillo, $estadoUnidad, $cantidadHabitaciones, $idUnidadHabitacional]);
+            consulta($this->conn, $consulta, "isiiii", [$numeroPuerta, $pasillo, $estadoUnidad, $cantidadHabitaciones, $idPersona, $idUnidadHabitacional]);
         }
 
         public function getIntegrantesFamiliares($idPersona){
@@ -1024,6 +1043,29 @@ require __DIR__ .'/../Consultas.php';
                     return null;
             }
         }
+
+    public function cambiarEstado($ids, $estado) {
+        if (!is_array($ids)) return false;
+        $estado = $estado;
+        $actualizados = 0;
+
+        foreach ($ids as $id) {
+            $id = $id;
+
+            $consulta = "
+                UPDATE unidad_habitacional
+                SET Estado_unidad = $estado
+                WHERE ID_Unidad_habitacional = $id;
+            ";
+            $respuesta = consulta($this->conn, $consulta);
+            if ($respuesta) $actualizados++;
+        }
+        return $actualizados > 0;
+    }
+
+
+
+
     }
     
 

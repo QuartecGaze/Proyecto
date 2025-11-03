@@ -41,8 +41,8 @@ export function getIdSesion(){
     return apiRequest(`/APIBackOffice/ApiBackOffice.php?accion=getIdSesion`, "GET");
 }
 
-export function contarInteresados(){
-    return apiRequest(`/APIBackOffice/ApiBackOffice.php?accion=contarInteresados`, "GET");
+export function cantidadPendientes(){
+    return apiRequest(`/APIBackOffice/ApiBackOffice.php?accion=cantidadPendientes`, "GET");
 }
 
 export function subirFoto(foto){
@@ -131,5 +131,9 @@ export function asignarUnidad(data) {
 
 export function modificarUnidadHabitacional(data) {
     return apiRequest('/APIBackOffice/ApiBackOffice.php?accion=modificarUnidadHabitacional', 'POST', data);
+}
+
+export function cambiarEstado(data) {
+    return apiRequest('/APIBackOffice/ApiBackOffice.php?accion=cambiarEstado', 'POST', data);
 }
 
