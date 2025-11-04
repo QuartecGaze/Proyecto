@@ -4,13 +4,15 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Senda Firme - Gestión de Unidadess</title>
+    <title>Senda Firme - Gestión de Unidades</title>
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap"
         rel="stylesheet">
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <link rel="stylesheet" href="../Css/backoffice.css">
-    <link rel="stylesheet" href="../Css/estilosUnidades.css">
+    <link rel="stylesheet" href="../Css/estilosProyectos-prueba.css">
+    <!-- Incluir Chart.js para los gráficos -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 </head>
 
 <body class="backoffice">
@@ -97,96 +99,76 @@
         <main class="contenido-principal">
             <header class="header-principal">
                 <h1>Gestión de <span class="nombre-usuario-destacado">Unidades</span></h1>
-                <p>Administra las Unidades de construcción de la cooperativa</p>
+                <p>Administra las Unidades habitacionales de la cooperativa</p>
             </header>
 
-            <!-- Estadísticas de Unidades -->
-            <div class="contenedor-tarjetas">
-                <div class="tarjeta-dashboard">
-                    <div class="tarjeta-icono">
-                        <i class="material-icons">apartment</i>
+            <!-- Gráficos de estadísticas de unidades -->
+            <div class="contenedor-graficos">
+                <!-- Gráfico circular de distribución por estado -->
+                <div class="tarjeta-grafico">
+                    <h3>Distribución por Estado</h3>
+                    <div class="canvas-container">
+                        <canvas id="graficoEstados"></canvas>
                     </div>
-                    <div class="tarjeta-contenido">
-                        <h3>Total de Unidades</h3>
-                        <p class="tarjeta-valor" id="totalProyectos">5</p>
+                    <div class="leyenda-grafico" id="leyendaEstados"></div>
+                </div>
+
+                <!-- Gráfico de barras por ubicación -->
+                <div class="tarjeta-grafico">
+                    <h3>Unidades por habitaciones</h3>
+                    <div class="canvas-container">
+                        <canvas id="graficoHabitaciones"></canvas>
                     </div>
                 </div>
 
-                <div class="tarjeta-dashboard">
-                    <div class="tarjeta-icono">
-                        <i class="material-icons">home</i>
+                <!-- Gráfico de progreso general -->
+                <div class="tarjeta-grafico">
+                    <h3>Progreso General</h3>
+                    <div class="canvas-container">
+                        <canvas id="graficoProgreso"></canvas>
                     </div>
-                    <div class="tarjeta-contenido">
-                        <h3>Unidades Totales</h3>
-                        <p class="tarjeta-valor" id="totalUnidades">42</p>
-                    </div>
-                </div>
-
-                <div class="tarjeta-dashboard">
-                    <div class="tarjeta-icono">
-                        <i class="material-icons">construction</i>
-                    </div>
-                    <div class="tarjeta-contenido">
-                        <h3>En Construcción</h3>
-                        <p class="tarjeta-valor" id="proyectosConstruccion">3</p>
-                    </div>
-                </div>
-
-                <div class="tarjeta-dashboard">
-                    <div class="tarjeta-icono">
-                        <i class="material-icons">check_circle</i>
-                    </div>
-                    <div class="tarjeta-contenido">
-                        <h3>Completados</h3>
-                        <p class="tarjeta-valor" id="proyectosCompletados">2</p>
+                    <div class="resumen-estadisticas">
+                        <div class="estadistica-item">
+                            <div class="estadistica-valor" id="totalUnidades">42</div>
+                            <div class="estadistica-etiqueta">Total Unidades</div>
+                        </div>
+                        <div class="estadistica-item">
+                            <div class="estadistica-valor" id="unidadesCompletadas">15</div>
+                            <div class="estadistica-etiqueta">Finalizada</div>
+                        </div>
+                        <div class="estadistica-item">
+                            <div class="estadistica-valor" id="porcentajeCompletado">36%</div>
+                            <div class="estadistica-etiqueta">Progreso</div>
+                        </div>
                     </div>
                 </div>
             </div>
 
-            <!-- Lista de proyectos -->
+            <!-- Lista de unidades -->
             <div class="contenedor-tabla">
-                <h2>Proyectos Activas</h2>
+                <h2>Unidades Activas</h2>
                 <table class="tabla-datos">
                     <thead>
-                     <tr>
-                            <th>Numero Unidad</th>
-                            <th>CI</th>
-                            <th>Habitaciones</th>
-                            <th>Nº Puerta</th>
-                            <th>Pasillo</th>
-                            <th>Estado</th>
-                            <th class="checkbox-seleccion">Seleccionar</th>
-                        </tr>`
+                    <tr>
+                        <th>Número Unidad</th>
+                        <th>CI</th>
+                        <th>Habitaciones</th>
+                        <th>Estado</th>
+                        <th>Nº Puerta</th>
+                        <th>Pasillo</th>
+                        <th class="checkbox-seleccion">Seleccionar</th>
+                    </tr>
                     </thead>
-                    <tbody id="tablaProyectos">
-                        <tr>
-                            <td>Proyecto Residencial Norte</td>
-                            <td>8.765.432-1</td>
-                            <td>12</td>
-                            <td>321</td>
-                            <td>Pasillo A3</td>
-                            <td><span class="estado estado-en-proceso">En Contruccion</span></td>
-                            <td class="checkbox-seleccion">
-                                <input type="checkbox" class="seleccion-unidad" name="seleccionUnidad" value="1">
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>Torre Central</td>
-                            <td>5.432.198-7</td>
-                            <td>24</td>
-                            <td>123</td>
-                            <td>Pasillo A3</td>
-                            <td><span class="estado estado-en-proceso">En Contruccion</span></td>
-                            <td class="checkbox-seleccion">
-                                <input type="checkbox" class="seleccion-unidad" name="seleccionUnidad" value="2">
-                            </td>
-                        </tr>
+
+                    <tbody id="tablaProyectos"></tbody>
+
                     </tbody>
                 </table>
             </div>
         </main>
     </div>
 
+    <!-- Botones flotantes (sin cambios) -->
     <div class="botones-flotantes">
         <div class="boton-flotante" id="botonAcciones">
             <i class="material-icons">tune</i>
@@ -203,10 +185,10 @@
                     <h3>Cambiar Estado Unidades</h3>
                     <select class="select-estado" id="selectEstadoUnidad">
                         <option value="">Seleccionar estado...</option>
-                        <option value="En espera">En espera</option>
-                        <option value="En pausa">En pausa</option>
-                        <option value="En construccion">En construccion</option>
-                        <option value="Finalizada">Finalizada</option>
+                        <option value="1">En espera</option>
+                        <option value="2">En pausa</option>
+                        <option value="3">En construccion</option>
+                        <option value="4">Finalizada</option>
                     </select>
                     <button class="btn-accion btn-cambiar-estado" id="btnCambiarEstado">
                         <i class="material-icons">swap_horiz</i> Cambiar Estado
@@ -221,7 +203,7 @@
     </div>
 
     <!-- Modal para modificar unidad -->
-    <div class="modal" id="modalUnidad">
+<div class="modal" id="modalUnidad">
         <div class="modal-contenido">
             <div class="modal-header">
                 <h2 id="tituloModal">Modificar Unidad Habitacional</h2>
@@ -238,7 +220,7 @@
                         </div>
                         <div class="grupo-formulario">
                             <label for="cedulaUnidad">Cédula</label>
-                            <input type="text" id="cedulaUnidad" readonly class="campo-no-editable">
+                            <input type="text" id="cedulaUnidad" required>
                         </div>
                     </div>
 
@@ -265,13 +247,7 @@
                         </div>
                         <div class="grupo-formulario">
                             <label for="pasilloUnidad">Pasillo </label>
-                            <select id="pasilloUnidad" required>
-                                <option value="Pasillo A">Pasillo A</option>
-                                <option value="Pasillo B">Pasillo B</option>
-                                <option value="Pasillo C">Pasillo C</option>
-                                <option value="Pasillo D">Pasillo D</option>
-                                <option value="Pasillo E">Pasillo E</option>
-                            </select>
+                            <input type="text" id="pasilloUnidad" required>
                         </div>
                     </div>
 
@@ -292,8 +268,6 @@
     <script src="../Javascript/BackOffice/generalidades.js" type="module"></script>
     <script src="../Javascript/BackOffice/unidades.js" type="module"></script>
 
-
-  
 
 </body>
 

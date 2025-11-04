@@ -1,7 +1,8 @@
-import { contarInteresados } from '../../../BackEnd/APIFetchs/APIBackOffice.js';
+import { cantidadPendientes } from '../../../BackEnd/APIFetchs/APIBackOffice.js';
 
+    const respuesta = await cantidadPendientes();
+    const datos = respuesta.message;
+    document.getElementById('solicitudesPendientes').innerHTML = `${datos.interesados} <span>Solicitudes</span>`;
+    document.getElementById('faltasEnEspera').innerHTML = datos.faltas;
+    document.getElementById('comprobantesPendientes').innerHTML = datos.comprobantes;
 
-    const respuesta = await contarInteresados();
-    const total = respuesta.message;
-    //ponemos el innerHTML para poder mostrar Solicitudes, sino se rompe todo el texto
-    document.getElementById('solicitudesPendientes').innerHTML =`${total} <span>Solicitudes</span>`;

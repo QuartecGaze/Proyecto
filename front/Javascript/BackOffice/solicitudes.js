@@ -6,6 +6,39 @@ import { rechazarInteresado } from '../../../BackEnd/APIFetchs/APIBackOffice.js'
 import { asignarEntrevista } from '../../../BackEnd/APIFetchs/APIBackOffice.js';
 import { asignarPagoInicial } from '../../../BackEnd/APIFetchs/APIBackOffice.js';
 import { getIntegrantesFamiliares } from '../../../BackEnd/APIFetchs/APICooperativa.js';
+import { getUnidadesLibres } from '../../../BackEnd/APIFetchs/APIBackOffice.js';
+import { asignarUnidadHabitacional } from '../../../BackEnd/APIFetchs/APIBackOffice.js';
+
+// ---- helpers unidades ----
+function normalizarUnidades(arr) {
+  return (arr || []).map(u => ({
+    id:            u.ID_Unidad_habitacional ?? u.id ?? u.idUnidad ?? u.ID ?? '',
+    puerta:        u.Numero_puerta ?? u.puerta ?? '',
+    pasillo:       u.Pasillo ?? u.pasillo ?? '',
+    estado:        u.Estado_unidad ?? u.estado ?? '',
+    habitaciones:  u.Cantidad_habitaciones ?? u.cantidad_habitaciones ?? u.habitaciones ?? ''
+  })).filter(u => u.id !== '');
+}
+
+
+const esc = (s) => (s == null ? '' : String(s)
+  .replace(/&/g,'&amp;').replace(/</g,'&lt;')
+  .replace(/>/g,'&gt;').replace(/"/g,'&quot;')
+  .replace(/'/g,'&#039;'));
+
+const boolDe = (v) => v === true || v === 1 || v === '1';
+
+// acepta cualquiera de los dos flags que te mande getInteresados
+const tieneUnidad = (rec) => boolDe(rec.unidadHabitacionalAsignada) || boolDe(rec.unidadAsignada);
+
+// solo el texto que querés ver
+const labelUnidad = (rec) => (tieneUnidad(rec) ? 'Asignada' : 'No asignada');
+
+
+let cacheUnidadesLibres = [];
+
+
+
 
 
 
@@ -43,15 +76,6 @@ btnCancelarPago.addEventListener('click', function () {
     delete btnConfirmarPago.dataset.id;
 });
 
-function esc(s) {
-  if (s === null || s === undefined) return '';
-  return String(s)
-    .replace(/&/g, '&amp;')
-    .replace(/</g, '&lt;')
-    .replace(/>/g, '&gt;')
-    .replace(/"/g, '&quot;')
-    .replace(/'/g, '&#039;');
-}
 
 function formatDate(iso) {
   if (!iso) return '';
@@ -162,6 +186,9 @@ function actualizarSolicitudes(interesados) {
     contenedor.innerHTML = "";
     interesados.forEach(interesado => {
         const div = document.createElement("div");
+        const unidadLabel = labelUnidad(interesado);
+        const puedeAprobar = tieneUnidad(interesado);
+
         div.innerHTML = `
             <div class="contenedor-solicitud">
                 <div class="contenido">
@@ -170,9 +197,15 @@ function actualizarSolicitudes(interesados) {
                         <button class="btn-solicitud btn-rechazar-solicitud" data-id="${interesado.idPersona}">
                             <i class="material-icons">block</i> Rechazar Solicitud
                         </button>
-                        <button class="btn-solicitud btn-aprobar-solicitud" data-id="${interesado.idPersona}">
-                            <i class="material-icons">check_circle</i> Aprobar Solicitud
+                        <button 
+                        data-id="${interesado.idPersona}"
+                        ${!puedeAprobar 
+                            ? 'class="btn-solicitud btn-aprobar-solicitud btn-aprobar-solicitud--bloqueada" data-bloqueada="1" title="Asigná una unidad primero"' 
+                            : 'class="btn-solicitud btn-aprobar-solicitud"'}
+                        >
+                        <i class="material-icons">check_circle</i> Aprobar Solicitud
                         </button>
+
                     </div>
 
                     <div class="solicitud-info">
@@ -313,19 +346,27 @@ function actualizarSolicitudes(interesados) {
 
 
                         <h3>Asignar Unidad Habitacional</h3>
-                        <div class="asignacion-unidad">
-                        <div class="documento-card">
-                            <div class="documento-info">
-                                <h4>Unidad Habitacional Asignada</h4>
-                                <p><strong>Unidad:</strong> ${interesado.unidadAsignada || '<em>No asignada</em>'}</p>
-                            </div>
-                            <div class="documento-acciones">
-                                <button class="btn-asignar-unidad" data-id="${interesado.idPersona}">
+                            <div class="asignacion-unidad">
+                            <div class="documento-card">
+                                <div class="documento-info">
+                                <h4>Unidad Habitacional</h4>
+                                <p><strong>Unidad:</strong>
+                                    <span class="estado-unidad" data-id="${esc(interesado.idPersona)}">
+                                    ${esc(unidadLabel)}
+                                    </span>
+                                </p>
+                                </div>
+                                <div class="documento-acciones">
+                                <button class="btn-asignar-unidad"
+                                        data-ci="${esc(interesado.ci)}"
+                                        data-idpersona="${esc(interesado.idPersona)}">
                                     <i class="material-icons">apartment</i> Asignar Unidad
                                 </button>
+                                </div>
                             </div>
-                        </div>
-                    </div>
+                            </div>
+
+
                     </div>
                 </div>
                 <div class="contador">
@@ -380,41 +421,92 @@ function actualizarSolicitudes(interesados) {
     });
 
 
-    const botonAprobarInteresado = document.querySelectorAll(".btn-aprobar-solicitud");
-    botonAprobarInteresado.forEach(boton => {
-        boton.addEventListener("click", async () => {
-            const idPersona = boton.dataset.id;
-            const datos = {
-                idPersona: idPersona
-            };
+const botonAprobarInteresado = document.querySelectorAll(".btn-aprobar-solicitud");
+botonAprobarInteresado.forEach(boton => {
+  boton.addEventListener("click", async () => {
+    const idPersona = boton.dataset.id;
+    const rec = interesados.find(p => String(p.idPersona) === String(idPersona));
 
-            try {
-                const respuesta = await aprobarInteresado(datos);
+    // si no tiene unidad, avisá y no sigas
+    if (!rec || !(rec.unidadHabitacionalAsignada == 1 || rec.unidadAsignada == 1)) {
+      alert('No podés aprobar: el interesado no tiene unidad asignada.');
+      return;
+    }
 
-                if (respuesta.status === "exito") {
-                    alert("Interesado aprobado con exito.");
+    try {
+      const respuesta = await aprobarInteresado({ idPersona });
+      if (respuesta.status === "exito") {
+        alert("Interesado aprobado con éxito.");
+        // opcional: remover card o refrescar listado
+        // actualizarSolicitudes(interesados);
+      } else {
+        alert("Error " + respuesta.message);
+      }
+    } catch (err) {
+      console.error("Error al aprobar el interesado", err);
+      alert("Error del servidor");
+    }
+  });
+});
 
-                } else {
-                    alert("Error " + respuesta.message);
-                }
-            } catch (error) {
-                console.error("Error al aprobar el interesado", error)
-                alert("Error del servidor");
-            }
-        });
-    });
+
+// Guardas NO-OP por si no existen en este archivo (evitan que se corte el script)
+const toggleSpinner = typeof window.toggleSpinner === 'function' ? window.toggleSpinner : () => {};
+const wireDelete    = typeof window.wireDelete === 'function'    ? window.wireDelete    : () => {};
+const getIdSesion   = typeof window.getIdSesion === 'function'   ? window.getIdSesion   : undefined;
+
+// Si no hay contadores/elementos de la tabla de integrantes, que no rompa:
+let integrantesCount        = document.getElementById('integrantes-count');
+let integrantesEmpty        = document.getElementById('integrantes-empty');
+let integrantesTableWrapper = document.getElementById('integrantes-table-wrapper');
+let integrantesTbody        = document.getElementById('integrantes-tbody');
+
+// Si no existen, renderTablaIntegrantes sale temprano:
+function renderTablaIntegrantes() {
+  if (!integrantesCount || !integrantesEmpty || !integrantesTableWrapper || !integrantesTbody) {
+    return; // no hay UI de integrantes en esta pantalla, no hacemos nada
+  }
+  integrantesCount.textContent = String(integrantesGuardados.length);
+  if (integrantesGuardados.length === 0) {
+    integrantesTableWrapper.style.display = 'none';
+    integrantesEmpty.style.display = 'flex';
+    integrantesTbody.innerHTML = '';
+    return;
+  }
+  integrantesEmpty.style.display = 'none';
+  integrantesTableWrapper.style.display = 'block';
+  integrantesTbody.innerHTML = integrantesGuardados.map((integrante) => `
+    <tr data-id="${esc(integrante.id)}">
+      <td data-label="Nombre">${esc(integrante.nombre)}</td>
+      <td data-label="Apellido">${esc(integrante.apellido)}</td>
+      <td data-label="Cédula">${esc(integrante.ci)}</td>
+      <td data-label="Fecha Nac.">${esc(formatDate(integrante.fechaNacimiento))}</td>
+      <td data-label="Género">${esc(integrante.genero)}</td>
+      <td data-label="Email">${esc(integrante.email)}</td>
+      <td class="panel-integrantes__actions" data-label="Acciones">
+        <button type="button" class="btn btn--danger btn--sm btn-delete-integrante" 
+                data-id="${esc(integrante.id)}" title="Eliminar integrante">
+          <i class="material-icons">delete</i>
+        </button>
+      </td>
+    </tr>
+  `).join('');
+}
 
 // ====== LISTADO (mostrar todos) ======
-(async function initListado() {
-  try {
-    const ses = await getIdSesion();
-    idPersonaLog = ses?.message;
-    await cargarListadoIntegrantes();
-    wireDelete(); // activar eventos de borrar
-  } catch (e) {
-    console.error('initListado error:', e);
-  }
-})();
+if (typeof getIdSesion === 'function') {
+  (async function initListado() {
+    try {
+      const ses = await getIdSesion();
+      idPersonaLog = ses?.message;
+      await cargarListadoIntegrantes();
+      wireDelete(); // activar eventos de borrar si existe
+    } catch (e) {
+      console.error('initListado error:', e);
+    }
+  })();
+}
+
 
 async function cargarListadoIntegrantes() {
   try {
@@ -611,76 +703,138 @@ btnConfirmarPago.addEventListener('click', async function () {
 });
 
 
-document.querySelectorAll('.btn-asignar-unidad').forEach(boton => {
-    boton.addEventListener('click', function () {
-        console.log('Abriendo modal de unidad');
-        btnConfirmarUnidad.dataset.id = boton.dataset.id;
-        modalUnidad.style.display = 'flex';
-    });
-});
 
-// Cerrar modal de unidad
+
+
+
+
+
+
 btnCancelarUnidad.addEventListener('click', function () {
-    console.log('Cerrando modal de unidad');
-    modalUnidad.style.display = 'none';
-    delete btnConfirmarUnidad.dataset.id;
-    selectUnidad.value = '';
+  modalUnidad.style.display = 'none';
+  delete btnConfirmarUnidad.dataset.idPersona;
+  delete btnConfirmarUnidad.dataset.ci;
+  selectUnidad.value = '';
+  btnConfirmarUnidad.disabled = true;
+  infoUnidad.textContent = '';
+});
+
+// Abrir modal y cargar unidades libres
+document.addEventListener('click', async (e) => {
+  const btn = e.target.closest('.btn-asignar-unidad');
+  if (!btn) return;
+
+  const ci = btn.dataset.ci;
+  const idPersona = btn.dataset.idpersona;
+  if (!ci) { alert('No se encontró la cédula del interesado.'); return; }
+
+  // atamos los datos al botón confirmar del modal
+  btnConfirmarUnidad.dataset.ci = ci;
+  if (idPersona) btnConfirmarUnidad.dataset.idPersona = idPersona;
+
+  // abrir modal
+  modalUnidad.style.display = 'flex';
+
+  // cargar unidades
+  try {
+    const resp = await getUnidadesLibres();
+    const crudos = Array.isArray(resp?.message) ? resp.message
+                : Array.isArray(resp?.data)    ? resp.data
+                : Array.isArray(resp)          ? resp
+                : [];
+    cacheUnidadesLibres = normalizarUnidades(crudos);
+
+    if (!cacheUnidadesLibres.length) {
+      selectUnidad.innerHTML = '<option value="">No hay unidades libres</option>';
+      btnConfirmarUnidad.disabled = true;
+      infoUnidad.textContent = '—';
+    } else {
+      const opts = ['<option value="">Seleccioná una unidad…</option>']
+        .concat(cacheUnidadesLibres.map(u => {
+          const label = `U#${esc(u.id)} • Puerta ${esc(u.puerta)} • Pasillo ${esc(u.pasillo)} • ${esc(u.habitaciones)} hab • ${esc(u.estado)}`;
+          return `<option value="${esc(u.id)}">${label}</option>`;
+        }));
+      selectUnidad.innerHTML = opts.join('');
+      selectUnidad.value = '';
+      btnConfirmarUnidad.disabled = true;
+      infoUnidad.textContent = '';
+    }
+  } catch (err) {
+    console.error('[AsignarUnidad] Error getUnidadesLibres:', err);
+    selectUnidad.innerHTML = '<option value="">Error cargando unidades</option>';
     btnConfirmarUnidad.disabled = true;
+    infoUnidad.textContent = '—';
+  }
 });
 
-// Habilitar botón cuando se selecciona una unidad
+
 selectUnidad.addEventListener('change', function () {
-    btnConfirmarUnidad.disabled = !this.value;
+  const idSel = this.value;
+  btnConfirmarUnidad.disabled = !idSel;
+
+  const u = cacheUnidadesLibres.find(x => String(x.id) === String(idSel));
+  if (u) {
+    infoUnidad.textContent = `Seleccionada: U#${u.id} • Puerta ${u.puerta} • Pasillo ${u.pasillo} • ${u.habitaciones} hab • ${u.estado}`;
+  } else {
+    infoUnidad.textContent = '';
+  }
 });
 
-// Confirmar asignación de unidad
+
+
 btnConfirmarUnidad.addEventListener('click', async function () {
-    console.log('Confirmando asignación de unidad');
-    const idPersona = btnConfirmarUnidad.dataset.id;
+  try {
+    const ci = btnConfirmarUnidad.dataset.ci;
+    const idPersona = btnConfirmarUnidad.dataset.idPersona;
     const idUnidad = selectUnidad.value;
 
-    if (!idUnidad) {
-        alert('Por favor seleccione una unidad válida');
-        return;
-    }
+    if (!ci) { alert('Falta la cédula del interesado.'); return; }
+    if (!idUnidad) { alert('Seleccioná una unidad válida.'); return; }
 
-    const selectedOption = selectUnidad.options[selectUnidad.selectedIndex];
-    const nombreUnidad = selectedOption.textContent;
+    // Llamada real a la API
+    const resp = await asignarUnidadHabitacional({ ci: String(ci), idUnidad: Number(idUnidad) });
 
-    const datos = {
-        idPersona: idPersona,
-        idUnidad: idUnidad,
-        nombreUnidad: nombreUnidad
-    };
+    // ...
+if (resp?.status === 'exito') {
+// — Ya tenés ci, idPersona, idUnidad y resp exitoso arriba —
 
-    try {
-        //tengo que enviar la ci de la persona y el idUnidad habitacional 
-        //que va a salir del array de la lista
-        //usar el metodo asignarUnidadHabitacional
+alert('Unidad asignada correctamente.');
 
+// 1) marcá flags en memoria para que “tieneUnidad(...)” quede true
+interesados = interesados.map(p =>
+  String(p.idPersona) === String(idPersona)
+    ? { ...p, unidadHabitacionalAsignada: 1, unidadAsignada: 1 }
+    : p
+);
 
+// 2) actualizá SOLO el texto visible "Unidad: Asignada"
+const estadoSpan = document.querySelector(`.estado-unidad[data-id="${idPersona}"]`);
+if (estadoSpan) estadoSpan.textContent = 'Asignada';
 
-        // Aquí llamarías a tu API para asignar la unidad
-        // const respuesta = await asignarUnidad(datos);
+// 3) habilitá el botón "Aprobar Solicitud" (si estaba deshabilitado)
+const btnAprobarSolicitud = document.querySelector(`.btn-aprobar-solicitud[data-id="${idPersona}"]`);
+if (btnAprobarSolicitud) {
+  btnAprobarSolicitud.disabled = false;
+  btnAprobarSolicitud.removeAttribute('title');
+}
 
-        // Por ahora simulamos la respuesta
-        const respuesta = { status: 'exito', message: 'Unidad asignada correctamente' };
+// 4) cerrá y limpiá tu modal (dejá lo que ya tenías)
+modalUnidad.style.display = 'none';
+delete btnConfirmarUnidad.dataset.idPersona;
+delete btnConfirmarUnidad.dataset.ci;
+selectUnidad.value = '';
+btnConfirmarUnidad.disabled = true;
+infoUnidad.textContent = '';
 
-        if (respuesta.status === 'exito') {
-            alert('Unidad asignada correctamente.');
-            modalUnidad.style.display = 'none';
-            delete btnConfirmarUnidad.dataset.id;
-            selectUnidad.value = '';
-            btnConfirmarUnidad.disabled = true;
+} else {
+  alert('Error: ' + (resp?.message || 'No se pudo asignar la unidad'));
+}
 
-            // Actualizar la vista
-            // interesados = actualizarEstadoArray(interesados, idPersona, 'unidadAsignada', nombreUnidad);
-            // actualizarSolicitudes(interesados);
-        } else {
-            alert('Error: ' + respuesta.message);
-        }
-    } catch (error) {
-        console.error('Error al asignar unidad', error);
-        alert('Error del servidor');
-    }
+  } catch (e) {
+    console.error('Error al asignar unidad', e);
+    alert('Error del servidor al asignar la unidad.');
+  }
 });
+
+
+

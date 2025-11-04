@@ -120,10 +120,15 @@
         }
 
         public function contarInteresados() {
-            $resultado = $this->repositorio->soloInteresados();
-            $cantidadInteresados = mysqli_num_rows($resultado);
-        
-            return $cantidadInteresados;
+            return $this->repositorio->contarInteresados();;
+        }
+
+        public function contarFaltasPendientes() {
+            return $this->repositorio->contarFaltasEnEspera();;
+        }
+
+        public function contarComprobantesEnEspera() {
+            return $this->repositorio->contarComprobantesPendientes();;
         }
 
         public function getInteresados(){
@@ -196,6 +201,7 @@
             $idPersona = $this->repositorio->getIDPersonaConCi($ci);
             if(!$this->repositorio->unidadHabitacionalAsignada($idUnidadHabitacional)){
                 $this->repositorio->asignarUnidadHabitacional($idPersona, $idUnidadHabitacional);
+                $this->repositorio->unidadHabitacionalBoolean($idPersona);
             }
         }
 
@@ -504,11 +510,12 @@
                 'faltas'           => $respuesta
             ];
         }
-        public function modificarUnidadHabitacional($idUnidadHabitacional, $cantidadHabitaciones, $estadoUnidad, $numeroPuerta, $pasillo){
+        public function modificarUnidadHabitacional($idUnidadHabitacional, $cantidadHabitaciones, $estadoUnidad, $numeroPuerta, $pasillo, $ci){
             if(!$this->repositorio->unidadHabitacionalExisteID($idUnidadHabitacional)){
                 throw new Exception("La unidad habitacional no existe", 404);
             }
-            $this->repositorio->modificarUnidadHabitacional($idUnidadHabitacional, $numeroPuerta, $pasillo, $estadoUnidad, $cantidadHabitaciones);
+            $idPersona = $this->repositorio->getIDPersonaConCi($ci);
+            $this->repositorio->modificarUnidadHabitacional($idUnidadHabitacional, $numeroPuerta, $pasillo, $estadoUnidad, $cantidadHabitaciones, $idPersona);
         }
         public function rechazarFalta($idFalta){
             $this->repositorio->rechazarFalta($idFalta);
@@ -532,9 +539,11 @@
         }
 
         public function getUnidadesLibres(){
-            $datos = $this->repositorio->getUnidadesLibres();
-            return $datos;
+            return $this->repositorio->getUnidadesLibres();
         }
 
+        public function cambiarEstado($ids, $estado){
+            return $this->repositorio->cambiarEstado($ids, $estado);
+        }
 
     }

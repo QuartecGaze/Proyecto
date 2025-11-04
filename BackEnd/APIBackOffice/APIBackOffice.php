@@ -203,7 +203,8 @@
             if($accion === "asignarUnidadHabitacional"){
                 try {
                     $datos = json_decode(file_get_contents('php://input'), true);
-                    //tiene que recibir la cedula de la persona y el idunidadhabitacional
+                    $ci = $datos['ci'];
+                    $idUnidadHabitacional = $datos['idUnidad'];
                     $servicio->asignarUnidadHabitacional($ci, $idUnidadHabitacional);
                     respuesta("Unidad Habitacional asignada con exito", "exito", 201);
                 } catch(Exception $e) {
@@ -218,8 +219,9 @@
                         $datos['id'],
                         $datos['habitaciones'],
                         $datos['estado'],
-                        $datos['puerta'], 
-                        $datos['pasillo'], 
+                        $datos['puerta'],
+                        $datos['pasillo'],
+                        $datos['ci']
                     );
                     respuesta("La unidad habitacional se ha modificado con éxito", "exito", 201);
                 } catch(Exception $e) {
@@ -384,13 +386,30 @@
 
             
             if($accion === "getHorasTrabajadasUsuarios"){
-            try {
-                $horasUsuarios = $servicio->getHorasTrabajadasUsuarios();
-                respuesta($horasUsuarios, "exito", 201);
-            } catch(Exception $e) {
-                respuesta($e->getMessage(), "error", $e->getCode());
+                try {
+                    $horasUsuarios = $servicio->getHorasTrabajadasUsuarios();
+                    respuesta($horasUsuarios, "exito", 201);
+                } catch(Exception $e) {
+                    respuesta($e->getMessage(), "error", $e->getCode());
+                }
             }
-        }
+
+            if ($accion === "cambiarEstado") {
+                try {
+                    $datos = json_decode(file_get_contents('php://input'), true);
+                    $ids = $datos['ids'];
+                    $estado = $datos['estado'];
+                    $resultado = $servicio->cambiarEstado($ids, $estado);
+            
+                    if ($resultado) {
+                        respuesta("Estado actualizado correctamente", "exito", 200);
+                    } else {
+                        respuesta("Campo inválido", "error", 400);
+                    }
+                } catch(Exception $e) {
+                    respuesta($e->getMessage(), "error", $e->getCode());
+                }
+            }
 
 
 
@@ -450,10 +469,17 @@
                 }
             }
 
-            if ($accion === "contarInteresados") {
+            if ($accion === "cantidadPendientes") {
                 try {
-                    $total = $servicio->contarInteresados();
-                    respuesta($total, "exito", 200);
+                    $interesados = $servicio->contarInteresados();
+                    $faltas = $servicio->contarFaltasPendientes();
+                    $comprobantes = $servicio->contarComprobantesEnEspera();
+                    $respuesta = [
+                        'interesados' => $interesados,
+                        'faltas' => $faltas,
+                        'comprobantes' => $comprobantes
+                    ];
+                    respuesta($respuesta, "exito", 200);
                 } catch (Exception $e) {
                     respuesta($e->getMessage(), "error", $e->getCode());
                 }
@@ -509,9 +535,9 @@
             if($accion == "getUnidadesLibres"){
                 try {
                     $unidades = $servicio->getUnidadesLibres();
-                    respuesta($unidades, "exito", 201);
+                    respuesta($unidades, "exito", 200);
                 } catch(Exception $e) {
-                    respuesta($e->getMessage(), "error", $e->getCode());
+                    respuesta($e->getMessage(), "error", $e->getCode(), 500);
                 }
             }
 

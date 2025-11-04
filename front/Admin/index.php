@@ -115,15 +115,15 @@
                 </a>
 
                 <!-- Tarjeta de proyectos activos -->
-                <a href="">
+                <a href="faltas.php">
                     <div class="tarjeta-dashboard">
                         <div class="tarjeta-icono">
-                            <i class="material-icons">apartment</i>
+                            <i class="material-icons">punch_clock</i>
                         </div>
                         <div class="tarjeta-contenido">
-                            <h3>Unidades Habitacionales</h3>
-                            <p class="tarjeta-valor">3</p>
-                            <p class="tarjeta-subtexto">En Construccion</p>
+                            <h3>Faltas de horas Pendientes</h3>
+                            <p class="tarjeta-valor" id="faltasEnEspera">.</p>
+                            <p class="tarjeta-subtexto">Por corroborar</p>
                         </div>
                     </div>
                 </a>
@@ -140,15 +140,15 @@
                 </div>
 
                 <!-- Tarjeta de estado financiero -->
-                <a href="">
+                <a href="confirmarPagos.php">
                     <div class="tarjeta-dashboard">
                         <div class="tarjeta-icono">
                             <i class="material-icons">payments</i>
                         </div>
                         <div class="tarjeta-contenido">
-                            <h3>Cuota</h3>
-                            <p class="tarjeta-valor">$1,250</p>
-                            <p class="tarjeta-subtexto">A pagar</p>
+                            <h3>Comprobantes Enviados</h3>
+                            <p class="tarjeta-valor" id="comprobantesPendientes">.</p>
+                            <p class="tarjeta-subtexto">Por Revisar</p>
                         </div>
                     </div>
                 </a>
