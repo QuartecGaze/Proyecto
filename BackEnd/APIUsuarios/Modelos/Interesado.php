@@ -9,8 +9,9 @@
         private $pagoInicial;
         private $estadoPagoInicial;
         private $montoPagoInicial;
+        private $unidadHabitacionalAsignada;
 
-        public function __construct($ci, $email, $telefono, $idPersona, $nombre, $apellido, $contraseña, $rol, $antecedentes, $estadoAntecedentes, $estadoEntrevista, $fechaEntrevista, $horaEntrevista, $pagoInicial, $estadoPagoInicial, $montoPagoInicial) {
+        public function __construct($ci, $email, $telefono, $idPersona, $nombre, $apellido, $contraseña, $rol, $antecedentes, $estadoAntecedentes, $estadoEntrevista, $fechaEntrevista, $horaEntrevista, $pagoInicial, $estadoPagoInicial, $montoPagoInicial, $unidadHabitacionalAsignada) {
             parent::__construct($ci, $email, $telefono, $idPersona, $nombre, $apellido, $contraseña, $rol);
             $this->antecedentes = $antecedentes;
             $this->estadoAntecedentes = $estadoAntecedentes;
@@ -20,6 +21,7 @@
             $this->pagoInicial = $pagoInicial;
             $this->estadoPagoInicial = $estadoPagoInicial;
             $this->montoPagoInicial = $montoPagoInicial;
+            $this->unidadHabitacionalAsignada = $unidadHabitacionalAsignada;
             
     }
         // Getters
@@ -55,6 +57,9 @@ public function getMontoPagoInicial() {
     return $this->montoPagoInicial;
 }
 
+public function getunidadHabitacionalAsignada() {
+    return $this->unidadHabitacionalAsignada;
+}
 // Setters
 public function setAntecedentes($antecedentes) {
     $this->antecedentes = $antecedentes;
@@ -88,6 +93,10 @@ public function setMontoPagoInicial($montoPagoInicial) {
     $this->montoPagoInicial = $montoPagoInicial;
 }
 
+public function setunidadHabitacionalAsignada($unidadHabitacionalAsignada) {
+    $this->unidadHabitacionalAsignada = $unidadHabitacionalAsignada;
+}
+
 public function toArray() {
     return [
 
@@ -106,6 +115,7 @@ public function toArray() {
         "pagoInicial"         => $this->getPagoInicial(),
         "estadoPagoInicial"   => $this->getEstadoPagoInicial(),
         "montoPagoInicial"    => $this->getMontoPagoInicial(),
+        "unidadHabitacionalAsignada" => $this->getunidadHabitacionalAsignada(),
     ];
 }
 }

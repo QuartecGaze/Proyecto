@@ -162,7 +162,8 @@ require __DIR__ .'/../Consultas.php';
                 $fila['Hora_entrevista'], 
                 $fila['Pago_inicial'], 
                 $fila['Estado_pago_inicial'], 
-                $fila['Monto_pago_inicial']
+                $fila['Monto_pago_inicial'],
+                $fila['Unidad_Habitacional_Asignada']
             );
             }
             return $interesados;
@@ -989,23 +990,35 @@ require __DIR__ .'/../Consultas.php';
 
         public function getUnidadesLibres() {
             $consulta = "
-                SELECT * FROM unidad_habitacional WHERE ID_Persona = null
+                SELECT 
+                    ID_Unidad_habitacional,
+                    Numero_puerta,
+                    Pasillo,
+                    Estado_unidad,
+                    Cantidad_habitaciones
+                FROM unidad_habitacional
+                WHERE ID_Persona IS NULL
             ";
 
             $respuesta = consulta($this->conn, $consulta);
             $unidades = [];
 
-            while ($fila = $respuesta->fetch_assoc()) {
-                $unidades = [
-                    'ID_Unidad_habitacional' => $fila['ID_Unidad_habitacional'],
-                    'Numero_puerta' => $fila['Numero_puerta'],
-                    'Pasillo' => $fila['Pasillo'],
-                    'Estado_unidad' => $fila['Estado_unidad'],
-                    'Cantidad_habitaciones' => $fila['Cantidad_habitaciones']
-                ];
+            if ($respuesta && $respuesta->num_rows > 0) {
+                while ($fila = $respuesta->fetch_assoc()) {
+                    $unidades[] = [
+                        'ID_Unidad_habitacional' => $fila['ID_Unidad_habitacional'],
+                        'Numero_puerta' => $fila['Numero_puerta'],
+                        'Pasillo' => $fila['Pasillo'],
+                        'Estado_unidad' => $fila['Estado_unidad'],
+                        'Cantidad_habitaciones' => $fila['Cantidad_habitaciones']
+                    ];
+                }
             }
+
             return $unidades;
         }
+
+
         public function getUnidadesHabitacionales(){
             $consulta = "
                 SELECT * 

@@ -137,3 +137,6 @@ export function cambiarEstado(data) {
     return apiRequest('/APIBackOffice/ApiBackOffice.php?accion=cambiarEstado', 'POST', data);
 }
 
+export function asignarUnidadHabitacional(data) {
+    return apiRequest('/APIBackOffice/ApiBackOffice.php?accion=asignarUnidadHabitacional', 'POST', data);
+}

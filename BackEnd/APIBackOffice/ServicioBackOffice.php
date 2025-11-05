@@ -201,6 +201,7 @@
             $idPersona = $this->repositorio->getIDPersonaConCi($ci);
             if(!$this->repositorio->unidadHabitacionalAsignada($idUnidadHabitacional)){
                 $this->repositorio->asignarUnidadHabitacional($idPersona, $idUnidadHabitacional);
+                $this->repositorio->unidadHabitacionalBoolean($idPersona);
             }
         }
 
@@ -538,8 +539,7 @@
         }
 
         public function getUnidadesLibres(){
-            $datos = $this->repositorio->getUnidadesLibres();
-            return $datos;
+            return $this->repositorio->getUnidadesLibres();
         }
 
         public function cambiarEstado($ids, $estado){

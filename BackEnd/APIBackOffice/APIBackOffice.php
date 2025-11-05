@@ -203,7 +203,8 @@
             if($accion === "asignarUnidadHabitacional"){
                 try {
                     $datos = json_decode(file_get_contents('php://input'), true);
-                    //tiene que recibir la cedula de la persona y el idunidadhabitacional
+                    $ci = $datos['ci'];
+                    $idUnidadHabitacional = $datos['idUnidad'];
                     $servicio->asignarUnidadHabitacional($ci, $idUnidadHabitacional);
                     respuesta("Unidad Habitacional asignada con exito", "exito", 201);
                 } catch(Exception $e) {
@@ -534,9 +535,9 @@
             if($accion == "getUnidadesLibres"){
                 try {
                     $unidades = $servicio->getUnidadesLibres();
-                    respuesta($unidades, "exito", 201);
+                    respuesta($unidades, "exito", 200);
                 } catch(Exception $e) {
-                    respuesta($e->getMessage(), "error", $e->getCode());
+                    respuesta($e->getMessage(), "error", $e->getCode(), 500);
                 }
             }
 

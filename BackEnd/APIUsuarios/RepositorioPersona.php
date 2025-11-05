@@ -91,7 +91,8 @@ class RepositorioPersona {
             $fila['Hora_entrevista'], 
             $fila['Pago_inicial'], 
             $fila['Estado_pago_inicial'], 
-            $fila['Monto_pago_inicial']
+            $fila['Monto_pago_inicial'],
+            $fila['Unidad_Habitacional_Asignada']
         );
     }
 
