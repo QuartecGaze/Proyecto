@@ -12,13 +12,14 @@
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
 </head>
 
-<body class="backoffice">
-    <button class="hamburger-btn">
-        <span class="material-icons">menu</span>
+<body class="backoffice" style="overflow: auto;">
+    <button class="boton-hamburguesa" id="botonHamburguesa">
+        <span></span>
     </button>
+    <div class="overlay" id="overlay"></div>
     <div class="contenedor-dashboard">
         <!-- Sidebar -->
-        <aside class="sidebar">
+        <aside class="sidebar" id="sidebar">
             <div class="logo-dashboard">
                 <img src="../../Fotos/logoBack.webp" alt="Logo Cooperativa">
                 <span>Senda Firme</span>
@@ -264,7 +265,9 @@
             <div class="tarjeta-socio" id="tarjetaSocio">
                 <img src="" alt="Foto del socio" class="foto-socio" id="fotoSocio">
                 <div class="nombre-socio" id="nombreSocio">Nombre del Socio</div>
-                <div class="info-socio" id="infoSocio"><p>CI: 57051830 <br> Unidad Habitacional: 5 </p></div>
+                <div class="info-socio" id="infoSocio">
+                    <p>CI: 57051830 <br> Unidad Habitacional: 5 </p>
+                </div>
             </div>
 
             <div class="controles-asistencia">
@@ -299,8 +302,9 @@
             </div>
         </div>
     </div>
-    
+
     <script src="../Javascript/BackOffice/generalidades.js" type="module"></script>
     <script src="../Javascript/BackOffice/reuniones.js" type="module"></script>
 </body>
+
 </html>

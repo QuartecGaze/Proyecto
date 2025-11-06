@@ -14,13 +14,14 @@
         href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200&icon_names=event_available" />
 </head>
 
-<body class="backoffice">
-    <button class="hamburger-btn">
-        <span class="material-icons">menu</span>
+<body class="backoffice" cz-shortcut-listen="true" style="overflow: auto;">
+    <button class="boton-hamburguesa" id="botonHamburguesa">
+        <span></span>
     </button>
+    <div class="overlay" id="overlay"></div>
     <div class="contenedor-dashboard">
         <!-- Sidebar -->
-        <aside class="sidebar">
+        <aside class="sidebar" id="sidebar">
             <div class="logo-dashboard">
                 <img src="../../Fotos/logoBack.webp" alt="Logo Cooperativa">
                 <span>Senda Firme</span>
@@ -218,7 +219,65 @@
         </div>
     </div>
 
+    <script>
+        // Funcionalidad del menú hamburguesa para admin
+        const botonHamburguesa = document.getElementById('botonHamburguesa');
+        const sidebar = document.getElementById('sidebar');
+        const overlay = document.getElementById('overlay');
 
+        function toggleMenu() {
+            botonHamburguesa.classList.toggle('activo');
+            sidebar.classList.toggle('activo');
+            overlay.classList.toggle('activo');
+            document.body.style.overflow = sidebar.classList.contains('activo') ? 'hidden' : 'auto';
+        }
+
+        botonHamburguesa.addEventListener('click', toggleMenu);
+        overlay.addEventListener('click', toggleMenu);
+
+        // Cerrar menú al hacer clic en un enlace (en móviles)
+        /* document.querySelectorAll('.item-menu a').forEach(enlace => {
+            enlace.addEventListener('click', () => {
+                if (window.innerWidth <= 768) {
+                    toggleMenu();
+                }
+            });
+        }); */
+
+        // Ajustar el menú al cambiar el tamaño de la ventana
+        window.addEventListener('resize', () => {
+            if (window.innerWidth > 768) {
+                botonHamburguesa.classList.remove('activo');
+                sidebar.classList.remove('activo');
+                overlay.classList.remove('activo');
+                document.body.style.overflow = 'auto';
+            }
+        });
+
+        // Funcionalidad del modal
+        const modal = document.getElementById('modalReunion');
+        const cerrarModal = document.querySelector('.cerrar-modal');
+        const botonCerrarModal = document.getElementById('botonCerrarModal');
+
+        if (cerrarModal) {
+            cerrarModal.addEventListener('click', () => {
+                modal.style.display = 'none';
+            });
+        }
+
+        if (botonCerrarModal) {
+            botonCerrarModal.addEventListener('click', () => {
+                modal.style.display = 'none';
+            });
+        }
+
+        // Cerrar modal al hacer clic fuera del contenido
+        window.addEventListener('click', (e) => {
+            if (e.target === modal) {
+                modal.style.display = 'none';
+            }
+        });
+    </script>
     <script src="../Javascript/BackOffice/generalidades.js" type="module"></script>
     <script src="../Javascript/BackOffice/solicitudes.js" type="module"></script>
 </body>
