@@ -639,7 +639,7 @@ require __DIR__ .'/../Consultas.php';
                     'Apellido'        => $fila['Apellido'],
                     'CI'              => $fila['CI'],
                     'FechaNacimiento' => $fila['FechaNacimiento'],
-                    'Telefono'        => $fila['Telefono'],
+                    'email'        => $fila['Email'],
                     'Genero'          => $fila['Genero']
                 ];
             //agregar parentesco si hace falta
@@ -1075,6 +1075,122 @@ require __DIR__ .'/../Consultas.php';
         }
         return $actualizados > 0;
     }
+
+    public function getPagosEnEsperaUsuario($idPersona){
+        $consulta = "
+            SELECT Monto 
+            FROM comprobante_pago  
+            WHERE Estado_pago = 'En Espera' AND ID_Persona = $idPersona;
+        ";
+        $resultado = consulta($this->conn, $consulta); 
+        $totalPagos = 0;
+        while ($fila = mysqli_fetch_assoc($resultado)) {
+            $totalPagos += $fila['Monto'];
+        }
+        return $totalPagos;
+    }
+
+    public function getPagosAprobadoUsuario($idPersona){
+        $consulta = "
+            SELECT Monto 
+            FROM comprobante_pago  
+            WHERE Estado_pago = 'Aprobado' AND ID_Persona = $idPersona;
+        ";
+        $resultado = consulta($this->conn, $consulta); 
+        $totalPagos = 0;
+        while ($fila = mysqli_fetch_assoc($resultado)) {
+            $totalPagos += $fila['Monto'];
+        }
+        return $totalPagos;
+    }
+
+    
+
+    public function getHorasSemanales($idSemana){
+        $consulta = "
+            SELECT Horas_semanales
+            FROM semana_Trabajo
+            WHERE ID_Semana_trabajo = $idSemana
+        ";
+        $resultado = consulta($this->conn, $consulta);
+        $horas = $resultado['Horas_semanales'];
+        return $horas;
+    }
+
+    public function horasTrabajadasXSemana($idPersona, $idSemana){
+        $consulta = "
+            SELECT Horas
+            FROM horas_trabajadas
+            WHERE ID_Persona = ? AND ID_Semana_trabajo = ?
+        ";
+        $resultado = consulta($this->conn, $consulta, "ii", [$idPersona, $idSemana]);
+        if ($resultado === false) {
+            return 0;
+        }
+
+        $total = 0;
+        while ($fila = mysqli_fetch_assoc($resultado)) {
+            $total +=  $fila['Horas'];
+        }
+        return $total;
+    }
+
+    public function getHorasNecesariasSemana($semana){
+        $consulta = "
+            SELECT Horas_semanales
+            FROM   semana_trabajo
+            WHERE  Fecha_semana = ?
+        ";
+        $resultado = consulta($this->conn, $consulta, "s", [$semana]);
+        if ($resultado === false) {
+            return null;
+        }
+        if ($fila = mysqli_fetch_assoc($resultado)) {
+            return $fila['Horas_semanales']; 
+        }
+        return null; 
+}
+public function getIdSemana($fecha){
+    $consulta = "
+        SELECT ID_Semana_trabajo
+        FROM   semana_trabajo
+        WHERE  Fecha_semana = ?
+        LIMIT 1 
+    "; //para solo traer uno
+    $resultado = consulta($this->conn, $consulta, "s", [$fecha]);
+    if ($resultado === false) {
+        return null;
+    }
+    if ($fila = mysqli_fetch_assoc($resultado)) {
+        return $fila['ID_Semana_trabajo']; 
+    }
+    return null;
+}
+
+
+
+public function getDireccion($idPersona) {
+    $idPersona = (int)$idPersona; // seguridad básica
+    $consulta = "
+        SELECT Numero_puerta, Pasillo
+        FROM unidad_habitacional
+        WHERE ID_Persona = $idPersona
+        LIMIT 1
+    ";
+    $resultado = consulta($this->conn, $consulta);
+
+    if ($fila = mysqli_fetch_assoc($resultado)) {
+        $nroPuerta = $fila['Numero_puerta'] ?? '';
+        $pasillo = $fila['Pasillo'] ?? '';
+        $direccion = trim($nroPuerta . ' ' . $pasillo);
+        return $direccion;
+    }
+
+    return null; // si no tiene unidad asignada
+}
+
+
+
 
 
 

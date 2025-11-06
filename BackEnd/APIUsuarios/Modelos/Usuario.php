@@ -36,7 +36,7 @@
             $this->foto = $foto;
         }
 
-        public function toArray($horas = 0) {
+        public function toArray($horasTrabajadasTotal = 0, $horasTrabajadasSemana = 0, $totalHorasATrabajar = 0, $totalDebe = 0, $direccion = null, $integrantesFamiliares = null) {
             return [
                 'ci' => $this->getCi(),
                 'email' => $this->getEmail(),
@@ -49,8 +49,14 @@
                 'fechaNacimiento' => $this->getFechaNacimiento(),
                 'fechaIngreso' => $this->getFechaIngreso(),
                 'foto' => $this->getFoto(),
-                'horasTrabajadas' => $horas,
+                'horasTrabajadasTotal' => $horasTrabajadasTotal,
+                'horasTrabajadasSemana' => $horasTrabajadasSemana,
+                'totalHorasATrabajar' => $totalHorasATrabajar,
+                'totalDebe' => $totalDebe,
+                'direccion' => $direccion,
+                'integrantesFamiliares' => $integrantesFamiliares
             ];
         }
+        
 
     }

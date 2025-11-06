@@ -1,175 +1,320 @@
-// socios.js - Funcionalidad para editar información personal de socios
+// socios.js - Página Socios (listar tarjetas, abrir modal, editar y guardar)
+// Dependencias (ya las tenías):
 import { getUsuarios } from '../../../BackEnd/APIFetchs/APIBackOffice.js';
 import { actualizarUsuario } from '../../../BackEnd/APIFetchs/APIUsuario.js';
 import { getIntegrantesFamiliares } from '../../../BackEnd/APIFetchs/APICooperativa.js';
 
-const btnEditar = document.getElementById('btnEditarUsuario');
-const btnGuardar = document.getElementById('btnGuardarCambios');
-const btnCancelar = document.getElementById('btnCancelarEdicion');
-const tablaFamiliares = document.getElementById('tablaFamiliares');
+// ---------- Helpers ----------
+const fmtMon = v => `$ ${Number(v ?? 0).toLocaleString('es-UY')}`;
+
+// ---------- Elementos de UI ----------
+const contenedor = document.querySelector(".contenedor-socios");
+
+const modal = document.getElementById('modalUsuario');
 const modalAvatar = document.getElementById('modalAvatar');
+const tablaFamiliares = document.getElementById('tablaFamiliares');
 
+const btnEditar   = document.getElementById('btnEditarUsuario');
+const btnGuardar  = document.getElementById('btnGuardarCambios');
+const btnCancelar = document.getElementById('btnCancelarEdicion');
+
+// Spans para ver datos
+const spans = {
+  nombre: document.getElementById('modalNombre'),
+  apellido: document.getElementById('modalApellido'),
+  cedula: document.getElementById('modalCedula'),
+  fechaNacimiento: document.getElementById('modalFechaNacimiento'),
+  direccion: document.getElementById('modalDireccion'),
+  email: document.getElementById('modalEmail'),
+  telefono: document.getElementById('modalTelefono'),
+  fechaRegistro: document.getElementById('modalFechaRegistro'),
+
+  horasTotales: document.getElementById('modalHorasTotales'),
+  horasActual: document.getElementById('modalHorasActual'),
+  saldo: document.getElementById('modalSaldo'),
+};
+
+// Inputs para editar
+const inputs = {
+  nombre: document.getElementById('inputNombre'),
+  apellido: document.getElementById('inputApellido'),
+  cedula: document.getElementById('inputCedula'),
+  fechaNacimiento: document.getElementById('inputFechaNacimiento'),
+  direccion: document.getElementById('inputDireccion'),
+  email: document.getElementById('inputEmail'),
+  telefono: document.getElementById('inputTelefono'),
+};
+
+// ---------- Estado ----------
 let usuarios = [];
-let id = null;
+let usuarioActual = null;   // objeto completo del usuario abierto
+let telefonoActual = [];    // array de teléfonos para no parsear HTML
+
+// ---------- Carga inicial ----------
 const dataUsuarios = await getUsuarios();
-usuarios = Object.values(dataUsuarios.message);
-console.log(usuarios);
-const contenedor = document.querySelectorAll(".contenedor-socios")[0];
-contenedor.innerHTML = "";
-    usuarios.forEach((usuario, index) => {
-        const fotoPath = usuario.foto ? `../../Recursos/FotosPerfil/${usuario.foto}` : '../../Recursos/FotosPerfil/usuario.webp';
-        contenedor.innerHTML += `
-                <div class="etiqueta">
-                    <div class="card">
-                        <div class="card-header">
-                            <img src="${fotoPath}" alt="Usuario" class="avatar">
-                            <div class="info">
-                                <h3>${usuario.nombre} ${usuario.apellido}</h3>
-                                <p>Pasillo P-1 <br> Puerta 100</p>
-                            </div>
-                        </div>
-                        <div class="card-footer">
-                            <span class="tag gray">${usuario.horasTrabajadas.Total_Horas} Horas Trabajadas Totales</span>
-                            <span class="tag red">0/21</span>
-                            <span class="tag green">$ 0</span>
-                        </div>
-                    </div>
-                    <div class="actions">
-                        <button data-index="${index}" class="boton-ver-usuario">
-                            <i class="material-icons" style="font-size: 40px;">visibility</i>
-                        </button>
-                    </div>
-                </div>
-    `;
-    
+usuarios = Array.isArray(dataUsuarios?.message)
+  ? dataUsuarios.message
+  : Object.values(dataUsuarios?.message ?? {});
+
+renderTarjetas(usuarios);
+vincularBotonesAbrirModal();
+
+// ---------- Render tarjetas ----------
+function renderTarjetas(lista) {
+    if (!contenedor) return;
+    contenedor.innerHTML = "";
+  
+    lista.forEach((usuario, index) => {
+      const fotoPath = usuario.foto
+        ? `../../Recursos/FotosPerfil/${usuario.foto}`
+        : '../../Recursos/FotosPerfil/usuario.webp';
+  
+      const direccion = usuario?.direccion || '—';
+      const horasTot  = Number(usuario?.horasTrabajadasTotal?.Total_Horas ?? 0);
+      const horasAct  = Number(usuario?.horasTrabajadasSemana ?? 0);
+      const horasPlan = Number(usuario?.totalHorasATrabajar ?? 0);
+      const totalDebe = Number(usuario?.totalDebe ?? 0);
+  
+      const claseDeuda = totalDebe <= 0 ? 'green' : 'red'; // <=0 verde, >0 rojo
+  
+      contenedor.innerHTML += `
+        <div class="etiqueta">
+          <div class="card">
+            <div class="card-header">
+              <img src="${fotoPath}" alt="Usuario" class="avatar">
+              <div class="info">
+                <h3>${usuario.nombre ?? ''} ${usuario.apellido ?? ''}</h3>
+                <p>${direccion}</p>
+              </div>
+            </div>
+            <div class="card-footer">
+              <span class="tag gray">${horasTot} Horas Trabajadas Totales</span>
+              <span class="tag red">${horasAct}/${horasPlan}</span>
+              <span class="tag ${claseDeuda}">${fmtMon(totalDebe)}</span>
+            </div>
+          </div>
+          <div class="actions">
+            <button data-index="${index}" class="boton-ver-usuario">
+              <i class="material-icons" style="font-size: 40px;">visibility</i>
+            </button>
+          </div>
+        </div>
+      `;
     });
+  }
+  
 
-    const modal = document.getElementById('modalUsuario');
-     const spans = {
-        nombre: document.getElementById('modalNombre'),
-        apellido: document.getElementById('modalApellido'),
-        cedula: document.getElementById('modalCedula'),
-        fechaNacimiento: document.getElementById('modalFechaNacimiento'),
-        direccion: document.getElementById('modalDireccion'),
-        email: document.getElementById('modalEmail'),
-        telefono: document.getElementById('modalTelefono'),
-        fechaRegistro: document.getElementById('modalFechaRegistro')
-    };
-
-    const inputs = {
-        nombre: document.getElementById('inputNombre'),
-        apellido: document.getElementById('inputApellido'),
-        cedula: document.getElementById('inputCedula'),
-        fechaNacimiento: document.getElementById('inputFechaNacimiento'),
-        direccion: document.getElementById('inputDireccion'),
-        email: document.getElementById('inputEmail'),
-        telefono: document.getElementById('inputTelefono')
-    };
-
-    document.querySelectorAll('.actions button').forEach(boton => {
-        boton.addEventListener('click', async function () {
-            desactivarModoEdicion();
-             spans['telefono'].textContent = "";
-            const index = this.getAttribute('data-index');
-            const usuario = usuarios[index];
-            id = usuario.idPersona;
-            modalAvatar.src = usuario.foto ? `../../Recursos/FotosPerfil/${usuario.foto}` : '../../Recursos/FotosPerfil/usuario.webp';
-            spans['nombre'].textContent = usuario.nombre;
-            spans['apellido'].textContent = usuario.apellido;
-            spans['cedula'].textContent = usuario.ci;
-            spans['fechaNacimiento'].textContent = usuario.fechaNacimiento || 'No proporcionada';
-            spans['direccion'].textContent = usuario.direccion || 'No proporcionada';
-            spans['email'].textContent = usuario.email || 'No proporcionado';
-            spans['fechaRegistro'].textContent = usuario.fechaIngreso || 'No proporcionada';
-            console.log('Abriendo modal de usuario:', usuario);
-            modal.style.display = 'flex';
-            usuario.telefono.forEach(tel => {
-                console.log('Agregando teléfono al modal:', tel);
-                spans['telefono'].innerHTML += tel + '<br>';
-            });
-            let integrantes = await getIntegrantesFamiliares(id);
-            integrantes.message.forEach(integrante => {
-                tablaFamiliares.innerHTML += `
-                   <tr>
-                                    <td>${integrante.nombre}</td>
-                                    <td>${integrante.apellido}</td>
-                                    <td>${integrante.ci}</td>
-                                    <td>${integrante.email}</td>
-                                </tr>`;
-        });
+// ---------- Vincular eventos para abrir modal ----------
+function vincularBotonesAbrirModal() {
+  document.querySelectorAll('.actions button.boton-ver-usuario').forEach(boton => {
+    boton.addEventListener('click', async function () {
+      const index = Number(this.getAttribute('data-index'));
+      usuarioActual = usuarios[index] ?? null;
+      if (!usuarioActual) return;
+      await poblarModal(usuarioActual);
+      abrirModal();
     });
-})
+  });
 
-    document.querySelectorAll('.cerrar-modal').forEach(cerrar => {
-        cerrar.addEventListener('click', function () {
-            console.log('Cerrando modal de usuario');
-            modal.style.display = 'none';
-        });
-    });
+  // Cerrar modal (botones con clase .cerrar-modal)
+  document.querySelectorAll('.cerrar-modal').forEach(btn => {
+    btn.addEventListener('click', cerrarModal);
+  });
 
-    btnEditar.addEventListener('click', function () {
-        activarModoEdicion();
-    });
+  // Cerrar clickeando fuera
+  window.addEventListener('click', function (e) {
+    if (e.target === modal) cerrarModal();
+  });
 
-    btnCancelar.addEventListener('click', function () {
-        desactivarModoEdicion();
-    });
+  // Escape
+  document.addEventListener('keydown', function (e) {
+    if (e.key === 'Escape' && modal.style.display === 'flex') cerrarModal();
+  });
 
-    btnGuardar.addEventListener('click', async function () {
-        console.log('Guardando cambios de usuario');
-        const datosParaGuardar = actualizarDatosUsuario();
-        await actualizarUsuario(datosParaGuardar);
-        desactivarModoEdicion();
-        modal.style.display = 'none';
+  // Edición
+  btnEditar?.addEventListener('click', activarModoEdicion);
+  btnCancelar?.addEventListener('click', desactivarModoEdicion);
+  btnGuardar?.addEventListener('click', guardarCambios);
+}
 
-    });
+// ---------- Modal: poblar ----------
+async function poblarModal(usuario) {
+  // Foto
+  modalAvatar.src = usuario.foto
+    ? `../../Recursos/FotosPerfil/${usuario.foto}`
+    : '../../Recursos/FotosPerfil/usuario.webp';
 
-    function activarModoEdicion() {        // Ocultar spans y mostrar inputs
-        Object.keys(spans).forEach(key => {
-            if (inputs[key]) {
-                spans[key].style.display = 'none';
-                inputs[key].style.display = 'block';
+  // Datos básicos
+  spans.nombre.textContent = usuario.nombre ?? '—';
+  spans.apellido.textContent = usuario.apellido ?? '—';
+  spans.cedula.textContent = usuario.ci ?? '—';
+  spans.fechaNacimiento.textContent = usuario.fechaNacimiento || 'No proporcionada';
+  spans.direccion.textContent = usuario.direccion || 'No proporcionada';
+  spans.email.textContent = usuario.email || 'No proporcionado';
+  spans.fechaRegistro.textContent = usuario.fechaIngreso || 'No proporcionada';
 
-                // Caso especial para fecha de nacimiento
-        
-                    inputs[key].value = spans[key].textContent;
-                    btnGuardar.style.display = 'block';
-                    btnEditar.style.display = 'none'
-                
-            }
-        });
-        };
-    function desactivarModoEdicion() {
-        // Ocultar inputs y mostrar spans
-        Object.keys(spans).forEach(key => {
-            if (inputs[key]) {
-                spans[key].style.display = 'block';
-                inputs[key].style.display = 'none';
-            }
-            tablaFamiliares.innerHTML = `
-                `;
-        });
+  // Teléfonos (array)
+  spans.telefono.innerHTML = '';
+  telefonoActual = Array.isArray(usuario.telefono) ? usuario.telefono : [];
+  telefonoActual.forEach(t => spans.telefono.innerHTML += `${t}<br>`);
 
-        // Cambiar visibilidad de botones
-        btnEditar.style.display = 'block';
-        btnGuardar.style.display = 'none';
-        btnCancelar.style.display = 'none';
+  // Integrantes familiares: uso lo que venga, si no hay, lo busco
+tablaFamiliares.innerHTML = '';
+
+let familiaresRaw = Array.isArray(usuario.integrantesFamiliares) && usuario.integrantesFamiliares.length
+  ? usuario.integrantesFamiliares
+  : (await getIntegrantesFamiliares(usuario.idPersona))?.message ?? [];
+
+// Normalizador de claves (acepta Nombre/Apellido/CI/Email o nombre/apellido/ci/email)
+const normFam = (i = {}) => ({
+  nombre:   i.nombre   ?? i.Nombre   ?? '',
+  apellido: i.apellido ?? i.Apellido ?? '',
+  ci:       i.ci       ?? i.CI       ?? '',
+  email:    i.email    ?? i.Email    ?? '',
+});
+
+const familiares = familiaresRaw.map(normFam);
+
+if (familiares.length === 0) {
+  tablaFamiliares.innerHTML = `
+    <tr>
+      <td colspan="4" style="text-align:center; color:#777;">Sin integrantes familiares</td>
+    </tr>`;
+} else {
+  familiares.forEach(int => {
+    tablaFamiliares.innerHTML += `
+      <tr>
+        <td>${int.nombre}</td>
+        <td>${int.apellido}</td>
+        <td>${int.ci}</td>
+        <td>${int.email}</td>
+      </tr>`;
+  });
+}
+
+
+  // Estadísticas
+const horasTotales = Number(usuario?.horasTrabajadasTotal?.Total_Horas ?? 0);
+const horasSemana  = Number(usuario?.horasTrabajadasSemana ?? 0);
+const horasPlan    = Number(usuario?.totalHorasATrabajar ?? 0);
+const totalDebe    = Number(usuario?.totalDebe ?? 0);
+
+spans.horasTotales.textContent = horasTotales;
+spans.horasActual.textContent  = `${horasSemana}/${horasPlan}`;
+spans.saldo.textContent        = fmtMon(totalDebe);
+
+// Colorear saldo del modal (usa tus clases .monto.positivo / .monto.negativo)
+spans.saldo.classList.add('monto'); // asegura que aplique el CSS existente
+spans.saldo.classList.toggle('positivo', totalDebe <= 0);
+spans.saldo.classList.toggle('negativo', totalDebe > 0);
+
+
+  // Aseguramos que el modo edición esté apagado cada vez que se abre
+  desactivarModoEdicion();
+}
+
+// ---------- Modal: abrir/cerrar ----------
+function abrirModal() {
+  modal.style.display = 'flex';
+}
+
+function cerrarModal() {
+  modal.style.display = 'none';
+}
+
+// ---------- Edición ----------
+function activarModoEdicion() {
+  // Mostrar inputs, ocultar spans
+  Object.keys(spans).forEach(key => {
+    if (inputs[key]) {
+      spans[key].style.display = 'none';
+      inputs[key].style.display = 'block';
+      // Para fecha, si viene AAAA-MM-DD se coloca directo; si viene DD/MM/AAAA, habría que convertir.
+      inputs[key].value = spans[key].textContent === 'No proporcionada' ? '' : spans[key].textContent;
     }
-    
-    function actualizarDatosUsuario() {
-        const datosParaGuardar = {
-            id: id,
-            nombre: inputs.nombre.value,
-            apellido: inputs.apellido.value,
-            ci: inputs.cedula.value,
-            fechaNacimiento: inputs.fechaNacimiento.value,
-            direccion: inputs.direccion.value,
-            email: inputs.email.value,
-            telefono: spans['telefono'].textContent.split('<br>').filter(tel => tel.trim() !== '')
-        };
-        console.log('Datos para guardar:', datosParaGuardar);
-        return datosParaGuardar;
+  });
+
+  // Teléfonos al input (separados por coma)
+  if (inputs.telefono) inputs.telefono.value = telefonoActual.join(', ');
+
+  btnEditar.style.display = 'none';
+  btnGuardar.style.display = 'block';
+  btnCancelar.style.display = 'block';
+}
+
+function desactivarModoEdicion() {
+  // Ocultar inputs, mostrar spans
+  Object.keys(spans).forEach(key => {
+    if (inputs[key]) {
+      spans[key].style.display = 'block';
+      inputs[key].style.display = 'none';
     }
+  });
+
+  btnEditar.style.display = 'block';
+  btnGuardar.style.display = 'none';
+  btnCancelar.style.display = 'none';
+}
+
+// ---------- Guardar ----------
+async function guardarCambios() {
+  if (!usuarioActual) return;
+
+  // Parseo teléfonos si se editan
+  const nuevosTels = inputs.telefono && inputs.telefono.style.display === 'block'
+    ? inputs.telefono.value.split(',').map(t => t.trim()).filter(Boolean)
+    : telefonoActual;
+
+  const payload = {
+    id: usuarioActual.idPersona,
+    nombre: inputs.nombre.value?.trim(),
+    apellido: inputs.apellido.value?.trim(),
+    ci: inputs.cedula.value?.trim(),
+    fechaNacimiento: inputs.fechaNacimiento.value?.trim(),
+    direccion: inputs.direccion.value?.trim(),
+    email: inputs.email.value?.trim(),
+    telefono: nuevosTels,
+  };
+
+  // Enviar a API
+  try {
+    await actualizarUsuario(payload);
+
+    // Reflejar cambios en UI (spans y tarjeta en memoria)
+    spans.nombre.textContent = payload.nombre || '—';
+    spans.apellido.textContent = payload.apellido || '—';
+    spans.cedula.textContent = payload.ci || '—';
+    spans.fechaNacimiento.textContent = payload.fechaNacimiento || 'No proporcionada';
+    spans.direccion.textContent = payload.direccion || 'No proporcionada';
+    spans.email.textContent = payload.email || 'No proporcionado';
+    spans.telefono.innerHTML = '';
+    payload.telefono.forEach(t => spans.telefono.innerHTML += `${t}<br>`);
+
+    // Actualizo objeto en memoria (por si se reabre el modal)
+    Object.assign(usuarioActual, {
+      nombre: payload.nombre,
+      apellido: payload.apellido,
+      ci: payload.ci,
+      fechaNacimiento: payload.fechaNacimiento,
+      direccion: payload.direccion,
+      email: payload.email,
+      telefono: payload.telefono,
+    });
+
+    // Opcional: refrescar tarjetas mínimamente (solo nombre/dirección visual)
+    // Más simple: re-render completo
+    renderTarjetas(usuarios);
+    vincularBotonesAbrirModal();
+
+    desactivarModoEdicion();
+    cerrarModal();
+  } catch (e) {
+    console.error('Error al actualizar usuario:', e);
+    alert('No se pudieron guardar los cambios.');
+  }
+}
+
+
 /*
 document.addEventListener('DOMContentLoaded', function () {
     // Elementos del modal

@@ -144,14 +144,24 @@
         public function getUsuarios(){
             $usuariosObj = $this->repositorio->getUsuarios();
             $usuariosArrayAsociativo = [];
+            $semanaActual = $this->lunesDeEstaSemana();
+            $idSemanaActual = $this->repositorio->getIdSemana($semanaActual);
+            $totalHorasATrabajar = $this->repositorio->getHorasNecesariasSemana($semanaActual);// el total de las horas que hay que trabajar
             foreach($usuariosObj as $usuario){
-                $horasTrabajadas = $this->repositorio->getHorasTrabajadasPorUsuario($usuario->getIdPersona());
-                $usuariosArrayAsociativo[$usuario->getIdPersona()] = $usuario->toArray($horasTrabajadas);
+                $horasTrabajadasTotal = $this->repositorio->getHorasTrabajadasPorUsuario($usuario->getIdPersona());
+                $integrantesFamiliares = $this->repositorio->getIntegrantesFamiliares($usuario->getIdPersona()); //getintegrantes familiares
+                //$totalPagos = $this->repositorio->getPagosAprobadoUsuario($usuario->getIdPersona());//traer el monto total de la suma de los pagos pendientes
+                $totalDebe = $this->repositorio->getPagosEnEsperaUsuario($usuario->getIdPersona());//traer el monto que debe
+                $direccion = $this->repositorio->getDireccion($usuario->getIdPersona());//traer la direccion
+                $horasTrabajadasSemana = $this->repositorio->horasTrabajadasXSemana($usuario->getIdPersona(), $idSemanaActual);//traer las horas que trabajo esta semana
+                
+                $usuariosArrayAsociativo[$usuario->getIdPersona()] = $usuario->toArray($horasTrabajadasTotal, $horasTrabajadasSemana, $totalHorasATrabajar, $totalDebe, $direccion, $integrantesFamiliares);
             }
 
 
             return $usuariosArrayAsociativo;
         }
+
         public function subirFoto($nombreArchivo, $nombreTemp) {
             session_start();
             $rutaCarpeta = "../../Recursos/FotosPerfil/";
@@ -544,6 +554,22 @@
 
         public function cambiarEstado($ids, $estado){
             return $this->repositorio->cambiarEstado($ids, $estado);
+        }
+
+        public function lunesDeEstaSemana(){
+            return $this->lunesDeXSemana(date('Y-m-d'));
+        }
+
+        public function lunesDeXSemana($fecha){
+            $momento = new DateTime($fecha);
+            $diaSemana = $momento->format('N'); //Dependiendo de momento (que es un objeto) me va a dar 1 si es un lunes hasta 7 si es domingo
+            //entonces con un if 
+            if($diaSemana > 1){
+                //modifica el momento para que sea momento menos el dia de la semana menos 1 osea si es 7 hace 7-1=6 y hace 7-6
+                $momento->modify('-' . ($diaSemana - 1) . 'days');
+            }
+            //devuelve el lunes de la semana
+            return $momento->format('Y-m-d');
         }
 
     }
