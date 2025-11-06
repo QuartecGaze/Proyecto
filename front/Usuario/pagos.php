@@ -37,7 +37,7 @@
                         <a href="horas.php"><i class="material-icons">punch_clock</i> Horas Trabajadas</a>
                     </li>
                     <li class="item-menu">
-                        <a href="#Proyectos"><i class="material-icons">apartment</i> Proyectos</a>
+                        <a href="unidades.php"><i class="material-icons">apartment</i> Unidad Habitacional</a>
                     </li>
                     <li class="item-menu">
                         <a href="pagos.php"><i class="material-icons">payments</i> Pagos</a>
