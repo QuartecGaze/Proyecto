@@ -17,7 +17,7 @@
 }
 
 ::-webkit-scrollbar {
-  display: none;
+    display: none;
 }
 
 .backoffice .header-principal::before {
@@ -140,8 +140,9 @@
     color: white;
 }
 
-.item-menu.open > .submenu {
-    max-height: 200px; /* ajustá según la cantidad de elementos */
+.item-menu.open>.submenu {
+    max-height: 200px;
+    /* ajustá según la cantidad de elementos */
     padding-top: 5px;
     padding-bottom: 5px;
 }
@@ -172,5 +173,186 @@
     .backoffice .logo-dashboard::after {
         font-size: 9px;
         padding: 2px 8px;
+    }
+}
+
+/* Estilos adicionales para hacer responsive el admin */
+.backoffice .boton-hamburguesa {
+    display: none;
+    position: fixed;
+    top: 20px;
+    left: 20px;
+    z-index: 1000;
+    background-color: var(--color-backoffice-primary);
+    color: white;
+    border: none;
+    border-radius: 4px;
+    width: 40px;
+    height: 40px;
+    cursor: pointer;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+}
+
+.backoffice .boton-hamburguesa span {
+    display: block;
+    width: 24px;
+    height: 2px;
+    background-color: white;
+    position: relative;
+    transition: all 0.3s ease;
+}
+
+.backoffice .boton-hamburguesa span:before,
+.backoffice .boton-hamburguesa span:after {
+    content: '';
+    position: absolute;
+    width: 24px;
+    height: 2px;
+    background-color: white;
+    left: 0;
+    transition: all 0.3s ease;
+}
+
+.backoffice .boton-hamburguesa span:before {
+    top: -8px;
+}
+
+.backoffice .boton-hamburguesa span:after {
+    top: 8px;
+}
+
+.backoffice .boton-hamburguesa.activo span {
+    background-color: transparent;
+}
+
+.backoffice .boton-hamburguesa.activo span:before {
+    transform: rotate(45deg);
+    top: 0;
+}
+
+.backoffice .boton-hamburguesa.activo span:after {
+    transform: rotate(-45deg);
+    top: 0;
+}
+
+.backoffice .overlay {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    z-index: 99;
+}
+
+.backoffice .overlay.activo {
+    display: block;
+    opacity: 1;
+    visibility: visible;
+}
+
+.backoffice .sidebar {
+    position: fixed;
+    width: 280px;
+    background: linear-gradient(180deg, #0F1530 0%, #1A1F2E 100%);
+    box-shadow: 4px 0 10px var(--color-sombra);
+    display: flex;
+    flex-direction: column;
+    padding: 20px 0;
+    top: 0;
+    height: 100vh;
+    overflow-y: auto;
+    z-index: 100;
+    transition: transform 0.3s ease;
+    border-right: 1px solid var(--color-backoffice-accent);
+    color: white;
+}
+
+.backoffice .contenido-principal {
+    padding: 30px;
+    flex-grow: 1;
+    margin-left: 280px;
+    width: calc(100% - 280px);
+    transition: margin-left 0.3s ease, width 0.3s ease;
+}
+
+/* Responsive para móviles */
+@media (max-width: 768px) {
+    .backoffice .boton-hamburguesa {
+        display: flex;
+    }
+
+    .backoffice .sidebar {
+        transform: translateX(-100%);
+        width: 280px;
+    }
+
+    .backoffice .sidebar.activo {
+        transform: translateX(0);
+    }
+
+    .backoffice .contenido-principal {
+        margin-left: 0;
+        width: 100%;
+        padding: 20px 15px;
+    }
+
+    .backoffice .contenedor-tarjetas {
+        grid-template-columns: 1fr;
+        gap: 15px;
+    }
+
+    .backoffice .tarjeta-dashboard {
+        padding: 15px;
+    }
+
+    .backoffice .header-principal h1 {
+        font-size: 1.5rem;
+        margin-top: 20px;
+    }
+
+    .backoffice .header-principal p {
+        font-size: 0.9rem;
+    }
+
+    .backoffice .contenedor-secciones {
+        grid-template-columns: 1fr;
+    }
+}
+
+@media (max-width: 576px) {
+    .backoffice .contenido-principal {
+        padding: 15px 10px;
+    }
+
+    .backoffice .seccion-actividades,
+    .backoffice .seccion-eventos {
+        padding: 15px;
+    }
+
+    .backoffice .tarjeta-dashboard {
+        flex-direction: column;
+        text-align: center;
+    }
+
+    .backoffice .tarjeta-icono {
+        margin-right: 0;
+        margin-bottom: 10px;
+    }
+
+    .backoffice .modal-contenido {
+        width: 95%;
+        margin: 10% auto;
+    }
+
+    .backoffice .modal-footer {
+        flex-direction: column;
+    }
+
+    .backoffice .boton-modal {
+        width: 100%;
     }
 }

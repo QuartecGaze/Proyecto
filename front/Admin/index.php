@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Senda Firme - Dashboard</title>
+    <title>Senda Firme - Dashboard Admin</title>
     <link rel="stylesheet" href="../Css/estilosAdmin.css">
     <link rel="stylesheet" href="../Css/backoffice.css">
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap"
@@ -14,9 +14,15 @@
 </head>
 
 <body class="backoffice">
+    <!-- Botón hamburguesa para móviles -->
+    <button class="boton-hamburguesa" id="botonHamburguesa">
+        <span></span>
+    </button>
+    <div class="overlay" id="overlay"></div>
+
     <div class="contenedor-dashboard">
         <!-- Sidebar -->
-        <aside class="sidebar">
+        <aside class="sidebar" id="sidebar">
             <div class="logo-dashboard">
                 <img src="../../Fotos/logoBack.webp" alt="Logo Cooperativa">
                 <span>Senda Firme</span>
@@ -69,7 +75,6 @@
                             <a href="configuracion.php"><i class="material-icons">star</i> Mi Perfil</a>
                             <a href="crearAdmin.php"><i class="material-icons">key</i> Crear Admin</a>
                             <a href="borrarAdmin.php"><i class="material-icons">backspace</i> Borrar Admin</a>
-
                         </ul>
                     </li>
                 </ul>
@@ -195,63 +200,120 @@
 
     <!-- Modal para información detallada de reunión -->
     <div id="modalReunion" class="modal-reunion">
-  <div class="modal-contenido">
-    <div class="modal-header" style="display:flex; align-items:center; gap:12px;">
-      <h2 id="modalTitulo" style="margin:0; flex:1;">Detalles de la Reunión</h2>
-      <!-- Tipo a la derecha del título -->
-      <span id="modalTipo" class="modal-tipo" style="font-size:0.95rem; color:#666;"></span>
-      <span class="cerrar-modal" style="cursor:pointer;">&times;</span>
+        <div class="modal-contenido">
+            <div class="modal-header" style="display:flex; align-items:center; gap:12px;">
+                <h2 id="modalTitulo" style="margin:0; flex:1;">Detalles de la Reunión</h2>
+                <!-- Tipo a la derecha del título -->
+                <span id="modalTipo" class="modal-tipo" style="font-size:0.95rem; color:#fff;"></span>
+                <span class="cerrar-modal" style="cursor:pointer;">&times;</span>
+            </div>
+
+            <div class="modal-body">
+                <div class="info-reunion">
+                    <!-- Estado debajo del título -->
+                    <div>
+                        <div class="info-item" style="margin-bottom:0.75rem;">
+                            <i class="material-icons">flag</i>
+                            <div class="info-detalle">
+                                <h3>Estado</h3>
+                                <p id="modalEstado">-</p>
+                            </div>
+                        </div>
+
+                        <div class="info-item">
+                            <i class="material-icons">event</i>
+                            <div class="info-detalle">
+                                <h3>Fecha y Hora</h3>
+                                <p id="modalFechaHora">-</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div>
+                        <div class="info-item">
+                            <i class="material-icons">location_on</i>
+                            <div class="info-detalle">
+                                <h3>Ubicación</h3>
+                                <p id="modalUbicacion">-</p>
+                            </div>
+                        </div>
+
+                        <div class="info-item">
+                            <i class="material-icons">description</i>
+                            <div class="info-detalle">
+                                <h3>Descripción</h3>
+                                <p id="modalDescripcion">-</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="modal-footer">
+                <button class="boton-modal boton-secundario" id="botonCerrarModal">Cerrar</button>
+            </div>
+        </div>
     </div>
 
-    <div class="modal-body">
-      <div class="info-reunion">
+    <script>
+        // Funcionalidad del menú hamburguesa para admin
+        const botonHamburguesa = document.getElementById('botonHamburguesa');
+        const sidebar = document.getElementById('sidebar');
+        const overlay = document.getElementById('overlay');
 
-        <!-- Estado debajo del título -->
-        <div class="info-item" style="margin-bottom:0.75rem;">
-          <i class="material-icons">flag</i>
-          <div class="info-detalle">
-            <h3>Estado</h3>
-            <p id="modalEstado">-</p>
-          </div>
-        </div>
+        function toggleMenu() {
+            botonHamburguesa.classList.toggle('activo');
+            sidebar.classList.toggle('activo');
+            overlay.classList.toggle('activo');
+            document.body.style.overflow = sidebar.classList.contains('activo') ? 'hidden' : 'auto';
+        }
 
-        <div class="info-item">
-          <i class="material-icons">event</i>
-          <div class="info-detalle">
-            <h3>Fecha y Hora</h3>
-            <p id="modalFechaHora">-</p>
-          </div>
-        </div>
+        botonHamburguesa.addEventListener('click', toggleMenu);
+        overlay.addEventListener('click', toggleMenu);
 
-        <div class="info-item">
-          <i class="material-icons">location_on</i>
-          <div class="info-detalle">
-            <h3>Ubicación</h3>
-            <p id="modalUbicacion">-</p>
-          </div>
-        </div>
+        // Cerrar menú al hacer clic en un enlace (en móviles)
+        document.querySelectorAll('.item-menu a').forEach(enlace => {
+            enlace.addEventListener('click', () => {
+                if (window.innerWidth <= 768) {
+                    toggleMenu();
+                }
+            });
+        });
 
-        <div class="info-item">
-          <i class="material-icons">description</i>
-          <div class="info-detalle">
-            <h3>Descripción</h3>
-            <p id="modalDescripcion">-</p>
-          </div>
-        </div>
+        // Ajustar el menú al cambiar el tamaño de la ventana
+        window.addEventListener('resize', () => {
+            if (window.innerWidth > 768) {
+                botonHamburguesa.classList.remove('activo');
+                sidebar.classList.remove('activo');
+                overlay.classList.remove('activo');
+                document.body.style.overflow = 'auto';
+            }
+        });
 
-      </div>
-    </div>
+        // Funcionalidad del modal
+        const modal = document.getElementById('modalReunion');
+        const cerrarModal = document.querySelector('.cerrar-modal');
+        const botonCerrarModal = document.getElementById('botonCerrarModal');
 
-    <div class="modal-footer">
-      <button class="boton-modal boton-secundario" id="botonCerrarModal">Cerrar</button>
-    </div>
-  </div>
-</div>
-   
+        if (cerrarModal) {
+            cerrarModal.addEventListener('click', () => {
+                modal.style.display = 'none';
+            });
+        }
 
+        if (botonCerrarModal) {
+            botonCerrarModal.addEventListener('click', () => {
+                modal.style.display = 'none';
+            });
+        }
 
-
-
+        // Cerrar modal al hacer clic fuera del contenido
+        window.addEventListener('click', (e) => {
+            if (e.target === modal) {
+                modal.style.display = 'none';
+            }
+        });
+    </script>
     <script src="../Javascript/BackOffice/index.js" type="module"></script>
     <script src="../Javascript/BackOffice/generalidades.js" type="module"></script>
     <script src="../Javascript/BackOffice/reunionesAdmin.js" type="module"></script>
