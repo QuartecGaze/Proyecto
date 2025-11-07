@@ -436,17 +436,43 @@ async function guardarReunion(e) {
 
 async function eliminarReunionAction(id) {
   try {
-    if (!confirm('¿Seguro que querés eliminar esta reunión?')) return;
+    const result = await Swal.fire({
+      title: '¿Seguro que querés eliminar esta reunión?',
+      text: 'No vas a poder revertir esta acción.',
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonColor: '#3085d6',
+      cancelButtonColor: '#d33',
+      confirmButtonText: 'Sí, eliminar',
+      cancelButtonText: 'Cancelar'
+    });
+
+    if (!result.isConfirmed) return;
+
     const res = await apiEliminarReunion({ idReunion: id });
     if (!respuestaOk(res)) throw new Error(res?.mensaje || 'No se pudo eliminar');
+
     reuniones = reuniones.filter(r => r.id !== String(id));
     mostrarReuniones();
+
+    await Swal.fire({
+      title: 'Eliminada',
+      text: res?.mensaje || 'La reunión fue eliminada correctamente.',
+      icon: 'success'
+    });
+
     setOk(res?.mensaje || 'Reunión eliminada');
   } catch (e) {
     console.error(e);
+    Swal.fire({
+      title: 'Error',
+      text: e?.message || 'Error al eliminar la reunión',
+      icon: 'error'
+    });
     setErr(e?.message || 'Error al eliminar la reunión');
   }
 }
+
 
 async function completarReunionAction(id) {
   try {

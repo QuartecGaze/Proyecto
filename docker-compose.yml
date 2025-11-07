@@ -17,10 +17,10 @@ services:
     image: mysql:8.0
     container_name: db_mysql
     environment:
-      MYSQL_ROOT_PASSWORD: root123
+      MYSQL_ROOT_PASSWORD: RootAdministrador5749
       MYSQL_DATABASE: cooperativa
-      MYSQL_USER: cooperativa_user
-      MYSQL_PASSWORD: coop123
+      MYSQL_USER: Administrador1
+      MYSQL_PASSWORD: Administrador_8372
     volumes:
       - /home/proyecto/cooperativa.sql:/docker-entrypoint-initdb.d/cooperativa.sql
       - db_data:/var/lib/mysql
