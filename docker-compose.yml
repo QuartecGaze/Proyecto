@@ -17,7 +17,7 @@ services:
     image: mysql:8.0
     container_name: db_mysql
     environment:
-      MYSQL_ROOT_PASSWORD: RootAdministrador5749
+      MYSQL_ROOT_PASSWORD: "RootAdministrador5749"
       MYSQL_DATABASE: cooperativa
       MYSQL_USER: Administrador1
       MYSQL_PASSWORD: Administrador_8372
