@@ -1,5 +1,21 @@
 import { getUnidades, modificarUnidadHabitacional, cambiarEstado } from "../../../BackEnd/APIFetchs/APIBackOffice.js";
 
+// ---------- Funciones de sanitización ----------
+const sanitizeHTML = (str) => {
+    if (str == null) return '';
+    return String(str)
+        .replace(/&/g, '&amp;')
+        .replace(/</g, '&lt;')
+        .replace(/>/g, '&gt;')
+        .replace(/"/g, '&quot;')
+        .replace(/'/g, '&#x27;');
+};
+
+const sanitizeAttribute = (str) => {
+    if (str == null) return '';
+    return String(str).replace(/"/g, '&quot;').replace(/'/g, '&#x27;');
+};
+
 // =================== MENÚ LATERAL ===================
 document.querySelectorAll(".item-menu > a").forEach(boton => {
   boton.addEventListener("click", function (e) {
@@ -50,20 +66,20 @@ document.addEventListener("DOMContentLoaded", async function () {
     const clase = claseBadgeEstadoCanon(estadoCanon);
     tablaProyectos.insertAdjacentHTML("beforeend", `
       <tr>
-        <td>${unidad.ID_Unidad_habitacional}</td>
-        <td>${unidad.CI || "Sin socio asignado"}</td>
-        <td>${unidad.Cantidad_habitaciones}</td>
-        <td><span class="${clase}">${estadoCanon || "—"}</span></td>
-        <td>${unidad.Numero_puerta}</td>
-        <td>Pasillo ${unidad.Pasillo}</td>
+        <td>${sanitizeHTML(unidad.ID_Unidad_habitacional)}</td>
+        <td>${sanitizeHTML(unidad.CI || "Sin socio asignado")}</td>
+        <td>${sanitizeHTML(unidad.Cantidad_habitaciones)}</td>
+        <td><span class="${clase}">${sanitizeHTML(estadoCanon || "—")}</span></td>
+        <td>${sanitizeHTML(unidad.Numero_puerta)}</td>
+        <td>Pasillo ${sanitizeHTML(unidad.Pasillo)}</td>
         <td class="checkbox-seleccion">
           <input type="checkbox" class="seleccion-unidad" name="seleccionUnidad"
-            data-id="${unidad.ID_Unidad_habitacional}"
-            data-estado="${estadoCanon}"
-            data-habitaciones="${unidad.Cantidad_habitaciones}"
-            data-puerta="${unidad.Numero_puerta}"
-            data-pasillo="${unidad.Pasillo}"
-            data-cedula="${unidad.CI || ""}">
+            data-id="${sanitizeAttribute(unidad.ID_Unidad_habitacional)}"
+            data-estado="${sanitizeAttribute(estadoCanon)}"
+            data-habitaciones="${sanitizeAttribute(unidad.Cantidad_habitaciones)}"
+            data-puerta="${sanitizeAttribute(unidad.Numero_puerta)}"
+            data-pasillo="${sanitizeAttribute(unidad.Pasillo)}"
+            data-cedula="${sanitizeAttribute(unidad.CI || "")}">
         </td>
       </tr>
     `);
@@ -136,9 +152,9 @@ document.addEventListener("DOMContentLoaded", async function () {
       data: { labels: ["Completadas", "Restantes"], datasets: [{ data: [completadas, totalUnidades - completadas], backgroundColor: [colores.completado, "#ecf0f1"], borderWidth: 0 }] },
       options: { responsive: true, maintainAspectRatio: false, plugins: { legend: { display: false } }, cutout: "75%" }
     });
-    document.getElementById("totalUnidades").textContent = totalUnidades;
-    document.getElementById("unidadesCompletadas").textContent = completadas;
-    document.getElementById("porcentajeCompletado").textContent = (totalUnidades ? Math.round((completadas / totalUnidades) * 100) : 0) + "%";
+    document.getElementById("totalUnidades").textContent = sanitizeHTML(totalUnidades);
+    document.getElementById("unidadesCompletadas").textContent = sanitizeHTML(completadas);
+    document.getElementById("porcentajeCompletado").textContent = sanitizeHTML((totalUnidades ? Math.round((completadas / totalUnidades) * 100) : 0) + "%");
   }
 
   // =================== ACCIONES MULTIPLES ===================
@@ -231,7 +247,7 @@ document.addEventListener("DOMContentLoaded", async function () {
         if (celda) {
           const texto = ({1:"En Espera",2:"En pausa",3:"En Construcción",4:"Finalizada"})[estadoNumero] || "—";
           const clase = ({1:"estado-badge estado-planificacion",2:"estado-badge estado-planificacion",3:"estado-badge estado-construccion",4:"estado-badge estado-completado"})[estadoNumero] || "estado-badge";
-          celda.innerHTML = `<span class="${clase}">${texto}</span>`;
+          celda.innerHTML = `<span class="${clase}">${sanitizeHTML(texto)}</span>`;
           cb.dataset.estado = texto;
         }
       });
@@ -273,12 +289,12 @@ function numeroATextoSelect(n) {
   }
 }
 function abrirModalModificar({ id, cedula, habitaciones, estadoCanon, puerta, pasillo }) {
-  document.getElementById("unidadId").value = id;
-  document.getElementById("numeroUnidad").value = `U-${id}`;
-  document.getElementById("cedulaUnidad").value = cedula || "";
+  document.getElementById("unidadId").value = sanitizeHTML(id);
+  document.getElementById("numeroUnidad").value = `U-${sanitizeHTML(id)}`;
+  document.getElementById("cedulaUnidad").value = sanitizeHTML(cedula || "");
   document.getElementById("habitacionesUnidad").value = Number(habitaciones) || 1;
-  document.getElementById("puertaUnidad").value = puerta || "";
-  document.getElementById("pasilloUnidad").value = pasillo || "";
+  document.getElementById("puertaUnidad").value = sanitizeHTML(puerta || "");
+  document.getElementById("pasilloUnidad").value = sanitizeHTML(pasillo || "");
   const select = document.getElementById("estadoUnidad");
   select.value = numeroATextoSelect(estadoTextoANumero(estadoCanon));
   document.getElementById("modalUnidad").style.display = "block";

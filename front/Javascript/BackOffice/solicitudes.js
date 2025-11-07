@@ -20,6 +20,21 @@ function normalizarUnidades(arr) {
   })).filter(u => u.id !== '');
 }
 
+// ---------- Funciones de sanitización ----------
+const sanitizeHTML = (str) => {
+    if (str == null) return '';
+    return String(str)
+        .replace(/&/g, '&amp;')
+        .replace(/</g, '&lt;')
+        .replace(/>/g, '&gt;')
+        .replace(/"/g, '&quot;')
+        .replace(/'/g, '&#x27;');
+};
+
+const sanitizeAttribute = (str) => {
+    if (str == null) return '';
+    return String(str).replace(/"/g, '&quot;').replace(/'/g, '&#x27;');
+};
 
 const esc = (s) => (s == null ? '' : String(s)
   .replace(/&/g,'&amp;').replace(/</g,'&lt;')
@@ -124,13 +139,13 @@ async function renderIntegrantesPara(idPersona, panel) {
     }
 
     tbody.innerHTML = integrantes.map(int => `
-      <tr data-id="${esc(int.id)}">
-        <td data-label="Nombre">${esc(int.nombre)}</td>
-        <td data-label="Apellido">${esc(int.apellido)}</td>
-        <td data-label="Cédula">${esc(int.ci)}</td>
-        <td data-label="Fecha de Nac.">${esc(formatDate(int.fechaNac))}</td>
-        <td data-label="Email">${esc(int.email)}</td>
-        <td data-label="Género">${esc(int.genero)}</td>
+      <tr data-id="${sanitizeHTML(int.id)}">
+        <td data-label="Nombre">${sanitizeHTML(int.nombre)}</td>
+        <td data-label="Apellido">${sanitizeHTML(int.apellido)}</td>
+        <td data-label="Cédula">${sanitizeHTML(int.ci)}</td>
+        <td data-label="Fecha de Nac.">${sanitizeHTML(formatDate(int.fechaNac))}</td>
+        <td data-label="Email">${sanitizeHTML(int.email)}</td>
+        <td data-label="Género">${sanitizeHTML(int.genero)}</td>
       </tr>
     `).join('');
   } catch (e) {
@@ -193,12 +208,12 @@ function actualizarSolicitudes(interesados) {
             <div class="contenedor-solicitud">
                 <div class="contenido">
                     <div class="solicitud-header">
-                        <h2>Solicitud Nr#${interesado.idPersona}  </h2>
-                        <button class="btn-solicitud btn-rechazar-solicitud" data-id="${interesado.idPersona}">
+                        <h2>Solicitud Nr#${sanitizeHTML(interesado.idPersona)}  </h2>
+                        <button class="btn-solicitud btn-rechazar-solicitud" data-id="${sanitizeHTML(interesado.idPersona)}">
                             <i class="material-icons">block</i> Rechazar Solicitud
                         </button>
                         <button 
-                        data-id="${interesado.idPersona}"
+                        data-id="${sanitizeHTML(interesado.idPersona)}"
                         ${!puedeAprobar 
                             ? 'class="btn-solicitud btn-aprobar-solicitud btn-aprobar-solicitud--bloqueada" data-bloqueada="1" title="Asigná una unidad primero"' 
                             : 'class="btn-solicitud btn-aprobar-solicitud"'}
@@ -211,27 +226,27 @@ function actualizarSolicitudes(interesados) {
                     <div class="solicitud-info">
                         <div class="info-card" id="info-card-id">
                             <h3>Información Personal</h3>
-                            <p><strong>Nombre: </strong>${interesado.nombre} ${interesado.apellido}</p>
-                            <p><strong>CI: </strong>${interesado.ci}</p>
-                            <p><strong>Mail: </strong>${interesado.email}</p>
-                            <p><strong>Telefono: </strong>${interesado.telefono}</p>
+                            <p><strong>Nombre: </strong>${sanitizeHTML(interesado.nombre)} ${sanitizeHTML(interesado.apellido)}</p>
+                            <p><strong>CI: </strong>${sanitizeHTML(interesado.ci)}</p>
+                            <p><strong>Mail: </strong>${sanitizeHTML(interesado.email)}</p>
+                            <p><strong>Telefono: </strong>${sanitizeHTML(interesado.telefono)}</p>
                         </div>
                         <div class="date info-card">
                             <h3>Asignar Fecha de Entrevista</h3>
                             <div class="calendario">
-                                <p><strong>Fecha: </strong> ${interesado.fechaEntrevista ?? 'Sin asignar'}</p>
-                                <input type="date" id="fecha${interesado.idPersona}">
+                                <p><strong>Fecha: </strong> ${sanitizeHTML(interesado.fechaEntrevista ?? 'Sin asignar')}</p>
+                                <input type="date" id="fecha${sanitizeHTML(interesado.idPersona)}">
                             </div>
                             <div class="hora">
                             
-                                <p><strong>Hora: </strong> ${interesado.horaEntrevista ?? 'Sin asignar'}</p>
-                                <input type="time" id="hora${interesado.idPersona}">
+                                <p><strong>Hora: </strong> ${sanitizeHTML(interesado.horaEntrevista ?? 'Sin asignar')}</p>
+                                <input type="time" id="hora${sanitizeHTML(interesado.idPersona)}">
                             </div>
                             <div class="direccion">
                                 <p><strong>Direccion: </strong></p>
                                 Av.Gral Rivera 3729 bis, 11600 Montevideo
                             </div>
-                            <button class="btn-asignar-entrevista" data-id="${interesado.idPersona}">
+                            <button class="btn-asignar-entrevista" data-id="${sanitizeHTML(interesado.idPersona)}">
                                 <i class="material-icons">event_available</i> Asignar Entrevista
                             </button>
                         </div>
@@ -240,10 +255,10 @@ function actualizarSolicitudes(interesados) {
 
                     <div class="acciones">
 
-                        <button class="btn-rechazar btn-${interesado.estadoEntrevista}" data-id="${interesado.idPersona}" data-campo="Estado_entrevista">
+                        <button class="btn-rechazar btn-${sanitizeHTML(interesado.estadoEntrevista)}" data-id="${sanitizeHTML(interesado.idPersona)}" data-campo="Estado_entrevista">
                             <i class="material-icons">close</i> Rechazar
                         </button>
-                        <button class="btn-aprobar btn-${interesado.estadoEntrevista}" data-id="${interesado.idPersona}" data-campo="Estado_entrevista">
+                        <button class="btn-aprobar btn-${sanitizeHTML(interesado.estadoEntrevista)}" data-id="${sanitizeHTML(interesado.idPersona)}" data-campo="Estado_entrevista">
 
                             <i class="material-icons">check</i> Aprobar
                         </button>
@@ -282,11 +297,11 @@ function actualizarSolicitudes(interesados) {
                         <div class="documento-card">
                             <div class="documento-info">
                                 <h4>Antecedentes Penales</h4>
-                                <p>Documento PDF - <span class="estado-badge ${interesado.estadoAntecedentes}">${interesado.estadoAntecedentes}</span></p>
+                                <p>Documento PDF - <span class="estado-badge ${sanitizeHTML(interesado.estadoAntecedentes)}">${sanitizeHTML(interesado.estadoAntecedentes)}</span></p>
                             </div>
                             <div class="documento-acciones">
                             ${interesado.antecedentes != null && interesado.antecedentes !== "" ? `
-                        <a href="../../Recursos/Antecedentes/${interesado.antecedentes}" download>
+                        <a href="../../Recursos/Antecedentes/${sanitizeAttribute(interesado.antecedentes)}" download>
                             <li class="material-icons">download</li> Descargar
                             </a>
                             ` : `
@@ -295,10 +310,10 @@ function actualizarSolicitudes(interesados) {
                         </div>
                         </div>
                         <div class="acciones">
-                            <button class="btn-rechazar btn-${interesado.estadoAntecedentes}" data-id="${interesado.idPersona}" data-campo="Estado_antecedentes">
+                            <button class="btn-rechazar btn-${sanitizeHTML(interesado.estadoAntecedentes)}" data-id="${sanitizeHTML(interesado.idPersona)}" data-campo="Estado_antecedentes">
                                 <i class="material-icons">close</i> Rechazar
                             </button>
-                            <button class="btn-aprobar btn-${interesado.estadoAntecedentes}" data-id="${interesado.idPersona}" data-campo="Estado_antecedentes">
+                            <button class="btn-aprobar btn-${sanitizeHTML(interesado.estadoAntecedentes)}" data-id="${sanitizeHTML(interesado.idPersona)}" data-campo="Estado_antecedentes">
                                 <i class="material-icons">check</i> Aprobar
                             </button>
                         </div>
@@ -308,10 +323,10 @@ function actualizarSolicitudes(interesados) {
                         <div class="documento-card">
                             <div class="documento-info">
                                 <h4>Monto de Pago Inicial</h4>
-                                <p><strong>Asignado:</strong> ${interesado.montoPagoInicial != null && interesado.montoPagoInicial !== "" ? `$${interesado.montoPagoInicial}` : '<em>No asignado</em>'}</p>
+                                <p><strong>Asignado:</strong> ${interesado.montoPagoInicial != null && interesado.montoPagoInicial !== "" ? `$${sanitizeHTML(interesado.montoPagoInicial)}` : '<em>No asignado</em>'}</p>
                             </div>
                             <div class="documento-acciones">
-                                <button class="btn-asignar-pago-inicial" data-id="${interesado.idPersona}">
+                                <button class="btn-asignar-pago-inicial" data-id="${sanitizeHTML(interesado.idPersona)}">
                                     <i class="material-icons">payment</i> Asignar / Editar Monto
                                 </button>
                             </div>
@@ -320,12 +335,12 @@ function actualizarSolicitudes(interesados) {
                         <div class="documento-card">
                             <div class="documento-info">
                                 <h4>Comprobante de Pago Inicial </h4> 
-                                <p>Documento PDF - <span class="estado-badge ${interesado.estadoPagoInicial}">${interesado.estadoPagoInicial}</span></p>
+                                <p>Documento PDF - <span class="estado-badge ${sanitizeHTML(interesado.estadoPagoInicial)}">${sanitizeHTML(interesado.estadoPagoInicial)}</span></p>
                             </div>
 
                             <div class="documento-acciones">
                                 ${interesado.pagoInicial != null && interesado.pagoInicial !== "" ? `
-                        <a href="../../Recursos/Comprobantes/${interesado.pagoInicial}" download>
+                        <a href="../../Recursos/Comprobantes/${sanitizeAttribute(interesado.pagoInicial)}" download>
                             <li class="material-icons">download</li> Descargar
                             </a>
                             ` : `
@@ -335,11 +350,11 @@ function actualizarSolicitudes(interesados) {
                         </div>
                         <div class="acciones">
 
-                            <button class="btn-rechazar btn-${interesado.estadoPagoInicial}" data-id="${interesado.idPersona}" data-campo="Estado_pago_inicial">
+                            <button class="btn-rechazar btn-${sanitizeHTML(interesado.estadoPagoInicial)}" data-id="${sanitizeHTML(interesado.idPersona)}" data-campo="Estado_pago_inicial">
 
                                 <i class="material-icons">close</i> Rechazar
                             </button>
-                            <button class="btn-aprobar btn-${interesado.estadoPagoInicial}" data-id="${interesado.idPersona}" data-campo="Estado_pago_inicial">
+                            <button class="btn-aprobar btn-${sanitizeHTML(interesado.estadoPagoInicial)}" data-id="${sanitizeHTML(interesado.idPersona)}" data-campo="Estado_pago_inicial">
                                 <i class="material-icons">check</i> Aprobar
                             </button>
                         </div>
@@ -351,15 +366,15 @@ function actualizarSolicitudes(interesados) {
                                 <div class="documento-info">
                                 <h4>Unidad Habitacional</h4>
                                 <p><strong>Unidad:</strong>
-                                    <span class="estado-unidad" data-id="${esc(interesado.idPersona)}">
-                                    ${esc(unidadLabel)}
+                                    <span class="estado-unidad" data-id="${sanitizeHTML(interesado.idPersona)}">
+                                    ${sanitizeHTML(unidadLabel)}
                                     </span>
                                 </p>
                                 </div>
                                 <div class="documento-acciones">
                                 <button class="btn-asignar-unidad"
-                                        data-ci="${esc(interesado.ci)}"
-                                        data-idpersona="${esc(interesado.idPersona)}">
+                                        data-ci="${sanitizeHTML(interesado.ci)}"
+                                        data-idpersona="${sanitizeHTML(interesado.idPersona)}">
                                     <i class="material-icons">apartment</i> Asignar Unidad
                                 </button>
                                 </div>
@@ -370,9 +385,9 @@ function actualizarSolicitudes(interesados) {
                     </div>
                 </div>
                 <div class="contador">
-                    <div class="segmento s1" id="${interesado.estadoEntrevista}"></div>
-                    <div class="segmento s2" id="${interesado.estadoAntecedentes}"></div>
-                    <div class="segmento s3" id="${interesado.estadoPagoInicial}"></div>
+                    <div class="segmento s1" id="${sanitizeHTML(interesado.estadoEntrevista)}"></div>
+                    <div class="segmento s2" id="${sanitizeHTML(interesado.estadoAntecedentes)}"></div>
+                    <div class="segmento s3" id="${sanitizeHTML(interesado.estadoPagoInicial)}"></div>
                 </div>
             </div>
             `;
@@ -390,8 +405,8 @@ function actualizarSolicitudes(interesados) {
     botonAsignarEntrevista.forEach(boton => {
         boton.addEventListener("click", async () => {
             const idPersona = boton.dataset.id;
-            const fecha = document.getElementById('fecha' + idPersona).value;
-            const hora = document.getElementById('hora' + idPersona).value;
+            const fecha = document.getElementById('fecha' + sanitizeHTML(idPersona)).value;
+            const hora = document.getElementById('hora' + sanitizeHTML(idPersona)).value;
 
             if (!fecha || !hora) {
                 alert("Por favor completa la fecha y hora antes de asignar.");
@@ -476,16 +491,16 @@ function renderTablaIntegrantes() {
   integrantesEmpty.style.display = 'none';
   integrantesTableWrapper.style.display = 'block';
   integrantesTbody.innerHTML = integrantesGuardados.map((integrante) => `
-    <tr data-id="${esc(integrante.id)}">
-      <td data-label="Nombre">${esc(integrante.nombre)}</td>
-      <td data-label="Apellido">${esc(integrante.apellido)}</td>
-      <td data-label="Cédula">${esc(integrante.ci)}</td>
-      <td data-label="Fecha Nac.">${esc(formatDate(integrante.fechaNacimiento))}</td>
-      <td data-label="Género">${esc(integrante.genero)}</td>
-      <td data-label="Email">${esc(integrante.email)}</td>
+    <tr data-id="${sanitizeHTML(integrante.id)}">
+      <td data-label="Nombre">${sanitizeHTML(integrante.nombre)}</td>
+      <td data-label="Apellido">${sanitizeHTML(integrante.apellido)}</td>
+      <td data-label="Cédula">${sanitizeHTML(integrante.ci)}</td>
+      <td data-label="Fecha Nac.">${sanitizeHTML(formatDate(integrante.fechaNacimiento))}</td>
+      <td data-label="Género">${sanitizeHTML(integrante.genero)}</td>
+      <td data-label="Email">${sanitizeHTML(integrante.email)}</td>
       <td class="panel-integrantes__actions" data-label="Acciones">
         <button type="button" class="btn btn--danger btn--sm btn-delete-integrante" 
-                data-id="${esc(integrante.id)}" title="Eliminar integrante">
+                data-id="${sanitizeHTML(integrante.id)}" title="Eliminar integrante">
           <i class="material-icons">delete</i>
         </button>
       </td>
@@ -551,16 +566,16 @@ function renderTablaIntegrantes() {
   integrantesTableWrapper.style.display = 'block';
 
   integrantesTbody.innerHTML = integrantesGuardados.map((integrante, index) => `
-        <tr data-id="${esc(integrante.id)}">
-            <td data-label="Nombre">${esc(integrante.nombre)}</td>
-            <td data-label="Apellido">${esc(integrante.apellido)}</td>
-            <td data-label="Cédula">${esc(integrante.ci)}</td>
-            <td data-label="Fecha Nac.">${esc(formatDate(integrante.fechaNacimiento))}</td>
-            <td data-label="Género">${esc(integrante.genero)}</td>
-            <td data-label="Email">${esc(integrante.email)}</td>
+        <tr data-id="${sanitizeHTML(integrante.id)}">
+            <td data-label="Nombre">${sanitizeHTML(integrante.nombre)}</td>
+            <td data-label="Apellido">${sanitizeHTML(integrante.apellido)}</td>
+            <td data-label="Cédula">${sanitizeHTML(integrante.ci)}</td>
+            <td data-label="Fecha Nac.">${sanitizeHTML(formatDate(integrante.fechaNacimiento))}</td>
+            <td data-label="Género">${sanitizeHTML(integrante.genero)}</td>
+            <td data-label="Email">${sanitizeHTML(integrante.email)}</td>
             <td class="panel-integrantes__actions" data-label="Acciones">
                 <button type="button" class="btn btn--danger btn--sm btn-delete-integrante" 
-                        data-id="${esc(integrante.id)}" title="Eliminar integrante">
+                        data-id="${sanitizeHTML(integrante.id)}" title="Eliminar integrante">
                     <i class="material-icons">delete</i>
                 </button>
             </td>
@@ -751,8 +766,8 @@ document.addEventListener('click', async (e) => {
     } else {
       const opts = ['<option value="">Seleccioná una unidad…</option>']
         .concat(cacheUnidadesLibres.map(u => {
-          const label = `U#${esc(u.id)} • Puerta ${esc(u.puerta)} • Pasillo ${esc(u.pasillo)} • ${esc(u.habitaciones)} hab • ${esc(u.estado)}`;
-          return `<option value="${esc(u.id)}">${label}</option>`;
+          const label = `U#${sanitizeHTML(u.id)} • Puerta ${sanitizeHTML(u.puerta)} • Pasillo ${sanitizeHTML(u.pasillo)} • ${sanitizeHTML(u.habitaciones)} hab • ${sanitizeHTML(u.estado)}`;
+          return `<option value="${sanitizeHTML(u.id)}">${label}</option>`;
         }));
       selectUnidad.innerHTML = opts.join('');
       selectUnidad.value = '';
@@ -774,7 +789,7 @@ selectUnidad.addEventListener('change', function () {
 
   const u = cacheUnidadesLibres.find(x => String(x.id) === String(idSel));
   if (u) {
-    infoUnidad.textContent = `Seleccionada: U#${u.id} • Puerta ${u.puerta} • Pasillo ${u.pasillo} • ${u.habitaciones} hab • ${u.estado}`;
+    infoUnidad.textContent = `Seleccionada: U#${sanitizeHTML(u.id)} • Puerta ${sanitizeHTML(u.puerta)} • Pasillo ${sanitizeHTML(u.pasillo)} • ${sanitizeHTML(u.habitaciones)} hab • ${sanitizeHTML(u.estado)}`;
   } else {
     infoUnidad.textContent = '';
   }
@@ -808,11 +823,11 @@ interesados = interesados.map(p =>
 );
 
 // 2) actualizá SOLO el texto visible "Unidad: Asignada"
-const estadoSpan = document.querySelector(`.estado-unidad[data-id="${idPersona}"]`);
+const estadoSpan = document.querySelector(`.estado-unidad[data-id="${sanitizeHTML(idPersona)}"]`);
 if (estadoSpan) estadoSpan.textContent = 'Asignada';
 
 // 3) habilitá el botón "Aprobar Solicitud" (si estaba deshabilitado)
-const btnAprobarSolicitud = document.querySelector(`.btn-aprobar-solicitud[data-id="${idPersona}"]`);
+const btnAprobarSolicitud = document.querySelector(`.btn-aprobar-solicitud[data-id="${sanitizeHTML(idPersona)}"]`);
 if (btnAprobarSolicitud) {
   btnAprobarSolicitud.disabled = false;
   btnAprobarSolicitud.removeAttribute('title');
@@ -835,6 +850,3 @@ infoUnidad.textContent = '';
     alert('Error del servidor al asignar la unidad.');
   }
 });
-
-
-

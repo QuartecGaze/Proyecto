@@ -2,6 +2,21 @@ import { getCooperativa } from '../../../BackEnd/APIFetchs/APICooperativa.js';
 import { getUsuario } from '../../../BackEnd/APIFetchs/APIUsuario.js';
 import { getIdSesion } from '../../../BackEnd/APIFetchs/APIUsuario.js';
 
+// ---------- Funciones de sanitización ----------
+const sanitizeHTML = (str) => {
+    if (str == null) return '';
+    return String(str)
+        .replace(/&/g, '&amp;')
+        .replace(/</g, '&lt;')
+        .replace(/>/g, '&gt;')
+        .replace(/"/g, '&quot;')
+        .replace(/'/g, '&#x27;');
+};
+
+const sanitizeAttribute = (str) => {
+    if (str == null) return '';
+    return String(str).replace(/"/g, '&quot;').replace(/'/g, '&#x27;');
+};
 
 /// --- DOM Generalidades (usuario) ---
 const nombre = document.querySelectorAll(".nombreUsuario");
@@ -33,18 +48,18 @@ const coop = await getCooperativa(id);
 setDatosCooperativa(coop.message);
 
 function setDatosUsuario(data) {
-  nombre.forEach(n => { n.textContent = `${data.nombre} ${data.apellido}`; });
+  nombre.forEach(n => { n.textContent = sanitizeHTML(`${data.nombre} ${data.apellido}`); });
   foto.forEach(f => {
-    f.src = fotoruta + (data.foto && data.foto !== '' ? data.foto : fotoUsuario);
+    f.src = fotoruta + (data.foto && data.foto !== '' ? sanitizeAttribute(data.foto) : fotoUsuario);
   });
 }
 
 function setDatosCooperativa(data) {
-  if (horasTrabajadas) horasTrabajadas.textContent = data.horasTrabajadas;
-  if (objetivoHoras) objetivoHoras.textContent = data.horasObjetivo;
-  if (porcentajeFaltas) porcentajeFaltas.textContent = data.porcentajeFaltas + "%";
+  if (horasTrabajadas) horasTrabajadas.textContent = sanitizeHTML(data.horasTrabajadas);
+  if (objetivoHoras) objetivoHoras.textContent = sanitizeHTML(data.horasObjetivo);
+  if (porcentajeFaltas) porcentajeFaltas.textContent = sanitizeHTML(data.porcentajeFaltas + "%");
   if (pagosAtrasadosCantidad) {
-    pagosAtrasadosCantidad.textContent = data.pagosAtrasados;
+    pagosAtrasadosCantidad.textContent = sanitizeHTML(data.pagosAtrasados);
     if (data.pagosAtrasados > 0) {
       pagosAtrasadosCantidad.classList.add("atrasado");
       cardPagosAtrasados?.classList.add("atrasado");
@@ -54,7 +69,7 @@ function setDatosCooperativa(data) {
     }
   }
   if (pagosAtrasadosTotal) {
-    pagosAtrasadosTotal.textContent = "Total: $" + data.pagosAtrasadosDinero;
+    pagosAtrasadosTotal.textContent = "Total: $" + sanitizeHTML(data.pagosAtrasadosDinero);
   }
 
   // si hay barra de progreso en index, actualizarla

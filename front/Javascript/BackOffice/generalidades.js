@@ -1,6 +1,19 @@
 import { getAdmin } from '../../../BackEnd/APIFetchs/APIBackOffice.js';
 import { getIdSesion } from '../../../BackEnd/APIFetchs/APIBackOffice.js';
 
+// Función para escapar HTML y prevenir XSS
+function escapeHtml(text) {
+  const div = document.createElement('div');
+  div.textContent = text;
+  return div.innerHTML;
+}
+
+// Función para sanitizar URLs de imágenes
+function sanitizeImageUrl(filename) {
+  // Solo permite caracteres alfanuméricos, guiones, puntos y guiones bajos
+  return filename.replace(/[^a-zA-Z0-9._-]/g, '');
+}
+
 const nombre = document.querySelectorAll(".nombreAdmin");
 const foto = document.querySelectorAll(".fotoPerfil");
 const rol = document.getElementById("rolAdmin");
@@ -19,17 +32,17 @@ cambiarUsuario.addEventListener('click', function () {
 
 function setDatos(data) {
   nombre.forEach(nombreDiv => {
-    nombreDiv.textContent = data.nombre + " " + data.apellido;
+    nombreDiv.textContent = escapeHtml(data.nombre) + " " + escapeHtml(data.apellido);
   });
 
   foto.forEach(fotoDiv => {
     if (data.foto == null || data.foto === '') {
       fotoDiv.src = fotoruta + fotoUsuario;
     } else {
-      fotoDiv.src = fotoruta + data.foto;
+      fotoDiv.src = fotoruta + sanitizeImageUrl(data.foto);
     }
   });
-  rol.textContent = data.nivelPermisos;
+  rol.textContent = escapeHtml(data.nivelPermisos);
 }
 
 document.querySelectorAll(".item-menu > a").forEach(boton => {

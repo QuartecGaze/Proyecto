@@ -1,6 +1,13 @@
 import { asignarPagoMensual } from '../../../BackEnd/APIFetchs/APIBackOffice.js';
 import { asignarPagoPersonalizado } from '../../../BackEnd/APIFetchs/APIBackOffice.js';
 
+// Función para escapar HTML y prevenir XSS
+function escapeHtml(text) {
+  const div = document.createElement('div');
+  div.textContent = text;
+  return div.innerHTML;
+}
+
 const formularioPagoMensual = document.getElementById('form-pago-mensual');
 const formularioPagoPersonalizado = document.getElementById('form-pago-personalizado');
 const mensajeExito = formularioPagoMensual.querySelector('.mensaje-exito');
@@ -26,7 +33,7 @@ formularioPagoMensual.addEventListener('submit', async (e) => {
         } else {
             mensajeExito.style.display = 'none';
             mensajeError.style.display = 'block';
-            mensajeError.textContent = 'Error: ' + respuesta.message;
+            mensajeError.textContent = 'Error: ' + escapeHtml(respuesta.message);
         }
     } catch (error) {
         console.error('Error al asignar pago mensual', error);
@@ -58,7 +65,7 @@ formularioPagoPersonalizado.addEventListener('submit', async (e) => {
     } else {
       mensajeExitoPersonalizado.style.display = 'none';
       mensajeErrorPersonalizado.style.display = 'block';
-      mensajeErrorPersonalizado.textContent = 'Error: ' + respuesta.message;
+      mensajeErrorPersonalizado.textContent = 'Error: ' + escapeHtml(respuesta.message);
     }
   } catch (error) {
     console.error('Error al asignar pago personalizado', error);

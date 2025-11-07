@@ -7,6 +7,23 @@ import { getIntegrantesFamiliares } from '../../../BackEnd/APIFetchs/APICooperat
 // ---------- Helpers ----------
 const fmtMon = v => `$ ${Number(v ?? 0).toLocaleString('es-UY')}`;
 
+// Función de sanitización
+const sanitizeHTML = (str) => {
+    if (str == null) return '';
+    return String(str)
+        .replace(/&/g, '&amp;')
+        .replace(/</g, '&lt;')
+        .replace(/>/g, '&gt;')
+        .replace(/"/g, '&quot;')
+        .replace(/'/g, '&#x27;');
+};
+
+// Función para sanitizar atributos
+const sanitizeAttribute = (str) => {
+    if (str == null) return '';
+    return String(str).replace(/"/g, '&quot;').replace(/'/g, '&#x27;');
+};
+
 // ---------- Elementos de UI ----------
 const contenedor = document.querySelector(".contenedor-socios");
 
@@ -66,7 +83,7 @@ function renderTarjetas(lista) {
   
     lista.forEach((usuario, index) => {
       const fotoPath = usuario.foto
-        ? `../../Recursos/FotosPerfil/${usuario.foto}`
+        ? `../../Recursos/FotosPerfil/${sanitizeAttribute(usuario.foto)}`
         : '../../Recursos/FotosPerfil/usuario.webp';
   
       const direccion = usuario?.direccion || '—';
@@ -83,8 +100,8 @@ function renderTarjetas(lista) {
             <div class="card-header">
               <img src="${fotoPath}" alt="Usuario" class="avatar">
               <div class="info">
-                <h3>${usuario.nombre ?? ''} ${usuario.apellido ?? ''}</h3>
-                <p>${direccion}</p>
+                <h3>${sanitizeHTML(usuario.nombre ?? '')} ${sanitizeHTML(usuario.apellido ?? '')}</h3>
+                <p>${sanitizeHTML(direccion)}</p>
               </div>
             </div>
             <div class="card-footer">
@@ -141,22 +158,22 @@ function vincularBotonesAbrirModal() {
 async function poblarModal(usuario) {
   // Foto
   modalAvatar.src = usuario.foto
-    ? `../../Recursos/FotosPerfil/${usuario.foto}`
+    ? `../../Recursos/FotosPerfil/${sanitizeAttribute(usuario.foto)}`
     : '../../Recursos/FotosPerfil/usuario.webp';
 
   // Datos básicos
-  spans.nombre.textContent = usuario.nombre ?? '—';
-  spans.apellido.textContent = usuario.apellido ?? '—';
-  spans.cedula.textContent = usuario.ci ?? '—';
-  spans.fechaNacimiento.textContent = usuario.fechaNacimiento || 'No proporcionada';
-  spans.direccion.textContent = usuario.direccion || 'No proporcionada';
-  spans.email.textContent = usuario.email || 'No proporcionado';
-  spans.fechaRegistro.textContent = usuario.fechaIngreso || 'No proporcionada';
+  spans.nombre.textContent = sanitizeHTML(usuario.nombre ?? '—');
+  spans.apellido.textContent = sanitizeHTML(usuario.apellido ?? '—');
+  spans.cedula.textContent = sanitizeHTML(usuario.ci ?? '—');
+  spans.fechaNacimiento.textContent = sanitizeHTML(usuario.fechaNacimiento || 'No proporcionada');
+  spans.direccion.textContent = sanitizeHTML(usuario.direccion || 'No proporcionada');
+  spans.email.textContent = sanitizeHTML(usuario.email || 'No proporcionado');
+  spans.fechaRegistro.textContent = sanitizeHTML(usuario.fechaIngreso || 'No proporcionada');
 
   // Teléfonos (array)
   spans.telefono.innerHTML = '';
   telefonoActual = Array.isArray(usuario.telefono) ? usuario.telefono : [];
-  telefonoActual.forEach(t => spans.telefono.innerHTML += `${t}<br>`);
+  telefonoActual.forEach(t => spans.telefono.innerHTML += `${sanitizeHTML(t)}<br>`);
 
   // Integrantes familiares: uso lo que venga, si no hay, lo busco
 tablaFamiliares.innerHTML = '';
@@ -184,10 +201,10 @@ if (familiares.length === 0) {
   familiares.forEach(int => {
     tablaFamiliares.innerHTML += `
       <tr>
-        <td>${int.nombre}</td>
-        <td>${int.apellido}</td>
-        <td>${int.ci}</td>
-        <td>${int.email}</td>
+        <td>${sanitizeHTML(int.nombre)}</td>
+        <td>${sanitizeHTML(int.apellido)}</td>
+        <td>${sanitizeHTML(int.ci)}</td>
+        <td>${sanitizeHTML(int.email)}</td>
       </tr>`;
   });
 }
@@ -281,14 +298,14 @@ async function guardarCambios() {
     await actualizarUsuario(payload);
 
     // Reflejar cambios en UI (spans y tarjeta en memoria)
-    spans.nombre.textContent = payload.nombre || '—';
-    spans.apellido.textContent = payload.apellido || '—';
-    spans.cedula.textContent = payload.ci || '—';
-    spans.fechaNacimiento.textContent = payload.fechaNacimiento || 'No proporcionada';
-    spans.direccion.textContent = payload.direccion || 'No proporcionada';
-    spans.email.textContent = payload.email || 'No proporcionado';
+    spans.nombre.textContent = sanitizeHTML(payload.nombre || '—');
+    spans.apellido.textContent = sanitizeHTML(payload.apellido || '—');
+    spans.cedula.textContent = sanitizeHTML(payload.ci || '—');
+    spans.fechaNacimiento.textContent = sanitizeHTML(payload.fechaNacimiento || 'No proporcionada');
+    spans.direccion.textContent = sanitizeHTML(payload.direccion || 'No proporcionada');
+    spans.email.textContent = sanitizeHTML(payload.email || 'No proporcionado');
     spans.telefono.innerHTML = '';
-    payload.telefono.forEach(t => spans.telefono.innerHTML += `${t}<br>`);
+    payload.telefono.forEach(t => spans.telefono.innerHTML += `${sanitizeHTML(t)}<br>`);
 
     // Actualizo objeto en memoria (por si se reabre el modal)
     Object.assign(usuarioActual, {
@@ -313,7 +330,6 @@ async function guardarCambios() {
     alert('No se pudieron guardar los cambios.');
   }
 }
-
 
 /*
 document.addEventListener('DOMContentLoaded', function () {
