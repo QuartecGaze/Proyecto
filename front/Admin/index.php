@@ -31,7 +31,7 @@
 
             <nav id="NavegacionDashboard">
                 <ul class="menu-dashboard">
-                    <li class="item-menu">
+                    <li class="item-menu activo">
                         <a href="index.php"><i class="material-icons">home</i> Inicio</a>
                     </li>
                     <li class="item-menu">

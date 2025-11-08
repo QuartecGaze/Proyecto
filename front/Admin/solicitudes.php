@@ -40,7 +40,7 @@
                         <a href="socios.php"><i class="material-icons">people</i> Socios</a>
                     </li>
                     <li class="item-menu">
-                        <a href="#">
+                        <a href="#" class="submenu-toggle">
                             <i class="material-icons">apartment</i> Unidades Habitacionales
                         </a>
                         <ul class="submenu">
@@ -49,7 +49,7 @@
                         </ul>
                     </li>
                     <li class="item-menu">
-                        <a href="#">
+                        <a href="#" class="submenu-toggle">
                             <i class="material-icons">payments</i> Pagos
                         </a>
                         <ul class="submenu">
@@ -58,7 +58,7 @@
                             <li><a href="pagos.php"><i class="material-icons">point_of_sale</i> Gestor de Pagos</a></li>
                         </ul>
                     </li>
-                    <li class="item-menu">
+                    <li class="item-menu activo">
                         <a href="solicitudes.php"><i class="material-icons">email</i> Solicitudes</a>
                     </li>
                     <li class="item-menu">
@@ -67,7 +67,7 @@
                         </a>
                     </li>
                     <li class="item-menu">
-                        <a href="#">
+                        <a href="#" class="submenu-toggle">
                             <i class="material-icons">settings</i> Configuracion
                         </a>
                         <ul class="submenu">
@@ -220,40 +220,6 @@
     </div>
 
     <script>
-        // Funcionalidad del menú hamburguesa para admin
-        const botonHamburguesa = document.getElementById('botonHamburguesa');
-        const sidebar = document.getElementById('sidebar');
-        const overlay = document.getElementById('overlay');
-
-        function toggleMenu() {
-            botonHamburguesa.classList.toggle('activo');
-            sidebar.classList.toggle('activo');
-            overlay.classList.toggle('activo');
-            document.body.style.overflow = sidebar.classList.contains('activo') ? 'hidden' : 'auto';
-        }
-
-        botonHamburguesa.addEventListener('click', toggleMenu);
-        overlay.addEventListener('click', toggleMenu);
-
-        // Cerrar menú al hacer clic en un enlace (en móviles)
-        /* document.querySelectorAll('.item-menu a').forEach(enlace => {
-            enlace.addEventListener('click', () => {
-                if (window.innerWidth <= 768) {
-                    toggleMenu();
-                }
-            });
-        }); */
-
-        // Ajustar el menú al cambiar el tamaño de la ventana
-        window.addEventListener('resize', () => {
-            if (window.innerWidth > 768) {
-                botonHamburguesa.classList.remove('activo');
-                sidebar.classList.remove('activo');
-                overlay.classList.remove('activo');
-                document.body.style.overflow = 'auto';
-            }
-        });
-
         // Funcionalidad del modal
         const modal = document.getElementById('modalReunion');
         const cerrarModal = document.querySelector('.cerrar-modal');

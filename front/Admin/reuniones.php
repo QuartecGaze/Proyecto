@@ -31,14 +31,14 @@
                     <li class="item-menu">
                         <a href="index.php"><i class="material-icons">home</i> Inicio</a>
                     </li>
-                    <li class="item-menu">
+                    <li class="item-menu activo">
                         <a href="reuniones.php"><i class="material-icons">event</i> Reuniones</a>
                     </li>
                     <li class="item-menu">
                         <a href="socios.php"><i class="material-icons">people</i> Socios</a>
                     </li>
                     <li class="item-menu">
-                        <a href="#">
+                        <a href="#" class="submenu-toggle">
                             <i class="material-icons">apartment</i> Unidades Habitacionales
                         </a>
                         <ul class="submenu">
@@ -47,7 +47,7 @@
                         </ul>
                     </li>
                     <li class="item-menu">
-                        <a href="#">
+                        <a href="#" class="submenu-toggle">
                             <i class="material-icons">payments</i> Pagos
                         </a>
                         <ul class="submenu">
@@ -65,7 +65,7 @@
                         </a>
                     </li>
                     <li class="item-menu">
-                        <a href="#">
+                        <a href="#" class="submenu-toggle">
                             <i class="material-icons">settings</i> Configuracion
                         </a>
                         <ul class="submenu">

@@ -50,6 +50,7 @@ a {
 h1 {
     color: var(--color-primario);
     margin: 0px 0px 30px;
+    text-align: center;
 }
 
 h3 {
