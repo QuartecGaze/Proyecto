@@ -1,0 +1,242 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Senda Firme - Perfil</title>
+    <link rel="stylesheet" href="../Css/backoffice.css">
+    <link rel="stylesheet" href="../Css/estilosSocios.css">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap"
+        rel="stylesheet">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+</head>
+
+<body class="backoffice">
+    <button class="boton-hamburguesa" id="botonHamburguesa">
+        <span></span>
+    </button>
+    <div class="overlay" id="overlay"></div>
+
+    <div class="contenedor-dashboard">
+        <aside class="sidebar" id="sidebar">
+            <div class="logo-dashboard">
+                <img src="../../Fotos/logoBack.webp" alt="Logo Cooperativa">
+                <span>Senda Firme</span>
+                <p>Construyendo oportunidades juntos</p>
+            </div>
+
+            <nav id="NavegacionDashboard">
+                <ul class="menu-dashboard">
+                    <li class="item-menu">
+                        <a href="index.html"><i class="material-icons">home</i> Inicio</a>
+                    </li>
+                    <li class="item-menu">
+                        <a href="reuniones.html"><i class="material-icons">event</i> Reuniones</a>
+                    </li>
+                    <li class="item-menu activo">
+                        <a href="socios.html"><i class="material-icons">people</i> Socios</a>
+                    </li>
+                    <li class="item-menu">
+                        <a href="#" class="submenu-toggle">
+                            <i class="material-icons">apartment</i> Unidades Habitacionales
+                        </a>
+                        <ul class="submenu">
+                            <a href="unidades.html"><i class="material-icons">home_work</i>Gestionar Proyectos</a>
+                            <a href="crearUnidad.html"><i class="material-icons">add_circle</i> Crear Unidad</a>
+                        </ul>
+                    </li>
+                    <li class="item-menu">
+                        <a href="#" class="submenu-toggle">
+                            <i class="material-icons">payments</i> Pagos
+                        </a>
+                        <ul class="submenu">
+                            <li><a href="confirmarPagos.html"><i class="material-icons">receipt_long</i> Corroborar
+                                    Comprobantes</a></li>
+                            <li><a href="pagos.html"><i class="material-icons">point_of_sale</i> Gestor de Pagos</a></li>
+                        </ul>
+                    </li>
+                    <li class="item-menu">
+                        <a href="solicitudes.html"><i class="material-icons">email</i> Solicitudes</a>
+                    </li>
+                    <li class="item-menu">
+                        <a href="faltas.html">
+                            <i class="material-icons">punch_clock</i> Faltas de Horas
+                        </a>
+                    </li>
+                    <li class="item-menu">
+                        <a href="#" class="submenu-toggle">
+                            <i class="material-icons">settings</i> Configuracion
+                        </a>
+                        <ul class="submenu">
+                            <a href="configuracion.html"><i class="material-icons">star</i> Mi Perfil</a>
+                            <a href="crearAdmin.html"><i class="material-icons">key</i> Crear Admin</a>
+                            <a href="borrarAdmin.html"><i class="material-icons">backspace</i> Borrar Admin</a>
+
+                        </ul>
+                    </li>
+                </ul>
+            </nav>
+
+            <div class="perfil-usuario">
+                <div class="info-usuario">
+                    <img src="" alt="Foto perfil" class="fotoPerfil">
+                    <div>
+                        <p class="nombre-usuario nombreAdmin">Admin User</p>
+                        <p class="rol-usuario" id="rolAdmin">Administrador</p>
+                    </div>
+                </div>
+                <form action="../cerrarSesion.html">
+                    <button class="boton-cerrar-sesion">
+                        <i class="material-icons">logout</i> Cerrar sesión
+                    </button>
+                </form>
+                <button id="boton-cambiar-sesion">
+                    <i class="material-icons">switch_account</i> Cambiar a Usuario
+                </button>
+            </div>
+        </aside>
+
+        <!-- Contenido principal del perfil -->
+        <main class="contenido-principal">
+            <header class="header-principal">
+                <h1>Socios</h1>
+                <p>En este pestaña puedes consultar todos lo socios regstrados en la cooperativa.</p>
+            </header>
+
+            <div class="contenedor-socios">
+                <div class="etiqueta">
+                    <div class="card">
+                        <div class="card-header">
+                            <img src="avatar.jpg" alt="Usuario" class="avatar">
+                            <div class="info">
+                                <h3>Nombre Apellido</h3>
+                                <p>Pasillo P-1 <br> Puerta 100</p>
+                            </div>
+                        </div>
+                        <div class="card-footer">
+                            <span class="tag gray">0 Horas Trabajadas Totales</span>
+                            <span class="tag red">0/21</span>
+                            <span class="tag green">$ 0</span>
+                        </div>
+                    </div>
+                    <div class="actions">
+                        <button>
+                            <i class="material-icons" style="font-size: 40px;">visibility</i>
+                        </button>
+                    </div>
+                </div>
+
+            </div>
+        </main>
+    </div>
+
+    <!-- Modal para mostrar datos del usuario -->
+    <div id="modalUsuario" class="modal">
+        <div class="modal-contenido">
+            <div class="modal-header">
+                <h2>Detalles del Socio</h2>
+                <span class="cerrar-modal">&times;</span>
+            </div>
+            <div class="modal-body">
+                <div class="perfil-completo">
+                    <div class="foto-perfil-modal">
+                        <img id="modalAvatar" src="avatar.jpg" alt="Foto del usuario"> <!-- hay que traer la foto aca-->
+                    </div>
+                    <div class="info-completa">
+                        <div class="campo">
+                            <label>Nombre:</label>
+                            <span id="modalNombre">Nombre</span>
+                            <input type="text" id="inputNombre" class="campo-editable" style="display: none;">
+                        </div>
+                        <div class="campo">
+                            <label>Apellido:</label>
+                            <span id="modalApellido">Apellido</span>
+                            <input type="text" id="inputApellido" class="campo-editable" style="display: none;">
+                        </div>
+                        <div class="campo">
+                            <label>Cédula:</label>
+                            <span id="modalCedula">5 705 183-0</span>
+                            <input type="text" id="inputCedula" class="campo-editable" style="display: none;">
+                        </div>
+                        <div class="campo">
+                            <label>Fecha de nacimiento:</label>
+                            <span id="modalFechaNacimiento">15/03/1985</span>
+                            <input type="date" id="inputFechaNacimiento" class="campo-editable" style="display: none;">
+                        </div>
+                        <div class="campo">
+                            <label>Dirección:</label>
+                            <span id="modalDireccion">Pasillo P-1, Puerta 100</span>
+                            <input type="text" id="inputDireccion" class="campo-editable" style="display: none;">
+                        </div>
+                        <div class="campo">
+                            <label>Email:</label>
+                            <span id="modalEmail">usuario@ejemplo.com</span>
+                            <input type="email" id="inputEmail" class="campo-editable" style="display: none;">
+                        </div>
+                        <div class="campo">
+                            <label>Teléfono:</label>
+                            <span id="modalTelefono">+34 123 456 789</span>
+                            <input type="tel" id="inputTelefono" class="campo-editable" style="display: none;">
+                        </div>
+                        <div class="campo">
+                            <label>Fecha de registro:</label>
+                            <span id="modalFechaRegistro">01/01/2023</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="historial">
+                    <h3>Integrantes Familiares</h3>
+                    <div class="tabla-contenedor">
+                        <table class="tabla-pagos">
+                            <thead>
+                                <tr>
+                                    <th>Nombre</th>
+                                    <th>Apellido</th>
+                                    <th>Cédula</th>
+                                    <th>Email</th>
+                                </tr>
+                            </thead>
+                            <tbody id="tablaFamiliares">
+                                
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+
+                <div class="estadisticas">
+                    <h3>Estadísticas</h3>
+                    <div class="estadisticas-grid">
+                        <div class="estadistica-item">
+                            <span class="estadistica-valor" id="modalHorasTotales">0</span>
+                            <span class="estadistica-etiqueta">Horas trabajadas totales</span>
+                        </div>
+                        <div class="estadistica-item">
+                            <span class="estadistica-valor" id="modalHorasActual">0/21</span>
+                            <span class="estadistica-etiqueta">Horas este mes</span>
+                        </div>
+                        <div class="estadistica-item">
+                            <span class="estadistica-valor" id="modalSaldo">$ 0</span>
+                            <span class="estadistica-etiqueta">Saldo actual</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="modal-footer">
+                    <button class="btn btn-secundario cerrar-modal" id="btnCerrarModal">Cerrar</button>
+                    <button class="btn btn-primario" id="btnEditarUsuario">Editar información</button>
+                    <button class="btn btn-primario" id="btnGuardarCambios" style="display: none;">Guardar
+                        cambios</button>
+                    <button class="btn btn-terciario" id="btnCancelarEdicion" style="display: none;">Cancelar
+                        Edicion</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script src="../Javascript/BackOffice/generalidades.js" type="module"></script>
+    <script src="../Javascript/BackOffice/socios.js" type="module"></script>
+</body>
+
+</html>
