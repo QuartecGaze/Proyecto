@@ -229,6 +229,7 @@ body {
     flex-grow: 1;
     padding: 30px;
     overflow-y: auto;
+    margin-left: 280px;
 }
 
 .header-principal {

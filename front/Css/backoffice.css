@@ -358,6 +358,10 @@
         padding: 15px 10px;
     }
 
+    .backoffice .contenido-derecho {
+        margin-left: 0px;
+    }
+
     .backoffice .seccion-actividades,
     .backoffice .seccion-eventos {
         padding: 15px;
