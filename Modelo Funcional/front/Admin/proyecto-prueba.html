@@ -1,0 +1,274 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Senda Firme - Gestión de Unidades</title>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap"
+        rel="stylesheet">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link rel="stylesheet" href="../Css/backoffice.css">
+    <link rel="stylesheet" href="../Css/estilosProyectos-prueba.css">
+    <!-- Incluir Chart.js para los gráficos -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+
+<body class="backoffice">
+    <div class="contenedor-dashboard">
+        <!-- Sidebar -->
+        <aside class="sidebar">
+            <div class="logo-dashboard">
+                <img src="../../Fotos/logoBack.webp" alt="Logo Cooperativa">
+                <span>Senda Firme</span>
+                <p>Construyendo oportunidades juntos</p>
+            </div>
+
+            <nav id="NavegacionDashboard">
+                <ul class="menu-dashboard">
+                    <li class="item-menu">
+                        <a href="index.html"><i class="material-icons">home</i> Inicio</a>
+                    </li>
+                    <li class="item-menu">
+                        <a href="reuniones.html"><i class="material-icons">event</i> Reuniones</a>
+                    </li>
+                    <li class="item-menu">
+                        <a href="socios.html"><i class="material-icons">people</i> Socios</a>
+                    </li>
+                    <li class="item-menu">
+                        <a href="#">
+                            <i class="material-icons">apartment</i> Unidades Habitacionales
+                        </a>
+                        <ul class="submenu">
+                            <a href="unidades.html"><i class="material-icons">home_work</i>Gestionar Proyectos</a>
+                            <a href="crearUnidad.html"><i class="material-icons">add_circle</i> Crear Unidad</a>
+                        </ul>
+                    </li>
+                    <li class="item-menu">
+                        <a href="#">
+                            <i class="material-icons">payments</i> Pagos
+                        </a>
+                        <ul class="submenu">
+                            <li><a href="confirmarPagos.html"><i class="material-icons">receipt_long</i> Corroborar
+                                    Comprobantes</a></li>
+                            <li><a href="pagos.html"><i class="material-icons">point_of_sale</i> Gestor de Pagos</a></li>
+                        </ul>
+                    </li>
+                    <li class="item-menu">
+                        <a href="solicitudes.html"><i class="material-icons">email</i> Solicitudes</a>
+                    </li>
+                    <li class="item-menu">
+                        <a href="faltas.html">
+                            <i class="material-icons">punch_clock</i> Faltas de Horas
+                        </a>
+                    </li>
+                    <li class="item-menu">
+                        <a href="#">
+                            <i class="material-icons">settings</i> Configuracion
+                        </a>
+                        <ul class="submenu">
+                            <a href="configuracion.html"><i class="material-icons">star</i> Mi Perfil</a>
+                            <a href="crearAdmin.html"><i class="material-icons">key</i> Crear Admin</a>
+                            <a href="borrarAdmin.html"><i class="material-icons">backspace</i> Borrar Admin</a>
+
+                        </ul>
+                    </li>
+                </ul>
+            </nav>
+
+            <div class="perfil-usuario">
+                <div class="info-usuario">
+                    <img src="" alt="Foto perfil" class="fotoPerfil">
+                    <div>
+                        <p class="nombre-usuario nombreAdmin">Admin User</p>
+                        <p class="rol-usuario" id="rolAdmin">Administrador</p>
+                    </div>
+                </div>
+                <form action="../cerrarSesion.html">
+                    <button class="boton-cerrar-sesion">
+                        <i class="material-icons">logout</i> Cerrar sesión
+                    </button>
+                </form>
+                <button id="boton-cambiar-sesion">
+                    <i class="material-icons">switch_account</i> Cambiar a Usuario
+                </button>
+            </div>
+        </aside>
+
+        <main class="contenido-principal">
+            <header class="header-principal">
+                <h1>Gestión de <span class="nombre-usuario-destacado">Unidades</span></h1>
+                <p>Administra las Unidades habitacionales de la cooperativa</p>
+            </header>
+
+            <!-- Gráficos de estadísticas de unidades -->
+            <div class="contenedor-graficos">
+                <!-- Gráfico circular de distribución por estado -->
+                <div class="tarjeta-grafico">
+                    <h3>Distribución por Estado</h3>
+                    <div class="canvas-container">
+                        <canvas id="graficoEstados"></canvas>
+                    </div>
+                    <div class="leyenda-grafico" id="leyendaEstados"></div>
+                </div>
+
+                <!-- Gráfico de barras por ubicación -->
+                <div class="tarjeta-grafico">
+                    <h3>Unidades por habitaciones</h3>
+                    <div class="canvas-container">
+                        <canvas id="graficoHabitaciones"></canvas>
+                    </div>
+                </div>
+
+                <!-- Gráfico de progreso general -->
+                <div class="tarjeta-grafico">
+                    <h3>Progreso General</h3>
+                    <div class="canvas-container">
+                        <canvas id="graficoProgreso"></canvas>
+                    </div>
+                    <div class="resumen-estadisticas">
+                        <div class="estadistica-item">
+                            <div class="estadistica-valor" id="totalUnidades">42</div>
+                            <div class="estadistica-etiqueta">Total Unidades</div>
+                        </div>
+                        <div class="estadistica-item">
+                            <div class="estadistica-valor" id="unidadesCompletadas">15</div>
+                            <div class="estadistica-etiqueta">Finalizada</div>
+                        </div>
+                        <div class="estadistica-item">
+                            <div class="estadistica-valor" id="porcentajeCompletado">36%</div>
+                            <div class="estadistica-etiqueta">Progreso</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Lista de unidades -->
+            <div class="contenedor-tabla">
+                <h2>Unidades Activas</h2>
+                <table class="tabla-datos">
+                    <thead>
+                    <tr>
+                        <th>Número Unidad</th>
+                        <th>CI</th>
+                        <th>Habitaciones</th>
+                        <th>Estado</th>
+                        <th>Nº Puerta</th>
+                        <th>Pasillo</th>
+                        <th class="checkbox-seleccion">Seleccionar</th>
+                    </tr>
+                    </thead>
+
+                    <tbody id="tablaProyectos"></tbody>
+
+                    </tbody>
+                </table>
+            </div>
+        </main>
+    </div>
+
+    <!-- Botones flotantes (sin cambios) -->
+    <div class="botones-flotantes">
+        <div class="boton-flotante" id="botonAcciones">
+            <i class="material-icons">tune</i>
+            <span class="contador-seleccionados" id="contadorSeleccionados">0</span>
+        </div>
+
+        <div class="acciones-multiples" id="accionesMultiples">
+            <div class="grupo-botones">
+                <button class="btn-accion btn-borrar" id="btnBorrarUnidades">
+                    <i class="material-icons">delete</i> Borrar Unidades Seleccionadas
+                </button>
+
+                <div>
+                    <h3>Cambiar Estado Unidades</h3>
+                    <select class="select-estado" id="selectEstadoUnidad">
+                        <option value="">Seleccionar estado...</option>
+                        <option value="1">En espera</option>
+                        <option value="2">En pausa</option>
+                        <option value="3">En construccion</option>
+                        <option value="4">Finalizada</option>
+                    </select>
+                    <button class="btn-accion btn-cambiar-estado" id="btnCambiarEstado">
+                        <i class="material-icons">swap_horiz</i> Cambiar Estado
+                    </button>
+                </div>
+
+                <button class="btn-accion btn-modificar" id="btnModificarUnidades">
+                    <i class="material-icons">edit</i> Modificar Unidad Habitacional
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal para modificar unidad -->
+<div class="modal" id="modalUnidad">
+        <div class="modal-contenido">
+            <div class="modal-header">
+                <h2 id="tituloModal">Modificar Unidad Habitacional</h2>
+                <span class="cerrar-modal">&times;</span>
+            </div>
+            <div class="modal-body">
+                <form id="formUnidad">
+                    <input type="hidden" id="unidadId">
+
+                    <div class="grupo-formulario-doble">
+                        <div class="grupo-formulario">
+                            <label for="numeroUnidad">Número de Unidad</label>
+                            <input type="text" id="numeroUnidad" readonly class="campo-no-editable">
+                        </div>
+                        <div class="grupo-formulario">
+                            <label for="cedulaUnidad">Cédula</label>
+                            <input type="text" id="cedulaUnidad" required>
+                        </div>
+                    </div>
+
+                    <div class="grupo-formulario-doble">
+                        <div class="grupo-formulario">
+                            <label for="habitacionesUnidad">Habitaciones </label>
+                            <input type="number" id="habitacionesUnidad" min="1" max="10" required>
+                        </div>
+                        <div class="grupo-formulario">
+                            <label for="estadoUnidad">Estado </label>
+                            <select id="estadoUnidad" required>
+                                <option value="En espera">En espera</option>
+                                <option value="En pausa">En pausa</option>
+                                <option value="En construcción">En construccion</option>
+                                <option value="Finalizada">Finalizada</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="grupo-formulario-doble">
+                        <div class="grupo-formulario">
+                            <label for="puertaUnidad">Número de Puerta </label>
+                            <input type="text" id="puertaUnidad" required>
+                        </div>
+                        <div class="grupo-formulario">
+                            <label for="pasilloUnidad">Pasillo </label>
+                            <input type="text" id="pasilloUnidad" required>
+                        </div>
+                    </div>
+
+                    <div class="grupo-formulario">
+                        <label for="observacionesUnidad">Observaciones</label>
+                        <textarea id="observacionesUnidad" rows="3"
+                            placeholder="Observaciones adicionales sobre la unidad..."></textarea>
+                    </div>
+
+                    <div class="modal-footer">
+                        <button type="button" class="btn-secundario cerrar-modal">Cerrar</button>
+                        <button type="submit" class="btn-primario">Guardar Cambios</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+    <script src="../Javascript/BackOffice/generalidades.js" type="module"></script>
+    <script src="../Javascript/BackOffice/unidades.js" type="module"></script>
+
+
+</body>
+
+</html>
