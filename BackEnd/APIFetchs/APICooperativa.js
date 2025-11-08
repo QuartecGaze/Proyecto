@@ -53,3 +53,13 @@ import { apiRequest } from './apiConfig.js';
         export function getHorasTrabajadasUsuarios(){
                 return apiRequest(`/APICooperativa/ApiCooperativa.php?accion=getHorasTrabajadasUsuarios`, "GET");
         }
+        export function getUnidadHabitacional(id) {
+                return apiRequest('/APICooperativa/ApiCooperativa.php?accion=getUnidadHabitacional&id=' + id, 'GET');
+        }
+        export function editarIntegranteFamiliar(data) {
+                return apiRequest('/APICooperativa/ApiCooperativa.php?accion=editarIntegranteFamiliar', 'POST', data);
+        }
+        export function getEstadisticas(id) {
+                return apiRequest(`/APICooperativa/ApiCooperativa.php?accion=getEstadisticas&id=` + id, 'GET');
+      }
+      

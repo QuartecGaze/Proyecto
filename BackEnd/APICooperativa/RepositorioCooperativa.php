@@ -322,6 +322,7 @@ require __DIR__ .'/../Consultas.php';
             }
             return $integrantesFamiliares;
         }
+
         public function integranteExiste($ci) {
             $consulta = "
                 SELECT 1
@@ -405,4 +406,80 @@ require __DIR__ .'/../Consultas.php';
                 'asistencias' => $asistio
             ];
         }
+
+        public function getUnidadHabitacional($idPersona) {
+            $consulta = "
+            SELECT * 
+            FROM unidad_habitacional 
+            WHERE ID_Persona = ?";
+            $resultado = consulta($this->conn, $consulta, "i", [$idPersona]);
+        
+            $unidades = [];
+            while ($fila = mysqli_fetch_assoc($resultado)) {
+                $unidades[] = $fila;
+            }
+            return $unidades;
+        }
+        
+
+        public function editarIntegranteFamiliar($idIntegrante, $ciIntegrante, $nombreIntegrante, $apellidoIntegrante, $emailIntegrante, $fechaNacimientoIntegrante, $genero){
+            $consulta = "
+                UPDATE integrante_familiar
+                SET CI = ?, 
+                Nombre = ?,
+                Apellido = ?,
+                Email = ?,
+                FechaNacimiento = ?,
+                Genero = ?
+                WHERE ID_Integrante = ?
+            ";
+            $resultado = consulta($this->conn, $consulta, "isssssi", [$ciIntegrante, $nombreIntegrante, $apellidoIntegrante, $emailIntegrante, $fechaNacimientoIntegrante, $genero , $idIntegrante]);
+            if ($resultado === false) {
+                return false;
+            }
+            return true;
+        }
+
+        public function getPagosAprobadoUsuario($idPersona){
+            $consulta = "
+                SELECT Monto 
+                FROM comprobante_pago  
+                WHERE Estado_pago = 'Aprobado' AND ID_Persona = $idPersona;
+            ";
+            $resultado = consulta($this->conn, $consulta); 
+            $totalPagos = 0;
+            while ($fila = mysqli_fetch_assoc($resultado)) {
+                $totalPagos += $fila['Monto'];
+            }
+            return $totalPagos;
+        }
+
+        public function getHorasTrabajadasPorUsuario($idPersona){
+            $consulta = "
+                SELECT SUM(Horas) AS Total_Horas
+                FROM horas_trabajadas
+                WHERE ID_Persona = ?
+                GROUP BY ID_Persona
+            ";
+            $resultado = consulta($this->conn, $consulta, "i", [$idPersona]);
+            $fila = mysqli_fetch_assoc($resultado);
+
+            // Si no hay filas o Total_Horas es null, devolver 0 para mantener forma consistente
+            if (!$fila || !isset($fila['Total_Horas']) || $fila['Total_Horas'] === null) {
+                return 0;
+            }
+            return $fila['Total_Horas'];
+        }
+
+        public function getFechaIngreso($idPersona){
+            $consulta = "
+                SELECT Fecha_ingreso 
+                FROM usuario
+                WHERE ID_Persona = ?
+            ";
+            $resultado = consulta($this->conn, $consulta, "i", [$idPersona]);
+            $fila = mysqli_fetch_assoc($resultado);
+            return $fila ? $fila['Fecha_ingreso'] : null;
+        }
+        
     }

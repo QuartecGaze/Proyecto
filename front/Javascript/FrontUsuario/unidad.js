@@ -1,497 +1,243 @@
-import { getUsuario } from '../../../BackEnd/APIFetchs/APIUsuario.js';
-import { getIdSesion } from '../../../BackEnd/APIFetchs/APIUsuario.js';
-import { 
-    getUnidadHabitacional, 
-    editarUnidadHabitacional,
-    getIntegrantesFamiliares,
-    agregarIntegranteFamiliar,
-    editarIntegranteFamiliar,
-    eliminarIntegranteFamiliar
+// unidad.js (type="module")
+
+/* ========== Imports ========== */
+import { getUsuario, getIdSesion } from '../../../BackEnd/APIFetchs/APIUsuario.js';
+import {
+  getUnidadHabitacional,
+  getIntegrantesFamiliares,
+  editarIntegranteFamiliar,
+  ingresarIntegrantesFamiliares,
+  eliminarIntegranteFamiliar
 } from '../../../BackEnd/APIFetchs/APICooperativa.js';
 
-// Elementos del DOM
-const nombre = document.querySelectorAll(".nombreUsuario");
-const foto = document.querySelectorAll(".fotoPerfil");
+/* ========== DOM básico ========== */
+const nombreEls = document.querySelectorAll(".nombreUsuario");
+const fotoEls = document.querySelectorAll(".fotoPerfil");
 const fotoruta = "../../Recursos/FotosPerfil/";
 const fotoUsuario = "usuario.webp";
 
-// Elementos de la unidad
+/* ========== DOM Unidad ========== */
 const numeroUnidad = document.getElementById("numeroUnidad");
-const direccionUnidad = document.getElementById("direccionUnidad");
-const manzanaUnidad = document.getElementById("manzanaUnidad");
-const loteUnidad = document.getElementById("loteUnidad");
 const estadoUnidad = document.getElementById("estadoUnidad");
-const fechaAsignacion = document.getElementById("fechaAsignacion");
+const pasilloUnidad = document.getElementById("pasilloUnidad");
+const habitacionesUnidad = document.getElementById("habitacionesUnidad");
 
-// Elementos de integrantes
+/* ========== DOM Integrantes ========== */
 const listaIntegrantes = document.getElementById("lista-integrantes");
 const sinIntegrantes = document.getElementById("sin-integrantes");
 
-// Botones
+/* ========== Botones / Modales / Formularios ========== */
 const btnEditarUnidad = document.getElementById("btnEditarUnidad");
 const btnAgregarIntegrante = document.getElementById("btnAgregarIntegrante");
-
-// Modales
 const modalEditarUnidad = document.getElementById("modalEditarUnidad");
 const modalIntegrante = document.getElementById("modalIntegrante");
 const modalConfirmacion = document.getElementById("modalConfirmacion");
-
-// Formularios
 const formEditarUnidad = document.getElementById("formEditarUnidad");
 const formIntegrante = document.getElementById("formIntegrante");
 
-// Variables globales
+/* ========== Helpers ========== */
+const unwrap = res => (res && typeof res === "object" && "message" in res ? res.message : res);
+
+const toast = (msg, tipo = "exito") => {
+  const n = document.createElement("div");
+  n.textContent = msg;
+  n.style.cssText = `
+    position: fixed; top: 20px; right: 20px; padding: 10px 14px; border-radius: 8px;
+    color: #fff; background: ${tipo === "exito" ? "#2ecc71" : "#e74c3c"};
+    font-weight: 600; z-index: 9999; box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+  `;
+  document.body.appendChild(n);
+  setTimeout(() => n.remove(), 2200);
+};
+
+const formatearFecha = f => (!f ? "" : new Date(f).toLocaleDateString("es-ES"));
+
+/* ========== Estado global ========== */
+let ID_PERSONA = null;
 let unidadActual = null;
 let integrantesActuales = [];
 let integranteEditando = null;
 
-// Inicializar la página
-document.addEventListener('DOMContentLoaded', async function() {
-    await cargarDatosUsuario();
-    await cargarDatosUnidad();
-    await cargarIntegrantes();
-    inicializarEventListeners();
+/* ========== Inicio ========== */
+document.addEventListener("DOMContentLoaded", async () => {
+  try {
+    ID_PERSONA = unwrap(await getIdSesion());
+    if (!ID_PERSONA) return console.error("No se obtuvo ID de sesión");
+
+    await cargarDatosUsuario(ID_PERSONA);
+    await cargarDatosUnidad(ID_PERSONA);
+    await cargarIntegrantes(ID_PERSONA);
+    inicializarListeners();
+  } catch (e) {
+    console.error(e);
+  }
 });
 
-// Cargar datos del usuario
-async function cargarDatosUsuario() {
-    try {
-        const idUsuario = getIdSesion();
-        if (!idUsuario) {
-            console.error("No se pudo obtener el ID del usuario");
-            return;
-        }
-
-        const usuario = await getUsuario(idUsuario);
-        if (usuario) {
-            nombre.forEach(elemento => {
-                elemento.textContent = usuario.nombre + " " + usuario.apellido;
-            });
-            
-            foto.forEach(elemento => {
-                elemento.src = fotoruta + (usuario.foto || fotoUsuario);
-                elemento.alt = "Foto de " + usuario.nombre;
-            });
-        }
-    } catch (error) {
-        console.error("Error al cargar datos del usuario:", error);
-    }
+/* ========== Cargas ========== */
+async function cargarDatosUsuario(id) {
+  const usuario = unwrap(await getUsuario(id));
+  if (!usuario) return;
+  nombreEls.forEach(el => (el.textContent = `${usuario.nombre} ${usuario.apellido}`));
+  fotoEls.forEach(el => (el.src = fotoruta + (usuario.foto || fotoUsuario)));
 }
 
-// Cargar datos de la unidad
-async function cargarDatosUnidad() {
-    try {
-        const idUsuario = getIdSesion();
-        if (!idUsuario) return;
+async function cargarDatosUnidad(id) {
+  const data = unwrap(await getUnidadHabitacional(id));
+  const u = Array.isArray(data) ? data[0] : data;
+  if (!u) return;
 
-        unidadActual = await getUnidadHabitacional(idUsuario);
-        
-        if (unidadActual) {
-            numeroUnidad.textContent = unidadActual.numero || "No asignado";
-            direccionUnidad.textContent = unidadActual.direccion || "No especificada";
-            manzanaUnidad.textContent = unidadActual.manzana || "No especificada";
-            loteUnidad.textContent = unidadActual.lote || "No especificado";
-            estadoUnidad.textContent = obtenerTextoEstado(unidadActual.estado);
-            estadoUnidad.className = "valor estado " + obtenerClaseEstado(unidadActual.estado);
-            fechaAsignacion.textContent = formatearFecha(unidadActual.fechaAsignacion) || "No asignada";
-        } else {
-            mostrarMensajeError("No se encontró información de la unidad habitacional");
-        }
-    } catch (error) {
-        console.error("Error al cargar datos de la unidad:", error);
-        mostrarMensajeError("Error al cargar los datos de la unidad");
-    }
+  unidadActual = u;
+  numeroUnidad.textContent = u.nroPuerta ?? "—";
+  estadoUnidad.textContent = u.estado ?? "—";
+  pasilloUnidad.textContent = u.pasillo ?? "—";
+  habitacionesUnidad.textContent = u.habitaciones ?? "—";
 }
 
-// Cargar integrantes familiares
-async function cargarIntegrantes() {
-    try {
-        const idUsuario = getIdSesion();
-        if (!idUsuario) return;
-
-        integrantesActuales = await getIntegrantesFamiliares(idUsuario);
-        
-        if (integrantesActuales && integrantesActuales.length > 0) {
-            mostrarIntegrantes(integrantesActuales);
-            sinIntegrantes.style.display = "none";
-        } else {
-            listaIntegrantes.innerHTML = "";
-            sinIntegrantes.style.display = "block";
-        }
-    } catch (error) {
-        console.error("Error al cargar integrantes:", error);
-        mostrarMensajeError("Error al cargar los integrantes familiares");
-    }
+async function cargarIntegrantes(id) {
+  const data = unwrap(await getIntegrantesFamiliares(id));
+  integrantesActuales = Array.isArray(data) ? data : data ? [data] : [];
+  renderIntegrantes(integrantesActuales);
 }
 
-// Mostrar integrantes en la tabla
-function mostrarIntegrantes(integrantes) {
+/* ========== Render ========== */
+function renderIntegrantes(list) {
+  if (!listaIntegrantes) return;
+  if (!list.length) {
     listaIntegrantes.innerHTML = "";
-    
-    integrantes.forEach(integrante => {
-        const fila = document.createElement("tr");
-        
-        fila.innerHTML = `
-            <td>${integrante.nombre || ""}</td>
-            <td>${integrante.apellido || ""}</td>
-            <td>${integrante.dni || ""}</td>
-            <td>${obtenerTextoParentesco(integrante.parentesco)}</td>
-            <td>${formatearFecha(integrante.fechaNacimiento) || ""}</td>
-            <td>
-                <button class="boton-icono editar-integrante" data-id="${integrante.id}">
-                    <i class="material-icons">edit</i>
-                </button>
-                <button class="boton-icono peligro eliminar-integrante" data-id="${integrante.id}">
-                    <i class="material-icons">delete</i>
-                </button>
-            </td>
-        `;
-        
-        listaIntegrantes.appendChild(fila);
-    });
-    
-    // Agregar event listeners a los botones de editar y eliminar
-    document.querySelectorAll('.editar-integrante').forEach(boton => {
-        boton.addEventListener('click', function() {
-            const id = this.getAttribute('data-id');
-            editarIntegrante(id);
-        });
-    });
-    
-    document.querySelectorAll('.eliminar-integrante').forEach(boton => {
-        boton.addEventListener('click', function() {
-            const id = this.getAttribute('data-id');
-            confirmarEliminacionIntegrante(id);
-        });
-    });
+    sinIntegrantes.style.display = "block";
+    return;
+  }
+  sinIntegrantes.style.display = "none";
+
+  listaIntegrantes.innerHTML = list
+    .map(
+      i => `
+      <tr>
+        <td>${i.nombre ?? ""}</td>
+        <td>${i.apellido ?? ""}</td>
+        <td>${i.ci ?? ""}</td>
+        <td>${i.email ?? ""}</td>
+        <td>${formatearFecha(i.fechaNacimiento ?? i.fecha_nacimiento)}</td>
+        <td>${i.genero ?? ""}</td>
+        <td>
+          <button class="boton-icono editar-integrante" data-id="${i.id}"><i class="material-icons">edit</i></button>
+          <button class="boton-icono peligro eliminar-integrante" data-id="${i.id}"><i class="material-icons">delete</i></button>
+        </td>
+      </tr>`
+    )
+    .join("");
+
+  listaIntegrantes.querySelectorAll(".editar-integrante").forEach(b =>
+    b.addEventListener("click", () => editarIntegrante(b.dataset.id))
+  );
+  listaIntegrantes.querySelectorAll(".eliminar-integrante").forEach(b =>
+    b.addEventListener("click", () => confirmarEliminacionIntegrante(b.dataset.id))
+  );
 }
 
-// Inicializar event listeners
-function inicializarEventListeners() {
-    // Botones de editar unidad
-    btnEditarUnidad.addEventListener('click', abrirModalEditarUnidad);
-    
-    // Botones de cerrar modal
-    document.getElementById('cerrarModalUnidad').addEventListener('click', cerrarModalEditarUnidad);
-    document.getElementById('cerrarModalIntegrante').addEventListener('click', cerrarModalIntegrante);
-    document.getElementById('cerrarModalConfirmacion').addEventListener('click', cerrarModalConfirmacion);
-    
-    // Botones de cancelar
-    document.getElementById('cancelarEdicionUnidad').addEventListener('click', cerrarModalEditarUnidad);
-    document.getElementById('cancelarIntegrante').addEventListener('click', cerrarModalIntegrante);
-    document.getElementById('cancelarEliminacion').addEventListener('click', cerrarModalConfirmacion);
-    
-    // Botones de confirmación
-    document.getElementById('confirmarEliminacion').addEventListener('click', eliminarIntegrante);
-    
-    // Formularios
-    formEditarUnidad.addEventListener('submit', guardarUnidad);
-    formIntegrante.addEventListener('submit', guardarIntegrante);
-    
-    // Botón agregar integrante
-    btnAgregarIntegrante.addEventListener('click', abrirModalAgregarIntegrante);
-    
-    // Cerrar modales al hacer clic fuera
-    window.addEventListener('click', function(event) {
-        if (event.target === modalEditarUnidad) {
-            cerrarModalEditarUnidad();
-        }
-        if (event.target === modalIntegrante) {
-            cerrarModalIntegrante();
-        }
-        if (event.target === modalConfirmacion) {
-            cerrarModalConfirmacion();
-        }
-    });
-}
-
-// Funciones para abrir modales
-function abrirModalEditarUnidad() {
-    if (!unidadActual) return;
-    
-    // Llenar el formulario con los datos actuales
-    document.getElementById('direccionEditar').value = unidadActual.direccion || "";
-    document.getElementById('manzanaEditar').value = unidadActual.manzana || "";
-    document.getElementById('loteEditar').value = unidadActual.lote || "";
-    
-    // Mostrar modal
-    modalEditarUnidad.style.display = 'flex';
-}
-
+/* ========== Modal handlers ========== */
 function abrirModalAgregarIntegrante() {
-    integranteEditando = null;
-    document.getElementById('tituloModalIntegrante').textContent = "Agregar Integrante Familiar";
-    formIntegrante.reset();
-    modalIntegrante.style.display = 'flex';
+  integranteEditando = null;
+  formIntegrante.reset();
+  document.getElementById("tituloModalIntegrante").textContent = "Agregar Integrante Familiar";
+  modalIntegrante.style.display = "flex";
 }
 
 function editarIntegrante(id) {
-    const integrante = integrantesActuales.find(i => i.id == id);
-    if (!integrante) return;
-    
-    integranteEditando = integrante;
-    document.getElementById('tituloModalIntegrante').textContent = "Editar Integrante Familiar";
-    
-    // Llenar el formulario con los datos del integrante
-    document.getElementById('nombreIntegrante').value = integrante.nombre || "";
-    document.getElementById('apellidoIntegrante').value = integrante.apellido || "";
-    document.getElementById('dniIntegrante').value = integrante.dni || "";
-    document.getElementById('parentescoIntegrante').value = integrante.parentesco || "";
-    document.getElementById('fechaNacimientoIntegrante').value = integrante.fechaNacimiento || "";
-    
-    modalIntegrante.style.display = 'flex';
+  const i = integrantesActuales.find(x => String(x.id) === String(id));
+  if (!i) return;
+  integranteEditando = i;
+
+  document.getElementById("tituloModalIntegrante").textContent = "Editar Integrante Familiar";
+  document.getElementById("nombreIntegrante").value = i.nombre ?? "";
+  document.getElementById("apellidoIntegrante").value = i.apellido ?? "";
+  document.getElementById("dniIntegrante").value = i.ci ?? "";
+  document.getElementById("emailIntegrante").value = i.email ?? "";
+  document.getElementById("fechaNacimientoIntegrante").value =
+    (i.fechaNacimiento ?? i.fecha_nacimiento ?? "").slice(0, 10);
+  document.getElementById("generoIntegrante").value = i.genero ?? "";
+  modalIntegrante.style.display = "flex";
 }
 
 function confirmarEliminacionIntegrante(id) {
-    const integrante = integrantesActuales.find(i => i.id == id);
-    if (!integrante) return;
-    
-    integranteEditando = integrante;
-    document.getElementById('mensajeConfirmacion').textContent = 
-        `¿Estás seguro de que deseas eliminar a ${integrante.nombre} ${integrante.apellido}?`;
-    
-    modalConfirmacion.style.display = 'flex';
+  const i = integrantesActuales.find(x => String(x.id) === String(id));
+  if (!i) return;
+  integranteEditando = i;
+  document.getElementById("mensajeConfirmacion").textContent = `¿Eliminar a ${i.nombre} ${i.apellido}?`;
+  modalConfirmacion.style.display = "flex";
 }
 
-// Funciones para cerrar modales
-function cerrarModalEditarUnidad() {
-    modalEditarUnidad.style.display = 'none';
-    ocultarMensajesFormulario(formEditarUnidad);
-}
+/* ========== Guardar / Eliminar ========== */
+async function guardarIntegrante(e) {
+  e.preventDefault();
 
-function cerrarModalIntegrante() {
-    modalIntegrante.style.display = 'none';
-    integranteEditando = null;
-    ocultarMensajesFormulario(formIntegrante);
-}
+  const nombre = document.getElementById("nombreIntegrante").value.trim();
+  const apellido = document.getElementById("apellidoIntegrante").value.trim();
+  const ci = document.getElementById("dniIntegrante").value.trim();
+  const email = document.getElementById("emailIntegrante").value.trim();
+  const fechaNacimiento = document.getElementById("fechaNacimientoIntegrante").value;
+  const genero = document.getElementById("generoIntegrante").value;
 
-function cerrarModalConfirmacion() {
-    modalConfirmacion.style.display = 'none';
-    integranteEditando = null;
-}
+  if (!nombre || !apellido || !ci || !genero) {
+    toast("Completá todos los campos obligatorios", "error");
+    return;
+  }
 
-// Funciones para guardar datos
-async function guardarUnidad(event) {
-    event.preventDefault();
-    
-    const idUsuario = getIdSesion();
-    if (!idUsuario || !unidadActual) return;
-    
-    const datos = {
-        direccion: document.getElementById('direccionEditar').value,
-        manzana: document.getElementById('manzanaEditar').value,
-        lote: document.getElementById('loteEditar').value
-    };
-    
-    try {
-        const resultado = await editarUnidadHabitacional(unidadActual.id, datos);
-        
-        if (resultado) {
-            mostrarMensajeExito(formEditarUnidad, "Información actualizada correctamente");
-            await cargarDatosUnidad();
-            
-            // Cerrar modal después de un tiempo
-            setTimeout(() => {
-                cerrarModalEditarUnidad();
-            }, 1500);
-        } else {
-            mostrarMensajeError(formEditarUnidad, "Error al actualizar la información");
-        }
-    } catch (error) {
-        console.error("Error al guardar unidad:", error);
-        mostrarMensajeError(formEditarUnidad, "Error al actualizar la información");
+  try {
+    let resp;
+    if (integranteEditando) {
+      // EDITAR
+      resp = await editarIntegranteFamiliar({
+        idIntegrante: integranteEditando.id,
+        ci,
+        nombre,
+        apellido,
+        email,
+        fechaNacimiento,
+        genero
+      });
+    } else {
+      // AGREGAR
+      resp = await ingresarIntegrantesFamiliares({
+        cantidadIntegrantes: 1,
+        integrantes: [{ nombre, apellido, ci, email, fechaNacimiento, genero }]
+      });
     }
-}
 
-async function guardarIntegrante(event) {
-    event.preventDefault();
-    
-    const idUsuario = getIdSesion();
-    if (!idUsuario) return;
-    
-    const datos = {
-        nombre: document.getElementById('nombreIntegrante').value,
-        apellido: document.getElementById('apellidoIntegrante').value,
-        dni: document.getElementById('dniIntegrante').value,
-        parentesco: document.getElementById('parentescoIntegrante').value,
-        fechaNacimiento: document.getElementById('fechaNacimientoIntegrante').value,
-        unidadHabitacionalId: unidadActual.id
-    };
-    
-    try {
-        let resultado;
-        
-        if (integranteEditando) {
-            // Editar integrante existente
-            resultado = await editarIntegranteFamiliar(integranteEditando.id, datos);
-        } else {
-            // Agregar nuevo integrante
-            resultado = await agregarIntegranteFamiliar(datos);
-        }
-        
-        if (resultado) {
-            mostrarMensajeExito(formIntegrante, 
-                integranteEditando ? "Integrante actualizado correctamente" : "Integrante agregado correctamente");
-            
-            await cargarIntegrantes();
-            
-            // Cerrar modal después de un tiempo
-            setTimeout(() => {
-                cerrarModalIntegrante();
-            }, 1500);
-        } else {
-            mostrarMensajeError(formIntegrante, 
-                integranteEditando ? "Error al actualizar el integrante" : "Error al agregar el integrante");
-        }
-    } catch (error) {
-        console.error("Error al guardar integrante:", error);
-        mostrarMensajeError(formIntegrante, 
-            integranteEditando ? "Error al actualizar el integrante" : "Error al agregar el integrante");
+    if (resp?.status === "exito") {
+      toast(integranteEditando ? "Integrante actualizado" : "Integrante agregado");
+      await cargarIntegrantes(ID_PERSONA);
+      modalIntegrante.style.display = "none";
+    } else {
+      toast(resp?.message || "Error al guardar", "error");
     }
+  } catch (err) {
+    console.error("guardarIntegrante error:", err);
+    toast("Error al guardar el integrante", "error");
+  }
 }
 
 async function eliminarIntegrante() {
-    if (!integranteEditando) return;
-    
-    try {
-        const resultado = await eliminarIntegranteFamiliar(integranteEditando.id);
-        
-        if (resultado) {
-            await cargarIntegrantes();
-            cerrarModalConfirmacion();
-            mostrarMensajeTemporal("Integrante eliminado correctamente", "exito");
-        } else {
-            mostrarMensajeError(null, "Error al eliminar el integrante");
-        }
-    } catch (error) {
-        console.error("Error al eliminar integrante:", error);
-        mostrarMensajeError(null, "Error al eliminar el integrante");
-    }
-}
-
-// Funciones auxiliares
-function obtenerTextoEstado(estado) {
-    const estados = {
-        'asignada': 'Asignada',
-        'pendiente': 'Pendiente',
-        'bloqueada': 'Bloqueada'
-    };
-    
-    return estados[estado] || estado || 'Desconocido';
-}
-
-function obtenerClaseEstado(estado) {
-    const clases = {
-        'asignada': 'asignada',
-        'pendiente': 'pendiente',
-        'bloqueada': 'bloqueada'
-    };
-    
-    return clases[estado] || '';
-}
-
-function obtenerTextoParentesco(parentesco) {
-    const parentescos = {
-        'conyuge': 'Cónyuge',
-        'hijo': 'Hijo/a',
-        'padre': 'Padre',
-        'madre': 'Madre',
-        'hermano': 'Hermano/a',
-        'abuelo': 'Abuelo/a',
-        'otro': 'Otro'
-    };
-    
-    return parentescos[parentesco] || parentesco || 'No especificado';
-}
-
-function formatearFecha(fecha) {
-    if (!fecha) return '';
-    
-    try {
-        const fechaObj = new Date(fecha);
-        return fechaObj.toLocaleDateString('es-ES');
-    } catch (error) {
-        return fecha;
-    }
-}
-
-function mostrarMensajeExito(formulario, mensaje) {
-    const mensajeExito = formulario.querySelector('.mensaje-exito');
-    const mensajeError = formulario.querySelector('.mensaje-error');
-    
-    mensajeError.style.display = 'none';
-    mensajeExito.textContent = mensaje;
-    mensajeExito.style.display = 'block';
-}
-
-function mostrarMensajeError(formulario, mensaje) {
-    if (formulario) {
-        const mensajeExito = formulario.querySelector('.mensaje-exito');
-        const mensajeError = formulario.querySelector('.mensaje-error');
-        
-        mensajeExito.style.display = 'none';
-        mensajeError.textContent = mensaje;
-        mensajeError.style.display = 'block';
+  if (!integranteEditando) return;
+  try {
+    const resp = await eliminarIntegranteFamiliar(integranteEditando.id);
+    if (resp?.status === "exito") {
+      toast("Integrante eliminado");
+      await cargarIntegrantes(ID_PERSONA);
+      modalConfirmacion.style.display = "none";
     } else {
-        // Mostrar mensaje global si no hay formulario específico
-        mostrarMensajeTemporal(mensaje, "error");
+      toast(resp?.message || "Error al eliminar", "error");
     }
+  } catch (err) {
+    console.error("eliminarIntegrante error:", err);
+    toast("Error al eliminar el integrante", "error");
+  }
 }
 
-function ocultarMensajesFormulario(formulario) {
-    const mensajeExito = formulario.querySelector('.mensaje-exito');
-    const mensajeError = formulario.querySelector('.mensaje-error');
-    
-    mensajeExito.style.display = 'none';
-    mensajeError.style.display = 'none';
+/* ========== Inicializar ========== */
+function inicializarListeners() {
+  if (btnAgregarIntegrante) btnAgregarIntegrante.addEventListener("click", abrirModalAgregarIntegrante);
+  if (formIntegrante) formIntegrante.addEventListener("submit", guardarIntegrante);
+  const btnEliminar = document.getElementById("confirmarEliminacion");
+  if (btnEliminar) btnEliminar.addEventListener("click", eliminarIntegrante);
 }
-
-function mostrarMensajeTemporal(mensaje, tipo) {
-    // Crear elemento de mensaje
-    const mensajeElemento = document.createElement('div');
-    mensajeElemento.textContent = mensaje;
-    mensajeElemento.style.cssText = `
-        position: fixed;
-        top: 20px;
-        right: 20px;
-        padding: 15px 20px;
-        border-radius: 4px;
-        color: white;
-        font-weight: 500;
-        z-index: 10000;
-        max-width: 300px;
-        box-shadow: 0 4px 6px rgba(0,0,0,0.1);
-        animation: slideIn 0.3s ease;
-    `;
-    
-    if (tipo === "exito") {
-        mensajeElemento.style.backgroundColor = '#27ae60';
-    } else {
-        mensajeElemento.style.backgroundColor = '#e74c3c';
-    }
-    
-    document.body.appendChild(mensajeElemento);
-    
-    // Remover después de 3 segundos
-    setTimeout(() => {
-        mensajeElemento.style.animation = 'slideOut 0.3s ease';
-        setTimeout(() => {
-            document.body.removeChild(mensajeElemento);
-        }, 300);
-    }, 3000);
-}
-
-// Agregar estilos de animación para los mensajes temporales
-const estilosAnimacion = document.createElement('style');
-estilosAnimacion.textContent = `
-    @keyframes slideIn {
-        from { transform: translateX(100%); opacity: 0; }
-        to { transform: translateX(0); opacity: 1; }
-    }
-    
-    @keyframes slideOut {
-        from { transform: translateX(0); opacity: 1; }
-        to { transform: translateX(100%); opacity: 0; }
-    }
-`;
-document.head.appendChild(estilosAnimacion);

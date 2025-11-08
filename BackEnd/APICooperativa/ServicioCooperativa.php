@@ -292,6 +292,42 @@
             $porcentaje = round(($asistio / $totalReuniones) * 100);
             return $porcentaje;
         }
+
+        public function getUnidadHabitacional($idPersona) {
+            $filas = $this->repositorio->getUnidadHabitacional($idPersona);
+        
+            $respuesta = [];
+            foreach ($filas as $f) {
+                $respuesta[] = [
+                    'nroPuerta' => $f['Numero_puerta'],
+                    'pasillo' => $f['Pasillo'],
+                    'estado' => $f['Estado_unidad'],
+                    'habitaciones' => $f['Cantidad_habitaciones']
+                ];
+            }
+            return $respuesta;
+        }
+        
+        public function editarIntegranteFamiliar($idIntegrante, $ciIntegrante, $nombreIntegrante, $apellidoIntegrante, $emailIntegrante, $fechaNacimientoIntegrante, $genero){
+            return $this->repositorio->editarIntegranteFamiliar($idIntegrante, $ciIntegrante, $nombreIntegrante, $apellidoIntegrante, $emailIntegrante, $fechaNacimientoIntegrante, $genero);
+        }
+
+        public function getEstadisticas($idPersona){
+            $totalPagos = $this->repositorio->getPagosAprobadoUsuario($idPersona);
+            $horasTrabajadasTotal = $this->repositorio->getHorasTrabajadasPorUsuario($idPersona);
+            $fechaIngreso = $this->repositorio->getFechaIngreso($idPersona);
+            $fechaActual = new DateTime();
+            $fechaIngresoDT = new DateTime($fechaIngreso);
+            $diferencia = $fechaIngresoDT->diff($fechaActual);
+            $tiempoCooperativista = $diferencia->y . " años, " . $diferencia->m . " meses, " . $diferencia->d . " días";
+
+            return [
+                'pagosTotal' => $totalPagos,
+                'horasTotal' => $horasTrabajadasTotal,
+                'antiguedad' => $tiempoCooperativista
+            ];
+        }
+        
         
 
     }

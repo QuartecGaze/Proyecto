@@ -79,36 +79,29 @@
             <!-- Información de la Unidad -->
             <section class="seccion-unidad">
                 <h2>Información de la Unidad</h2>
-                
+
                 <div class="tarjeta-unidad">
                     <div class="info-unidad">
-                        <div class="campo-unidad">
-                            <span class="etiqueta">Número de Unidad:</span>
-                            <span class="valor" id="numeroUnidad">-</span>
-                        </div>
-                        <div class="campo-unidad">
-                            <span class="etiqueta">Dirección:</span>
-                            <span class="valor" id="direccionUnidad">-</span>
-                        </div>
-                        <div class="campo-unidad">
-                            <span class="etiqueta">Manzana:</span>
-                            <span class="valor" id="manzanaUnidad">-</span>
-                        </div>
-                        <div class="campo-unidad">
-                            <span class="etiqueta">Lote:</span>
-                            <span class="valor" id="loteUnidad">-</span>
-                        </div>
-                        <div class="campo-unidad">
-                            <span class="etiqueta">Estado:</span>
-                            <span class="valor estado" id="estadoUnidad">-</span>
-                        </div>
-                        <div class="campo-unidad">
-                            <span class="etiqueta">Fecha de Asignación:</span>
-                            <span class="valor" id="fechaAsignacion">-</span>
-                        </div>
+                    <div class="campo-unidad">
+                        <span class="etiqueta">Número de Unidad:</span>
+                        <span class="valor" id="numeroUnidad">-</span>
+                    </div>
+                    <div class="campo-unidad">
+                        <span class="etiqueta">Pasillo:</span>
+                        <span class="valor" id="pasilloUnidad">-</span>
+                    </div>
+                    <div class="campo-unidad">
+                        <span class="etiqueta">Estado:</span>
+                        <span class="valor estado" id="estadoUnidad">-</span>
+                    </div>
+                    <div class="campo-unidad">
+                        <span class="etiqueta">Habitaciones:</span>
+                        <span class="valor" id="habitacionesUnidad">-</span>
+                    </div>
                     </div>
                 </div>
             </section>
+
 
             <!-- Integrantes Familiares -->
             <section class="seccion-integrantes">
@@ -129,6 +122,8 @@
                                     <th>CI</th>
                                     <th>Mail</th>
                                     <th>Fecha de Nacimiento</th>
+                                    <th>Genero</th>
+                                    <th>Acciones</th>
                                 </tr>
                             </thead>
                             <tbody id="lista-integrantes">
@@ -175,28 +170,26 @@
                     </div>
 
                     <div class="grupo-formulario">
-                        <label for="dniIntegrante">DNI:</label>
+                        <label for="dniIntegrante">Cedula:</label>
                         <input type="text" id="dniIntegrante" name="dni" required pattern="[0-9]{8}">
                     </div>
 
                     <div class="grupo-formulario">
-                        <label for="parentescoIntegrante">Parentesco:</label>
-                        <select id="parentescoIntegrante" name="parentesco" required>
-                            <option value="">Selecciona un parentesco</option>
-                            <option value="conyuge">Cónyuge</option>
-                            <option value="hijo">Hijo/a</option>
-                            <option value="padre">Padre</option>
-                            <option value="madre">Madre</option>
-                            <option value="hermano">Hermano/a</option>
-                            <option value="abuelo">Abuelo/a</option>
-                            <option value="otro">Otro</option>
-                        </select>
+                        <label for="dniIntegrante">Email:</label>
+                        <input type="email" id="emailIntegrante" name="email" required >
                     </div>
 
                     <div class="grupo-formulario">
                         <label for="fechaNacimientoIntegrante">Fecha de Nacimiento:</label>
                         <input type="date" id="fechaNacimientoIntegrante" name="fechaNacimiento" required>
                     </div>
+
+                    <select id="generoIntegrante" required>
+                        <option value="">Seleccioná…</option>
+                        <option>Masculino</option>
+                        <option>Femenino</option>
+                        </select>
+
 
                     <div class="modal-acciones">
                         <button type="button" class="boton-secundario" id="cancelarIntegrante">Cancelar</button>

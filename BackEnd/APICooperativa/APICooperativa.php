@@ -183,6 +183,29 @@
                         respuesta($e->getMessage(), "error", $e->getCode());
                     }
                 }
+                elseif ($accion === "editarIntegranteFamiliar"){
+                    $datos = json_decode(file_get_contents('php://input'), true);
+                    $idIntegrante = $datos['idIntegrante'];
+                    $ciIntegrante = $datos['ci'];
+                    $nombreIntegrante = $datos['nombre'];
+                    $apellidoIntegrante = $datos['apellido'];
+                    $emailIntegrante = $datos['email'];
+                    $fechaNacimientoIntegrante = $datos['fechaNacimiento'];
+                    $generoIntegrante = $datos['genero'];
+                    if ($idIntegrante === null || $idIntegrante < 1) {
+                        respuesta("El ID Integrante es inválido.", "error", 400);
+                    }
+    
+                    try{
+                        if($servicio->editarIntegranteFamiliar($idIntegrante, $ciIntegrante, $nombreIntegrante, $apellidoIntegrante, $emailIntegrante, $fechaNacimientoIntegrante, $generoIntegrante)){
+                            respuesta("Integrante editado con exito", "exito", 200);
+                        }else{
+                            respuesta("error al editar el integrante", "error", 400);
+                        }
+                    }catch(Exception $e){
+                        respuesta($e->getMessage(), "error", $e->getCode());
+                    }
+                }
 
 
 
@@ -361,6 +384,38 @@
             respuesta($e->getMessage(), "error", $e->getCode());
         }
     }
+
+    if($accion === "getUnidadHabitacional"){
+        $idPersona = $_GET['id'];
+        if($idPersona != null){
+            try{
+                $unidad = $servicio->getUnidadHabitacional($idPersona);
+                respuesta($unidad, "exito", 200);
+            }
+            catch(Exception $e) {
+            respuesta($e->getMessage(), "error", $e->getCode());
+        }
+
+    } else {
+        respuesta("No se encontro una id para buscar", "error", 0);
+    }
+}
+
+if($accion === "getEstadisticas"){
+    $idPersona = $_GET['id'];
+    if($idPersona != null){
+        try{
+            $estadisticas = $servicio->getEstadisticas($idPersona);
+            respuesta($estadisticas, "exito", 200);
+        }
+        catch(Exception $e) {
+        respuesta($e->getMessage(), "error", $e->getCode());
+    }
+
+} else {
+    respuesta("No se encontro una id para buscar", "error", 0);
+}
+}
 
 
 

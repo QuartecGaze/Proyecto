@@ -86,37 +86,39 @@ function renderTarjetas(lista) {
         ? `../../Recursos/FotosPerfil/${sanitizeAttribute(usuario.foto)}`
         : '../../Recursos/FotosPerfil/usuario.webp';
   
-      const direccion = usuario?.direccion || '—';
-      const horasTot  = Number(usuario?.horasTrabajadasTotal?.Total_Horas ?? 0);
-      const horasAct  = Number(usuario?.horasTrabajadasSemana ?? 0);
-      const horasPlan = Number(usuario?.totalHorasATrabajar ?? 0);
-      const totalDebe = Number(usuario?.totalDebe ?? 0);
-  
-      const claseDeuda = totalDebe <= 0 ? 'green' : 'red'; // <=0 verde, >0 rojo
-  
-      contenedor.innerHTML += `
-        <div class="etiqueta">
-          <div class="card">
-            <div class="card-header">
-              <img src="${fotoPath}" alt="Usuario" class="avatar">
-              <div class="info">
-                <h3>${sanitizeHTML(usuario.nombre ?? '')} ${sanitizeHTML(usuario.apellido ?? '')}</h3>
-                <p>${sanitizeHTML(direccion)}</p>
+        const direccion = usuario?.direccion || '—';
+        const horasTot  = Number(usuario?.horasTrabajadasTotal?.Total_Horas ?? 0);
+        const horasAct  = Number(usuario?.horasTrabajadasSemana ?? 0);
+        const horasPlan = Number(usuario?.totalHorasATrabajar ?? 0);
+        const totalDebe = Number(usuario?.totalDebe ?? 0);
+        
+        const claseDeuda = totalDebe <= 0 ? 'green' : 'red';
+        const claseHoras = (horasPlan <= 0) ? 'gray' : (horasAct >= horasPlan ? 'green' : 'red');
+        
+        contenedor.innerHTML += `
+          <div class="etiqueta">
+            <div class="card">
+              <div class="card-header">
+                <img src="${fotoPath}" alt="Usuario" class="avatar">
+                <div class="info">
+                  <h3>${sanitizeHTML(usuario.nombre ?? '')} ${sanitizeHTML(usuario.apellido ?? '')}</h3>
+                  <p>${sanitizeHTML(direccion)}</p>
+                </div>
+              </div>
+              <div class="card-footer">
+                <span class="tag gray">${horasTot} Horas Trabajadas Totales</span>
+                <span class="tag ${claseHoras}">${horasAct}/${horasPlan}</span>
+                <span class="tag ${claseDeuda}">${fmtMon(totalDebe)}</span>
               </div>
             </div>
-            <div class="card-footer">
-              <span class="tag gray">${horasTot} Horas Trabajadas Totales</span>
-              <span class="tag red">${horasAct}/${horasPlan}</span>
-              <span class="tag ${claseDeuda}">${fmtMon(totalDebe)}</span>
+            <div class="actions">
+              <button data-index="${index}" class="boton-ver-usuario">
+                <i class="material-icons" style="font-size: 40px;">visibility</i>
+              </button>
             </div>
           </div>
-          <div class="actions">
-            <button data-index="${index}" class="boton-ver-usuario">
-              <i class="material-icons" style="font-size: 40px;">visibility</i>
-            </button>
-          </div>
-        </div>
-      `;
+        `;
+        
     });
   }
   
@@ -220,6 +222,15 @@ spans.horasTotales.textContent = horasTotales;
 spans.horasActual.textContent  = `${horasSemana}/${horasPlan}`;
 spans.saldo.textContent        = fmtMon(totalDebe);
 
+spans.horasActual.classList.remove('green','red','gray','tag');
+spans.horasActual.classList.add('tag'); // opcional, por estilo uniforme
+if (horasPlan <= 0) {
+  spans.horasActual.classList.add('gray');
+} else if (horasSemana >= horasPlan) {
+  spans.horasActual.classList.add('green');
+} else {
+  spans.horasActual.classList.add('red');
+}
 // Colorear saldo del modal (usa tus clases .monto.positivo / .monto.negativo)
 spans.saldo.classList.add('monto'); // asegura que aplique el CSS existente
 spans.saldo.classList.toggle('positivo', totalDebe <= 0);
