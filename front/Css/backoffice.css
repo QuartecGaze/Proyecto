@@ -278,8 +278,15 @@
     transition: margin-left 0.3s ease, width 0.3s ease;
 }
 
+@media (max-width: 992px) {
+    .backoffice .contenido-principal {
+        margin-left: 0px;
+    }
+    
+}
+
 /* Responsive para móviles */
-@media (max-width: 768px) {
+@media (max-width: 992px) {
     .backoffice .boton-hamburguesa {
         display: flex;
     }

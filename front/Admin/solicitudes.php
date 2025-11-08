@@ -74,7 +74,6 @@
                             <a href="configuracion.php"><i class="material-icons">star</i> Mi Perfil</a>
                             <a href="crearAdmin.php"><i class="material-icons">key</i> Crear Admin</a>
                             <a href="borrarAdmin.php"><i class="material-icons">backspace</i> Borrar Admin</a>
-
                         </ul>
                     </li>
                 </ul>
@@ -103,6 +102,7 @@
         <main class="contenido-principal">
             <h1>Solicitudes Pendientes</h1>
             <div id="contenedor-solicitudes">
+                <!-- Las solicitudes se cargarán aquí dinámicamente -->
             </div>
             <div id="solicitudesIcon">
                 <i class="material-icons">person_search</i>
@@ -110,8 +110,6 @@
             </div>
         </main>
     </div>
-
-
 
     <!-- Modal de confirmación -->
     <div class="modal-confirmacion" id="modalConfirmacion">
@@ -168,7 +166,6 @@
         </div>
     </div>
 
-
     <!-- Modal de Asignar Monto -->
     <div class="modal-monto" id="modalPagoInicial">
         <div class="modal-contenido">
@@ -220,6 +217,25 @@
     </div>
 
     <script>
+        // Funcionalidad del menú hamburguesa
+        const botonHamburguesa = document.getElementById('botonHamburguesa');
+        const sidebar = document.getElementById('sidebar');
+        const overlay = document.getElementById('overlay');
+
+        if (botonHamburguesa) {
+            botonHamburguesa.addEventListener('click', () => {
+                sidebar.classList.toggle('mostrar');
+                overlay.classList.toggle('mostrar');
+            });
+        }
+
+        if (overlay) {
+            overlay.addEventListener('click', () => {
+                sidebar.classList.remove('mostrar');
+                overlay.classList.remove('mostrar');
+            });
+        }
+
         // Funcionalidad del modal
         const modal = document.getElementById('modalReunion');
         const cerrarModal = document.querySelector('.cerrar-modal');
