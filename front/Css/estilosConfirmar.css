@@ -691,18 +691,12 @@ a {
         padding: 20px;
     }
     
-    .menu-dashboard {
-        display: flex;
-        overflow-x: auto;
-        padding: 0 10px;
-    }
-    
     .item-menu {
         flex-shrink: 0;
     }
     
     .item-menu a {
-        padding: 10px 15px;
+        padding: 12px 20px;
     }
     
     .perfil-usuario {

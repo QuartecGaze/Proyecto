@@ -10,15 +10,19 @@
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <link rel="stylesheet" href="../Css/backoffice.css">
-    <link rel="stylesheet" href="../Css/estilosProyectos-prueba.css">
+    <link rel="stylesheet" href="../Css/estilosUnidades.css">
     <!-- Incluir Chart.js para los gráficos -->
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 </head>
 
 <body class="backoffice">
+        <button class="boton-hamburguesa" id="botonHamburguesa">
+        <span></span>
+    </button>
+    <div class="overlay" id="overlay"></div>
     <div class="contenedor-dashboard">
         <!-- Sidebar -->
-        <aside class="sidebar">
+        <aside class="sidebar" id="sidebar">
             <div class="logo-dashboard">
                 <img src="../../Fotos/logoBack.webp" alt="Logo Cooperativa">
                 <span>Senda Firme</span>
@@ -37,7 +41,7 @@
                         <a href="socios.php"><i class="material-icons">people</i> Socios</a>
                     </li>
                     <li class="item-menu">
-                        <a href="#">
+                        <a href="#" class="submenu-toggle">
                             <i class="material-icons">apartment</i> Unidades Habitacionales
                         </a>
                         <ul class="submenu">
@@ -46,7 +50,7 @@
                         </ul>
                     </li>
                     <li class="item-menu">
-                        <a href="#">
+                        <a href="#" class="submenu-toggle">
                             <i class="material-icons">payments</i> Pagos
                         </a>
                         <ul class="submenu">
@@ -64,7 +68,7 @@
                         </a>
                     </li>
                     <li class="item-menu">
-                        <a href="#">
+                        <a href="#" class="submenu-toggle">
                             <i class="material-icons">settings</i> Configuracion
                         </a>
                         <ul class="submenu">
