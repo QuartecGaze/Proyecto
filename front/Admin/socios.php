@@ -104,6 +104,38 @@
                 <h1>Socios</h1>
                 <p>En este pestaña puedes consultar todos lo socios regstrados en la cooperativa.</p>
             </header>
+            <div class="contenedor-horas-semanales">
+                <div class="descripcion-horas">
+                    <p>Desde aquí puedes asignar las horas semanales obligatorias para todos los socios de la
+                        cooperativa.
+                        Esta asignación se aplicará a todos los socios activos del sistema.</p>
+                </div>
+                <button class="btn-horas" id="btnAsignarHoras">
+                    <i class="material-icons">schedule</i>
+                    <span>Asignar Horas Semanales</span>
+                </button>
+            </div>
+
+            <div id="modalHorasSemanales" class="modal">
+                <div class="modal-contenido" id="modal-horas">
+                    <div class="modal-header">
+                        <h2>Asignar Horas Semanales</h2>
+                        <span class="cerrar-modal">&times;</span>
+                    </div>
+                    <div class="modal-body modal-body-horas">
+                        <div class="campo-formulario">
+                            <label for="horasSemanales">Horas semanales obligatorias:</label>
+                            <input type="number" id="horasSemanales" class="campo-editable" min="1" max="40" value="1">
+                            <p class="info-ayuda">Establece la cantidad de horas semanales que cada socio debe cumplir.
+                            </p>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button class="btn btn-secundario cerrar-modal">Cancelar</button>
+                        <button class="btn btn-primario" id="btnConfirmarHoras">Confirmar Asignación</button>
+                    </div>
+                </div>
+            </div>
 
             <div class="contenedor-socios">
                 <div class="etiqueta">
@@ -200,7 +232,7 @@
                                 </tr>
                             </thead>
                             <tbody id="tablaFamiliares">
-                                
+
                             </tbody>
                         </table>
                     </div>
@@ -237,6 +269,68 @@
     </div>
     <script src="../Javascript/BackOffice/generalidades.js" type="module"></script>
     <script src="../Javascript/BackOffice/socios.js" type="module"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script>
+        // JavaScript para el modal de asignación de horas
+        document.addEventListener('DOMContentLoaded', function () {
+            const btnAsignarHoras = document.getElementById('btnAsignarHoras');
+            const modalHoras = document.getElementById('modalHorasSemanales');
+            const btnConfirmarHoras = document.getElementById('btnConfirmarHoras');
+            const horasSemanalesInput = document.getElementById('horasSemanales');
+            const cerrarModal = modalHoras.querySelector('.cerrar-modal');
+            const cerrarModal2 = modalHoras.querySelector('.btn-secundario');
+
+            // Abrir modal
+            btnAsignarHoras.addEventListener('click', function () {
+                modalHoras.style.display = 'block';
+                // Aquí podrías cargar datos reales
+                document.getElementById('totalSocios').textContent = '45'; // Ejemplo
+                actualizarHorasTotales();
+            });
+
+            // Cerrar modal
+            cerrarModal.addEventListener('click', function () {
+                modalHoras.style.display = 'none';
+            });
+
+            cerrarModal2.addEventListener('click', function () {
+                modalHoras.style.display = 'none';
+            });
+
+            // Confirmar asignación
+            btnConfirmarHoras.addEventListener('click', function () {
+                const horas = horasSemanalesInput.value;
+
+                // SweetAlert2
+                Swal.fire({
+                    icon: 'success',
+                    title: 'Horas asignadas',
+                    text: `Se han asignado ${horas} horas semanales a todos los socios.`,
+                    confirmButtonText: 'Aceptar'
+                });
+
+                // Cerrar el modal
+                modalHoras.style.display = 'none';
+            });
+
+
+            // Actualizar horas totales cuando cambia el valor
+            horasSemanalesInput.addEventListener('input', actualizarHorasTotales);
+
+            function actualizarHorasTotales() {
+                const horas = horasSemanalesInput.value || 0;
+                const totalSocios = 45; // Este valor vendría de la base de datos
+                document.getElementById('horasTotales').textContent = horas * totalSocios;
+            }
+
+            // Cerrar modal al hacer clic fuera del contenido
+            window.addEventListener('click', function (event) {
+                if (event.target === modalHoras) {
+                    modalHoras.style.display = 'none';
+                }
+            });
+        });
+    </script>
 </body>
 
 </html>
