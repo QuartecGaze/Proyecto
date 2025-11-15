@@ -11,7 +11,6 @@
     <link rel="stylesheet" href="../Css/estilosLandingPage.css">
 </head>
 <body>
-    <!-- Header -->
     <header>
         <div class="container header-container">
             <a href="#" class="logo">
@@ -25,7 +24,7 @@
                 <span></span>
             </button>
             
-            <nav class="nav-menu">
+            <nav class="nav-menu header-nav">
                 <ul>
                     <li><a href="#inicio">Inicio</a></li>
                     <li><a href="#valores">Valores</a></li>
@@ -35,7 +34,7 @@
                 </ul>
             </nav>
             
-            <a href="login.html" class="btn-header">
+            <a href="login.html" class="btn-header iniciarsesion-btn">
                 <i class="fas fa-sign-in-alt"></i> Ingresar
             </a>
         </div>
@@ -48,7 +47,6 @@
         </div>
     </header>
 
-    <!-- Hero Section -->
     <section id="inicio" class="hero">
         <div class="carrousel">
             <div class="carrousel-imagenes">
@@ -61,12 +59,18 @@
         
         <div class="container hero-content-container">
             <div class="hero-content">
-                <h1>Impulsando el crecimiento <span class="text-highlight">colectivo</span></h1>
-                <p>Senda Firme es una cooperativa comprometida con el desarrollo económico y social de sus miembros a través de servicios financieros responsables y asesoramiento personalizado.</p>
+                <h1 class="hero-titulo">
+                    Impulsando el crecimiento <span class="text-highlight">colectivo</span>
+                </h1>
+
+                <p class="hero-texto">
+                    Senda Firme es una cooperativa comprometida con el desarrollo económico y social de sus miembros a través de servicios financieros responsables y asesoramiento personalizado.
+                </p>
                 
                 <div class="hero-buttons">
-                    <a href="#servicios" class="btn-primary">Nuestros servicios</a>
-                    <a href="registro.html" class="btn-secondary">
+                    <a href="#servicios" class="btn-primary hero-btn">Nuestros servicios</a>
+
+                    <a href="registro.html" class="btn-secondary que-hacemos-btn">
                         <span class="material-icons">assignment_ind</span>Tramitar Ingreso
                     </a>
                 </div>
@@ -74,27 +78,28 @@
                 <div class="hero-stats">
                     <div class="stat">
                         <span class="stat-number" data-count="5000">5,000+</span>
-                        <span class="stat-label">Miembros</span>
+                        <span class="stat-label hero-stat1-label">Miembros</span>
                     </div>
                     <div class="stat">
                         <span class="stat-number" data-count="10">$10M+</span>
-                        <span class="stat-label">En ahorros</span>
+                        <span class="stat-label hero-stat2-label">En ahorros</span>
                     </div>
                     <div class="stat">
                         <span class="stat-number" data-count="98">98%</span>
-                        <span class="stat-label">Satisfacción</span>
+                        <span class="stat-label hero-stat3-label">Satisfacción</span>
                     </div>
                 </div>
             </div>
         </div>
     </section>
 
-    <!-- Seccion Valores -->
     <section id="valores" class="features">
         <div class="container">
             <div class="section-title">
-                <h2>Nuestros <span class="text-highlight">Valores</span> Cooperativos</h2>
-                <p>Principios que nos guían y fortalecen como comunidad</p>
+                <h2 class="valores-titulo">
+                    Nuestros <span class="text-highlight">Valores</span> Cooperativos
+                </h2>
+                <p class="valores-subtitulo">Principios que nos guían y fortalecen como comunidad</p>
             </div>
             
             <div class="features-grid">
@@ -102,35 +107,36 @@
                     <div class="feature-icon">
                         <i class="fas fa-hands-helping" aria-hidden="true"></i>
                     </div>
-                    <h3>Ayuda Mutua</h3>
-                    <p>Trabajamos juntos para alcanza objetivos comunes y mejorar la calidad de vida de nuestros miembros.</p>
+                    <h3 class="valores-card1-titulo">Ayuda Mutua</h3>
+                    <p class="valores-card1-texto">Trabajamos juntos para alcanza objetivos comunes y mejorar la calidad de vida de nuestros miembros.</p>
                 </div>
                 
                 <div class="feature-card">
                     <div class="feature-icon">
                         <i class="fas fa-shield-alt" aria-hidden="true"></i>
                     </div>
-                    <h3>Seguridad</h3>
-                    <p>Protegemos los recursos de nuestros asociados con los más altos estándares de seguridad y transparencia.</p>
+                    <h3 class="valores-card2-titulo">Seguridad</h3>
+                    <p class="valores-card2-texto">Protegemos los recursos de nuestros asociados con los más altos estándares de seguridad y transparencia.</p>
                 </div>
                 
                 <div class="feature-card">
                     <div class="feature-icon">
                         <i class="fas fa-chart-line" aria-hidden="true"></i>
                     </div>
-                    <h3>Desarrollo Comunitario</h3>
-                    <p>Impulsamos el crecimiento económico de nuestra comunidad mediante inversiones responsables.</p>
+                    <h3 class="valores-card3-titulo">Desarrollo Comunitario</h3>
+                    <p class="valores-card3-texto">Impulsamos el crecimiento económico de nuestra comunidad mediante inversiones responsables.</p>
                 </div>
             </div>
         </div>
     </section>
 
-    <!-- Seccion servicios -->
     <section id="servicios" class="services">
         <div class="container">
             <div class="section-title">
-                <h2>Nuestros <span class="text-highlight">Servicios</span> Financieros</h2>
-                <p>Soluciones diseñadas para las necesidades de nuestra comunidad</p>
+                <h2 class="servicios-titulo">
+                    Nuestros <span class="text-highlight">Servicios</span> Financieros
+                </h2>
+            <p class="servicios-subtitulo">Soluciones diseñadas para las necesidades de nuestra comunidad</p>
             </div>
             
             <div class="services-grid">
@@ -139,9 +145,11 @@
                         <i class="fas fa-piggy-bank"></i>
                     </div>
                     <div class="service-content">
-                        <h3>Ahorro Programado</h3>
-                        <p>Planifica tu futuro con nuestros planes de ahorro flexible y alcanza tus metas financieras.</p>
-                        <a href="https://wa.me/099583431?text=Hola,%20quiero%20unirme%20a%20Senda%20Firme" class="service-link" target="_blank">Conocer más <i class="fas fa-arrow-right" aria-hidden="true"></i></a>
+                        <h3 class="servicios-card1-titulo">Ahorro Programado</h3>
+                        <p class="servicios-card1-texto">Planifica tu futuro con nuestros planes de ahorro flexible y alcanza tus metas financieras.</p>
+                        <a href="https://wa.me/099583431?text=Hola,%20quiero%20unirme%20a%20Senda%20Firme" class="service-link" target="_blank">
+                            <span class="servicios-link">Conocer más</span> <i class="fas fa-arrow-right" aria-hidden="true"></i>
+                        </a>
                     </div>
                 </div>
                 
@@ -150,9 +158,11 @@
                         <i class="fas fa-hand-holding-usd"></i>
                     </div>
                     <div class="service-content">
-                        <h3>Créditos Solidarios</h3>
-                        <p>Accede a créditos con tasas preferenciales para proyectos productivos y personales.</p>
-                        <a href="https://wa.me/099583431?text=Hola,%20quiero%20unirme%20a%20Senda%20Firme" class="service-link" target="_blank">Conocer más <i class="fas fa-arrow-right" aria-hidden="true"></i></a>
+                        <h3 class="servicios-card2-titulo">Créditos Solidarios</h3>
+                        <p class="servicios-card2-texto">Accede a créditos con tasas preferenciales para proyectos productivos y personales.</p>
+                        <a href="https://wa.me/099583431?text=Hola,%20quiero%20unirme%20a%20Senda%20Firme" class="service-link" target="_blank">
+                            <span class="servicios-link">Conocer más</span> <i class="fas fa-arrow-right" aria-hidden="true"></i>
+                        </a>
                     </div>
                 </div>
                 
@@ -161,85 +171,91 @@
                         <i class="fas fa-chart-pie"></i>
                     </div>
                     <div class="service-content">
-                        <h3>Asesoría Financiera</h3>
-                        <p>Recibe orientación personalizada para optimizar tus recursos y tomar mejores decisiones.</p>
-                        <a href="https://wa.me/099583431?text=Hola,%20quiero%20unirme%20a%20Senda%20Firme" class="service-link" target="_blank">Conocer más <i class="fas fa-arrow-right" aria-hidden="true"></i></a>
+                        <h3 class="servicios-card3-titulo">Asesoría Financiera</h3>
+                        <p class="servicios-card3-texto">Recibe orientación personalizada para optimizar tus recursos y tomar mejores decisiones.</p>
+                        <a href="https://wa.me/099583431?text=Hola,%20quiero%20unirme%20a%20Senda%20Firme" class="service-link" target="_blank">
+                            <span class="servicios-link">Conocer más</span> <i class="fas fa-arrow-right" aria-hidden="true"></i>
+                        </a>
                     </div>
                 </div>
             </div>
         </div>
     </section>
 
-    <!-- Seccion Preguntas Frecuentes -->
     <section id="preguntas" class="faq">
         <div class="container">
             <div class="section-title">
-                <h2>Preguntas <span class="text-highlight">Frecuentes</span></h2>
-                <p>Resolvemos tus dudas sobre nuestra cooperativa</p>
+                <h2 class="faq-titulo">
+                    Preguntas <span class="text-highlight">Frecuentes</span>
+                </h2>
+                <p class="faq-subtitulo">Resolvemos tus dudas sobre nuestra cooperativa</p>
             </div>
             
             <div class="preguntas">
                 <div class="pregunta">
                     <div class="pregunta-header">
-                        <h3>¿Qué pasa al momento de registrarme?</h3>
+                        <h3 class="faqs-titulo1">¿Qué pasa al momento de registrarme?</h3>
                         <span class="material-icons">add</span>
                     </div>
                     <div class="respuesta">
-                        <p>Una vez completado tu registro, nuestro equipo se pondrá en contacto para programar una entrevista y explicarte los próximos pasos.</p>
+                        <p class="faqs-texto1">Una vez completado tu registro, nuestro equipo se pondrá en contacto para programar una entrevista y explicarte los próximos pasos.</p>
                     </div>
                 </div>
                 
                 <div class="pregunta">
                     <div class="pregunta-header">
-                        <h3>¿Qué necesito para ser Apto?</h3>
+                        <h3 class="faqs-titulo2">¿Qué necesito para ser Apto?</h3>
                         <span class="material-icons">add</span>
                     </div>
                     <div class="respuesta">
-                        <p>Requerimos compromiso con los valores cooperativos, participación activa en las asambleas y contribución al proyecto común.</p>
+                        <p class="faqs-texto2">Requerimos compromiso con los valores cooperativos, participación activa en las asambleas y contribución al proyecto común.</p>
                     </div>
                 </div>
                 
                 <div class="pregunta">
                     <div class="pregunta-header">
-                        <h3>¿Qué tanto hay que trabajar en la cooperativa?</h3>
+                        <h3 class="faqs-titulo3">¿Qué tanto hay que trabajar en la cooperativa?</h3>
                         <span class="material-icons">add</span>
                     </div>
                     <div class="respuesta">
-                        <p>El trabajo varía según el proyecto, pero todos los miembros contribuyen con al menos 21 horas semanales a las actividades comunitarias.</p>
+                        <p class="faqs-texto3">El trabajo varía según el proyecto, pero todos los miembros contribuyen con al menos 21 horas semanales a las actividades comunitarias.</p>
                     </div>
                 </div>
                 
                 <div class="pregunta">
                     <div class="pregunta-header">
-                        <h3>¿Tenes más preguntas?</h3>
+                        <h3 class="faqs-titulo4">¿Tenes más preguntas?</h3>
                         <span class="material-icons">add</span>
                     </div>
                     <div class="respuesta">
-                        <p>Contactanos a través de WhatsApp y te responderemos a la brevedad.</p>
+                        <p class="faqs-texto4">Contactanos a través de WhatsApp y te responderemos a la brevedad.</p>
                     </div>
                 </div>
             </div>
         </div>
     </section>
 
-    <!-- Seccion Contacto -->
     <section class="cta">
         <div class="container">
-            <h2>¿Listo para unirte a nuestra <span class="text-highlight">comunidad</span>?</h2>
-            <p>Forma parte de una cooperativa que crece junta. Disfruta de beneficios exclusivos y contribuye al desarrollo económico de tu localidad.</p>
+            <h2 class="comunidad-titulo">
+                ¿Listo para unirte a nuestra <span class="text-highlight">comunidad</span>?
+            </h2>
+            <p class="comunidad-texto">
+                Forma parte de una cooperativa que crece junta. Disfruta de beneficios exclusivos y contribuye al desarrollo económico de tu localidad.
+            </p>
             <a href="https://wa.me/099583431?text=Hola,%20quiero%20unirme%20a%20Senda%20Firme" class="btn-primary" target="_blank">
-                <i class="fab fa-whatsapp"></i> Contactar por WhatsApp
+                <i class="fab fa-whatsapp"></i>
+                <span class="cta-btn-whatsapp">Contactar por WhatsApp</span>
             </a>
         </div>
     </section>
 
-    <!-- Footer -->
     <footer id="contacto">
         <div class="container">
             <div class="footer-content">
                 <div class="footer-column">
                     <h3>Senda Firme</h3>
-                    <p>Una cooperativa financiera comprometida con el desarrollo económico y social de nuestra comunidad.</p>
+                    <p class="footer-descripcion">Una cooperativa financiera comprometida con el desarrollo económico y social de nuestra comunidad.</p>
                     <div class="social-icons">
                         <a href="#" aria-label="Facebook"><i class="fab fa-facebook-f"></i></a>
                         <a href="#" aria-label="Twitter"><i class="fab fa-twitter"></i></a>
@@ -249,7 +265,7 @@
                 </div>
                 
                 <div class="footer-column">
-                    <h3>Enlaces rápidos</h3>
+                    <h3 class="footer-enlaces-titulo">Enlaces rápidos</h3>
                     <ul class="footer-links">
                         <li><a href="#inicio">Inicio</a></li>
                         <li><a href="#valores">Valores</a></li>
@@ -260,7 +276,7 @@
                 </div>
                 
                 <div class="footer-column">
-                    <h3>Servicios</h3>
+                    <h3 class="footer-servicios-titulo">Servicios</h3>
                     <ul class="footer-links">
                         <li><a href="https://wa.me/099583431?text=Hola,%20quiero%20unirme%20a%20Senda%20Firme" target="_blank">Ahorro programado</a></li>
                         <li><a href="https://wa.me/099583431?text=Hola,%20quiero%20unirme%20a%20Senda%20Firme" target="_blank">Créditos solidarios</a></li>
@@ -271,18 +287,30 @@
                 </div>
                 
                 <div class="footer-column">
-                    <h3>Contacto</h3>
+                    <h3 class="footer-contacto-titulo">Contacto</h3>
                     <ul class="footer-links">
-                        <li><i class="fas fa-map-marker-alt" aria-hidden="true"></i> Maipú 1764, Montevideo</li>
-                        <li><i class="fas fa-phone" aria-hidden="true"></i> +598 92 204 459</li>
-                        <li><i class="fas fa-envelope" aria-hidden="true"></i> quartecgaze@gmail.com</li>
-                        <li><i class="fab fa-whatsapp" aria-hidden="true"></i> <a href="https://wa.me/099583431?text=Hola,%20quiero%20unirme%20a%20Senda%20Firme" target="_blank">Envíanos un WhatsApp</a></li>
+                        <li>
+                            <i class="fas fa-map-marker-alt" aria-hidden="true"></i>
+                            <span class="footer-contacto-direccion">Maipú 1764, Montevideo</span>
+                        </li>
+                        <li>
+                            <i class="fas fa-phone" aria-hidden="true"></i>
+                            <span class="footer-contacto-telefono">+598 92 204 459</span>
+                        </li>
+                        <li>
+                            <i class="fas fa-envelope" aria-hidden="true"></i>
+                            <span class="footer-contacto-email">quartecgaze@gmail.com</span>
+                        </li>
+                        <li>
+                            <i class="fab fa-whatsapp" aria-hidden="true"></i>
+                            <a href="https://wa.me/099583431?text=Hola,%20quiero%20unirme%20a%20Senda%20Firme" target="_blank" class="footer-contacto-whatsapp">Envíanos un WhatsApp</a>
+                        </li>
                     </ul>
                 </div>
             </div>
             
             <div class="footer-bottom">
-                <p>&copy; 2025 Senda Firme Cooperativa. Todos los derechos reservados.</p>
+                <p class="footer-derechos">&copy; 2025 Senda Firme Cooperativa. Todos los derechos reservados.</p>
             </div>
         </div>
     </footer>

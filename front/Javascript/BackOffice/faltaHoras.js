@@ -15,53 +15,88 @@ const inputMonto       = document.getElementById('montoCompensacion');
 let idFaltaSeleccionada = null;
 
 // ---------- Modal compensación ----------
-btnCancelarPago.addEventListener('click', () => {
-  modalComp.style.display = 'none';
-  idFaltaSeleccionada = null;
-  delete btnConfirmarPago.dataset.id;
-});
-
-btnConfirmarPago.addEventListener('click', async () => {
-  const monto = Number(inputMonto.value);
-  const idFalta = btnConfirmarPago.dataset.id;
-
-  if (!idFalta) {
-    alert('No se pudo identificar la falta.');
-    return;
-  }
-  if (!monto || monto <= 0) {
-    alert('Ingresá un monto válido.');
-    return;
-  }
-
-  try {
-    const resp = await asignarMontoFalta({ idFalta, monto });
-    if (resp?.status === 'exito') {
-      alert('Pago asignado correctamente.');
-
-      const tarjeta = contenedor.querySelector(`[data-id="${idFalta}"]`);
-      if (tarjeta) {
-        tarjeta.setAttribute('data-tipo', 'monetaria');
-        const montoEl = tarjeta.querySelector('.monto-asignado');
-        if (montoEl) {
-          montoEl.style.display = 'flex';
-          const val = montoEl.querySelector('.valor');
-          if (val) val.textContent = `$${monto.toFixed(2)}`;
-        }
-      }
-    } else {
-      alert('Error: ' + (resp?.message ?? 'desconocido'));
-    }
-  } catch (err) {
-    console.error('Error al asignar pago', err);
-    alert('Error del servidor');
-  } finally {
+if (btnCancelarPago) {
+  btnCancelarPago.addEventListener('click', () => {
     modalComp.style.display = 'none';
     idFaltaSeleccionada = null;
-    delete btnConfirmarPago.dataset.id;
-    inputMonto.value = '';
-  }
-});
+    if (btnConfirmarPago) {
+      delete btnConfirmarPago.dataset.id;
+    }
+    if (inputMonto) inputMonto.value = '';
+  });
+}
+
+if (btnConfirmarPago) {
+  btnConfirmarPago.addEventListener('click', async () => {
+    const monto = Number(inputMonto.value);
+    const idFalta = btnConfirmarPago.dataset.id;
+
+    if (!idFalta) {
+      await Swal.fire({
+        icon: 'error',
+        title: 'Error',
+        text: 'No se pudo identificar la falta.',
+        confirmButtonText: 'Aceptar'
+      });
+      return;
+    }
+
+    if (!monto || monto <= 0) {
+      await Swal.fire({
+        icon: 'warning',
+        title: 'Monto inválido',
+        text: 'Ingresá un monto válido mayor a 0.',
+        confirmButtonText: 'Aceptar'
+      });
+      return;
+    }
+
+    try {
+      const resp = await asignarMontoFalta({ idFalta, monto });
+
+      if (resp?.status === 'exito') {
+        await Swal.fire({
+          icon: 'success',
+          title: 'Monto asignado',
+          text: `Se asignó un pago de $ ${monto.toFixed(2)} a la falta seleccionada.`,
+          confirmButtonText: 'Aceptar'
+        });
+
+        // Actualizar tarjeta en la UI
+        const tarjeta = contenedor.querySelector(`[data-id="${idFalta}"]`);
+        if (tarjeta) {
+          tarjeta.setAttribute('data-tipo', 'monetaria');
+          const montoEl = tarjeta.querySelector('.monto-asignado');
+          if (montoEl) {
+            montoEl.style.display = 'flex';
+            const val = montoEl.querySelector('.valor');
+            if (val) val.textContent = `$ ${monto.toFixed(2)}`;
+          }
+        }
+      } else {
+        await Swal.fire({
+          icon: 'error',
+          title: 'Error',
+          text: resp?.message ?? 'No se pudo asignar el monto.',
+          confirmButtonText: 'Aceptar'
+        });
+      }
+    } catch (err) {
+      console.error('Error al asignar pago', err);
+      await Swal.fire({
+        icon: 'error',
+        title: 'Error del servidor',
+        text: 'Ocurrió un error al asignar el pago.',
+        confirmButtonText: 'Aceptar'
+      });
+    } finally {
+      modalComp.style.display = 'none';
+      idFaltaSeleccionada = null;
+      delete btnConfirmarPago.dataset.id;
+      inputMonto.value = '';
+    }
+  });
+}
 
 // ---------- Tarjetas ----------
 function buildCard(f) {
@@ -78,7 +113,9 @@ function buildCard(f) {
   const cedula     = f.cedula ?? '—';
   const motivo     = f.motivo ?? '—';
   const tipoTexto  = f.tipoCompensacion ?? '—';
-  const montoPago  = (f.montoPago ?? '—') + (f.montoPago ? '$' : '');
+  const montoPago  = f.montoPago != null
+    ? `${f.montoPago}$`
+    : '—';
 
   let fechaFmt = '—';
   if (f.fecha) {
@@ -160,8 +197,8 @@ function renderLista(faltas) {
 
 // ---------- Filtros ----------
 function aplicarFiltrosUI() {
-  const estadoSel = filtroEstado.value.toLowerCase();
-  const tipoSel   = filtroTipo.value.toLowerCase();
+  const estadoSel = (filtroEstado?.value || '').toLowerCase();
+  const tipoSel   = (filtroTipo?.value || '').toLowerCase();
 
   contenedor.querySelectorAll('.tarjeta-falta').forEach(tarjeta => {
     const estado = (tarjeta.dataset.estado || '').toLowerCase();
@@ -169,7 +206,7 @@ function aplicarFiltrosUI() {
 
     const visible =
       (estadoSel === 'todas' || estado === estadoSel) &&
-      (tipoSel   === 'todos' || tipo   === tipoSel);
+      (tipoSel   === 'todos'  || tipo   === tipoSel);
 
     tarjeta.style.display = visible ? 'block' : 'none';
   });
@@ -185,44 +222,99 @@ contenedor.addEventListener('click', async (e) => {
 
   if (action === 'compensar') {
     idFaltaSeleccionada = id;
-    btnConfirmarPago.dataset.id = id;
-    modalComp.style.display = 'flex';
+    if (btnConfirmarPago) btnConfirmarPago.dataset.id = id;
+    if (modalComp) modalComp.style.display = 'flex';
     return;
   }
 
   if (action === 'aprobar') {
+    const result = await Swal.fire({
+      icon: 'question',
+      title: '¿Aprobar falta?',
+      text: 'Esta acción aprobará la falta seleccionada.',
+      showCancelButton: true,
+      confirmButtonText: 'Sí, aprobar',
+      cancelButtonText: 'Cancelar'
+    });
+
+    if (!result.isConfirmed) return;
+
     try {
       const resp = await aprobarFalta({ idFalta: id });
       if (resp?.status === 'exito') {
-        alert('Falta aprobada con éxito.');
+        await Swal.fire({
+          icon: 'success',
+          title: 'Falta aprobada',
+          text: 'La falta fue aprobada correctamente.',
+          confirmButtonText: 'Aceptar'
+        });
+
         const tarjeta = contenedor.querySelector(`[data-id="${id}"]`);
         if (tarjeta) {
           tarjeta.dataset.estado = 'aprobada';
           tarjeta.style.opacity = '0.7';
         }
+        aplicarFiltrosUI();
       } else {
-        alert('Error ' + (resp?.message ?? 'desconocido'));
+        await Swal.fire({
+          icon: 'error',
+          title: 'Error',
+          text: resp?.message ?? 'No se pudo aprobar la falta.',
+          confirmButtonText: 'Aceptar'
+        });
       }
     } catch (err) {
       console.error('Error al aprobar la falta', err);
-      alert('Error del servidor');
+      await Swal.fire({
+        icon: 'error',
+        title: 'Error del servidor',
+        text: 'Ocurrió un error al aprobar la falta.',
+        confirmButtonText: 'Aceptar'
+      });
     }
     return;
   }
 
   if (action === 'rechazar') {
+    const result = await Swal.fire({
+      icon: 'warning',
+      title: '¿Rechazar falta?',
+      text: 'Esta acción rechazará la falta y no se podrá deshacer.',
+      showCancelButton: true,
+      confirmButtonText: 'Sí, rechazar',
+      cancelButtonText: 'Cancelar'
+    });
+
+    if (!result.isConfirmed) return;
+
     try {
       const resp = await rechazarFalta({ idFalta: id });
       if (resp?.status === 'exito') {
-        alert('Falta rechazada con éxito.');
+        await Swal.fire({
+          icon: 'success',
+          title: 'Falta rechazada',
+          text: 'La falta fue rechazada correctamente.',
+          confirmButtonText: 'Aceptar'
+        });
+
         const tarjeta = contenedor.querySelector(`[data-id="${id}"]`);
         if (tarjeta) tarjeta.remove();
       } else {
-        alert('Error ' + (resp?.message ?? 'desconocido'));
+        await Swal.fire({
+          icon: 'error',
+          title: 'Error',
+          text: resp?.message ?? 'No se pudo rechazar la falta.',
+          confirmButtonText: 'Aceptar'
+        });
       }
     } catch (err) {
       console.error('Error al rechazar la falta', err);
-      alert('Error del servidor');
+      await Swal.fire({
+        icon: 'error',
+        title: 'Error del servidor',
+        text: 'Ocurrió un error al rechazar la falta.',
+        confirmButtonText: 'Aceptar'
+      });
     }
   }
 });

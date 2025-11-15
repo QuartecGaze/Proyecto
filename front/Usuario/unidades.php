@@ -26,25 +26,40 @@
             <div class="logo-dashboard">
                 <img src="../../Fotos/LogoNegro.webp" alt="Logo Cooperativa">
                 <span>Senda Firme</span>
-                <p>Construyendo oportunidades juntos</p>
+                <p class="sidebar-slogan">Construyendo oportunidades juntos</p>
             </div>
 
             <nav id="NavegacionDashboard">
                 <ul class="menu-dashboard">
                     <li class="item-menu">
-                        <a href="index.php"><i class="material-icons">home</i> Inicio</a>
+                        <a href="index.php">
+                            <i class="material-icons">home</i>
+                            <span class="menu-inicio">Inicio</span>
+                        </a>
                     </li>
                     <li class="item-menu">
-                        <a href="horas.php"><i class="material-icons">punch_clock</i> Horas Trabajadas</a>
+                        <a href="horas.php">
+                            <i class="material-icons">punch_clock</i>
+                            <span class="menu-horas-trabajadas">Horas Trabajadas</span>
+                        </a>
                     </li>
                     <li class="item-menu activo">
-                        <a href="unidades.php"><i class="material-icons">apartment</i> Unidad Habitacional</a>
+                        <a href="unidades.php">
+                            <i class="material-icons">apartment</i>
+                            <span class="menu-unidad-habitacional">Unidad Habitacional</span>
+                        </a>
                     </li>
                     <li class="item-menu">
-                        <a href="pagos.php"><i class="material-icons">payments</i> Pagos</a>
+                        <a href="pagos.php">
+                            <i class="material-icons">payments</i>
+                            <span class="menu-pagos">Pagos</span>
+                        </a>
                     </li>
                     <li class="item-menu">
-                        <a href="configuracion.php"><i class="material-icons">settings</i> Configuración</a>
+                        <a href="configuracion.php">
+                            <i class="material-icons">settings</i>
+                            <span class="menu-configuracion">Configuración</span>
+                        </a>
                     </li>
                 </ul>
             </nav>
@@ -55,60 +70,62 @@
                         <img src="" alt="Foto perfil" class="fotoPerfil">
                         <div>
                             <p class="nombre-usuario nombreUsuario">Nombre User</p>
-                            <p class="rol-usuario">Usuario</p>
+                            <p class="rol-usuario sidebar-rol-usuario">Usuario</p>
                         </div>
                     </div>
                 </a>
                 <form action="../cerrarSesion.php">
                     <button class="boton-cerrar-sesion">
-                        <i class="material-icons">logout</i> Cerrar sesión
+                        <i class="material-icons">logout</i>
+                        <span class="boton-cerrar-sesion">Cerrar sesión</span>
                     </button>
                 </form>
                 <button id="boton-cambiar-sesion">
-                    <i class="material-icons">switch_account</i> Cambiar a Admin
+                    <i class="material-icons">switch_account</i>
+                    <span class="boton-cambiar-admin">Cambiar a Admin</span>
                 </button>
             </div>
         </aside>
 
         <main class="contenido-principal">
             <header class="header-principal">
-                <h1>Unidad Habitacional</h1>
-                <p>Gestiona los datos de tu vivienda y los integrantes de tu familia</p>
+                <h1 class="unidad-titulo">Unidad Habitacional</h1>
+                <p class="unidad-subtitulo">Gestiona los datos de tu vivienda y los integrantes de tu familia</p>
             </header>
 
             <!-- Información de la Unidad -->
             <section class="seccion-unidad">
-                <h2>Información de la Unidad</h2>
+                <h2 class="unidad-info-titulo">Información de la Unidad</h2>
 
                 <div class="tarjeta-unidad">
                     <div class="info-unidad">
-                    <div class="campo-unidad">
-                        <span class="etiqueta">Número de Unidad:</span>
-                        <span class="valor" id="numeroUnidad">-</span>
-                    </div>
-                    <div class="campo-unidad">
-                        <span class="etiqueta">Pasillo:</span>
-                        <span class="valor" id="pasilloUnidad">-</span>
-                    </div>
-                    <div class="campo-unidad">
-                        <span class="etiqueta">Estado:</span>
-                        <span class="valor estado" id="estadoUnidad">-</span>
-                    </div>
-                    <div class="campo-unidad">
-                        <span class="etiqueta">Habitaciones:</span>
-                        <span class="valor" id="habitacionesUnidad">-</span>
-                    </div>
+                        <div class="campo-unidad">
+                            <span class="etiqueta unidad-numero-label">Número de Unidad:</span>
+                            <span class="valor" id="numeroUnidad">-</span>
+                        </div>
+                        <div class="campo-unidad">
+                            <span class="etiqueta unidad-pasillo-label">Pasillo:</span>
+                            <span class="valor" id="pasilloUnidad">-</span>
+                        </div>
+                        <div class="campo-unidad">
+                            <span class="etiqueta unidad-estado-label">Estado:</span>
+                            <span class="valor estado" id="estadoUnidad">-</span>
+                        </div>
+                        <div class="campo-unidad">
+                            <span class="etiqueta unidad-habitaciones-label">Habitaciones:</span>
+                            <span class="valor" id="habitacionesUnidad">-</span>
+                        </div>
                     </div>
                 </div>
             </section>
 
-
             <!-- Integrantes Familiares -->
             <section class="seccion-integrantes">
                 <div class="cabecera-integrantes">
-                    <h2>Integrantes Familiares</h2>
+                    <h2 class="integrantes-titulo">Integrantes Familiares</h2>
                     <button class="boton-primario" id="btnAgregarIntegrante">
-                        <i class="material-icons">person_add</i> Agregar Integrante
+                        <i class="material-icons">person_add</i>
+                        <span class="integrantes-boton-agregar">Agregar Integrante</span>
                     </button>
                 </div>
 
@@ -117,13 +134,13 @@
                         <table class="tabla-integrantes">
                             <thead>
                                 <tr>
-                                    <th>Nombre</th>
-                                    <th>Apellido</th>
-                                    <th>CI</th>
-                                    <th>Mail</th>
-                                    <th>Fecha de Nacimiento</th>
-                                    <th>Genero</th>
-                                    <th>Acciones</th>
+                                    <th class="integrantes-tabla-nombre">Nombre</th>
+                                    <th class="integrantes-tabla-apellido">Apellido</th>
+                                    <th class="integrantes-tabla-ci">CI</th>
+                                    <th class="integrantes-tabla-mail">Mail</th>
+                                    <th class="integrantes-tabla-fecha-nacimiento">Fecha de Nacimiento</th>
+                                    <th class="integrantes-tabla-genero">Genero</th>
+                                    <th class="integrantes-tabla-acciones">Acciones</th>
                                 </tr>
                             </thead>
                             <tbody id="lista-integrantes">
@@ -135,8 +152,10 @@
                     <div class="sin-integrantes" id="sin-integrantes" style="display: none;">
                         <div class="mensaje-vacio">
                             <i class="material-icons">group</i>
-                            <h3>No hay integrantes familiares registrados</h3>
-                            <p>Agrega los integrantes de tu familia para gestionarlos desde aquí</p>
+                            <h3 class="integrantes-vacio-titulo">No hay integrantes familiares registrados</h3>
+                            <p class="integrantes-vacio-texto">
+                                Agrega los integrantes de tu familia para gestionarlos desde aquí
+                            </p>
                         </div>
                     </div>
                 </div>
@@ -148,7 +167,9 @@
     <div id="modalIntegrante" class="modal">
         <div class="modal-contenido">
             <div class="modal-header">
-                <h2 id="tituloModalIntegrante">Agregar Integrante Familiar</h2>
+                <h2 id="tituloModalIntegrante" class="modal-integrante-titulo-agregar">
+                    Agregar Integrante Familiar
+                </h2>
                 <button class="modal-cerrar" id="cerrarModalIntegrante">
                     <i class="material-icons">close</i>
                 </button>
@@ -156,44 +177,53 @@
 
             <div class="modal-body">
                 <form id="formIntegrante" class="formulario-modal">
-                    <div class="mensaje-exito" style="display: none;">Integrante guardado correctamente.</div>
-                    <div class="mensaje-error" style="display: none;">Error al guardar el integrante.</div>
+                    <div class="mensaje-exito modal-integrante-mensaje-exito" style="display: none;">
+                        Integrante guardado correctamente.
+                    </div>
+                    <div class="mensaje-error modal-integrante-mensaje-error" style="display: none;">
+                        Error al guardar el integrante.
+                    </div>
 
                     <div class="grupo-formulario">
-                        <label for="nombreIntegrante">Nombre:</label>
+                        <label for="nombreIntegrante" class="modal-integrante-label-nombre">Nombre:</label>
                         <input type="text" id="nombreIntegrante" name="nombre" required>
                     </div>
 
                     <div class="grupo-formulario">
-                        <label for="apellidoIntegrante">Apellido:</label>
+                        <label for="apellidoIntegrante" class="modal-integrante-label-apellido">Apellido:</label>
                         <input type="text" id="apellidoIntegrante" name="apellido" required>
                     </div>
 
                     <div class="grupo-formulario">
-                        <label for="dniIntegrante">Cedula:</label>
+                        <label for="dniIntegrante" class="modal-integrante-label-ci">Cedula:</label>
                         <input type="text" id="dniIntegrante" name="dni" required pattern="[0-9]{8}">
                     </div>
 
                     <div class="grupo-formulario">
-                        <label for="dniIntegrante">Email:</label>
+                        <label for="emailIntegrante" class="modal-integrante-label-email">Email:</label>
                         <input type="email" id="emailIntegrante" name="email" required >
                     </div>
 
                     <div class="grupo-formulario">
-                        <label for="fechaNacimientoIntegrante">Fecha de Nacimiento:</label>
+                        <label for="fechaNacimientoIntegrante" class="modal-integrante-label-fecha-nacimiento">
+                            Fecha de Nacimiento:
+                        </label>
                         <input type="date" id="fechaNacimientoIntegrante" name="fechaNacimiento" required>
                     </div>
 
                     <select id="generoIntegrante" required>
-                        <option value="">Seleccioná…</option>
-                        <option>Masculino</option>
-                        <option>Femenino</option>
-                        </select>
-
+                        <option value="" class="modal-integrante-select-placeholder">Seleccioná…</option>
+                        <option class="modal-integrante-select-masculino">Masculino</option>
+                        <option class="modal-integrante-select-femenino">Femenino</option>
+                    </select>
 
                     <div class="modal-acciones">
-                        <button type="button" class="boton-secundario" id="cancelarIntegrante">Cancelar</button>
-                        <button type="submit" class="boton-primario" id="guardarIntegrante">Guardar</button>
+                        <button type="button" class="boton-secundario modal-boton-cancelar" id="cancelarIntegrante">
+                            Cancelar
+                        </button>
+                        <button type="submit" class="boton-primario modal-boton-guardar" id="guardarIntegrante">
+                            Guardar
+                        </button>
                     </div>
                 </form>
             </div>
@@ -204,17 +234,23 @@
     <div id="modalConfirmacion" class="modal">
         <div class="modal-contenido modal-pequeno">
             <div class="modal-header">
-                <h2>Confirmar Eliminación</h2>
+                <h2 class="modal-confirmacion-titulo">Confirmar Eliminación</h2>
                 <button class="modal-cerrar" id="cerrarModalConfirmacion">
                     <i class="material-icons">close</i>
                 </button>
             </div>
 
             <div class="modal-body">
-                <p id="mensajeConfirmacion">¿Estás seguro de que deseas eliminar este integrante familiar?</p>
+                <p id="mensajeConfirmacion" class="modal-confirmacion-texto">
+                    ¿Estás seguro de que deseas eliminar este integrante familiar?
+                </p>
                 <div class="modal-acciones">
-                    <button type="button" class="boton-secundario" id="cancelarEliminacion">Cancelar</button>
-                    <button type="button" class="boton-primario boton-peligro" id="confirmarEliminacion">Eliminar</button>
+                    <button type="button" class="boton-secundario modal-boton-cancelar" id="cancelarEliminacion">
+                        Cancelar
+                    </button>
+                    <button type="button" class="boton-primario boton-peligro modal-boton-eliminar" id="confirmarEliminacion">
+                        Eliminar
+                    </button>
                 </div>
             </div>
         </div>
@@ -255,8 +291,10 @@
             }
         });
     </script>
+
     <script src="../Javascript/FrontUsuario/unidad.js" type="module"></script>
     <script src="../Javascript/FrontUsuario/generalidades.js" type="module"></script>
+    <script src="../Javascript/FrontUsuario/unidad_idioma.js" type="module"></script>
 </body>
 
 </html>

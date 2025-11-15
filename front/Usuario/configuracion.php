@@ -22,30 +22,45 @@
     <div class="overlay" id="overlay"></div>
 
     <div class="contenedor-dashboard">
-        <!-- Sidebar (igual que en index.html) -->
+        <!-- Sidebar -->
         <aside class="sidebar" id="sidebar">
             <div class="logo-dashboard">
                 <img src="../../Fotos/LogoNegro.webp" alt="Logo Cooperativa">
                 <span>Senda Firme</span>
-                <p>Construyendo oportunidades juntos</p>
+                <p class="sidebar-slogan">Construyendo oportunidades juntos</p>
             </div>
 
             <nav id="NavegacionDashboard">
                 <ul class="menu-dashboard">
                     <li class="item-menu">
-                        <a href="index.php"><i class="material-icons">home</i> Inicio</a>
+                        <a href="index.php">
+                            <i class="material-icons">home</i>
+                            <span class="menu-inicio">Inicio</span>
+                        </a>
                     </li>
                     <li class="item-menu">
-                        <a href="horas.php"><i class="material-icons">punch_clock</i> Horas Trabajadas</a>
+                        <a href="horas.php">
+                            <i class="material-icons">punch_clock</i>
+                            <span class="menu-horas-trabajadas">Horas Trabajadas</span>
+                        </a>
                     </li>
                     <li class="item-menu">
-                        <a href="unidades.php"><i class="material-icons">apartment</i> Unidad Habitacional</a>
+                        <a href="unidades.php">
+                            <i class="material-icons">apartment</i>
+                            <span class="menu-unidad-habitacional">Unidad Habitacional</span>
+                        </a>
                     </li>
                     <li class="item-menu">
-                        <a href="pagos.php"><i class="material-icons">payments</i> Pagos</a>
+                        <a href="pagos.php">
+                            <i class="material-icons">payments</i>
+                            <span class="menu-pagos">Pagos</span>
+                        </a>
                     </li>
                     <li class="item-menu activo">
-                        <a href="configuracion.php"><i class="material-icons">settings</i> Configuración</a>
+                        <a href="configuracion.php">
+                            <i class="material-icons">settings</i>
+                            <span class="menu-configuracion">Configuración</span>
+                        </a>
                     </li>
                 </ul>
             </nav>
@@ -56,17 +71,19 @@
                         <img src="" alt="Foto perfil" class="fotoPerfil">
                         <div>
                             <p class="nombre-usuario nombreUsuario">Nombre User</p>
-                            <p class="rol-usuario">Usuario</p>
+                            <p class="rol-usuario sidebar-rol-usuario">Usuario</p>
                         </div>
                     </div>
                 </a>
                 <form action="../cerrarSesion.php">
                     <button class="boton-cerrar-sesion">
-                        <i class="material-icons">logout</i> Cerrar sesión
+                        <i class="material-icons">logout</i>
+                        <span class="boton-cerrar-sesion">Cerrar sesión</span>
                     </button>
                 </form>
                 <button id="boton-cambiar-sesion">
-                    <i class="material-icons">switch_account</i> Cambiar a Admin
+                    <i class="material-icons">switch_account</i>
+                    <span class="boton-cambiar-admin">Cambiar a Admin</span>
                 </button>
             </div>
         </aside>
@@ -74,8 +91,8 @@
         <!-- Contenido principal del perfil -->
         <main class="contenido-principal">
             <header class="header-principal">
-                <h1>Mi Perfil</h1>
-                <p>Gestiona tu información personal y preferencias</p>
+                <h1 class="perfil-titulo">Mi Perfil</h1>
+                <p class="perfil-subtitulo">Gestiona tu información personal y preferencias</p>
             </header>
 
             <div class="contenedor-perfil">
@@ -84,77 +101,81 @@
                         <img src="" alt="Foto de perfil" class="foto-perfil fotoPerfil">
                         <button class="boton-cambiar-foto" onclick="document.getElementById('subir-foto').click()">
                             <input type="file" style="display: none;" id="subir-foto">
-                            <i class="material-icons">image_search</i> Cambiar foto
+                            <i class="material-icons">image_search</i>
+                            <span class="boton-cambiar-foto">Cambiar foto</span>
                         </button>
                         <button class="boton-cambiar-datos">
-                            <i class="material-icons">edit</i> Cambiar datos personales
+                            <i class="material-icons">edit</i>
+                            <span class="boton-cambiar-datos-personales">Cambiar datos personales</span>
                         </button>
                     </div>
 
                     <div class="info-personal">
-                        <h2>Información personal</h2>
+                        <h2 class="info-personal-titulo">Información personal</h2>
                         <form id="formulario-editar-datos" style="display: none;">
                             <div class="campo-perfil">
-                                <label for="nombreInput">Nombre</label>
+                                <label for="nombreInput" class="perfil-label-nombre">Nombre</label>
                                 <input type="text" id="nombreInput" class="input-editar">
                             </div>
                             <div class="campo-perfil">
-                                <label for="apellidoInput">Apellido</label>
+                                <label for="apellidoInput" class="perfil-label-apellido">Apellido</label>
                                 <input type="text" id="apellidoInput" class="input-editar">
                             </div>
                             <div class="campo-perfil">
-                                <label for="emailInput">Correo electrónico</label>
+                                <label for="emailInput" class="perfil-label-email">Correo electrónico</label>
                                 <input type="email" id="emailInput" class="input-editar">
                             </div>
                             <div class="campo-perfil">
-                                <label for="telefonoInput">Teléfono</label>
+                                <label for="telefonoInput" class="perfil-label-telefono">Teléfono</label>
                                 <input type="tel" id="telefonoInput" class="input-editar">
                             </div>
                             <div class="campo-perfil">
-                                <label for="fechaNacimientoInput">Fecha de Nacimiento</label>
+                                <label for="fechaNacimientoInput" class="perfil-label-fecha-nacimiento">Fecha de Nacimiento</label>
                                 <input type="date" id="fechaNacimientoInput" class="input-editar">
                             </div>
                             <div class="campo-perfil">
-                                <label>Dirección</label>
+                                <label class="perfil-label-direccion">Dirección</label>
                                 <p class="valor-perfil" id="direccionUsuarioDisplay">Pasaje 2 unidad 31</p>
                             </div>
                             <div class="campo-perfil">
-                                <label>Fecha de Ingreso a la cooperativa</label>
+                                <label class="perfil-label-fecha-ingreso">Fecha de Ingreso a la cooperativa</label>
                                 <p class="valor-perfil" id="fechaIngreso"></p>
                             </div>
                             <div class="botones-edicion">
                                 <button type="submit" class="boton-guardar">
-                                    <i class="material-icons">save</i> Guardar cambios
+                                    <i class="material-icons">save</i>
+                                    <span class="perfil-boton-guardar-cambios">Guardar cambios</span>
                                 </button>
                                 <button type="button" class="boton-cancelar">
-                                    <i class="material-icons">cancel</i> Cancelar
+                                    <i class="material-icons">cancel</i>
+                                    <span class="perfil-boton-cancelar">Cancelar</span>
                                 </button>
                             </div>
                         </form>
 
                         <div id="info-solo-lectura">
                             <div class="campo-perfil">
-                                <label>Nombre completo</label>
+                                <label class="perfil-label-nombre-completo">Nombre completo</label>
                                 <p class="valor-perfil nombreUsuario"></p>
                             </div>
                             <div class="campo-perfil">
-                                <label>Correo electrónico</label>
+                                <label class="perfil-label-email">Correo electrónico</label>
                                 <p class="valor-perfil" id="emailUsuario"></p>
                             </div>
                             <div class="campo-perfil">
-                                <label>Teléfono</label>
+                                <label class="perfil-label-telefono">Teléfono</label>
                                 <p class="valor-perfil" id="telefonoUsuario"></p>
                             </div>
                             <div class="campo-perfil">
-                                <label>Dirección</label>
+                                <label class="perfil-label-direccion">Dirección</label>
                                 <p class="valor-perfil" id="direccionUsuario"></p>
                             </div>
                             <div class="campo-perfil">
-                                <label>Fecha de Nacimiento</label>
+                                <label class="perfil-label-fecha-nacimiento">Fecha de Nacimiento</label>
                                 <p class="valor-perfil" id="cumpleUsuario"></p>
                             </div>
                             <div class="campo-perfil">
-                                <label>Fecha de Ingreso a la cooperativa</label>
+                                <label class="perfil-label-fecha-ingreso">Fecha de Ingreso a la cooperativa</label>
                                 <p class="valor-perfil" id="fechaIngresoUsuario"></p>
                             </div>
                         </div>
@@ -162,28 +183,28 @@
                 </section>
 
                 <section class="seccion-estadisticas">
-                    <h2>Mis estadísticas</h2>
+                    <h2 class="estadisticas-titulo">Mis estadísticas</h2>
                     <div class="estadisticas-grid">
                         <div class="estadistica-item">
-                        <i class="material-icons">punch_clock</i>
-                        <div>
-                            <h3>Total Horas Trabajadas</h3>
-                            <p id="horasTotales">—</p>
-                        </div>
-                        </div>
-                        <div class="estadistica-item">
-                        <i class="material-icons">payments</i>
-                        <div>
-                            <h3>Monto Aportado</h3>
-                            <p id="pagosTotales">—</p>
-                        </div>
+                            <i class="material-icons">punch_clock</i>
+                            <div>
+                                <h3 class="estadistica-total-horas-titulo">Total Horas Trabajadas</h3>
+                                <p id="horasTotales">—</p>
+                            </div>
                         </div>
                         <div class="estadistica-item">
-                        <i class="material-icons">event</i>
-                        <div>
-                            <h3>Antigüedad</h3>
-                            <p id="antiguedadUsuario">—</p>
+                            <i class="material-icons">payments</i>
+                            <div>
+                                <h3 class="estadistica-monto-aportado-titulo">Monto Aportado</h3>
+                                <p id="pagosTotales">—</p>
+                            </div>
                         </div>
+                        <div class="estadistica-item">
+                            <i class="material-icons">event</i>
+                            <div>
+                                <h3 class="estadistica-antiguedad-titulo">Antigüedad</h3>
+                                <p id="antiguedadUsuario">—</p>
+                            </div>
                         </div>
                     </div>
                 </section>
@@ -263,6 +284,7 @@
     </script>
     <script src="../Javascript/FrontUsuario/usuario.js" type="module"></script>
     <script src="../Javascript/FrontUsuario/generalidades.js" type="module"></script>
+    <script src="../Javascript/FrontUsuario/configuracion_idioma.js" type="module"></script>
 </body>
 
 </html>

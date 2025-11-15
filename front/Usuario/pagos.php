@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="es">
 
 <head>
     <meta charset="UTF-8">
@@ -25,25 +25,40 @@
             <div class="logo-dashboard">
                 <img src="../../Fotos/LogoNegro.webp" alt="Logo Cooperativa">
                 <span>Senda Firme</span>
-                <p>Construyendo oportunidades juntos</p>
+                <p class="sidebar-slogan">Construyendo oportunidades juntos</p>
             </div>
 
             <nav id="NavegacionDashboard">
                 <ul class="menu-dashboard">
                     <li class="item-menu">
-                        <a href="index.php"><i class="material-icons">home</i> Inicio</a>
+                        <a href="index.php">
+                            <i class="material-icons">home</i>
+                            <span class="menu-inicio">Inicio</span>
+                        </a>
                     </li>
                     <li class="item-menu">
-                        <a href="horas.php"><i class="material-icons">punch_clock</i> Horas Trabajadas</a>
+                        <a href="horas.php">
+                            <i class="material-icons">punch_clock</i>
+                            <span class="menu-horas-trabajadas">Horas Trabajadas</span>
+                        </a>
                     </li>
                     <li class="item-menu">
-                        <a href="unidades.php"><i class="material-icons">apartment</i> Unidad Habitacional</a>
+                        <a href="unidades.php">
+                            <i class="material-icons">apartment</i>
+                            <span class="menu-unidad-habitacional">Unidad Habitacional</span>
+                        </a>
                     </li>
                     <li class="item-menu">
-                        <a href="pagos.php"><i class="material-icons">payments</i> Pagos</a>
+                        <a href="pagos.php">
+                            <i class="material-icons">payments</i>
+                            <span class="menu-pagos">Pagos</span>
+                        </a>
                     </li>
                     <li class="item-menu">
-                        <a href="configuracion.php"><i class="material-icons">settings</i> Configuración</a>
+                        <a href="configuracion.php">
+                            <i class="material-icons">settings</i>
+                            <span class="menu-configuracion">Configuración</span>
+                        </a>
                     </li>
                 </ul>
             </nav>
@@ -54,25 +69,27 @@
                         <img src="" alt="Foto perfil" class="fotoPerfil">
                         <div>
                             <p class="nombre-usuario nombreUsuario">Nombre User</p>
-                            <p class="rol-usuario">Usuario</p>
+                            <p class="rol-usuario sidebar-rol-usuario">Usuario</p>
                         </div>
                     </div>
                 </a>
                 <form action="../cerrarSesion.php">
                     <button class="boton-cerrar-sesion">
-                        <i class="material-icons">logout</i> Cerrar sesión
+                        <i class="material-icons">logout</i>
+                        <span class="boton-cerrar-sesion">Cerrar sesión</span>
                     </button>
                 </form>
                 <button id="boton-cambiar-sesion">
-                    <i class="material-icons">switch_account</i> Cambiar a Admin
+                    <i class="material-icons">switch_account</i>
+                    <span class="boton-cambiar-admin">Cambiar a Admin</span>
                 </button>
             </div>
         </aside>
 
         <main class="contenido-principal">
             <header class="header-principal">
-                <h1>Pagos Pendientes</h1>
-                <p>Consulta y gestiona tus pagos pendientes con la cooperativa</p>
+                <h1 class="pagos-titulo">Pagos Pendientes</h1>
+                <p class="pagos-subtitulo">Consulta y gestiona tus pagos pendientes con la cooperativa</p>
             </header>
 
             <div class="contenedor-tarjetas">
@@ -81,9 +98,9 @@
                         <i class="material-icons">warning</i>
                     </div>
                     <div class="tarjeta-contenido">
-                        <h3>Pagos Pendientes</h3>
+                        <h3 class="card-pagos-pendientes-titulo">Pagos Pendientes</h3>
                         <p class="tarjeta-valor" id="pagosAtrasadosCantidad"></p>
-                        <p class="tarjeta-subtexto">Cantidad total</p>
+                        <p class="tarjeta-subtexto card-pagos-pendientes-subtexto">Cantidad total</p>
                     </div>
                 </div>
 
@@ -92,9 +109,9 @@
                         <i class="material-icons">attach_money</i>
                     </div>
                     <div class="tarjeta-contenido">
-                        <h3>Monto Total</h3>
+                        <h3 class="card-monto-total-titulo">Monto Total</h3>
                         <p class="tarjeta-valor" id="pagosAtrasadosTotal"></p>
-                        <p class="tarjeta-subtexto">Por pagar</p>
+                        <p class="tarjeta-subtexto card-monto-total-subtexto">Por pagar</p>
                     </div>
                 </div>
 
@@ -103,43 +120,47 @@
                         <i class="material-icons">event</i>
                     </div>
                     <div class="tarjeta-contenido">
-                        <h3>Ultimo Pago</h3>
+                        <h3 class="card-ultimo-pago-titulo">Ultimo Pago</h3>
                         <p class="tarjeta-valor" id="pagoMensual"></p>
-                        <p class="tarjeta-subtexto">Monto del ultimo pago a realizar</p>
+                        <p class="tarjeta-subtexto card-ultimo-pago-subtexto">Monto del ultimo pago a realizar</p>
                     </div>
                 </div>
             </div>
 
             <section class="seccion-pagos">
-                <div class="mensaje-exito" style="display: none;">Pago general registrado correctamente, a la espera de
-                    la aprobacion de un administrador</div>
-                <h2>Detalle de Pagos Atrasados</h2>
+                <div class="mensaje-exito pagos-mensaje-exito" style="display: none;">
+                    Pago general registrado correctamente, a la espera de
+                    la aprobacion de un administrador
+                </div>
+                <h2 class="seccion-detalle-pagos-titulo">Detalle de Pagos Atrasados</h2>
 
                 <div class="filtros-pagos">
                     <div class="grupo-filtro">
-                        <label for="filtro-estado">Estado:</label>
+                        <label for="filtro-estado" class="filtros-estado-label">Estado:</label>
                         <select name="filtro-estado" id="filtro-estado">
-                            <option value="todos">Todos</option>
-                            <option value="pendiente">Pendiente</option>
-                            <option value="enespera">En Espera</option>
+                            <option value="todos" class="filtros-estado-opcion-todos">Todos</option>
+                            <option value="pendiente" class="filtros-estado-opcion-pendiente">Pendiente</option>
+                            <option value="enespera" class="filtros-estado-opcion-en-espera">En Espera</option>
                         </select>
                     </div>
 
                     <div class="grupo-filtro">
-                        <label for="filtro-mes">Tipo de Pago</label>
+                        <label for="filtro-mes" class="filtros-tipo-label">Tipo de Pago</label>
                         <select name="filtro-mes" id="filtro-mes">
-                            <option value="Todos">Todos</option>
-                            <option value="mensual" selected>Mensual</option>
-                            <option value="otros">Otros</option>
+                            <option value="Todos" class="filtros-tipo-opcion-todos">Todos</option>
+                            <option value="mensual" class="filtros-tipo-opcion-mensual" selected>Mensual</option>
+                            <option value="otros" class="filtros-tipo-opcion-otros">Otros</option>
                         </select>
                     </div>
 
                     <button class="boton-primario">
-                        <i class="material-icons">filter_list</i> Aplicar Filtros
+                        <i class="material-icons">filter_list</i>
+                        <span class="filtros-boton-aplicar">Aplicar Filtros</span>
                     </button>
 
                     <button class="boton-primario btn-pago">
-                        <i class="material-icons">payment</i> Realizar Pago
+                        <i class="material-icons">payment</i>
+                        <span class="filtros-boton-realizar-pago">Realizar Pago</span>
                     </button>
                 </div>
 
@@ -147,11 +168,11 @@
                     <table class="tabla-pagos">
                         <thead>
                             <tr>
-                                <th>Concepto</th>
-                                <th>Monto</th>
-                                <th>Fecha del Pago</th>
-                                <th>Estado</th>
-                                <th>Acciones</th>
+                                <th class="tabla-pagos-columna-concepto">Concepto</th>
+                                <th class="tabla-pagos-columna-monto">Monto</th>
+                                <th class="tabla-pagos-columna-fecha">Fecha del Pago</th>
+                                <th class="tabla-pagos-columna-estado">Estado</th>
+                                <th class="tabla-pagos-columna-acciones">Acciones</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -166,45 +187,66 @@
     <div id="modal-pago" class="modal">
         <div class="modal-contenido">
             <div class="modal-header">
-                <h2>Realizar Pago</h2>
+                <h2 class="modal-pago-titulo">Realizar Pago</h2>
                 <button class="cerrar-modal">&times;</button>
             </div>
 
             <div class="modal-body">
                 <form id="formularioPago">
                     <div class="grupo-formulario">
-                        <label for="seleccionar-pago">Seleccionar pago a realizar:</label>
+                        <label for="seleccionar-pago" class="modal-pago-label-seleccionar">
+                            Seleccionar pago a realizar:
+                        </label>
                         <select id="seleccionar-pago" name="seleccionar-pago" required>
-                            <option value="">Seleccione un pago</option>
+                            <option value="" class="modal-pago-opcion-placeholder">Seleccione un pago</option>
                         </select>
                     </div>
 
                     <div class="info-pago-seleccionado" id="info-pago">
-                        <h3>Detalles del pago seleccionado</h3>
+                        <h3 class="modal-pago-detalles-titulo">Detalles del pago seleccionado</h3>
                         <div class="detalles-pago">
-                            <p><strong>Concepto:</strong> <span id="detalle-concepto">-</span></p>
-                            <p><strong>Monto:</strong> <span id="detalle-monto">-</span></p>
-                            <p><strong>Fecha de vencimiento:</strong> <span id="detalle-vencimiento">-</span></p>
+                            <p>
+                                <strong class="modal-pago-label-concepto">Concepto:</strong>
+                                <span id="detalle-concepto">-</span>
+                            </p>
+                            <p>
+                                <strong class="modal-pago-label-monto">Monto:</strong>
+                                <span id="detalle-monto">-</span>
+                            </p>
+                            <p>
+                                <strong class="modal-pago-label-vencimiento">Fecha de vencimiento:</strong>
+                                <span id="detalle-vencimiento">-</span>
+                            </p>
                         </div>
                     </div>
 
                     <div class="grupo-formulario">
-                        <label for="comprobante-pago">Comprobante de pago:</label>
+                        <label for="comprobante-pago" class="modal-pago-label-comprobante">
+                            Comprobante de pago:
+                        </label>
                         <div class="carga-archivo">
                             <input type="file" id="comprobante-pago" name="comprobante-pago"
                                 accept=".pdf,.jpg,.jpeg,.png">
                             <label for="comprobante-pago" class="boton-carga-archivo">
                                 <i class="material-icons">cloud_upload</i>
-                                <span>Seleccionar archivo</span>
+                                <span class="modal-pago-boton-archivo">Seleccionar archivo</span>
                             </label>
-                            <span class="nombre-archivo" id="nombre-archivo">Ningún archivo seleccionado</span>
+                            <span class="nombre-archivo modal-pago-archivo-placeholder" id="nombre-archivo">
+                                Ningún archivo seleccionado
+                            </span>
                         </div>
-                        <p class="texto-ayuda">Formatos aceptados: PDF, JPG, PNG (Tamaño máximo: 5MB)</p>
+                        <p class="texto-ayuda modal-pago-texto-ayuda">
+                            Formatos aceptados: PDF, JPG, PNG (Tamaño máximo: 5MB)
+                        </p>
                     </div>
 
                     <div class="modal-acciones">
-                        <button type="button" class="boton-secundario cerrar-modal">Cancelar</button>
-                        <button type="submit" class="boton-primario" id="confirmar-pago">Confirmar Pago</button>
+                        <button type="button" class="boton-secundario cerrar-modal modal-boton-cancelar">
+                            Cancelar
+                        </button>
+                        <button type="submit" class="boton-primario modal-boton-confirmar" id="confirmar-pago">
+                            Confirmar Pago
+                        </button>
                     </div>
                 </form>
             </div>
@@ -279,6 +321,7 @@
     </script>
     <script src="../Javascript/FrontUsuario/pagos.js" type="module"></script>
     <script src="../Javascript/FrontUsuario/generalidades.js" type="module"></script>
+    <script src="../Javascript/FrontUsuario/pagos_idioma.js" type="module"></script>
 </body>
 
 </html>

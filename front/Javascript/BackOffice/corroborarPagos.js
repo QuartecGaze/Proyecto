@@ -4,10 +4,10 @@ import { aprobarPago } from '../../../BackEnd/APIFetchs/APIBackOffice.js';
 import { rechazarPago } from '../../../BackEnd/APIFetchs/APIBackOffice.js';
 
 // --- Referencias DOM ---
-const pagosPendientes = document.getElementById("pagosPendientes");
-const filtroEstado = document.getElementById("filtro-estado");
-const filtroFecha = document.getElementById("filtro-fecha");
-const filtroCedula = document.getElementById("buscar-cedula");
+const pagosPendientes   = document.getElementById("pagosPendientes");
+const filtroEstado      = document.getElementById("filtro-estado");
+const filtroFecha       = document.getElementById("filtro-fecha");
+const filtroCedula      = document.getElementById("buscar-cedula");
 const btnAplicarFiltros = document.getElementById("aplicar-filtros");
 
 // Lista completa de comprobantes (sin filtrar)
@@ -17,10 +17,21 @@ let listaComprobantes = [];
 const dataCoop = await getPagosPendientes();
 setDatosCooperativa(dataCoop.message);
 
+// --- Helpers ---
+function actualizarContadorPendientes() {
+    if (!pagosPendientes) return;
+    const pendientes = listaComprobantes.filter(c =>
+        (c.estado || '').toLowerCase() === 'pendiente'
+    ).length;
+    pagosPendientes.textContent = pendientes;
+}
+
 // --- Funciones principales ---
 function setDatosCooperativa(data) {
     // contador de pendientes
-    pagosPendientes.textContent = data.comprobantesPendientes ?? 0;
+    if (pagosPendientes) {
+        pagosPendientes.textContent = data.comprobantesPendientes ?? 0;
+    }
 
     // guardamos la lista original en memoria
     listaComprobantes = Object.values(data.comprobantes ?? {});
@@ -87,12 +98,12 @@ function renderPagos(dataMessage) {
     }
 
     for (const c of lista) {
-        const fecha = c.fecha;
+        const fecha   = c.fecha;
         const usuario = c.usuario;
-        const cedula = c.ci;
-        const motivo = c.motivo;
-        const monto = c.monto;
-        const estado = c.estado;
+        const cedula  = c.ci;
+        const motivo  = c.motivo;
+        const monto   = c.monto;
+        const estado  = c.estado;
         const idComprobantePago = c.id;
 
         const tr = document.createElement('tr');
@@ -132,26 +143,57 @@ function renderPagos(dataMessage) {
     }
 
     // --- Eventos para aprobar/rechazar (se re-asignan cada vez que se re-renderiza) ---
-    const botonesAprobar = tbody.querySelectorAll(".aprobar-comprobante");
+    const botonesAprobar  = tbody.querySelectorAll(".aprobar-comprobante");
     const botonesRechazar = tbody.querySelectorAll(".rechazar-comprobante");
 
     botonesAprobar.forEach(boton => {
         boton.addEventListener("click", async () => {
             const idComprobante = boton.dataset.id;
-
             const datos = { idComprobante };
+
+            const result = await Swal.fire({
+                icon: 'question',
+                title: '¿Aprobar pago?',
+                text: 'Esta acción aprobará el comprobante de pago seleccionado.',
+                showCancelButton: true,
+                confirmButtonText: 'Sí, aprobar',
+                cancelButtonText: 'Cancelar'
+            });
+
+            if (!result.isConfirmed) return;
 
             try {
                 const respuesta = await aprobarPago(datos);
                 if (respuesta.status === "exito") {
-                    alert("Pago aprobado con éxito");
+                    await Swal.fire({
+                        icon: 'success',
+                        title: 'Pago aprobado',
+                        text: 'El pago fue aprobado con éxito.',
+                        confirmButtonText: 'Aceptar'
+                    });
+
                     // Actualizamos el estado en la lista y volvemos a aplicar filtros
                     const item = listaComprobantes.find(c => String(c.id) === String(idComprobante));
                     if (item) item.estado = "aprobado";
+
+                    actualizarContadorPendientes();
                     aplicarFiltros();
+                } else {
+                    await Swal.fire({
+                        icon: 'error',
+                        title: 'Error',
+                        text: respuesta?.message ?? 'No se pudo aprobar el pago.',
+                        confirmButtonText: 'Aceptar'
+                    });
                 }
             } catch (error) {
                 console.error("Error al aprobar estado:", error);
+                await Swal.fire({
+                    icon: 'error',
+                    title: 'Error del servidor',
+                    text: 'Ocurrió un error al aprobar el pago.',
+                    confirmButtonText: 'Aceptar'
+                });
             }
         });
     });
@@ -159,19 +201,50 @@ function renderPagos(dataMessage) {
     botonesRechazar.forEach(boton => {
         boton.addEventListener("click", async () => {
             const idComprobante = boton.dataset.id;
-
             const datos = { idComprobante };
+
+            const result = await Swal.fire({
+                icon: 'warning',
+                title: '¿Rechazar pago?',
+                text: 'Esta acción marcará el comprobante como rechazado.',
+                showCancelButton: true,
+                confirmButtonText: 'Sí, rechazar',
+                cancelButtonText: 'Cancelar'
+            });
+
+            if (!result.isConfirmed) return;
 
             try {
                 const respuesta = await rechazarPago(datos);
                 if (respuesta.status === "exito") {
-                    alert("Pago rechazado con éxito");
+                    await Swal.fire({
+                        icon: 'success',
+                        title: 'Pago rechazado',
+                        text: 'El pago fue rechazado con éxito.',
+                        confirmButtonText: 'Aceptar'
+                    });
+
                     const item = listaComprobantes.find(c => String(c.id) === String(idComprobante));
                     if (item) item.estado = "rechazado";
+
+                    actualizarContadorPendientes();
                     aplicarFiltros();
+                } else {
+                    await Swal.fire({
+                        icon: 'error',
+                        title: 'Error',
+                        text: respuesta?.message ?? 'No se pudo rechazar el pago.',
+                        confirmButtonText: 'Aceptar'
+                    });
                 }
             } catch (error) {
                 console.error("Error al rechazar estado:", error);
+                await Swal.fire({
+                    icon: 'error',
+                    title: 'Error del servidor',
+                    text: 'Ocurrió un error al rechazar el pago.',
+                    confirmButtonText: 'Aceptar'
+                });
             }
         });
     });

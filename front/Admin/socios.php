@@ -43,7 +43,7 @@
                             <i class="material-icons">apartment</i> Unidades Habitacionales
                         </a>
                         <ul class="submenu">
-                            <a href="unidades.php"><i class="material-icons">home_work</i>Gestionar Proyectos</a>
+                            <a href="unidades.php"><i class="material-icons">home_work</i> Gestionar Proyectos</a>
                             <a href="crearUnidad.php"><i class="material-icons">add_circle</i> Crear Unidad</a>
                         </ul>
                     </li>
@@ -73,7 +73,6 @@
                             <a href="configuracion.php"><i class="material-icons">star</i> Mi Perfil</a>
                             <a href="crearAdmin.php"><i class="material-icons">key</i> Crear Admin</a>
                             <a href="borrarAdmin.php"><i class="material-icons">backspace</i> Borrar Admin</a>
-
                         </ul>
                     </li>
                 </ul>
@@ -98,17 +97,20 @@
             </div>
         </aside>
 
-        <!-- Contenido principal del perfil -->
+        <!-- Contenido principal -->
         <main class="contenido-principal">
             <header class="header-principal">
                 <h1>Socios</h1>
-                <p>En este pestaña puedes consultar todos lo socios regstrados en la cooperativa.</p>
+                <p>En esta pestaña puedes consultar todos los socios registrados en la cooperativa.</p>
             </header>
+
+            <!-- BLOQUE ÚNICO HORAS SEMANALES -->
             <div class="contenedor-horas-semanales">
                 <div class="descripcion-horas">
-                    <p>Desde aquí puedes asignar las horas semanales obligatorias para todos los socios de la
-                        cooperativa.
-                        Esta asignación se aplicará a todos los socios activos del sistema.</p>
+                    <p>
+                        Desde aquí puedes asignar las horas semanales obligatorias para todos los socios de la cooperativa.
+                        Esta asignación se aplicará a todos los socios activos del sistema.
+                    </p>
                 </div>
                 <button class="btn-horas" id="btnAsignarHoras">
                     <i class="material-icons">schedule</i>
@@ -116,6 +118,7 @@
                 </button>
             </div>
 
+            <!-- MODAL ÚNICO HORAS -->
             <div id="modalHorasSemanales" class="modal">
                 <div class="modal-contenido" id="modal-horas">
                     <div class="modal-header">
@@ -125,9 +128,8 @@
                     <div class="modal-body modal-body-horas">
                         <div class="campo-formulario">
                             <label for="horasSemanales">Horas semanales obligatorias:</label>
-                            <input type="number" id="horasSemanales" class="campo-editable" min="1" max="40" value="1">
-                            <p class="info-ayuda">Establece la cantidad de horas semanales que cada socio debe cumplir.
-                            </p>
+                            <input type="number" id="horasSemanales" class="campo-editable" min="1" max="40" value="21">
+                            <p class="info-ayuda">Por defecto 21 horas semanales.</p>
                         </div>
                     </div>
                     <div class="modal-footer">
@@ -137,39 +139,7 @@
                 </div>
             </div>
 
-            <div class="contenedor-horas-semanales">
-                <div class="descripcion-horas">
-                    <p>Desde aquí puedes asignar las horas semanales obligatorias para todos los socios de la
-                        cooperativa.
-                        Esta asignación se aplicará a todos los socios activos del sistema.</p>
-                </div>
-                <button class="btn-horas" id="btnAsignarHoras">
-                    <i class="material-icons">schedule</i>
-                    <span>Asignar Horas Semanales</span>
-                </button>
-            </div>
-
-            <div id="modalHorasSemanales" class="modal">
-                <div class="modal-contenido" id="modal-horas">
-                    <div class="modal-header">
-                        <h2>Asignar Horas Semanales</h2>
-                        <span class="cerrar-modal">&times;</span>
-                    </div>
-                    <div class="modal-body modal-body-horas">
-                        <div class="campo-formulario">
-                            <label for="horasSemanales">Horas semanales obligatorias:</label>
-                            <input type="number" id="horasSemanales" class="campo-editable" min="1" max="40">
-                            <p class="info-ayuda">Establece la cantidad de horas semanales que cada socio debe cumplir. Por defecto 21 horas Semanales.
-                            </p>
-                        </div>
-                    </div>
-                    <div class="modal-footer">
-                        <button class="btn btn-secundario cerrar-modal">Cancelar</button>
-                        <button class="btn btn-primario" id="btnConfirmarHoras">Confirmar Asignación</button>
-                    </div>
-                </div>
-            </div>
-
+            <!-- Tarjetas de socios -->
             <div class="contenedor-socios">
                 <div class="etiqueta">
                     <div class="card">
@@ -192,12 +162,11 @@
                         </button>
                     </div>
                 </div>
-
             </div>
         </main>
     </div>
 
-    <!-- Modal para mostrar datos del usuario -->
+    <!-- Modal usuario -->
     <div id="modalUsuario" class="modal">
         <div class="modal-contenido">
             <div class="modal-header">
@@ -205,9 +174,10 @@
                 <span class="cerrar-modal">&times;</span>
             </div>
             <div class="modal-body">
+
                 <div class="perfil-completo">
                     <div class="foto-perfil-modal">
-                        <img id="modalAvatar" src="avatar.jpg" alt="Foto del usuario"> <!-- hay que traer la foto aca-->
+                        <img id="modalAvatar" src="avatar.jpg" alt="Foto del usuario">
                     </div>
                     <div class="info-completa">
                         <div class="campo">
@@ -261,9 +231,7 @@
                                     <th>Email</th>
                                 </tr>
                             </thead>
-                            <tbody id="tablaFamiliares">
-
-                            </tbody>
+                            <tbody id="tablaFamiliares"></tbody>
                         </table>
                     </div>
                 </div>
@@ -289,14 +257,13 @@
                 <div class="modal-footer">
                     <button class="btn btn-secundario cerrar-modal" id="btnCerrarModal">Cerrar</button>
                     <button class="btn btn-primario" id="btnEditarUsuario">Editar información</button>
-                    <button class="btn btn-primario" id="btnGuardarCambios" style="display: none;">Guardar
-                        cambios</button>
-                    <button class="btn btn-terciario" id="btnCancelarEdicion" style="display: none;">Cancelar
-                        Edicion</button>
+                    <button class="btn btn-primario" id="btnGuardarCambios" style="display: none;">Guardar cambios</button>
+                    <button class="btn btn-terciario" id="btnCancelarEdicion" style="display: none;">Cancelar Edición</button>
                 </div>
             </div>
         </div>
     </div>
+
     <script src="../Javascript/BackOffice/generalidades.js" type="module"></script>
     <script src="../Javascript/BackOffice/socios.js" type="module"></script>
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
