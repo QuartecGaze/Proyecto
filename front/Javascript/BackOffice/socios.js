@@ -1,6 +1,7 @@
 // socios.js - Página Socios (listar tarjetas, abrir modal, editar y guardar)
 // Dependencias (ya las tenías):
 import { getUsuarios } from '../../../BackEnd/APIFetchs/APIBackOffice.js';
+import { asignarHorasSemanales } from '../../../BackEnd/APIFetchs/APIBackOffice.js';
 import { actualizarUsuario } from '../../../BackEnd/APIFetchs/APIUsuario.js';
 import { getIntegrantesFamiliares } from '../../../BackEnd/APIFetchs/APICooperativa.js';
 
@@ -297,11 +298,8 @@ async function guardarCambios() {
     id: usuarioActual.idPersona,
     nombre: inputs.nombre.value?.trim(),
     apellido: inputs.apellido.value?.trim(),
-    ci: inputs.cedula.value?.trim(),
     fechaNacimiento: inputs.fechaNacimiento.value?.trim(),
-    direccion: inputs.direccion.value?.trim(),
     email: inputs.email.value?.trim(),
-    telefono: nuevosTels,
   };
 
   // Enviar a API
@@ -316,17 +314,14 @@ async function guardarCambios() {
     spans.direccion.textContent = sanitizeHTML(payload.direccion || 'No proporcionada');
     spans.email.textContent = sanitizeHTML(payload.email || 'No proporcionado');
     spans.telefono.innerHTML = '';
-    payload.telefono.forEach(t => spans.telefono.innerHTML += `${sanitizeHTML(t)}<br>`);
+
 
     // Actualizo objeto en memoria (por si se reabre el modal)
     Object.assign(usuarioActual, {
       nombre: payload.nombre,
       apellido: payload.apellido,
-      ci: payload.ci,
       fechaNacimiento: payload.fechaNacimiento,
-      direccion: payload.direccion,
       email: payload.email,
-      telefono: payload.telefono,
     });
 
     // Opcional: refrescar tarjetas mínimamente (solo nombre/dirección visual)
@@ -341,6 +336,118 @@ async function guardarCambios() {
     alert('No se pudieron guardar los cambios.');
   }
 }
+
+// =======================
+// Modal Asignación de Horas Semanales
+// =======================
+
+const btnAsignarHoras     = document.getElementById('btnAsignarHoras');
+const modalHoras          = document.getElementById('modalHorasSemanales');
+const btnConfirmarHoras   = document.getElementById('btnConfirmarHoras');
+const horasSemanalesInput = document.getElementById('horasSemanales');
+const totalSociosSpan     = document.getElementById('totalSocios');
+const horasTotalesSpan    = document.getElementById('horasTotales');
+
+// Cierres del modal de horas (OJO: no usar los .cerrar-modal globales para no chocar con el modal de usuario)
+const btnCerrarHorasIcon   = modalHoras ? modalHoras.querySelector('.cerrar-modal') : null;
+const btnCerrarHorasFooter = modalHoras ? modalHoras.querySelector('.btn-secundario') : null;
+
+// Función para actualizar el total de horas (horas por socio * cantidad de socios)
+function actualizarHorasTotalesModal() {
+  if (!horasSemanalesInput || !horasTotalesSpan) return;
+  const horas = Number(horasSemanalesInput.value || 0);
+  const totalSocios = usuarios.length || 0;   // 👈 usa la lista real de usuarios
+  horasTotalesSpan.textContent = horas * totalSocios;
+}
+
+// Abrir modal de horas
+if (btnAsignarHoras && modalHoras) {
+  btnAsignarHoras.addEventListener('click', () => {
+    // seteamos cantidad de socios real
+    if (totalSociosSpan) {
+      totalSociosSpan.textContent = usuarios.length || 0;
+    }
+    actualizarHorasTotalesModal();
+
+    modalHoras.style.display = 'block';
+  });
+}
+
+// Cerrar modal (X)
+btnCerrarHorasIcon?.addEventListener('click', () => {
+  modalHoras.style.display = 'none';
+});
+
+// Cerrar modal (botón secundario "Cancelar" del footer del modal de horas)
+btnCerrarHorasFooter?.addEventListener('click', () => {
+  modalHoras.style.display = 'none';
+});
+
+// Actualizar horas totales cuando cambia el input
+horasSemanalesInput?.addEventListener('input', actualizarHorasTotalesModal);
+
+// Confirmar asignación de horas -> llamar al backoffice
+btnConfirmarHoras?.addEventListener('click', async () => {
+  const horas = Number(horasSemanalesInput.value);
+
+  if (!horas || horas <= 0) {
+    Swal.fire({
+      icon: 'warning',
+      title: 'Horas inválidas',
+      text: 'Ingresá una cantidad de horas mayor a 0.',
+      confirmButtonText: 'Aceptar'
+    });
+    return;
+  }
+
+  try {
+    // 👇 Ajustá el nombre del campo si tu back espera otro (ej: 'horas', 'horas_semana', etc.)
+    const resp = await asignarHorasSemanales({ horasSemanales: horas });
+
+    if (resp?.status === 'exito') {
+      Swal.fire({
+        icon: 'success',
+        title: 'Horas asignadas',
+        text: `Se han asignado ${horas} horas semanales a todos los socios.`,
+        confirmButtonText: 'Aceptar'
+      });
+
+      modalHoras.style.display = 'none';
+
+      // Opcional: recargar usuarios para reflejar el nuevo plan de horas
+      // const dataUsuarios = await getUsuarios();
+      // usuarios = Array.isArray(dataUsuarios?.message)
+      //   ? dataUsuarios.message
+      //   : Object.values(dataUsuarios?.message ?? {});
+      // renderTarjetas(usuarios);
+      // vincularBotonesAbrirModal();
+
+    } else {
+      Swal.fire({
+        icon: 'error',
+        title: 'Error',
+        text: resp?.message || 'No se pudieron asignar las horas.',
+        confirmButtonText: 'Aceptar'
+      });
+    }
+  } catch (err) {
+    console.error('Error al asignar horas semanales:', err);
+    Swal.fire({
+      icon: 'error',
+      title: 'Error',
+      text: 'Ocurrió un error al asignar las horas.',
+      confirmButtonText: 'Aceptar'
+    });
+  }
+});
+
+// Cerrar modal al hacer click fuera
+window.addEventListener('click', (event) => {
+  if (event.target === modalHoras) {
+    modalHoras.style.display = 'none';
+  }
+});
+
 
 /*
 document.addEventListener('DOMContentLoaded', function () {

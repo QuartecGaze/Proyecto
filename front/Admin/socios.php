@@ -105,6 +105,39 @@
                 <p>En este pestaña puedes consultar todos lo socios regstrados en la cooperativa.</p>
             </header>
 
+            <div class="contenedor-horas-semanales">
+                <div class="descripcion-horas">
+                    <p>Desde aquí puedes asignar las horas semanales obligatorias para todos los socios de la
+                        cooperativa.
+                        Esta asignación se aplicará a todos los socios activos del sistema.</p>
+                </div>
+                <button class="btn-horas" id="btnAsignarHoras">
+                    <i class="material-icons">schedule</i>
+                    <span>Asignar Horas Semanales</span>
+                </button>
+            </div>
+
+            <div id="modalHorasSemanales" class="modal">
+                <div class="modal-contenido" id="modal-horas">
+                    <div class="modal-header">
+                        <h2>Asignar Horas Semanales</h2>
+                        <span class="cerrar-modal">&times;</span>
+                    </div>
+                    <div class="modal-body modal-body-horas">
+                        <div class="campo-formulario">
+                            <label for="horasSemanales">Horas semanales obligatorias:</label>
+                            <input type="number" id="horasSemanales" class="campo-editable" min="1" max="40">
+                            <p class="info-ayuda">Establece la cantidad de horas semanales que cada socio debe cumplir. Por defecto 21 horas Semanales.
+                            </p>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button class="btn btn-secundario cerrar-modal">Cancelar</button>
+                        <button class="btn btn-primario" id="btnConfirmarHoras">Confirmar Asignación</button>
+                    </div>
+                </div>
+            </div>
+
             <div class="contenedor-socios">
                 <div class="etiqueta">
                     <div class="card">
@@ -158,7 +191,6 @@
                         <div class="campo">
                             <label>Cédula:</label>
                             <span id="modalCedula">5 705 183-0</span>
-                            <input type="text" id="inputCedula" class="campo-editable" style="display: none;">
                         </div>
                         <div class="campo">
                             <label>Fecha de nacimiento:</label>
@@ -168,7 +200,6 @@
                         <div class="campo">
                             <label>Dirección:</label>
                             <span id="modalDireccion">Pasillo P-1, Puerta 100</span>
-                            <input type="text" id="inputDireccion" class="campo-editable" style="display: none;">
                         </div>
                         <div class="campo">
                             <label>Email:</label>
@@ -178,7 +209,6 @@
                         <div class="campo">
                             <label>Teléfono:</label>
                             <span id="modalTelefono">+34 123 456 789</span>
-                            <input type="tel" id="inputTelefono" class="campo-editable" style="display: none;">
                         </div>
                         <div class="campo">
                             <label>Fecha de registro:</label>
@@ -237,6 +267,7 @@
     </div>
     <script src="../Javascript/BackOffice/generalidades.js" type="module"></script>
     <script src="../Javascript/BackOffice/socios.js" type="module"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 </body>
 
 </html>

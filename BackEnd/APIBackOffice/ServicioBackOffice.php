@@ -221,29 +221,29 @@
             $comprobantesAsociativo = [];
             $comprobantesPendientes = 0;
             if (count($comprobantesObj) > 0) {
-            foreach ($comprobantesObj as $comprobante) {
-                $comprobantesPendientes++;
-                $usuario = $this->repositorio->getUsuariosPagos($comprobante->getIdPersona());
-                $comprobantesAsociativo[] = [
-                    'fecha' => $comprobante->getMes(),
-                    'usuario' => $usuario['Nombre'],
-                    'ci' => $usuario['CI'],
-                    'motivo' => $comprobante->getMotivoPago(),
-                    'monto' => $comprobante->getMonto(),
-                    'estado' => $comprobante->getEstadoPago(),
-                    'foto' => $comprobante->getFoto(),
-                    'id' => $comprobante->getIdComprobantePago()
-                ];
+                foreach ($comprobantesObj as $comprobante) {
+                    if ($comprobante->getEstadoPago() === 'Pendiente') {
+                        $comprobantesPendientes++;
+                    }
+                    $usuario = $this->repositorio->getUsuariosPagos($comprobante->getIdPersona());
+                    $comprobantesAsociativo[] = [
+                        'fecha' => $comprobante->getMes(),
+                        'usuario'=> $usuario['Nombre'],
+                        'ci' => $usuario['CI'],
+                        'motivo' => $comprobante->getMotivoPago(),
+                        'monto' => $comprobante->getMonto(),
+                        'estado' => $comprobante->getEstadoPago(),
+                        'foto' => $comprobante->getFoto(),
+                        'id' => $comprobante->getIdComprobantePago()
+                    ];
+                }
             }
-            } else {
-                return ['comprobantesPendientes' => 0]; //si no hay pagos pendientes devuelvo 0
-            }
-
             return [
                 'comprobantesPendientes' => $comprobantesPendientes,
                 'comprobantes' => $comprobantesAsociativo
             ];
         }
+        
         
 
         public function getReunionesCompletadas(){
@@ -466,46 +466,55 @@
         
         public function getFaltasPendientes() {
             $faltas = $this->repositorio->getFaltasPendientes();
-
+        
             if (empty($faltas)) {
                 return [
                     'faltasPendientes' => 0,
-                    'faltas'           => []
+                    'faltas' => []
                 ];
             }
-
+        
             $ids = [];
             foreach ($faltas as $f) {
                 $id = $f['ID_Persona'];
                 $existe = false;
-
+        
                 foreach ($ids as $guardado) {
                     if ($guardado == $id) {
                         $existe = true;
                         break;
                     }
                 }
-
+        
                 if (!$existe) {
                     $ids[] = $id;
                 }
             }
-
+        
             $usuarios = $this->repositorio->getUsuariosConID($ids);
-
+        
             $respuesta = [];
             foreach ($faltas as $f) {
                 $idPersona = $f['ID_Persona'];
                 $u = isset($usuarios[$idPersona]) ? $usuarios[$idPersona] : null;
-
+                $montoPago = null;
+                if (!empty($f['ID_Comprobante_pago'])) {
+                    $datosPago = $this->repositorio->getMontoPago($f['ID_Comprobante_pago']);
+                    if ($datosPago) {
+                        $montoPago = $datosPago['Monto'] ?? null;
+                    }
+                }
+        
                 $respuesta[] = [
                     'idFalta' => $f['ID_Falta'],
                     'idPersona' => $f['ID_Persona'],
                     'idSemanaTrabajo' => $f['ID_Semana_trabajo'],
                     'motivo' => $f['Motivo_falta'],
                     'horasExonerar' => $f['Horas_solicitadas'],
-                    'fecha'=> $f['Fecha'],
+                    'fecha' => $f['Fecha'],
                     'tipoCompensacion' => $f['Tipo_falta'],
+                    'montoPago' => $montoPago,
+                    'idComprobante' => $f['ID_Comprobante_pago'],
                     'nombre' => $u['Nombre'],
                     'apellido' => $u['Apellido'],
                     'cedula' => $u['CI'],
@@ -514,12 +523,14 @@
                     'foto' => $u['Foto'] ?? null,
                 ];
             }
-
+        
             return [
                 'faltasPendientes' => count($respuesta),
-                'faltas'           => $respuesta
+                'faltas' => $respuesta
             ];
         }
+        
+        
         public function modificarUnidadHabitacional($idUnidadHabitacional, $cantidadHabitaciones, $estadoUnidad, $numeroPuerta, $pasillo, $ci){
             if(!$this->repositorio->unidadHabitacionalExisteID($idUnidadHabitacional)){
                 throw new Exception("La unidad habitacional no existe", 404);
@@ -544,8 +555,10 @@
             $this->repositorio->cargarHoras($idPersona, $horas, $fechaHoras, $idSemana);
         }
 
-        public function crearPagoFalta($idPersona, $fecha, $monto){
+        public function crearPagoFalta($idPersona, $idFalta, $fecha, $monto){
             $this->repositorio->crearPagoPersonalizado($idPersona, "Pago Compensatorio por Horas Faltadas", $monto, $fecha);
+            $idComprobante = $this->repositorio->getIDComprobantePago($idPersona, "Pago Compensatorio por Horas Faltadas", $monto, $fecha);
+            $this->repositorio->asignarIDComprobante($idFalta, $idComprobante);
         }
 
         public function getUnidadesLibres(){
@@ -570,6 +583,11 @@
             }
             //devuelve el lunes de la semana
             return $momento->format('Y-m-d');
+        }
+
+        public function asignarHorasSemanales($horasSemanales){
+            $semanaActual = $this->lunesDeEstaSemana();
+            $this->repositorio->asignarHorasSemanales($horasSemanales, $semanaActual);
         }
 
     }

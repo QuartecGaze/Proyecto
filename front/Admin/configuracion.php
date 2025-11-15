@@ -144,32 +144,6 @@
                     </div>
                 </section>
 
-                <section class="seccion-estadisticas">
-                    <h2>Mis estadísticas</h2>
-                    <div class="estadisticas-grid">
-                        <div class="estadistica-item">
-                            <i class="material-icons">punch_clock</i>
-                            <div>
-                                <h3>Horas trabajadas</h3>
-                                <p>1,250 horas totales</p>
-                            </div>
-                        </div>
-                        <div class="estadistica-item">
-                            <i class="material-icons">apartment</i>
-                            <div>
-                                <h3>Proyectos</h3>
-                                <p>8 proyectos completados</p>
-                            </div>
-                        </div>
-                        <div class="estadistica-item">
-                            <i class="material-icons">event</i>
-                            <div>
-                                <h3>Asistencia</h3>
-                                <p>95% de reuniones asistidas</p>
-                            </div>
-                        </div>
-                    </div>
-                </section>
             </div>
         </main>
     </div>

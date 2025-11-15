@@ -140,3 +140,7 @@ export function cambiarEstado(data) {
 export function asignarUnidadHabitacional(data) {
     return apiRequest('/APIBackOffice/ApiBackOffice.php?accion=asignarUnidadHabitacional', 'POST', data);
 }
+
+export function asignarHorasSemanales(data) {
+    return apiRequest('/APIBackOffice/ApiBackOffice.php?accion=asignarHorasSemanales', 'POST', data);
+}

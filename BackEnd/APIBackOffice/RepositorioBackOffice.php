@@ -518,7 +518,7 @@ require __DIR__ .'/../Consultas.php';
             $consulta = "
                 SELECT * 
                 FROM comprobante_pago  
-                WHERE Estado_pago = 'Pendiente';
+                WHERE Estado_pago IN ('Pendiente', 'Aprobado', 'Rechazado');
             ";
             $resultado = consulta($this->conn, $consulta); 
             $comprobantesPendientes = [];
@@ -843,6 +843,7 @@ require __DIR__ .'/../Consultas.php';
                 $faltasPendientes = [];
                 while ($fila = $respuesta->fetch_assoc()) {
                     $faltasPendientes[] = [
+                        'ID_Comprobante_pago' => $fila['ID_Comprobante_pago'],
                         'ID_Falta' => $fila['ID_Falta'],
                         'ID_Persona' => $fila['ID_Persona'],
                         'ID_Semana_trabajo' => $fila['ID_Semana_trabajo'],
@@ -851,7 +852,6 @@ require __DIR__ .'/../Consultas.php';
                         'Estado' => $fila['Estado'],
                         'Fecha' => $fila['Fecha'],
                         'Tipo_falta' => $fila['Tipo_falta']
-                        //tengo que traer el monto de pago para las compensaciones, tengo que agregar el ID_Comprobante_pago a la tabla falta
                     ];
                 }
                 return $faltasPendientes;
@@ -1188,6 +1188,58 @@ public function getDireccion($idPersona) {
 
     return null; // si no tiene unidad asignada
 }
+
+public function asignarHorasSemanales($horasSemanales, $semanaActual){
+    $consulta = "
+        UPDATE semana_trabajo
+        SET Horas_semanales = ?
+        WHERE Fecha_semana = ?
+    ";
+    consulta($this->conn, $consulta, "is", [$horasSemanales, $semanaActual]);
+}
+
+public function getIDComprobantePago($idPersona, $motivo, $monto, $fecha) {
+    $consulta = "
+        SELECT ID_Comprobante_pago
+        FROM comprobante_pago
+        WHERE ID_Persona = ?
+          AND Motivo_pago = ?
+          AND Mes = ?
+          AND Monto = ?
+    ";
+    $respuesta = consulta($this->conn, $consulta, "issd", [$idPersona, $motivo, $fecha, $monto]);
+
+    if ($fila = $respuesta->fetch_assoc()) {
+        return $fila['ID_Comprobante_pago'];
+    }else{
+        return null;
+    }
+}
+
+public function asignarIDComprobante($idFalta, $idComprobantePago) {
+    $consulta = "
+        UPDATE falta
+        SET ID_Comprobante_pago = ?
+        WHERE ID_Falta = ?
+    ";
+    consulta($this->conn, $consulta, "ii", [$idComprobantePago, $idFalta]);
+}
+
+public function getMontoPago($idComprobante){
+    $consulta = "
+        SELECT Monto
+        FROM comprobante_pago
+        WHERE ID_Comprobante_pago = ?
+    ";
+    $respuesta = consulta($this->conn, $consulta, "i", [$idComprobante]);
+    if ($monto = $respuesta->fetch_assoc()) {
+        return $monto;
+    }else{
+        return null;
+    }
+}
+
+
 
 
 

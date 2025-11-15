@@ -373,7 +373,7 @@
                     $falta = $servicio->getFalta($datos['idFalta']);
 
                     if($falta['Tipo_falta'] == "Pago Compensatorio"){
-                        $servicio->crearPagoFalta($falta['ID_Persona'], $falta['Fecha'], $monto);
+                        $servicio->crearPagoFalta($falta['ID_Persona'], $falta['ID_Falta'], $falta['Fecha'], $monto);
                         respuesta("Monto asignado con exito", "exito", 201);
                     }else{
                         respuesta("Campo incorrecto", "error", 404);
@@ -406,6 +406,16 @@
                     } else {
                         respuesta("Campo inválido", "error", 400);
                     }
+                } catch(Exception $e) {
+                    respuesta($e->getMessage(), "error", $e->getCode());
+                }
+            }
+
+            if($accion === "asignarHorasSemanales"){
+                try {
+                    $datos = json_decode(file_get_contents('php://input'), true);
+                    $servicio->asignarHorasSemanales($datos['horasSemanales']);
+                    respuesta("Las horas semanales se cargaron con exito", "exito", 201);
                 } catch(Exception $e) {
                     respuesta($e->getMessage(), "error", $e->getCode());
                 }

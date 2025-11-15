@@ -132,7 +132,7 @@
                         </div>
                     </div>
                 </a>
-
+                <a href="reuniones.php">
                 <div class="tarjeta-dashboard">
                     <div class="tarjeta-icono">
                         <i class="material-icons">event</i>
@@ -143,6 +143,7 @@
                         <p class="tarjeta-subtexto">Próximas</p>
                     </div>
                 </div>
+                </a>
 
                 <!-- Tarjeta de estado financiero -->
                 <a href="confirmarPagos.php">

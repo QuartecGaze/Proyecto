@@ -130,7 +130,6 @@
                 }
                 if($id != null){
                     $email = $datos['email'];
-                    $telefono = $datos['telefono'] ?? null;
                     $nombre = $datos['nombre'] ?? null;
                     $apellido = $datos['apellido'] ?? null;
                     $fechaNacimiento = $datos['fechaNacimiento'] ?? null;
@@ -141,7 +140,6 @@
                         $servicio->actualizarUsuario(
                             $id,
                             $email,
-                            $telefono,
                             $nombre,
                             $apellido,
                             $fechaNacimiento

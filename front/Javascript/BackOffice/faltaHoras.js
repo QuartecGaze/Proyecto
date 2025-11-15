@@ -3,60 +3,42 @@ import { aprobarFalta } from '../../../BackEnd/APIFetchs/APIBackOffice.js';
 import { rechazarFalta } from '../../../BackEnd/APIFetchs/APIBackOffice.js';
 import { asignarMontoFalta } from '../../../BackEnd/APIFetchs/APIBackOffice.js';
 
-const contenedor = document.querySelector('.contenedor-faltas');
-const filtroEstado = document.getElementById('filtro-estado');
-const filtroTipo = document.getElementById('filtro-tipo');
-const btnAplicar = document.getElementById('btn-aplicar-filtros');
+const contenedor       = document.querySelector('.contenedor-faltas');
+const filtroEstado     = document.getElementById('filtro-estado');
+const filtroTipo       = document.getElementById('filtro-tipo');
+const btnAplicar       = document.getElementById('btn-aplicar-filtros');
 const btnConfirmarPago = document.querySelector('.btn-confirmar-pago');
-const btnCancelarPago = document.querySelector('.btn-cancelar-pago');
+const btnCancelarPago  = document.querySelector('.btn-cancelar-pago');
+const modalComp        = document.getElementById('modalCompensacion');
+const inputMonto       = document.getElementById('montoCompensacion');
 
 let idFaltaSeleccionada = null;
 
-function safe(v, fb = '—') {
-  return (v !== null && v !== undefined && v !== '') ? v : fb;
-}
-function fmtFecha(iso) {
-  if (!iso) return '—';
-  const d = new Date((iso + '').slice(0, 10) + 'T00:00:00');
-  if (isNaN(d.getTime())) return iso;
-  return d.toLocaleDateString('es-ES', { day: '2-digit', month: 'short', year: 'numeric' });
-}
-function tipoToAttr(t) {
-  const v = (t || '').toLowerCase();
-  if (v.includes('pago') || v.includes('monet')) return 'monetaria';
-  return 'horas';
-}
-
-// Cerrar modal de pago
-btnCancelarPago.addEventListener('click', function () {
-  document.getElementById('modalCompensacion').style.display = 'none';
+// ---------- Modal compensación ----------
+btnCancelarPago.addEventListener('click', () => {
+  modalComp.style.display = 'none';
   idFaltaSeleccionada = null;
   delete btnConfirmarPago.dataset.id;
 });
 
-// Confirmar pago (registrado UNA VEZ)
-btnConfirmarPago.addEventListener('click', async function () {
-  const modal = document.getElementById('modalCompensacion');
-  const monto = document.getElementById('montoCompensacion').value;
+btnConfirmarPago.addEventListener('click', async () => {
+  const monto = Number(inputMonto.value);
+  const idFalta = btnConfirmarPago.dataset.id;
 
-  const idFalta = btnConfirmarPago.dataset.id || idFaltaSeleccionada; // cualquiera de los dos
   if (!idFalta) {
     alert('No se pudo identificar la falta.');
     return;
   }
-  if (!monto || Number(monto) <= 0) {
-    alert('Por favor ingrese un monto válido');
+  if (!monto || monto <= 0) {
+    alert('Ingresá un monto válido.');
     return;
   }
 
   try {
-    const datos = { idFalta, monto };
-    const respuesta = await asignarMontoFalta(datos);
-
-    if (respuesta?.status === 'exito') {
+    const resp = await asignarMontoFalta({ idFalta, monto });
+    if (resp?.status === 'exito') {
       alert('Pago asignado correctamente.');
 
-      // Actualizar tarjeta en UI
       const tarjeta = contenedor.querySelector(`[data-id="${idFalta}"]`);
       if (tarjeta) {
         tarjeta.setAttribute('data-tipo', 'monetaria');
@@ -64,41 +46,63 @@ btnConfirmarPago.addEventListener('click', async function () {
         if (montoEl) {
           montoEl.style.display = 'flex';
           const val = montoEl.querySelector('.valor');
-          if (val) val.textContent = `$${parseFloat(monto).toFixed(2)}`;
+          if (val) val.textContent = `$${monto.toFixed(2)}`;
         }
       }
     } else {
-      alert('Error: ' + (respuesta?.message ?? 'desconocido'));
+      alert('Error: ' + (resp?.message ?? 'desconocido'));
     }
-  } catch (error) {
-    console.error('Error al asignar pago ', error);
+  } catch (err) {
+    console.error('Error al asignar pago', err);
     alert('Error del servidor');
   } finally {
-    modal.style.display = 'none';
+    modalComp.style.display = 'none';
     idFaltaSeleccionada = null;
     delete btnConfirmarPago.dataset.id;
+    inputMonto.value = '';
   }
 });
 
+// ---------- Tarjetas ----------
 function buildCard(f) {
-  const fotoPath = f.foto ? `../../Recursos/FotosPerfil/${f.foto}` : '../../Recursos/FotosPerfil/usuario.webp';
-  const tipoAttr = tipoToAttr(f.tipoCompensacion);
+  const fotoPath = f.foto
+    ? `../../Recursos/FotosPerfil/${f.foto}`
+    : '../../Recursos/FotosPerfil/usuario.webp';
+
+  const textoTipo = (f.tipoCompensacion || '').toLowerCase();
+  const tipoAttr = (textoTipo.includes('pago') || textoTipo.includes('monet'))
+    ? 'monetaria'
+    : 'horas';
+
+  const horasExo   = f.horasExonerar ?? 0;
+  const cedula     = f.cedula ?? '—';
+  const motivo     = f.motivo ?? '—';
+  const tipoTexto  = f.tipoCompensacion ?? '—';
+  const montoPago  = (f.montoPago ?? '—') + (f.montoPago ? '$' : '');
+
+  let fechaFmt = '—';
+  if (f.fecha) {
+    const d = new Date((f.fecha + '').slice(0, 10) + 'T00:00:00');
+    fechaFmt = isNaN(d.getTime())
+      ? f.fecha
+      : d.toLocaleDateString('es-ES', { day: '2-digit', month: 'short', year: 'numeric' });
+  }
 
   const div = document.createElement('div');
   div.className = 'tarjeta-falta';
-  div.setAttribute('data-id', String(f.idFalta));
-  div.setAttribute('data-estado', 'pendiente');
-  div.setAttribute('data-tipo', tipoAttr);
+  div.dataset.id = String(f.idFalta);
+  div.dataset.estado = 'pendiente';
+  div.dataset.tipo = tipoAttr;
 
   div.innerHTML = `
     <div class="info-socio">
       <div class="foto-socio">
-        <img src="${fotoPath}" alt="Foto socio" id="ftoSocio">
+        <img src="${fotoPath}" alt="Foto socio">
       </div>
       <div class="datos-socio">
-        <h3>${safe(f.nombre)} ${safe(f.apellido)}</h3>
-        <p>CI: ${safe(f.cedula)}</p>
-        ${f.pasillo ? `<p>Pasillo: ${f.pasillo}</p>` : ''}
+        <h3>${f.nombre} ${f.apellido}</h3>
+        <p>CI: ${cedula}</p>
+        ${f.pasillo   ? `<p>Pasillo: ${f.pasillo}</p>`   : ''}
         ${f.nroPuerta ? `<p>Puerta: ${f.nroPuerta}</p>` : ''}
       </div>
     </div>
@@ -106,28 +110,28 @@ function buildCard(f) {
     <div class="detalles-falta">
       <div class="dato-falta">
         <span class="etiqueta">Horas faltantes:</span>
-        <span class="valor">${safe(f.horasExonerar, 0)} horas</span>
+        <span class="valor">${horasExo} horas</span>
       </div>
       <div class="dato-falta">
         <span class="etiqueta">Fecha de falta:</span>
-        <span class="valor">${fmtFecha(f.fecha)}</span>
+        <span class="valor">${fechaFmt}</span>
       </div>
       <div class="dato-falta">
         <span class="etiqueta">Motivo:</span>
-        <span class="valor">${safe(f.motivo)}</span>
+        <span class="valor">${motivo}</span>
       </div>
       <div class="dato-falta">
         <span class="etiqueta">Tipo de compensación:</span>
-        <span class="valor">${safe(f.tipoCompensacion)}</span>
+        <span class="valor">${tipoTexto}</span>
       </div>
       <div class="dato-falta monto-asignado" style="display:${tipoAttr === 'monetaria' ? 'flex' : 'none'}">
         <span class="etiqueta">Monto asignado:</span>
-        <span class="valor">$0.00</span>
+        <span class="valor">${montoPago}</span>
       </div>
     </div>
 
     <div class="acciones-falta">
-      <button class="btn-aprobar" data-action="aprobar" data-id="${f.idFalta}" data-tipo="${tipoAttr}">
+      <button class="btn-aprobar" data-action="aprobar" data-id="${f.idFalta}">
         <i class="material-icons">check_circle</i> Aprobar
       </button>
       <button class="btn-compensar" data-action="compensar" data-id="${f.idFalta}" style="display:${tipoAttr === 'monetaria' ? 'flex' : 'none'}">
@@ -141,9 +145,9 @@ function buildCard(f) {
   return div;
 }
 
-function renderLista(data) {
+function renderLista(faltas) {
   contenedor.innerHTML = '';
-  if (!Array.isArray(data) || !data.length) {
+  if (!faltas.length) {
     contenedor.innerHTML = `
       <div class="estado-vacio" id="estadoVacio" style="display:flex;">
         <i class="material-icons" style="font-size: 68px;">inbox</i>
@@ -151,87 +155,83 @@ function renderLista(data) {
       </div>`;
     return;
   }
-  data.forEach(f => contenedor.appendChild(buildCard(f)));
+  faltas.forEach(f => contenedor.appendChild(buildCard(f)));
 }
 
+// ---------- Filtros ----------
 function aplicarFiltrosUI() {
-  const estadoSel = (filtroEstado?.value || 'todas').toLowerCase();
-  const tipoSel = (filtroTipo?.value || 'todos').toLowerCase();
+  const estadoSel = filtroEstado.value.toLowerCase();
+  const tipoSel   = filtroTipo.value.toLowerCase();
 
   contenedor.querySelectorAll('.tarjeta-falta').forEach(tarjeta => {
-    const estado = (tarjeta.getAttribute('data-estado') || '').toLowerCase();
-    const tipo = (tarjeta.getAttribute('data-tipo') || '').toLowerCase();
+    const estado = (tarjeta.dataset.estado || '').toLowerCase();
+    const tipo   = (tarjeta.dataset.tipo || '').toLowerCase();
+
     const visible =
       (estadoSel === 'todas' || estado === estadoSel) &&
-      (tipoSel === 'todos' || tipo === tipoSel);
+      (tipoSel   === 'todos' || tipo   === tipoSel);
+
     tarjeta.style.display = visible ? 'block' : 'none';
   });
 }
 
+// ---------- Acciones de las tarjetas ----------
 contenedor.addEventListener('click', async (e) => {
   const btn = e.target.closest('button[data-action]');
   if (!btn) return;
 
-  const id = btn.dataset.id;
+  const id     = btn.dataset.id;
   const action = btn.dataset.action;
-  const tipo = btn.dataset.tipo;
 
   if (action === 'compensar') {
     idFaltaSeleccionada = id;
     btnConfirmarPago.dataset.id = id;
-    if (typeof window.mostrarModalCompensacion === 'function') {
-      window.mostrarModalCompensacion(id);
-    } else {
-      document.getElementById('modalCompensacion').style.display = 'flex';
-    }
+    modalComp.style.display = 'flex';
     return;
   }
 
   if (action === 'aprobar') {
     try {
-      const respuesta = await aprobarFalta({ idFalta: id });
-      if (respuesta?.status === "exito") {
-        alert("Falta aprobada con éxito.");
+      const resp = await aprobarFalta({ idFalta: id });
+      if (resp?.status === 'exito') {
+        alert('Falta aprobada con éxito.');
         const tarjeta = contenedor.querySelector(`[data-id="${id}"]`);
         if (tarjeta) {
-          tarjeta.setAttribute('data-estado', 'aprobada');
+          tarjeta.dataset.estado = 'aprobada';
           tarjeta.style.opacity = '0.7';
         }
       } else {
-        alert("Error " + (respuesta?.message ?? 'desconocido'));
+        alert('Error ' + (resp?.message ?? 'desconocido'));
       }
-    } catch (error) {
-      console.error("Error al aprobar la falta", error);
-      alert("Error del servidor");
+    } catch (err) {
+      console.error('Error al aprobar la falta', err);
+      alert('Error del servidor');
     }
     return;
   }
 
   if (action === 'rechazar') {
     try {
-      const respuesta = await rechazarFalta({ idFalta: id });
-      if (respuesta?.status === "exito") {
-        alert("Falta rechazada con éxito.");
+      const resp = await rechazarFalta({ idFalta: id });
+      if (resp?.status === 'exito') {
+        alert('Falta rechazada con éxito.');
         const tarjeta = contenedor.querySelector(`[data-id="${id}"]`);
         if (tarjeta) tarjeta.remove();
       } else {
-        alert("Error " + (respuesta?.message ?? 'desconocido'));
+        alert('Error ' + (resp?.message ?? 'desconocido'));
       }
-    } catch (error) {
-      console.error("Error al rechazar la falta", error);
-      alert("Error del servidor");
+    } catch (err) {
+      console.error('Error al rechazar la falta', err);
+      alert('Error del servidor');
     }
-    return;
   }
 });
 
+// ---------- Init ----------
 (async function init() {
   try {
     const res = await getFaltasPendientes();
-    const payload = res?.message || res?.data || res || {};
-    const faltas = Array.isArray(payload.faltas) ? payload.faltas
-      : Array.isArray(payload) ? payload
-      : [];
+    const faltas = res?.message?.faltas ?? [];
     renderLista(faltas);
     btnAplicar?.addEventListener('click', aplicarFiltrosUI);
   } catch (err) {
