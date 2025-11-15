@@ -259,7 +259,7 @@ a {
 .card {
     display: flex;
     flex-direction: column;
-/*     max-width: 350px;
+    /*     max-width: 350px;
     min-height: 150px; */
     justify-content: space-between;
     padding: 1rem;
@@ -409,6 +409,10 @@ a {
     box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
     animation: slideIn 0.3s;
 }
+#modal-horas {
+    margin-top: 200px;
+}
+
 #modal-horas {
     margin-top: 200px;
 }
@@ -807,10 +811,11 @@ input[type="date"].campo-editable::-webkit-calendar-picker-indicator:hover {
 /* Responsive para inputs en móviles */
 @media (max-width: 768px) {
     .campo-editable {
-        font-size: 16px; /* Previene zoom en iOS */
+        font-size: 16px;
+        /* Previene zoom en iOS */
         padding: 10px 12px;
     }
-    
+
     input[type="date"].campo-editable {
         padding: 9px 12px;
     }
@@ -856,7 +861,7 @@ input[type="date"].campo-editable::-webkit-calendar-picker-indicator:hover {
         justify-content: space-around;
     }
 
-    .contenedor-socios{
+    .contenedor-socios {
         justify-content: center;
     }
 }

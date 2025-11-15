@@ -104,6 +104,38 @@
                 <h1>Socios</h1>
                 <p>En este pestaña puedes consultar todos lo socios regstrados en la cooperativa.</p>
             </header>
+            <div class="contenedor-horas-semanales">
+                <div class="descripcion-horas">
+                    <p>Desde aquí puedes asignar las horas semanales obligatorias para todos los socios de la
+                        cooperativa.
+                        Esta asignación se aplicará a todos los socios activos del sistema.</p>
+                </div>
+                <button class="btn-horas" id="btnAsignarHoras">
+                    <i class="material-icons">schedule</i>
+                    <span>Asignar Horas Semanales</span>
+                </button>
+            </div>
+
+            <div id="modalHorasSemanales" class="modal">
+                <div class="modal-contenido" id="modal-horas">
+                    <div class="modal-header">
+                        <h2>Asignar Horas Semanales</h2>
+                        <span class="cerrar-modal">&times;</span>
+                    </div>
+                    <div class="modal-body modal-body-horas">
+                        <div class="campo-formulario">
+                            <label for="horasSemanales">Horas semanales obligatorias:</label>
+                            <input type="number" id="horasSemanales" class="campo-editable" min="1" max="40" value="1">
+                            <p class="info-ayuda">Establece la cantidad de horas semanales que cada socio debe cumplir.
+                            </p>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button class="btn btn-secundario cerrar-modal">Cancelar</button>
+                        <button class="btn btn-primario" id="btnConfirmarHoras">Confirmar Asignación</button>
+                    </div>
+                </div>
+            </div>
 
             <div class="contenedor-horas-semanales">
                 <div class="descripcion-horas">
@@ -230,7 +262,7 @@
                                 </tr>
                             </thead>
                             <tbody id="tablaFamiliares">
-                                
+
                             </tbody>
                         </table>
                     </div>
