@@ -1,3 +1,13 @@
+<?php
+require_once __DIR__ . '/../../BackEnd/BDConeccion.php';
+require_once __DIR__ . '/../../BackEnd/Tokens.php';
+$token = obtenerToken();
+if (!$token || !validarSoloAdmin($token, $conn)) {
+    //Para que los Operadores no puedan cambiar la ruta directa y entrar al panel de admin
+    header("Location: ../Operador/index.php");
+    exit();
+}
+?>
 <!DOCTYPE html>
 <html lang="es">
 

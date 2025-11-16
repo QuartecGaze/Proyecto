@@ -164,10 +164,10 @@ require __DIR__ .'/../Consultas.php';
                 $fila['Estado_pago_inicial'], 
                 $fila['Monto_pago_inicial'],
                 $fila['Unidad_Habitacional_Asignada']
-            );
+                );
             }
             return $interesados;
-            }
+        }
 
         public function getUsuarios(){ 
             //cambiar esta consulta para ademas de traer todos los datos de los socios traiga:
@@ -198,10 +198,10 @@ require __DIR__ .'/../Consultas.php';
                 $fila['Fecha_nacimiento'],
                 $fila['Fecha_ingreso'],
                 $fila['Foto']
-            );
+                );
             }
             return $usuarios;
-            }
+        }
 
         public function contarInteresados(){
             $consulta = "
@@ -357,7 +357,7 @@ require __DIR__ .'/../Consultas.php';
             $fila['Fecha_ingreso']
             );
 
-        return $admin;
+            return $admin;
         }
 
         //APICooperativa
@@ -534,37 +534,37 @@ require __DIR__ .'/../Consultas.php';
             );
             }
             return $comprobantesPendientes;
-            }
+        }
 
-            public function getUsuariosPagos($idPersona){
-                $consulta = "
-                    SELECT CI, Nombre, Apellido
-                    FROM persona
-                    WHERE ID_Persona = ?
-                ";
-                $resultado = consulta($this->conn, $consulta, "i", [$idPersona]); 
-                $fila = mysqli_fetch_assoc($resultado);
-                return [
-                    'CI' => $fila['CI'],
-                    'Nombre' => $fila['Nombre'] . " " . $fila['Apellido']
-                ];
-            }
+        public function getUsuariosPagos($idPersona){
+            $consulta = "
+                SELECT CI, Nombre, Apellido
+                FROM persona
+                WHERE ID_Persona = ?
+            ";
+            $resultado = consulta($this->conn, $consulta, "i", [$idPersona]); 
+            $fila = mysqli_fetch_assoc($resultado);
+            return [
+                'CI' => $fila['CI'],
+                'Nombre' => $fila['Nombre'] . " " . $fila['Apellido']
+            ];
+        }
             
-            public function cargarPersona($persona){
-                $ci = $persona->getCi(); 
-                $email = $persona->getEmail();
-                $contraseña = $persona->getContraseña();
-                $rol = $persona->getRol();
-                $nombre = $persona->getNombre();
-                $apellido = $persona->getApellido();
-                $consulta = "
-                    INSERT INTO persona (CI, Email, Contraseña, Rol, Nombre, Apellido) 
-                    VALUES (?, ?, ?, ?, ?, ?)
-                ";
-                consulta($this->conn, $consulta, "ssssss", [$ci, $email, $contraseña, $rol, $nombre, $apellido]);
-            }
+        public function cargarPersona($persona){
+            $ci = $persona->getCi(); 
+            $email = $persona->getEmail();
+            $contraseña = $persona->getContraseña();
+            $rol = $persona->getRol();
+            $nombre = $persona->getNombre();
+            $apellido = $persona->getApellido();
+            $consulta = "
+                INSERT INTO persona (CI, Email, Contraseña, Rol, Nombre, Apellido) 
+                VALUES (?, ?, ?, ?, ?, ?)
+            ";
+            consulta($this->conn, $consulta, "ssssss", [$ci, $email, $contraseña, $rol, $nombre, $apellido]);
+        }
 
-            public function cargarTelefono($id, $telefono){
+        public function cargarTelefono($id, $telefono){
             $consulta = "
                 INSERT INTO numero_de_telefono (ID_Persona, Telefono)
                 VALUES (?, ?)
@@ -645,61 +645,61 @@ require __DIR__ .'/../Consultas.php';
             //agregar parentesco si hace falta
             }
             return $integrantesFamiliares;
-            }
+        }
             
-            public function getIDUnidadHabitacional($numeroPuerta, $pasillo){
-                $consulta = "
-                    SELECT ID_Unidad_habitacional FROM unidad_habitacional 
-                    WHERE Numero_puerta = ? 
-                    AND Pasillo = ?
-                ";
-                $resultado = consulta($this->conn, $consulta, "is", [$numeroPuerta, $pasillo]);
-                $idUnidad = null;
-                while ($fila = mysqli_fetch_assoc($resultado)) {
-                    $idUnidad = $fila['ID_Unidad_habitacional'];
-                }
-    
-                return $idUnidad;
+        public function getIDUnidadHabitacional($numeroPuerta, $pasillo){
+            $consulta = "
+                SELECT ID_Unidad_habitacional FROM unidad_habitacional 
+                WHERE Numero_puerta = ? 
+                AND Pasillo = ?
+            ";
+            $resultado = consulta($this->conn, $consulta, "is", [$numeroPuerta, $pasillo]);
+            $idUnidad = null;
+            while ($fila = mysqli_fetch_assoc($resultado)) {
+                $idUnidad = $fila['ID_Unidad_habitacional'];
             }
 
-            public function asignarUnidadHabitacional($idPersona, $idUnidadHabitacional){
-                $consulta = "
-                    UPDATE unidad_habitacional
-                    SET ID_Persona = ?
-                    WHERE ID_Unidad_habitacional = ?
-                ";
+            return $idUnidad;
+        }
+
+        public function asignarUnidadHabitacional($idPersona, $idUnidadHabitacional){
+            $consulta = "
+                UPDATE unidad_habitacional
+                SET ID_Persona = ?
+                WHERE ID_Unidad_habitacional = ?
+            ";
             consulta($this->conn, $consulta, "ii", [$idPersona, $idUnidadHabitacional]);
-            }
+        }
 
-            public function unidadHabitacionalBoolean($idPersona){
-                $consulta = "
-                    UPDATE interesado
-                    SET Unidad_Habitacional_Asignada = 1
-                    WHERE ID_Persona = ?
-                ";
+        public function unidadHabitacionalBoolean($idPersona){
+            $consulta = "
+                UPDATE interesado
+                SET Unidad_Habitacional_Asignada = 1
+                WHERE ID_Persona = ?
+            ";
             consulta($this->conn, $consulta, "i", [$idPersona]);
-            }
+        }
             
-            public function crearReunion($titulo, $descripcion, $fecha, $hora, $lugar, $tipoDeReunion){
-                $consulta = "
-                    INSERT INTO reunion (Nombre, Descripcion, Fecha, Hora, Lugar, Tipo_Reunion, Estado_Reunion)
-                    VALUES (?, ?, ?, ?, ?, ?, 'Pendiente')
-                ";
-                consulta($this->conn, $consulta, "ssssss", [$titulo, $descripcion, $fecha, $hora, $lugar, $tipoDeReunion]);
-            }
+        public function crearReunion($titulo, $descripcion, $fecha, $hora, $lugar, $tipoDeReunion){
+            $consulta = "
+                INSERT INTO reunion (Nombre, Descripcion, Fecha, Hora, Lugar, Tipo_Reunion, Estado_Reunion)
+                VALUES (?, ?, ?, ?, ?, ?, 'Pendiente')
+            ";
+            consulta($this->conn, $consulta, "ssssss", [$titulo, $descripcion, $fecha, $hora, $lugar, $tipoDeReunion]);
+        }
 
-            public function getReunionesPendientes() {
-                $consulta = "
-                    SELECT * FROM reunion WHERE Estado_Reunion = 'Pendiente'
-                ";
-                $respuesta = consulta($this->conn, $consulta);
+        public function getReunionesPendientes() {
+            $consulta = "
+            SELECT * FROM reunion WHERE Estado_Reunion = 'Pendiente'
+            ";
+            $respuesta = consulta($this->conn, $consulta);
 
-                $reuniones = [];
-                while ($fila = mysqli_fetch_assoc($respuesta)) {
-                    $reuniones[] = $fila;
-                }
-                return $reuniones;
+            $reuniones = [];
+            while ($fila = mysqli_fetch_assoc($respuesta)) {
+                $reuniones[] = $fila;
             }
+            return $reuniones;
+        }
 
             public function getAsistenciasPorReunion($idReunion) {
                 $consulta = "
@@ -1149,95 +1149,96 @@ require __DIR__ .'/../Consultas.php';
             return $fila['Horas_semanales']; 
         }
         return null; 
-}
-public function getIdSemana($fecha){
-    $consulta = "
-        SELECT ID_Semana_trabajo
-        FROM   semana_trabajo
-        WHERE  Fecha_semana = ?
-        LIMIT 1 
-    "; //para solo traer uno
-    $resultado = consulta($this->conn, $consulta, "s", [$fecha]);
-    if ($resultado === false) {
+    }
+    public function getIdSemana($fecha){
+        $consulta = "
+            SELECT ID_Semana_trabajo
+            FROM   semana_trabajo
+            WHERE  Fecha_semana = ?
+            LIMIT 1 
+        "; //para solo traer uno
+        $resultado = consulta($this->conn, $consulta, "s", [$fecha]);
+        if ($resultado === false) {
+            return null;
+        }
+        if ($fila = mysqli_fetch_assoc($resultado)) {
+            return $fila['ID_Semana_trabajo']; 
+        }
         return null;
     }
-    if ($fila = mysqli_fetch_assoc($resultado)) {
-        return $fila['ID_Semana_trabajo']; 
-    }
-    return null;
-}
 
 
 
-public function getDireccion($idPersona) {
-    $idPersona = (int)$idPersona; // seguridad básica
-    $consulta = "
-        SELECT Numero_puerta, Pasillo
-        FROM unidad_habitacional
-        WHERE ID_Persona = $idPersona
-        LIMIT 1
-    ";
-    $resultado = consulta($this->conn, $consulta);
+    public function getDireccion($idPersona) {
+        $idPersona = (int)$idPersona; // seguridad básica
+        $consulta = "
+            SELECT Numero_puerta, Pasillo
+            FROM unidad_habitacional
+            WHERE ID_Persona = $idPersona
+            LIMIT 1
+        ";
+        $resultado = consulta($this->conn, $consulta);
 
-    if ($fila = mysqli_fetch_assoc($resultado)) {
-        $nroPuerta = $fila['Numero_puerta'] ?? '';
-        $pasillo = $fila['Pasillo'] ?? '';
-        $direccion = trim($nroPuerta . ' ' . $pasillo);
-        return $direccion;
+        if ($fila = mysqli_fetch_assoc($resultado)) {
+            $nroPuerta = $fila['Numero_puerta'] ?? '';
+            $pasillo = $fila['Pasillo'] ?? '';
+            $direccion = trim($nroPuerta . ' ' . $pasillo);
+            return $direccion;
+        }
+
+        return null; // si no tiene unidad asignada
     }
 
-    return null; // si no tiene unidad asignada
-}
-
-public function asignarHorasSemanales($horasSemanales, $semanaActual){
-    $consulta = "
-        UPDATE semana_trabajo
-        SET Horas_semanales = ?
-        WHERE Fecha_semana = ?
-    ";
-    consulta($this->conn, $consulta, "is", [$horasSemanales, $semanaActual]);
-}
-
-public function getIDComprobantePago($idPersona, $motivo, $monto, $fecha) {
-    $consulta = "
-        SELECT ID_Comprobante_pago
-        FROM comprobante_pago
-        WHERE ID_Persona = ?
-          AND Motivo_pago = ?
-          AND Mes = ?
-          AND Monto = ?
-    ";
-    $respuesta = consulta($this->conn, $consulta, "issd", [$idPersona, $motivo, $fecha, $monto]);
-
-    if ($fila = $respuesta->fetch_assoc()) {
-        return $fila['ID_Comprobante_pago'];
-    }else{
-        return null;
+    public function asignarHorasSemanales($horasSemanales, $semanaActual){
+        $consulta = "
+            UPDATE semana_trabajo
+            SET Horas_semanales = ?
+            WHERE Fecha_semana = ?
+        ";
+        consulta($this->conn, $consulta, "is", [$horasSemanales, $semanaActual]);
     }
-}
 
-public function asignarIDComprobante($idFalta, $idComprobantePago) {
-    $consulta = "
-        UPDATE falta
-        SET ID_Comprobante_pago = ?
-        WHERE ID_Falta = ?
-    ";
-    consulta($this->conn, $consulta, "ii", [$idComprobantePago, $idFalta]);
-}
+    public function getIDComprobantePago($idPersona, $motivo, $monto, $fecha) {
+        $consulta = "
+            SELECT ID_Comprobante_pago
+            FROM comprobante_pago
+            WHERE ID_Persona = ?
+            AND Motivo_pago = ?
+            AND Mes = ?
+            AND Monto = ?
+        ";
+        $respuesta = consulta($this->conn, $consulta, "issd", [$idPersona, $motivo, $fecha, $monto]);
 
-public function getMontoPago($idComprobante){
-    $consulta = "
-        SELECT Monto
-        FROM comprobante_pago
-        WHERE ID_Comprobante_pago = ?
-    ";
-    $respuesta = consulta($this->conn, $consulta, "i", [$idComprobante]);
-    if ($monto = $respuesta->fetch_assoc()) {
-        return $monto;
-    }else{
-        return null;
+        if ($fila = $respuesta->fetch_assoc()) {
+            return $fila['ID_Comprobante_pago'];
+        }else{
+            return null;
+        }
     }
-}
+
+    public function asignarIDComprobante($idFalta, $idComprobantePago) {
+        $consulta = "
+            UPDATE falta
+            SET ID_Comprobante_pago = ?
+            WHERE ID_Falta = ?
+        ";
+        consulta($this->conn, $consulta, "ii", [$idComprobantePago, $idFalta]);
+    }
+
+    public function getMontoPago($idComprobante){
+        $consulta = "
+            SELECT Monto
+            FROM comprobante_pago
+            WHERE ID_Comprobante_pago = ?
+        ";
+        $respuesta = consulta($this->conn, $consulta, "i", [$idComprobante]);
+        if ($monto = $respuesta->fetch_assoc()) {
+            return $monto;
+        }else{
+            return null;
+        }
+    }
+
 
 
 

@@ -1,13 +1,3 @@
-<?php
-require_once __DIR__ . '/../../BackEnd/BDConeccion.php';
-require_once __DIR__ . '/../../BackEnd/Tokens.php';
-$token = obtenerToken();
-if (!$token || !validarSoloAdmin($token, $conn)) {
-    //Para que los Operadores no puedan cambiar la ruta directa y entrar al panel de admin
-    header("Location: ../Operador/index.php");
-    exit();
-}
-?>
 <!DOCTYPE html>
 <html lang="es">
 
@@ -54,7 +44,7 @@ if (!$token || !validarSoloAdmin($token, $conn)) {
                             <i class="material-icons">apartment</i> Unidades Habitacionales
                         </a>
                         <ul class="submenu">
-                            <a href="unidades.php"><i class="material-icons">home_work</i>Gestionar Proyectos</a>
+                            <a href="unidades.php"><i class="material-icons">home_work</i> Gestionar Proyectos</a>
                             <a href="crearUnidad.php"><i class="material-icons">add_circle</i> Crear Unidad</a>
                         </ul>
                     </li>
@@ -77,14 +67,9 @@ if (!$token || !validarSoloAdmin($token, $conn)) {
                         </a>
                     </li>
                     <li class="item-menu">
-                        <a href="#" class="submenu-toggle">
+                        <a href="configuracion.php">
                             <i class="material-icons">settings</i> Configuracion
                         </a>
-                        <ul class="submenu">
-                            <a href="configuracion.php"><i class="material-icons">star</i> Mi Perfil</a>
-                            <a href="crearAdmin.php"><i class="material-icons">key</i> Crear Admin</a>
-                            <a href="borrarAdmin.php"><i class="material-icons">backspace</i> Borrar Admin</a>
-                        </ul>
                     </li>
                 </ul>
             </nav>

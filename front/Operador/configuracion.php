@@ -1,23 +1,16 @@
-<?php
-require_once __DIR__ . '/../../BackEnd/BDConeccion.php';
-require_once __DIR__ . '/../../BackEnd/Tokens.php';
-$token = obtenerToken();
-if (!$token || !validarSoloAdmin($token, $conn)) {
-    //Para que los Operadores no puedan cambiar la ruta directa y entrar al panel de admin
-    header("Location: ../Operador/index.php");
-    exit();
-}
-?>
 <!DOCTYPE html>
 <html lang="es">
 
 <head>
+    <?php
+    require_once '../verificarSesion.php';
+    verificarAcceso(['Admin']);
+    ?>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Senda Firme - Gestión de Faltas</title>
-    <link rel="stylesheet" href="../Css/estilosAdmin.css">
+    <title>Senda Firme - Perfil</title>
+    <link rel="stylesheet" href="../Css/estilosConfiguracionAdmin.css">
     <link rel="stylesheet" href="../Css/backoffice.css">
-    <link rel="stylesheet" href="../Css/estilosFaltas.css">
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap"
         rel="stylesheet">
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
@@ -30,7 +23,7 @@ if (!$token || !validarSoloAdmin($token, $conn)) {
     </button>
     <div class="overlay" id="overlay"></div>
     <div class="contenedor-dashboard">
-        <!-- Sidebar (igual que en index.php) -->
+        <!-- Sidebar -->
         <aside class="sidebar" id="sidebar">
             <div class="logo-dashboard">
                 <img src="../../Fotos/logoBack.webp" alt="Logo Cooperativa">
@@ -46,7 +39,7 @@ if (!$token || !validarSoloAdmin($token, $conn)) {
                     <li class="item-menu">
                         <a href="reuniones.php"><i class="material-icons">event</i> Reuniones</a>
                     </li>
-                    <li class="item-menu">
+                    <li class="item-menu activo">
                         <a href="socios.php"><i class="material-icons">people</i> Socios</a>
                     </li>
                     <li class="item-menu">
@@ -54,7 +47,7 @@ if (!$token || !validarSoloAdmin($token, $conn)) {
                             <i class="material-icons">apartment</i> Unidades Habitacionales
                         </a>
                         <ul class="submenu">
-                            <a href="unidades.php"><i class="material-icons">home_work</i>Gestionar Proyectos</a>
+                            <a href="unidades.php"><i class="material-icons">home_work</i> Gestionar Proyectos</a>
                             <a href="crearUnidad.php"><i class="material-icons">add_circle</i> Crear Unidad</a>
                         </ul>
                     </li>
@@ -71,21 +64,15 @@ if (!$token || !validarSoloAdmin($token, $conn)) {
                     <li class="item-menu">
                         <a href="solicitudes.php"><i class="material-icons">email</i> Solicitudes</a>
                     </li>
-                    <li class="item-menu activo">
+                    <li class="item-menu">
                         <a href="faltas.php">
                             <i class="material-icons">punch_clock</i> Faltas de Horas
                         </a>
                     </li>
-                    <li class="item-menu" class="submenu-toggle">
-                        <a href="#">
+                    <li class="item-menu activo">
+                        <a href="configuracion.php">
                             <i class="material-icons">settings</i> Configuracion
                         </a>
-                        <ul class="submenu">
-                            <a href="configuracion.php"><i class="material-icons">star</i> Mi Perfil</a>
-                            <a href="crearAdmin.php"><i class="material-icons">key</i> Crear Admin</a>
-                            <a href="borrarAdmin.php"><i class="material-icons">backspace</i> Borrar Admin</a>
-
-                        </ul>
                     </li>
                 </ul>
             </nav>
@@ -109,58 +96,53 @@ if (!$token || !validarSoloAdmin($token, $conn)) {
             </div>
         </aside>
 
+        <!-- Contenido principal del perfil -->
         <main class="contenido-principal">
             <header class="header-principal">
-                <h1>Gestión de Faltas de Horas</h1>
-                <p>Administra las faltas de horas de trabajo de los socios</p>
+                <h1>Mi Perfil</h1>
+                <p>Gestiona tu información personal y preferencias</p>
             </header>
 
-            <!-- Filtros -->
-            <div class="filtros-faltas">
-                <select id="filtro-estado">
-                    <option value="todas">Todas las faltas</option>
-                    <option value="pendiente">Pendientes</option>
-                    <option value="aprobada">Aprobadas</option>
-                    <option value="compensada">Compensadas</option>
-                </select>
+            <div class="contenedor-perfil">
+                <section class="seccion-info-personal">
+                    <div class="foto-perfil-container">
+                        <img src="" alt="Foto de perfil" class="foto-perfil fotoPerfil">
+                        <button class="boton-cambiar-foto" onclick="document.getElementById('subir-foto').click()">
+                            <input type="file" style="display: none;" id="subir-foto">
+                            <i class="material-icons">image_search</i> Cambiar foto
+                        </button>
+                    </div>
 
-                <select id="filtro-tipo">
-                    <option value="todos">Todos los tipos</option>
-                    <option value="horas">Compensación en horas</option>
-                    <option value="monetaria">Compensación monetaria</option>
-                </select>
+                    <div class="info-personal">
+                        <h2>Información personal</h2>
+                        <div class="campo-perfil">
+                            <label>Nombre completo</label>
+                            <p class="valor-perfil nombreAdmin">Diego Luis Charlo Arce</p>
+                        </div>
+                        <div class="campo-perfil">
+                            <label>Correo electrónico</label>
+                            <p class="valor-perfil" id="emailAdmin">alainarce39@gmail.com</p>
+                        </div>
+                        <div class="campo-perfil">
+                            <label>Teléfono</label>
+                            <p class="valor-perfil" id="telefonoAdmin">+598 92 343 168</p>
+                        </div>
+                        <div class="campo-perfil">
+                            <label>Creacion Admin</label>
+                            <p class="valor-perfil" id="creacionAdmin">15 de Enero, 2020</p>
+                        </div>
+                        <div class="campo-perfil">
+                            <label>Rol Admin</label>
+                            <p class="valor-perfil" id="nivelPermisosAdmin">Administrador</p>
+                        </div>
+                    </div>
+                </section>
 
-                <button id="btn-aplicar-filtros">
-                    Aplicar Filtros
-                </button>
-            </div>
-
-            <!-- Lista de faltas -->
-            <div class="contenedor-faltas">
-                <!-- ACA el js trae todas las faltas -->
             </div>
         </main>
     </div>
-
-    <!-- Modal para asignar monto -->
-    <div id="modalCompensacion" class="modal">
-        <div class="modal-contenido">
-            <h3>Asignar Compensación Monetaria</h3>
-            <div class="form-group">
-                <label for="montoCompensacion">Monto a asignar ($):</label>
-                <input type="number" id="montoCompensacion" min="0">
-            </div>
-            <div class="modal-acciones">
-                <button class="btn-cancelar-pago">Cancelar</button>
-                <button class="btn-confirmar-pago">Asignar</button>
-            </div>
-        </div>
-    </div>
-
+    <script src="../Javascript/BackOffice/perfil.js" type="module"></script>
     <script src="../Javascript/BackOffice/generalidades.js" type="module"></script>
-    <script src="../Javascript/BackOffice/faltaHoras.js" type="module"></script>
-    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-
 </body>
 
 </html>

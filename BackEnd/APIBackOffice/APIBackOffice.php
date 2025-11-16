@@ -420,6 +420,16 @@
                     respuesta($e->getMessage(), "error", $e->getCode());
                 }
             }
+            
+            if($accion === "borrarAdmin"){
+                try {
+                    $datos= json_decode(file_get_contents('php://input'), true);
+                    $servicio->borrarAdmin($datos['ID_Persona']);
+                    respuesta("Admin borrado con exito", "exito", 201);
+                } catch(Exception $e) {
+                    respuesta($e->getMessage(), "error", $e->getCode());
+                }
+            }
 
 
 
@@ -557,6 +567,39 @@
                     respuesta($unidades, "exito", 201);
                 } catch(Exception $e) {
                     respuesta($e->getMessage(), "error", $e->getCode());
+                }
+            }
+
+            if($accion === "getAdmins"){
+                //terminar este getadmisn que deuvleva todos los admins y sus datos
+                //Nombre
+                //Apellido
+                //CI
+                //email
+                //Nivel_permisos
+                $id = $_GET['id'];
+                if($id != null){
+                    try{
+                    $admin = $servicio->getAdmin($id);
+                    $respuesta = [
+                    'ci' => $admin->getCi(),
+                    'email' => $admin->getEmail(),
+                    'telefono' => $admin->getTelefono(),
+                    'idPersona' => $admin->getIdPersona(),
+                    'nombre' => $admin->getNombre(),
+                    'apellido' => $admin->getApellido(),
+                    'nivelPermisos' => $admin->getNivelPermisos(),
+                    'foto' => $admin->getFoto(),
+                    'fechaIngreso' => $admin->getFechaIngreso()
+                    ];
+                        respuesta($respuesta, "exito", 200);
+                    }
+                    catch(Exception $e) {
+                    respuesta($e->getMessage(), "error", $e->getCode());
+                }
+
+                } else {
+                    respuesta("No se encontro una id para buscar", "error", 0);
                 }
             }
         

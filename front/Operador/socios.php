@@ -1,13 +1,3 @@
-<?php
-require_once __DIR__ . '/../../BackEnd/BDConeccion.php';
-require_once __DIR__ . '/../../BackEnd/Tokens.php';
-$token = obtenerToken();
-if (!$token || !validarSoloAdmin($token, $conn)) {
-    //Para que los Operadores no puedan cambiar la ruta directa y entrar al panel de admin
-    header("Location: ../Operador/index.php");
-    exit();
-}
-?>
 <!DOCTYPE html>
 <html lang="es">
 
@@ -76,14 +66,9 @@ if (!$token || !validarSoloAdmin($token, $conn)) {
                         </a>
                     </li>
                     <li class="item-menu">
-                        <a href="#" class="submenu-toggle">
+                        <a href="configuracion.php">
                             <i class="material-icons">settings</i> Configuracion
                         </a>
-                        <ul class="submenu">
-                            <a href="configuracion.php"><i class="material-icons">star</i> Mi Perfil</a>
-                            <a href="crearAdmin.php"><i class="material-icons">key</i> Crear Admin</a>
-                            <a href="borrarAdmin.php"><i class="material-icons">backspace</i> Borrar Admin</a>
-                        </ul>
                     </li>
                 </ul>
             </nav>
@@ -113,41 +98,6 @@ if (!$token || !validarSoloAdmin($token, $conn)) {
                 <h1>Socios</h1>
                 <p>En esta pestaña puedes consultar todos los socios registrados en la cooperativa.</p>
             </header>
-
-            <!-- BLOQUE ÚNICO HORAS SEMANALES -->
-            <div class="contenedor-horas-semanales">
-                <div class="descripcion-horas">
-                    <p>
-                        Desde aquí puedes asignar las horas semanales obligatorias para todos los socios de la cooperativa.
-                        Esta asignación se aplicará a todos los socios activos del sistema.
-                    </p>
-                </div>
-                <button class="btn-horas" id="btnAsignarHoras">
-                    <i class="material-icons">schedule</i>
-                    <span>Asignar Horas Semanales</span>
-                </button>
-            </div>
-
-            <!-- MODAL ÚNICO HORAS -->
-            <div id="modalHorasSemanales" class="modal">
-                <div class="modal-contenido" id="modal-horas">
-                    <div class="modal-header">
-                        <h2>Asignar Horas Semanales</h2>
-                        <span class="cerrar-modal">&times;</span>
-                    </div>
-                    <div class="modal-body modal-body-horas">
-                        <div class="campo-formulario">
-                            <label for="horasSemanales">Horas semanales obligatorias:</label>
-                            <input type="number" id="horasSemanales" class="campo-editable" min="1" max="40" value="21">
-                            <p class="info-ayuda">Por defecto 21 horas semanales.</p>
-                        </div>
-                    </div>
-                    <div class="modal-footer">
-                        <button class="btn btn-secundario cerrar-modal">Cancelar</button>
-                        <button class="btn btn-primario" id="btnConfirmarHoras">Confirmar Asignación</button>
-                    </div>
-                </div>
-            </div>
 
             <!-- Tarjetas de socios -->
             <div class="contenedor-socios">
@@ -193,12 +143,10 @@ if (!$token || !validarSoloAdmin($token, $conn)) {
                         <div class="campo">
                             <label>Nombre:</label>
                             <span id="modalNombre">Nombre</span>
-                            <input type="text" id="inputNombre" class="campo-editable" style="display: none;">
                         </div>
                         <div class="campo">
                             <label>Apellido:</label>
                             <span id="modalApellido">Apellido</span>
-                            <input type="text" id="inputApellido" class="campo-editable" style="display: none;">
                         </div>
                         <div class="campo">
                             <label>Cédula:</label>
@@ -207,7 +155,6 @@ if (!$token || !validarSoloAdmin($token, $conn)) {
                         <div class="campo">
                             <label>Fecha de nacimiento:</label>
                             <span id="modalFechaNacimiento">15/03/1985</span>
-                            <input type="date" id="inputFechaNacimiento" class="campo-editable" style="display: none;">
                         </div>
                         <div class="campo">
                             <label>Dirección:</label>
@@ -216,7 +163,6 @@ if (!$token || !validarSoloAdmin($token, $conn)) {
                         <div class="campo">
                             <label>Email:</label>
                             <span id="modalEmail">usuario@ejemplo.com</span>
-                            <input type="email" id="inputEmail" class="campo-editable" style="display: none;">
                         </div>
                         <div class="campo">
                             <label>Teléfono:</label>
@@ -266,16 +212,13 @@ if (!$token || !validarSoloAdmin($token, $conn)) {
 
                 <div class="modal-footer">
                     <button class="btn btn-secundario cerrar-modal" id="btnCerrarModal">Cerrar</button>
-                    <button class="btn btn-primario" id="btnEditarUsuario">Editar información</button>
-                    <button class="btn btn-primario" id="btnGuardarCambios" style="display: none;">Guardar cambios</button>
-                    <button class="btn btn-terciario" id="btnCancelarEdicion" style="display: none;">Cancelar Edición</button>
                 </div>
             </div>
         </div>
     </div>
 
     <script src="../Javascript/BackOffice/generalidades.js" type="module"></script>
-    <script src="../Javascript/BackOffice/socios.js" type="module"></script>
+    <script src="../Javascript/BackOffice/sociosOperador.js" type="module"></script>
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 </body>
 

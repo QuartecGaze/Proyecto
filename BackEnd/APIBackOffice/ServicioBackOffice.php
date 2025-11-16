@@ -590,4 +590,14 @@
             $this->repositorio->asignarHorasSemanales($horasSemanales, $semanaActual);
         }
 
+        public function borrarAdmin($idPersona){
+            if($this->repositorio->personaExiste($idPersona)){
+                $this->repositorio->borrarTelefono($idPersona);
+                $this->repositorio->borrarAdmin($idPersona);
+                $this->repositorio->borrarPersona($idPersona);
+            }else{
+                throw new Exception("Esa persona no existe", 404);
+            }
+        }
+
     }
