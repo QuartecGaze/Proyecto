@@ -594,10 +594,29 @@
             if($this->repositorio->personaExiste($idPersona)){
                 $this->repositorio->borrarTelefono($idPersona);
                 $this->repositorio->borrarAdmin($idPersona);
+                $this->repositorio->borrarUsuario($idPersona);
                 $this->repositorio->borrarPersona($idPersona);
             }else{
                 throw new Exception("Esa persona no existe", 404);
             }
+        }
+
+        public function getAdmins(){
+            $adminsObj = $this->repositorio->getAdmins();
+            $adminsAsociativo = [];
+            if (count($adminsObj) > 0) {
+                foreach ($adminsObj as $admin) {
+                    $adminsAsociativo[] = [
+                        'nombre' => $admin->getNombre(),
+                        'apellido' => $admin->getApellido(),
+                        'ci' => $admin->getCi(),
+                        'email' => $admin->getEmail(),
+                        'nivelPermisos' => $admin->getNivelPermisos(),
+                        'idPersona' => $admin->getIdPersona()
+                    ];
+                }
+            }
+            return $adminsAsociativo;
         }
 
     }

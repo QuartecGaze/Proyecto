@@ -144,3 +144,11 @@ export function asignarUnidadHabitacional(data) {
 export function asignarHorasSemanales(data) {
     return apiRequest('/APIBackOffice/ApiBackOffice.php?accion=asignarHorasSemanales', 'POST', data);
 }
+
+export function getAdmins(){
+    return apiRequest(`/APIBackOffice/ApiBackOffice.php?accion=getAdmins`, 'GET');
+}
+
+export function borrarAdmin(data) {
+    return apiRequest('/APIBackOffice/ApiBackOffice.php?accion=borrarAdmin', 'POST', data);
+}

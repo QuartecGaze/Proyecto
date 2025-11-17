@@ -99,16 +99,22 @@
                 <section class="seccion-info-personal">
                     <div class="foto-perfil-container">
                         <img src="" alt="Foto de perfil" class="foto-perfil fotoPerfil">
-                        <button class="boton-cambiar-foto" onclick="document.getElementById('subir-foto').click()">
-                            <input type="file" style="display: none;" id="subir-foto">
+
+                        <!-- Botón para abrir el selector de archivos -->
+                        <button type="button" class="boton-cambiar-foto" id="btnCambiarFoto">
                             <i class="material-icons">image_search</i>
                             <span class="boton-cambiar-foto">Cambiar foto</span>
                         </button>
+
+                        <!-- Input de archivo oculto, fuera del botón -->
+                        <input type="file" id="subir-foto" accept="image/*" style="display:none;">
+
                         <button class="boton-cambiar-datos">
                             <i class="material-icons">edit</i>
                             <span class="boton-cambiar-datos-personales">Cambiar datos personales</span>
                         </button>
                     </div>
+
 
                     <div class="info-personal">
                         <h2 class="info-personal-titulo">Información personal</h2>

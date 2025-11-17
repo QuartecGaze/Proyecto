@@ -1239,8 +1239,32 @@ require __DIR__ .'/../Consultas.php';
         }
     }
 
+        public function getAdmins() {
+            $consulta = "
+                SELECT * FROM persona 
+                JOIN admin ON persona.ID_Persona = admin.ID_Persona
+            ";
+            $resultado = consulta($this->conn, $consulta); 
+            $admins = [];
+            while ($fila = mysqli_fetch_assoc($resultado)) {
+                $admins[] = new Admin(
+                    $fila['CI'], 
+                    $fila['Email'], 
+                    null,
+                    $fila['ID_Persona'], 
+                    $fila['Nombre'], 
+                    $fila['Apellido'], 
+                    null, 
+                    null,
+                    $fila['Nivel_permisos'],
+                    null,
+                    null
+                );
+            }
+            return $admins;
+        }
 
-
+    
 
 
 

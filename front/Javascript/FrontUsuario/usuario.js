@@ -11,6 +11,7 @@ const cumple = document.getElementById("cumpleUsuario");
 const fechaIngreso = document.getElementById("fechaIngresoUsuario");
 const botonCambiarDatos = document.querySelector(".boton-cambiar-datos");
 const inputFoto = document.getElementById("subir-foto");
+const botonCambiarFoto = document.getElementById("btnCambiarFoto");
 const formularioEditar = document.getElementById("formulario-editar-datos");
 const infoSoloLectura = document.getElementById("info-solo-lectura");
 const fotoUsuario = 'usuario.webp';
@@ -73,14 +74,11 @@ async function cargarPerfilYEstadisticas() {
 
   try {
     const r = await getEstadisticas(idSesion.message);
-    // Esperado desde tu servicio:
-    // { pagosTotal, horasTotal, antiguedad }
-    const est = r?.message ?? r; // por si tu apiRequest envuelve en {message: ...}
+    const est = r?.message ?? r;
     horasTotalesEl.textContent = fmtNum(est.horasTotal ?? 0) + ' Horas';
     pagosTotalesEl.textContent = fmtNum(est.pagosTotal ?? 0) + ' $';
     antiguedadEl.textContent   = est.antiguedad ?? '—';
   } catch (e) {
-    // Si falla, dejamos guiones
     horasTotalesEl.textContent = '—';
     pagosTotalesEl.textContent = '—';
     antiguedadEl.textContent   = '—';
@@ -88,7 +86,6 @@ async function cargarPerfilYEstadisticas() {
   }
 }
 
-// Toggle edición (si ya lo manejás con el script inline del HTML, podés borrar estos 2 listeners para no duplicar)
 botonCambiarDatos.addEventListener('click', function () {
   infoSoloLectura.style.display = 'none';
   formularioEditar.style.display = 'block';
@@ -128,11 +125,18 @@ formularioEditar.addEventListener('submit', async function (e) {
 });
 
 // Subir foto
+botonCambiarFoto.addEventListener('click', function () {
+  if (inputFoto) {
+    inputFoto.click();
+  }
+});
+
 inputFoto.addEventListener('change', async function () {
   if (this.files.length > 0) {
-    const foto = this.files[0];
+    const archivoFoto = this.files[0];
     const formData = new FormData();
-    formData.append('foto', foto);
+    formData.append('foto', archivoFoto);
+
     try {
       await subirFoto(formData);
       // Refrescamos la foto del usuario
@@ -145,6 +149,7 @@ inputFoto.addEventListener('change', async function () {
     }
   }
 });
+
 
 // Carga inicial
 await cargarPerfilYEstadisticas();

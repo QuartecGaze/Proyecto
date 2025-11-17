@@ -15,6 +15,7 @@ if (!$token || !validarSoloAdmin($token, $conn)) {
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Senda Firme - Borrar Administradores</title>
+    <link rel="stylesheet" href="../Css/estilosAdmin.css">
         <link rel="stylesheet" href="../Css/estilosRegistro.css">
     <link rel="stylesheet" href="../Css/estilosBorrarAdmin.css">
     <link rel="stylesheet" href="../Css/backoffice.css">
@@ -157,138 +158,8 @@ if (!$token || !validarSoloAdmin($token, $conn)) {
     </div>
 
     <script src="../Javascript/BackOffice/generalidades.js" type="module"></script>
-    <script>
-        // Datos de ejemplo - en un sistema real estos datos vendrían de una base de datos
-        const administradores = [
-            {
-                id: 1,
-                nombre: "María González",
-                email: "maria.gonzalez@senda-firme.com",
-                telefono: "098765432",
-                cedula: "12345678",
-                rol: "admin"
-            },
-            {
-                id: 2,
-                nombre: "Carlos Rodríguez",
-                email: "carlos.rodriguez@senda-firme.com",
-                telefono: "098765433",
-                cedula: "23456789",
-                rol: "operador"
-            },
-            {
-                id: 3,
-                nombre: "Ana Martínez",
-                email: "ana.martinez@senda-firme.com",
-                telefono: "098765434",
-                cedula: "34567890",
-                rol: "admin"
-            },
-            {
-                id: 4,
-                nombre: "Luis Fernández",
-                email: "luis.fernandez@senda-firme.com",
-                telefono: "098765435",
-                cedula: "45678901",
-                rol: "operador"
-            }
-        ];
-
-        document.addEventListener('DOMContentLoaded', function () {
-            const listaAdmins = document.getElementById('listaAdmins');
-            const modalConfirmacion = document.getElementById('modalConfirmacion');
-            const textoConfirmacion = document.getElementById('textoConfirmacion');
-            const botonCancelar = document.getElementById('botonCancelar');
-            const botonConfirmar = document.getElementById('botonConfirmar');
-
-            let adminAEliminar = null;
-
-            // Cargar la lista de administradores
-            function cargarAdministradores() {
-                if (administradores.length === 0) {
-                    listaAdmins.innerHTML = '<div class="sin-admins"><p>No hay administradores u operadores para mostrar</p></div>';
-                    return;
-                }
-
-                listaAdmins.innerHTML = '';
-
-                administradores.forEach(admin => {
-                    const adminItem = document.createElement('div');
-                    adminItem.className = 'admin-item';
-
-                    const rolClass = admin.rol === 'admin' ? 'admin' : 'operador';
-                    const rolTexto = admin.rol === 'admin' ? 'Administrador' : 'Operador';
-
-                    adminItem.innerHTML = `
-                <div class="admin-info">
-                    <div class="admin-nombre">${admin.nombre}</div>
-                    <div class="admin-detalles">
-                        <span>${admin.email}</span>
-                        <span class="admin-rol ${rolClass}">${rolTexto}</span>
-                    </div>
-                </div>
-                <button class="boton-borrar" data-id="${admin.id}">
-                    <i class="material-icons">delete</i> Eliminar
-                </button>
-            `;
-
-                    listaAdmins.appendChild(adminItem);
-                });
-
-                // Agregar eventos a los botones de eliminar
-                document.querySelectorAll('.boton-borrar').forEach(boton => {
-                    boton.addEventListener('click', function () {
-                        const id = parseInt(this.getAttribute('data-id'));
-                        mostrarModalConfirmacion(id);
-                    });
-                });
-            }
-
-            // Mostrar modal de confirmación
-            function mostrarModalConfirmacion(id) {
-                adminAEliminar = administradores.find(admin => admin.id === id);
-
-                if (adminAEliminar) {
-                    textoConfirmacion.textContent = `¿Estás seguro de que deseas eliminar a ${adminAEliminar.nombre} (${adminAEliminar.email}) del sistema? Esta acción no se puede deshacer.`;
-                    modalConfirmacion.style.display = 'flex';
-                }
-            }
-
-            // Ocultar modal de confirmación
-            function ocultarModalConfirmacion() {
-                modalConfirmacion.style.display = 'none';
-                adminAEliminar = null;
-            }
-
-            // Eliminar administrador
-            function eliminarAdministrador() {
-                if (adminAEliminar) {
-                    // En un sistema real, aquí se haría una petición al servidor
-                    const index = administradores.findIndex(admin => admin.id === adminAEliminar.id);
-                    if (index !== -1) {
-                        administradores.splice(index, 1);
-                        cargarAdministradores();
-                    }
-                }
-
-                ocultarModalConfirmacion();
-            }
-
-            // Eventos
-            botonCancelar.addEventListener('click', ocultarModalConfirmacion);
-            botonConfirmar.addEventListener('click', eliminarAdministrador);
-
-            // Cerrar modal al hacer clic fuera del contenido
-            modalConfirmacion.addEventListener('click', function (e) {
-                if (e.target === modalConfirmacion) {
-                    ocultarModalConfirmacion();
-                }
-            });
-
-            // Cargar administradores al iniciar
-            cargarAdministradores();
-        });
-    </script>
+    <script src="../Javascript/BackOffice/borrarAdmins.js" type="module"></script>
+    
 </body>
 
 </html>
