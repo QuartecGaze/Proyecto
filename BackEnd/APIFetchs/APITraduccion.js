@@ -5,12 +5,12 @@ import { apiRequest } from './apiConfig.js';
  * @returns {Promise<Object>} - Respuesta de la API
  */
 export function setIdioma(datos) {
-     const data = apiRequest('/APITraduccion/ApiTraduccion.php?accion=setIdioma', 'POST', datos);
+     const data = apiRequest('/APITraduccion/APITraduccion.php?accion=setIdioma', 'POST', datos);
      return data;
 }
 
 export function getIdioma(pagina) {
-    const data = apiRequest('/APITraduccion/ApiTraduccion.php?accion=getIdioma&pagina=' + pagina, 'GET');
+    const data = apiRequest('/APITraduccion/APITraduccion.php?accion=getIdioma&pagina=' + pagina, 'GET');
     return data;
 }
 

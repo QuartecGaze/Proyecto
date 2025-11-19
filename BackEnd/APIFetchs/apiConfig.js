@@ -1,4 +1,4 @@
-const baseUrl = 'http://localhost/Proyecto/BackEnd';
+const baseUrl = 'http://192.168.1.50:8080/BackEnd';
 
 /**
  * apiRequest realiza una solicitud HTTP a la API PHP.
@@ -29,7 +29,7 @@ export async function apiRequest(endpoint, method = 'GET', body = null) {
     console.log(data);
     if(data.message == "Token invalido"){
         //IMPORTANTE CAMBIAR LA RUTA CUANDO SE SUBA A UN SERVIDOR
-         window.location.href = "http://localhost/Proyecto/front/Landing Page/login.html";
+         window.location.href = "http://192.168.1.50:8080/front/Landing Page/login.html";
     }
     return data;
 }
