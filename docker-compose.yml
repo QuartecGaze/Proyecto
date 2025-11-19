@@ -7,7 +7,7 @@ services:
     ports:
       - "8080:80"
     volumes:
-      - ./Proyecto:/var/www/html:Z  # :Z para SELinux en RHEL
+      - .:/var/www/html:Z  # :Z para SELinux en RHEL
     depends_on:
       - db
     networks:
