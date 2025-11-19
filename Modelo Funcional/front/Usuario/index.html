@@ -31,34 +31,34 @@
             <nav id="NavegacionDashboard">
                 <ul class="menu-dashboard">
                     <li class="item-menu activo">
-                        <a href="index.php"><i class="material-icons">home</i> Inicio</a>
+                        <a href="index.html"><i class="material-icons">home</i> Inicio</a>
                     </li>
                     <li class="item-menu">
-                        <a href="horas.php"><i class="material-icons">punch_clock</i> Horas Trabajadas</a>
+                        <a href="horas.html"><i class="material-icons">punch_clock</i> Horas Trabajadas</a>
                     </li>
                     <li class="item-menu">
-                        <a href="unidades.php"><i class="material-icons">apartment</i> Unidad Habitacional</a>
+                        <a href="unidades.html"><i class="material-icons">apartment</i> Unidad Habitacional</a>
                     </li>
                     <li class="item-menu">
-                        <a href="pagos.php"><i class="material-icons">payments</i> Pagos</a>
+                        <a href="pagos.html"><i class="material-icons">payments</i> Pagos</a>
                     </li>
                     <li class="item-menu">
-                        <a href="configuracion.php"><i class="material-icons">settings</i> Configuración</a>
+                        <a href="configuracion.html"><i class="material-icons">settings</i> Configuración</a>
                     </li>
                 </ul>
             </nav>
 
             <div class="perfil-usuario">
-                <a href="configuracion.php">
+                <a href="configuracion.html">
                     <div class="info-usuario">
                         <img src="" alt="Foto perfil" class="fotoPerfil">
                         <div>
-                            <p class="nombre-usuario nombreUsuario">Nombre User</p>
+                            <p class="nombre-usuario nombreUsuario">Alain Arce</p>
                             <p class="rol-usuario">Usuario</p>
                         </div>
                     </div>
                 </a>
-                <form action="../cerrarSesion.php">
+                <form action="../cerrarSesion.html">
                     <button class="boton-cerrar-sesion">
                         <i class="material-icons">logout</i> Cerrar sesión
                     </button>
@@ -76,29 +76,27 @@
             </header>
 
             <div class="contenedor-tarjetas">
-                <!-- Tarjeta de resumen de horas trabajadas -->
-                <!-- Tarjeta de pagos atrasados -->
-                <a href="pagos.php">
+                <a href="pagos.html">
                     <div class="tarjeta-dashboard" id="cardPagosAtrasados">
                         <div class="tarjeta-icono" id="iconPagosAtrasados">
                             <i class="material-icons">warning</i>
                         </div>
                         <div class="tarjeta-contenido">
                             <h3>Pagos Atrasados</h3>
-                            <p class="tarjeta-valor" id="pagosAtrasadosCantidad">.</p>
+                            <p class="tarjeta-valor" id="pagosAtrasadosCantidad">2</p>
                             <p class="tarjeta-subtexto" id="pagosAtrasadosTotal">Total: $0</p>
                         </div>
                     </div>
                 </a>
 
-                <a href="horas.php">
+                <a href="horas.html">
                     <div class="tarjeta-dashboard">
                         <div class="tarjeta-icono">
                             <i class="material-icons">punch_clock</i>
                         </div>
                         <div class="tarjeta-contenido">
                             <h3>Horas Trabajadas</h3>
-                            <p class="tarjeta-valor" id="horasTrabajadas">.</p>
+                            <p class="tarjeta-valor" id="horasTrabajadas">12</p>
                             <p class="tarjeta-subtexto">Esta Semana</p>
                         </div>
                     </div>
@@ -111,7 +109,7 @@
                     </div>
                     <div class="tarjeta-contenido">
                         <h3>Reuniones</h3>
-                        <p class="tarjeta-valor" id="reunionesPendientes">.</p>
+                        <p class="tarjeta-valor" id="reunionesPendientes">1</p>
                         <p class="tarjeta-subtexto">Próximas</p>
                     </div>
                 </div>
@@ -123,7 +121,7 @@
                     </div>
                     <div class="tarjeta-contenido">
                         <h3>Asistencias</h3>
-                        <p class="tarjeta-valor" id="porcentajeFaltas">.</p>
+                        <p class="tarjeta-valor" id="porcentajeFaltas">10</p>
                         <p class="tarjeta-subtexto">De las reuniones</p>
                     </div>
                 </div>
@@ -135,7 +133,14 @@
                     <h2>Reuniones Completadas</h2>
                     <div class="lista-actividades">
                         <div id="contenedorTerminadas">
-                            <!-- Contenido generado dinámicamente -->
+                            <div class="actividad" onclick="abrirModalReunion()">
+                                <i class="material-icons actividad-icono">event_available</i>
+                                <div class="actividad-detalle">
+                                    <p>Reunion Presupuesto</p>
+                                    <span class="actividad-fecha">El día 20/11/2025 a las 18:00 en
+                                        <strong>Sala Comunal</strong></span>
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </section>
@@ -145,7 +150,14 @@
                     <h2>Proximas Reuniones</h2>
                     <div class="lista-eventos">
                         <div id="contenedorPendientes">
-                            <!-- Contenido generado dinámicamente -->
+                            <div class="actividad" onclick="abrirModalReunion()">
+                                <i class="material-icons actividad-icono">event</i>
+                                <div class="actividad-detalle">
+                                    <p>Reunion recuento</p>
+                                    <span class="actividad-fecha">El día 22/11/2025 a las 18:00 en
+                                        <strong>Sala Comunal</strong></span>
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </section>
@@ -207,6 +219,34 @@
     </div>
 
     <script>
+        // Referencias al modal y elementos
+        const modal = document.getElementById("modalReunion");
+        const btnCerrar = document.getElementById("botonCerrarModal");
+        const btnCerrarIcono = document.querySelector(".cerrar-modal");
+
+        // Función para abrir el modal
+        function abrirModalReunion() {
+            modal.style.display = "block";
+        }
+
+        // Función para cerrar el modal
+        function cerrarModalReunion() {
+            modal.style.display = "none";
+        }
+
+        // Cerrar desde botón "Cerrar"
+        btnCerrar.addEventListener("click", cerrarModalReunion);
+
+        // Cerrar desde la X
+        btnCerrarIcono.addEventListener("click", cerrarModalReunion);
+
+        // Cerrar al hacer click afuera del contenido
+        window.addEventListener("click", function (e) {
+            if (e.target === modal) {
+                cerrarModalReunion();
+            }
+        });
+
         // Funcionalidad del menú hamburguesa
         const botonHamburguesa = document.getElementById('botonHamburguesa');
         const sidebar = document.getElementById('sidebar');

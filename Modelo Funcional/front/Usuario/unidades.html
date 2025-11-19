@@ -32,29 +32,29 @@
             <nav id="NavegacionDashboard">
                 <ul class="menu-dashboard">
                     <li class="item-menu">
-                        <a href="index.php"><i class="material-icons">home</i> Inicio</a>
+                        <a href="index.html"><i class="material-icons">home</i> Inicio</a>
                     </li>
                     <li class="item-menu">
-                        <a href="horas.php"><i class="material-icons">punch_clock</i> Horas Trabajadas</a>
+                        <a href="horas.html"><i class="material-icons">punch_clock</i> Horas Trabajadas</a>
                     </li>
                     <li class="item-menu activo">
-                        <a href="unidades.php"><i class="material-icons">apartment</i> Unidad Habitacional</a>
+                        <a href="unidades.html"><i class="material-icons">apartment</i> Unidad Habitacional</a>
                     </li>
                     <li class="item-menu">
-                        <a href="pagos.php"><i class="material-icons">payments</i> Pagos</a>
+                        <a href="pagos.html"><i class="material-icons">payments</i> Pagos</a>
                     </li>
                     <li class="item-menu">
-                        <a href="configuracion.php"><i class="material-icons">settings</i> Configuración</a>
+                        <a href="configuracion.html"><i class="material-icons">settings</i> Configuración</a>
                     </li>
                 </ul>
             </nav>
 
             <div class="perfil-usuario">
-                <a href="configuracion.php">
+                <a href="configuracion.html">
                     <div class="info-usuario">
                         <img src="" alt="Foto perfil" class="fotoPerfil">
                         <div>
-                            <p class="nombre-usuario nombreUsuario">Nombre User</p>
+                            <p class="nombre-usuario nombreUsuario">Alain Arce</p>
                             <p class="rol-usuario">Usuario</p>
                         </div>
                     </div>
@@ -79,32 +79,24 @@
             <!-- Información de la Unidad -->
             <section class="seccion-unidad">
                 <h2>Información de la Unidad</h2>
-                
+
                 <div class="tarjeta-unidad">
                     <div class="info-unidad">
                         <div class="campo-unidad">
                             <span class="etiqueta">Número de Unidad:</span>
-                            <span class="valor" id="numeroUnidad">-</span>
+                            <span class="valor" id="numeroUnidad">5</span>
                         </div>
                         <div class="campo-unidad">
-                            <span class="etiqueta">Dirección:</span>
-                            <span class="valor" id="direccionUnidad">-</span>
-                        </div>
-                        <div class="campo-unidad">
-                            <span class="etiqueta">Manzana:</span>
-                            <span class="valor" id="manzanaUnidad">-</span>
-                        </div>
-                        <div class="campo-unidad">
-                            <span class="etiqueta">Lote:</span>
-                            <span class="valor" id="loteUnidad">-</span>
+                            <span class="etiqueta">Pasillo:</span>
+                            <span class="valor" id="direccionUnidad">C</span>
                         </div>
                         <div class="campo-unidad">
                             <span class="etiqueta">Estado:</span>
-                            <span class="valor estado" id="estadoUnidad">-</span>
+                            <span class="valor" id="manzanaUnidad">En construccion</span>
                         </div>
                         <div class="campo-unidad">
-                            <span class="etiqueta">Fecha de Asignación:</span>
-                            <span class="valor" id="fechaAsignacion">-</span>
+                            <span class="etiqueta">Habitaciones:</span>
+                            <span class="valor" id="loteUnidad">2</span>
                         </div>
                     </div>
                 </div>
@@ -114,7 +106,7 @@
             <section class="seccion-integrantes">
                 <div class="cabecera-integrantes">
                     <h2>Integrantes Familiares</h2>
-                    <button class="boton-primario" id="btnAgregarIntegrante">
+                    <button class="boton-primario" id="btnAgregarIntegrante" onclick="abrirModalIntegrante()">
                         <i class="material-icons">person_add</i> Agregar Integrante
                     </button>
                 </div>
@@ -132,11 +124,17 @@
                                 </tr>
                             </thead>
                             <tbody id="lista-integrantes">
-                                <!-- Los integrantes se cargarán con JavaScript -->
+                                <tr>
+                                    <td>Alain</td>
+                                    <td>Arce Braga</td>
+                                    <td>5 705 183 -0</td>
+                                    <td>alain@gmail.com</td>
+                                    <td>06/02/2008</td>
+                                </tr>
                             </tbody>
                         </table>
                     </div>
-                    
+
                     <div class="sin-integrantes" id="sin-integrantes" style="display: none;">
                         <div class="mensaje-vacio">
                             <i class="material-icons">group</i>
@@ -199,7 +197,7 @@
                     </div>
 
                     <div class="modal-acciones">
-                        <button type="button" class="boton-secundario" id="cancelarIntegrante">Cancelar</button>
+                        <button type="button" class="boton-secundario" id="cancelarIntegrante" onclick="cerrarModalIntegrante()">Cancelar</button>
                         <button type="submit" class="boton-primario" id="guardarIntegrante">Guardar</button>
                     </div>
                 </form>
@@ -221,7 +219,8 @@
                 <p id="mensajeConfirmacion">¿Estás seguro de que deseas eliminar este integrante familiar?</p>
                 <div class="modal-acciones">
                     <button type="button" class="boton-secundario" id="cancelarEliminacion">Cancelar</button>
-                    <button type="button" class="boton-primario boton-peligro" id="confirmarEliminacion">Eliminar</button>
+                    <button type="button" class="boton-primario boton-peligro"
+                        id="confirmarEliminacion">Eliminar</button>
                 </div>
             </div>
         </div>
@@ -261,9 +260,37 @@
                 document.body.style.overflow = 'auto';
             }
         });
+
+        // Referencias al modal
+        const modalIntegrante = document.getElementById("modalIntegrante");
+
+        // Botones para cerrar
+        const btnCerrarIntegrante = document.getElementById("cerrarModalIntegrante");
+        const btnCancelarIntegrante = document.getElementById("cancelarIntegrante");
+
+        // Función para abrir el modal
+        function abrirModalIntegrante() {
+            modalIntegrante.style.display = "flex";
+        }
+
+        // Función para cerrar el modal
+        function cerrarModalIntegrante() {
+            modalIntegrante.style.display = "none";
+        }
+
+        // Cerrar con la X
+        btnCerrarIntegrante.addEventListener("click", cerrarModalIntegrante);
+
+        // Cerrar con el botón "Cancelar"
+        btnCancelarIntegrante.addEventListener("click", cerrarModalIntegrante);
+
+        // Cerrar al hacer click afuera del contenido del modal
+        window.addEventListener("click", function (e) {
+            if (e.target === modalIntegrante) {
+                cerrarModalIntegrante();
+            }
+        });
     </script>
-    <script src="../Javascript/FrontUsuario/unidad.js" type="module"></script>
-    <script src="../Javascript/FrontUsuario/generalidades.js" type="module"></script>
 </body>
 
 </html>

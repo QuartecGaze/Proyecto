@@ -31,29 +31,29 @@
             <nav id="NavegacionDashboard">
                 <ul class="menu-dashboard">
                     <li class="item-menu">
-                        <a href="index.php"><i class="material-icons">home</i> Inicio</a>
+                        <a href="index.html"><i class="material-icons">home</i> Inicio</a>
                     </li>
                     <li class="item-menu">
-                        <a href="horas.php"><i class="material-icons">punch_clock</i> Horas Trabajadas</a>
+                        <a href="horas.html"><i class="material-icons">punch_clock</i> Horas Trabajadas</a>
                     </li>
                     <li class="item-menu">
-                        <a href="unidades.php"><i class="material-icons">apartment</i> Unidad Habitacional</a>
+                        <a href="unidades.html"><i class="material-icons">apartment</i> Unidad Habitacional</a>
                     </li>
                     <li class="item-menu">
-                        <a href="pagos.php"><i class="material-icons">payments</i> Pagos</a>
+                        <a href="pagos.html"><i class="material-icons">payments</i> Pagos</a>
                     </li>
                     <li class="item-menu">
-                        <a href="configuracion.php"><i class="material-icons">settings</i> Configuración</a>
+                        <a href="configuracion.html"><i class="material-icons">settings</i> Configuración</a>
                     </li>
                 </ul>
             </nav>
 
             <div class="perfil-usuario">
-                <a href="configuracion.php">
+                <a href="configuracion.html">
                     <div class="info-usuario">
                         <img src="" alt="Foto perfil" class="fotoPerfil">
                         <div>
-                            <p class="nombre-usuario nombreUsuario">Nombre User</p>
+                            <p class="nombre-usuario nombreUsuario">Alain Arce</p>
                             <p class="rol-usuario">Usuario</p>
                         </div>
                     </div>
@@ -76,13 +76,13 @@
             </header>
 
             <div class="contenedor-tarjetas">
-                <div class="tarjeta-dashboard" id="cardPagosAtrasados">
+                <div class="tarjeta-dashboard atrasado" id="cardPagosAtrasados">
                     <div class="tarjeta-icono" id="iconPagosAtrasados">
                         <i class="material-icons">warning</i>
                     </div>
                     <div class="tarjeta-contenido">
                         <h3>Pagos Pendientes</h3>
-                        <p class="tarjeta-valor" id="pagosAtrasadosCantidad"></p>
+                        <p class="tarjeta-valor" id="pagosAtrasadosCantidad">2</p>
                         <p class="tarjeta-subtexto">Cantidad total</p>
                     </div>
                 </div>
@@ -155,6 +155,34 @@
                             </tr>
                         </thead>
                         <tbody>
+                            <tr>
+                                <td>Pago Rechazado</td>
+                                <td>$1003</td>
+                                <td>2025-11-08</td>
+                                <td><span class="estado-pago Atrasado">Atrasado</span></td>
+                                <td>
+                                    <button class="boton-icono" title="Pagar" data-id="98" data-estado="En espera">
+                                        <i class="material-icons">payment</i>
+                                    </button>
+                                    <button class="boton-icono ver-detalles" title="Ver detalles" id="ver">
+                                        <i class="material-icons">visibility</i>
+                                    </button>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>Pago Rechazado</td>
+                                <td>$1003</td>
+                                <td>2025-11-08</td>
+                                <td><span class="estado-pago Atrasado">Atrasado</span></td>
+                                <td>
+                                    <button class="boton-icono" title="Pagar" data-id="98" data-estado="En espera">
+                                        <i class="material-icons">payment</i>
+                                    </button>
+                                    <button class="boton-icono ver-detalles" title="Ver detalles" id="ver">
+                                        <i class="material-icons">visibility</i>
+                                    </button>
+                                </td>
+                            </tr>
                         </tbody>
                     </table>
                 </div>
@@ -276,6 +304,10 @@
             const nombreArchivo = this.files[0] ? this.files[0].name : 'Ningún archivo seleccionado';
             document.getElementById('nombre-archivo').textContent = nombreArchivo;
         });
+
+        function mostrarAl() {
+            modalIntegrante.style.display = "flex";
+        }
     </script>
     <script src="../Javascript/FrontUsuario/pagos.js" type="module"></script>
     <script src="../Javascript/FrontUsuario/generalidades.js" type="module"></script>

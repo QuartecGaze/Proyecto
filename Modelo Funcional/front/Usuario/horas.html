@@ -32,29 +32,29 @@
             <nav id="NavegacionDashboard">
                 <ul class="menu-dashboard">
                     <li class="item-menu">
-                        <a href="index.php"><i class="material-icons">home</i> Inicio</a>
+                        <a href="index.html"><i class="material-icons">home</i> Inicio</a>
                     </li>
                     <li class="item-menu activo">
-                        <a href="horas.php"><i class="material-icons">punch_clock</i> Horas Trabajadas</a>
+                        <a href="horas.html"><i class="material-icons">punch_clock</i> Horas Trabajadas</a>
                     </li>
                     <li class="item-menu">
-                        <a href="unidades.php"><i class="material-icons">apartment</i> Unidad Habitacional</a>
+                        <a href="unidades.html"><i class="material-icons">apartment</i> Unidad Habitacional</a>
                     </li>
                     <li class="item-menu">
-                        <a href="pagos.php"><i class="material-icons">payments</i> Pagos</a>
+                        <a href="pagos.html"><i class="material-icons">payments</i> Pagos</a>
                     </li>
                     <li class="item-menu">
-                        <a href="configuracion.php"><i class="material-icons">settings</i> Configuración</a>
+                        <a href="configuracion.html"><i class="material-icons">settings</i> Configuración</a>
                     </li>
                 </ul>
             </nav>
 
             <div class="perfil-usuario">
-                <a href="configuracion.php">
+                <a href="configuracion.html">
                     <div class="info-usuario">
                         <img src="" alt="Foto perfil" class="fotoPerfil">
                         <div>
-                            <p class="nombre-usuario nombreUsuario">Nombre User</p>
+                            <p class="nombre-usuario nombreUsuario">Alain Arce</p>
                             <p class="rol-usuario">Usuario</p>
                         </div>
                     </div>
@@ -192,7 +192,7 @@
                                         placeholder="Describe brevemente el motivo de tu falta"></textarea>
                                 </div>
 
-                                <button type="submit" name="registrar_falta" class="boton-primario">
+                                <button type="reset" name="registrar_falta" class="boton-primario" id="btn-falta">
                                     <i class="material-icons">save</i> Registrar falta
                                 </button>
                             </form>
@@ -242,7 +242,22 @@
                             </tr>
                         </thead>
                         <tbody>
-                            <!-- TRAEMOS CON JS LAS LINEAS-->
+                            <tr>
+                                <td>10/11/2025</td>
+                                <td>Lunes</td>
+                                <td>10</td>
+                                <td>
+                                    <button class="boton-icono editar" title="Editar" data-id="${idHoras}"
+                                        data-fecha="${fecha}" data-horas="${horas}">
+                                        <i class="material-icons">edit</i>
+                                    </button>
+                                </td>
+                                <td>
+                                    <button class="boton-icono" title="Eliminar" data-id="${idHoras}">
+                                        <i class="material-icons">delete</i>
+                                    </button>
+                                </td>
+                            </tr>
                         </tbody>
                     </table>
                 </div>
@@ -301,7 +316,6 @@
         botonHamburguesa.addEventListener('click', toggleMenu);
         overlay.addEventListener('click', toggleMenu);
 
-        // Cerrar menú al hacer clic en un enlace (en móviles)
         document.querySelectorAll('.item-menu a').forEach(enlace => {
             enlace.addEventListener('click', () => {
                 if (window.innerWidth <= 768) {
@@ -310,7 +324,6 @@
             });
         });
 
-        // Ajustar el menú al cambiar el tamaño de la ventana
         window.addEventListener('resize', () => {
             if (window.innerWidth > 768) {
                 botonHamburguesa.classList.remove('activo');
@@ -320,7 +333,6 @@
             }
         });
 
-        // Funcionalidad para las pestañas
         document.addEventListener('DOMContentLoaded', function () {
             const pestanas = document.querySelectorAll('.pestana');
             const contenidos = document.querySelectorAll('.contenido-pestana');
@@ -339,7 +351,6 @@
                 });
             });
 
-            // Simular progreso de horas (esto se reemplazará con datos reales)
             function actualizarProgreso() {
                 const horasTrabajadas = 25; // Esto vendrá de la base de datos
                 const horasObjetivo = 40;
@@ -354,9 +365,65 @@
 
             actualizarProgreso();
         });
+
+        document.addEventListener("DOMContentLoaded", () => {
+
+            const formHoras = document.querySelector('#contenido-horas form');
+            if (formHoras) {
+                const msgExito = formHoras.querySelector('.mensaje-exito');
+                const msgError = formHoras.querySelector('.mensaje-error');
+
+                formHoras.addEventListener("submit", (e) => {
+                    e.preventDefault();
+
+                    const exito = true;
+
+                    if (exito) {
+                        msgError.style.display = "none";
+                        msgExito.style.display = "block";
+                    } else {
+                        msgExito.style.display = "none";
+                        msgError.style.display = "block";
+                    }
+
+                    // Ocultar después de 3 segundos
+                    setTimeout(() => {
+                        msgExito.style.display = "none";
+                        msgError.style.display = "none";
+                    }, 3000);
+                });
+            }
+
+
+            const formFaltas = document.querySelector('#contenido-faltas form');
+            if (formFaltas) {
+
+                const msgExito = formFaltas.querySelector('.mensaje-exito');
+                const msgError = formFaltas.querySelector('.mensaje-error');
+
+                formFaltas.addEventListener("submit", (e) => {
+                    e.preventDefault(); // evitar envío real
+
+                    // Simulación de éxito
+                    const exito = true;
+
+                    if (exito) {
+                        msgError.style.display = "none";
+                        msgExito.style.display = "block";
+                    } else {
+                        msgExito.style.display = "none";
+                        msgError.style.display = "block";
+                    }
+
+                    setTimeout(() => {
+                        msgExito.style.display = "none";
+                        msgError.style.display = "none";
+                    }, 3000);
+                });
+            }
+        });
+
     </script>
-    <script src="../Javascript/FrontUsuario/horas.js" type="module"></script>
-    <script src="../Javascript/FrontUsuario/generalidades.js" type="module"></script>
 </body>
 
 </html>
