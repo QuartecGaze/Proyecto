@@ -27,6 +27,15 @@ class RepositorioPersona {
         consulta($this->conn, $consulta, "is", [$id, $telefono]);
     }
 
+    public function actualizarTelefono($id, $telefono){
+        $consulta = "
+        UPDATE numero_de_telefono 
+        SET Telefono = ?
+        WHERE ID_Persona = ?
+        ";
+        consulta($this->conn, $consulta, "si", [$telefono, $id]);
+    }
+
     public function getPersona($id){
         $consulta = "SELECT * FROM persona WHERE ID_Persona = ?";
         $resultado = consulta($this->conn, $consulta, "i", [$id]);

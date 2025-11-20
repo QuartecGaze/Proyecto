@@ -121,23 +121,23 @@
                         <form id="formulario-editar-datos" style="display: none;">
                             <div class="campo-perfil">
                                 <label for="nombreInput" class="perfil-label-nombre">Nombre</label>
-                                <input type="text" id="nombreInput" class="input-editar">
+                                <input required type="text" id="nombreInput" class="input-editar">
                             </div>
                             <div class="campo-perfil">
                                 <label for="apellidoInput" class="perfil-label-apellido">Apellido</label>
-                                <input type="text" id="apellidoInput" class="input-editar">
+                                <input required type="text" id="apellidoInput" class="input-editar">
                             </div>
                             <div class="campo-perfil">
                                 <label for="emailInput" class="perfil-label-email">Correo electrónico</label>
-                                <input type="email" id="emailInput" class="input-editar">
+                                <input required type="email" id="emailInput" class="input-editar">
                             </div>
                             <div class="campo-perfil">
                                 <label for="telefonoInput" class="perfil-label-telefono">Teléfono</label>
-                                <input type="tel" id="telefonoInput" class="input-editar">
+                                <input required type="tel" id="telefonoInput" class="input-editar">
                             </div>
                             <div class="campo-perfil">
                                 <label for="fechaNacimientoInput" class="perfil-label-fecha-nacimiento">Fecha de Nacimiento</label>
-                                <input type="date" id="fechaNacimientoInput" class="input-editar">
+                                <input required type="date" id="fechaNacimientoInput" class="input-editar">
                             </div>
                             <div class="campo-perfil">
                                 <label class="perfil-label-direccion">Dirección</label>

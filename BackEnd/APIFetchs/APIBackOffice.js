@@ -103,7 +103,7 @@ export function getFaltasPendientes(){
     return apiRequest(`/APIBackOffice/APIBackOffice.php?accion=getFaltasPendientes`, "GET");
 }
 export function getUsuarios(){
-    return apiRequest(`/APIBackoffice/APIBackoffice.php?accion=getUsuarios`, 'GET');
+    return apiRequest(`/APIBackOffice/APIBackOffice.php?accion=getUsuarios`, 'GET');
 }
 
 export function aprobarFalta(data) {

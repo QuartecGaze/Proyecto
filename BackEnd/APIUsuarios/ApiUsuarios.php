@@ -133,6 +133,7 @@
                     $nombre = $datos['nombre'] ?? null;
                     $apellido = $datos['apellido'] ?? null;
                     $fechaNacimiento = $datos['fechaNacimiento'] ?? null;
+                    $telefono = $datos['telefono'] ?? null;
                     if($datos['fechaNacimiento'] == null){
                         $fechaNacimiento = null; //soluciona un error que daba fechaNacimiento null nose medio random
                     }
@@ -142,7 +143,8 @@
                             $email,
                             $nombre,
                             $apellido,
-                            $fechaNacimiento
+                            $fechaNacimiento,
+                            $telefono
                         );
                         respuesta("Usuario actualizado con exito", "exito", 200);
                     } catch(Exception $e) {

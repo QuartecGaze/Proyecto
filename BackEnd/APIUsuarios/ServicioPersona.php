@@ -134,12 +134,13 @@
         
         }   
 
-        public function actualizarUsuario($id, $email, $nombre, $apellido, $fechaNacimiento) {
+        public function actualizarUsuario($id, $email, $nombre, $apellido, $fechaNacimiento, $telefono) {
             if (!$this->repositorio->usuarioExisteID($id)) {
                 throw new Exception("El usuario no existe", 404);
             } else {
-                $usuario = new Usuario(null, $email, null, $id, $nombre, $apellido, null, null, $fechaNacimiento, null, null);
+                $usuario = new Usuario(null, $email, $telefono, $id, $nombre, $apellido, null, null, $fechaNacimiento, null, null);
                 $this->repositorio->actualizarUsuario($usuario);
+                $this->repositorio->actualizarTelefono($id, $telefono);
                 return true;
             }
         }
@@ -151,20 +152,6 @@
                 return $this->repositorio->getDireccion($idPersona);
             }
         }
-
-
-
-
-        
-
-
-
-
-
-
-
-
-
 
 
 

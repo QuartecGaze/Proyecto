@@ -62,8 +62,13 @@ function setDatos(data) {
         fileInfoPago.textContent = "Monto aun no asignado, espere a que un administrador se lo asigne";
     }
     
+    if(fecha){
+        document.getElementById("fechaEntrevista").textContent = `Fecha: ${fecha} a las ${hora}`;
+    } else {
+        document.getElementById("fechaEntrevista").textContent = `Fecha: no asignada`;
+    }
 
-    document.getElementById("fechaEntrevista").textContent = `Fecha: ${fecha} a las ${hora}`;
+  
     document.getElementById("montoPago").textContent = `Monto a abonar: $${monto}`;
 }
 
