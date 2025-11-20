@@ -1,6 +1,6 @@
 <?php
     require_once __DIR__ . '/RepositorioTraduccion.php';
-    require_once __DIR__ . '/ApiTraduccion.php';
+    require_once __DIR__ . '/APITraduccion.php';
     require_once __DIR__ .'/Traduccion.php';
     
 
