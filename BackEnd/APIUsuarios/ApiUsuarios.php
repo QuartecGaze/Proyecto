@@ -5,7 +5,7 @@
     require_once __DIR__ .'/Modelos/Persona.php'; 
     require_once __DIR__ .'/Modelos/Admin.php';
     require_once __DIR__ .'/Modelos/Interesado.php';
-    require_once __DIR__ .'/../BDConeccion.php';
+    require_once __DIR__ .'/BDConeccion.php';
     require __DIR__ .'/../Tokens.php';
     
 
