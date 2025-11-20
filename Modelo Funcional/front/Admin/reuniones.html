@@ -53,7 +53,8 @@
                         <ul class="submenu">
                             <li><a href="confirmarPagos.html"><i class="material-icons">receipt_long</i> Corroborar
                                     Comprobantes</a></li>
-                            <li><a href="pagos.html"><i class="material-icons">point_of_sale</i> Gestor de Pagos</a></li>
+                            <li><a href="pagos.html"><i class="material-icons">point_of_sale</i> Gestor de Pagos</a>
+                            </li>
                         </ul>
                     </li>
                     <li class="item-menu">
@@ -124,7 +125,37 @@
                 <section class="seccion-reuniones">
                     <h2><i class="material-icons">schedule</i> Reuniones Pendientes</h2>
                     <div class="lista-reuniones" id="reunionesPendientes">
-                        <!-- Las reuniones se cargarán dinámicamente -->
+                        <div class="tarjeta-reunion pendiente" data-action="abrir-detalles" data-id="789">
+                            <div class="cabecera-reunion">
+                                <div>
+                                    <div class="titulo-reunion">Reunión de Emergencia - Problemas Estructurales</div>
+                                    <span class="badge-estado badge-pendiente">Pendiente</span>
+                                </div>
+                            </div>
+                            <div class="info-reunion">
+                                <div class="info-item"><i class="material-icons">event</i><span>25 de Noviembre,
+                                        2024</span></div>
+                                <div class="info-item"><i class="material-icons">schedule</i><span>18:00</span></div>
+                                <div class="info-item"><i class="material-icons">place</i><span>Salón de Usos
+                                        Múltiples</span></div>
+                                <div class="info-item"><i class="material-icons">people</i><span>15/20
+                                        confirmados</span></div>
+                            </div>
+                            <div class="descripcion-reunion">Se convoca a reunión urgente para tratar problemas de
+                                filtraciones en el edificio B. Es importante la asistencia de todos los propietarios
+                                afectados.</div>
+                            <div class="acciones-reunion">
+                                <button class="btn-accion btn-editar" data-action="editar" data-id="789">
+                                    <i class="material-icons">edit</i> Editar
+                                </button>
+                                <button class="btn-accion btn-completar" data-action="completar" data-id="789">
+                                    <i class="material-icons">check</i> Completar
+                                </button>
+                                <button class="btn-accion btn-eliminar" data-action="eliminar" data-id="789">
+                                    <i class="material-icons">delete</i> Eliminar
+                                </button>
+                            </div>
+                        </div>
                     </div>
                 </section>
 
@@ -132,7 +163,31 @@
                 <section class="seccion-reuniones">
                     <h2><i class="material-icons">history</i> Historial de Reuniones</h2>
                     <div class="lista-reuniones" id="historialReuniones">
-                        <!-- El historial se cargará dinámicamente -->
+                        <div class="tarjeta-reunion completada" data-action="abrir-detalles" data-id="789">
+                            <div class="cabecera-reunion">
+                                <div>
+                                    <div class="titulo-reunion">Reunión de Emergencia - Problemas Estructurales</div>
+                                    <span class="badge-estado badge-pendiente">Pendiente</span>
+                                </div>
+                            </div>
+                            <div class="info-reunion">
+                                <div class="info-item"><i class="material-icons">event</i><span>25 de Noviembre,
+                                        2024</span></div>
+                                <div class="info-item"><i class="material-icons">schedule</i><span>18:00</span></div>
+                                <div class="info-item"><i class="material-icons">place</i><span>Salón de Usos
+                                        Múltiples</span></div>
+                                <div class="info-item"><i class="material-icons">people</i><span>15/20
+                                        confirmados</span></div>
+                            </div>
+                            <div class="descripcion-reunion">Se convoca a reunión urgente para tratar problemas de
+                                filtraciones en el edificio B. Es importante la asistencia de todos los propietarios
+                                afectados.</div>
+                            <div class="acciones-reunion">
+                                <button class="btn-accion btn-editar" data-action="editar" data-id="789">
+                                    <i class="material-icons">edit</i> Editar
+                                </button>
+                            </div>
+                        </div>
                     </div>
                 </section>
             </div>
@@ -306,6 +361,29 @@
     <script src="../Javascript/BackOffice/generalidades.js" type="module"></script>
     <script src="../Javascript/BackOffice/reuniones.js" type="module"></script>
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script>
+        const modalReunion = document.getElementById("modalReunion");
+        const btnCrearReunion = document.getElementById("btnCrearReunion");
+        const btnCancelarReunion = document.getElementById("btnCancelarReunion");
+
+        // ABRIR MODAL
+        btnCrearReunion.addEventListener("click", () => {
+            modalReunion.style.display = "flex";
+        });
+
+        // CERRAR MODAL
+        btnCancelarReunion.addEventListener("click", () => {
+            modalReunion.style.display = "none";
+        });
+
+        // CERRAR HACIENDO CLICK AFUERA
+        modalReunion.addEventListener("click", (e) => {
+            if (e.target === modalReunion) {
+                modalReunion.style.display = "none";
+            }
+        });
+
+    </script>
 </body>
 
 </html>

@@ -115,6 +115,7 @@
                         </div>
                         <div class="tarjeta-contenido">
                             <h3>Solicitudes Pendientes</h3>
+                            <p class="tarjeta-valor">1</p>
                             <p class="tarjeta-valor" id="solicitudesPendientes"><span>Solicitudes</span></p>
                         </div>
                     </div>
@@ -128,22 +129,24 @@
                         </div>
                         <div class="tarjeta-contenido">
                             <h3>Faltas de horas Pendientes</h3>
-                            <p class="tarjeta-valor" id="faltasEnEspera">.</p>
+                            <p class="tarjeta-valor" id="faltasEnEspera">1</p>
                             <p class="tarjeta-subtexto">Por corroborar</p>
                         </div>
                     </div>
                 </a>
 
-                <div class="tarjeta-dashboard">
-                    <div class="tarjeta-icono">
-                        <i class="material-icons">event</i>
+                <a href="reuniones.html">
+                    <div class="tarjeta-dashboard">
+                        <div class="tarjeta-icono">
+                            <i class="material-icons">event</i>
+                        </div>
+                        <div class="tarjeta-contenido">
+                            <h3>Reuniones</h3>
+                            <p class="tarjeta-valor" id="reunionesPendientes">1</p>
+                            <p class="tarjeta-subtexto">Próximas</p>
+                        </div>
                     </div>
-                    <div class="tarjeta-contenido">
-                        <h3>Reuniones</h3>
-                        <p class="tarjeta-valor" id="reunionesPendientes">.</p>
-                        <p class="tarjeta-subtexto">Próximas</p>
-                    </div>
-                </div>
+                </a>
 
                 <!-- Tarjeta de estado financiero -->
                 <a href="confirmarPagos.html">
@@ -153,7 +156,7 @@
                         </div>
                         <div class="tarjeta-contenido">
                             <h3>Comprobantes Enviados</h3>
-                            <p class="tarjeta-valor" id="comprobantesPendientes">.</p>
+                            <p class="tarjeta-valor" id="comprobantesPendientes">1</p>
                             <p class="tarjeta-subtexto">Por Revisar</p>
                         </div>
                     </div>
@@ -182,14 +185,12 @@
                     <h2>Proximas Reuniones</h2>
                     <div class="lista-eventos">
                         <div id="contenedorPendientes">
-                            <div class="evento">
-                                <div class="evento-fecha">
-                                    <span class="evento-dia">15</span>
-                                    <span class="evento-mes">Jul</span>
-                                </div>
-                                <div class="evento-detalle">
-                                    <h3>Reunión general</h3>
-                                    <p>Acciones Comerciales Avanzadas - 4:00 PM</p>
+                            <div class="actividad">
+                                <i class="material-icons actividad-icono">event</i>
+                                <div class="actividad-detalle">
+                                    <p>d</p>
+                                    <span class="actividad-fecha">El día 2002-02-09 a las 18:29:00 en
+                                        <strong>1f</strong></span>
                                 </div>
                             </div>
                         </div>
@@ -258,6 +259,43 @@
     <script src="../Javascript/BackOffice/index.js" type="module"></script>
     <script src="../Javascript/BackOffice/generalidades.js" type="module"></script>
     <script src="../Javascript/BackOffice/reunionesAdmin.js" type="module"></script>
+    <script>
+
+        // Modal
+        const modalReunion = document.getElementById("modalReunion");
+
+        // Botones para cerrar
+        const botonCerrarX = document.querySelector(".cerrar-modal");
+        const botonCerrar = document.getElementById("botonCerrarModal");
+
+        // --- ABRIR MODAL ---
+        function abrirModalReunion() {
+            modalReunion.style.display = "block";
+        }
+
+        // --- CERRAR MODAL ---
+        function cerrarModalReunion() {
+            modalReunion.style.display = "none";
+        }
+
+        // Cerrar con X
+        botonCerrarX.addEventListener("click", cerrarModalReunion);
+
+        // Cerrar con botón "Cerrar"
+        botonCerrar.addEventListener("click", cerrarModalReunion);
+
+        // Cerrar tocando afuera
+        window.addEventListener("click", (e) => {
+            if (e.target === modalReunion) {
+                cerrarModalReunion();
+            }
+        });
+        // Asignar evento a todas las actividades
+        document.querySelectorAll(".actividad").forEach(act => {
+            act.addEventListener("click", abrirModalReunion);
+        });
+
+    </script>
 </body>
 
 </html>

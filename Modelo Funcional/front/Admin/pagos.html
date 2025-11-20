@@ -48,7 +48,8 @@
                         <ul class="submenu">
                             <li><a href="confirmarPagos.html"><i class="material-icons">receipt_long</i> Corroborar
                                     Comprobantes</a></li>
-                            <li><a href="pagos.html"><i class="material-icons">point_of_sale</i> Gestor de Pagos</a></li>
+                            <li><a href="pagos.html"><i class="material-icons">point_of_sale</i> Gestor de Pagos</a>
+                            </li>
                         </ul>
                     </li>
                     <li class="item-menu">
@@ -128,7 +129,7 @@
                         </div>
 
 
-                        <button type="submit" name="pago_general" class="boton-primario">
+                        <button type="reset" name="pago_general" class="boton-primario">
                             <i class="material-icons">attach_money</i> Asignar Pago
                         </button>
                     </form>
@@ -161,7 +162,7 @@
                                 placeholder="Describa el motivo del pago"></textarea>
                         </div>
 
-                        <button type="submit" name="pago_personalizado" class="boton-primario">
+                        <button type="reset" name="pago_personalizado" class="boton-primario">
                             <i class="material-icons">person</i> Asignar Pago Personalizado
                         </button>
                     </form>
@@ -172,6 +173,34 @@
 
     <script src="../Javascript/BackOffice/generalidades.js" type="module"></script>
     <script src="../Javascript/BackOffice/pagos.js" type="module"></script>
+    <script>
+
+        const modalConfirmacion = document.getElementById("modalConfirmacion");
+
+        // Botones dentro del modal
+        const btnCancelar = document.querySelector("#modalConfirmacion .btn-cancelar");
+        const btnConfirmar = document.querySelector("#modalConfirmacion .btn-confirmar-pago");
+
+        // ABRIR MODAL (línea lista para usar)
+        export function abrirModalConfirmacion() {
+            modalConfirmacion.style.display = "flex";
+        }
+
+        // CERRAR MODAL
+        function cerrarModalConfirmacion() {
+            modalConfirmacion.style.display = "none";
+        }
+
+        // Cerrar al apretar "Cancelar"
+        btnCancelar.addEventListener("click", cerrarModalConfirmacion);
+
+        // Cerrar clickeando fuera del contenido
+        modalConfirmacion.addEventListener("click", (e) => {
+            if (e.target === modalConfirmacion) {
+                cerrarModalConfirmacion();
+            }
+        });
+    </script>
 
     <div class="modal-confirmacion" id="modalConfirmacion">
         <div class="modal-contenido">

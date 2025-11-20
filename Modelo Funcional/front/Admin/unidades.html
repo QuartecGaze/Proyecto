@@ -52,7 +52,8 @@
                         <ul class="submenu">
                             <li><a href="confirmarPagos.html"><i class="material-icons">receipt_long</i> Corroborar
                                     Comprobantes</a></li>
-                            <li><a href="pagos.html"><i class="material-icons">point_of_sale</i> Gestor de Pagos</a></li>
+                            <li><a href="pagos.html"><i class="material-icons">point_of_sale</i> Gestor de Pagos</a>
+                            </li>
                         </ul>
                     </li>
                     <li class="item-menu">
@@ -149,19 +150,56 @@
                 <h2>Unidades Activas</h2>
                 <table class="tabla-datos">
                     <thead>
-                    <tr>
-                        <th>Número Unidad</th>
-                        <th>CI</th>
-                        <th>Habitaciones</th>
-                        <th>Estado</th>
-                        <th>Nº Puerta</th>
-                        <th>Pasillo</th>
-                        <th class="checkbox-seleccion">Seleccionar</th>
-                    </tr>
+                        <tr>
+                            <th>Número Unidad</th>
+                            <th>CI</th>
+                            <th>Habitaciones</th>
+                            <th>Estado</th>
+                            <th>Nº Puerta</th>
+                            <th>Pasillo</th>
+                            <th class="checkbox-seleccion">Seleccionar</th>
+                        </tr>
                     </thead>
 
                     <tbody id="tablaProyectos"></tbody>
-
+                    <tr>
+                        <td>UH-001</td>
+                        <td>52341678</td>
+                        <td>3</td>
+                        <td><span class="estado-al-dia">Al día</span></td>
+                        <td>101</td>
+                        <td>Pasillo A</td>
+                        <td class="checkbox-seleccion">
+                            <input type="checkbox" class="seleccion-unidad" name="seleccionUnidad" data-id="UH-001"
+                                data-estado="Al día" data-habitaciones="3" data-puerta="101" data-pasillo="A"
+                                data-cedula="52341678">
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>UH-002</td>
+                        <td>Sin socio asignado</td>
+                        <td>2</td>
+                        <td><span class="estado-vacio">—</span></td>
+                        <td>102</td>
+                        <td>Pasillo A</td>
+                        <td class="checkbox-seleccion">
+                            <input type="checkbox" class="seleccion-unidad" name="seleccionUnidad" data-id="UH-002"
+                                data-estado="" data-habitaciones="2" data-puerta="102" data-pasillo="A" data-cedula="">
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>UH-003</td>
+                        <td>41987654</td>
+                        <td>4</td>
+                        <td><span class="estado-debe">Debe</span></td>
+                        <td>201</td>
+                        <td>Pasillo B</td>
+                        <td class="checkbox-seleccion">
+                            <input type="checkbox" class="seleccion-unidad" name="seleccionUnidad" data-id="UH-003"
+                                data-estado="Debe" data-habitaciones="4" data-puerta="201" data-pasillo="B"
+                                data-cedula="41987654">
+                        </td>
+                    </tr>
                     </tbody>
                 </table>
             </div>
@@ -203,7 +241,7 @@
     </div>
 
     <!-- Modal para modificar unidad -->
-<div class="modal" id="modalUnidad">
+    <div class="modal" id="modalUnidad">
         <div class="modal-contenido">
             <div class="modal-header">
                 <h2 id="tituloModal">Modificar Unidad Habitacional</h2>

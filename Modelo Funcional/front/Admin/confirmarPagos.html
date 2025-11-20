@@ -54,7 +54,8 @@
                         <ul class="submenu">
                             <li><a href="confirmarPagos.html"><i class="material-icons">receipt_long</i> Corroborar
                                     Comprobantes</a></li>
-                            <li><a href="pagos.html"><i class="material-icons">point_of_sale</i> Gestor de Pagos</a></li>
+                            <li><a href="pagos.html"><i class="material-icons">point_of_sale</i> Gestor de Pagos</a>
+                            </li>
                         </ul>
                     </li>
                     <li class="item-menu">
@@ -142,7 +143,7 @@
                     </div>
                     <div class="tarjeta-contenido">
                         <h3>Pagos Pendientes</h3>
-                        <p class="tarjeta-valor" id="pagosPendientes"></p>
+                        <p class="tarjeta-valor" id="pagosPendientes">1</p>
                         <p class="tarjeta-subtexto">Por Aprobar</p>
                     </div>
                 </div>
@@ -170,20 +171,36 @@
                             </tr>
                         </thead>
                         <tbody>
-
+                            <tr>
+                                <td>15/11/2024</td>
+                                <td>Carlos Rodríguez</td>
+                                <td>48765432</td>
+                                <td>Pago de cuota mensual</td>
+                                <td>$12000</td>
+                                <td>Pendiente</td>
+                                <td>
+                                    <div class="contenedor-acciones">
+                                        <a href="../../Recursos/Comprobantes/comprobante_48765432_nov2024.pdf" download>
+                                            <button class="boton-icono descargar-comprobante"
+                                                title="Descargar comprobante" data-id="456">
+                                                <i class="material-icons">download</i>
+                                            </button>
+                                        </a>
+                                        <button class="boton-icono aprobar-comprobante" title="Aprobar comprobante"
+                                            data-id="456">
+                                            <i class="material-icons">check_circle</i>
+                                        </button>
+                                        <button class="boton-icono rechazar-comprobante" title="Rechazar comprobante"
+                                            data-id="456">
+                                            <i class="material-icons">cancel</i>
+                                        </button>
+                                    </div>
+                                </td>
+                            </tr>
                         </tbody>
                     </table>
                 </div>
 
-                <div class="paginacion">
-                    <button class="boton-icono" disabled>
-                        <i class="material-icons">chevron_left</i>
-                    </button>
-                    <span class="pagina-actual">Página 1 de 3</span>
-                    <button class="boton-icono">
-                        <i class="material-icons">chevron_right</i>
-                    </button>
-                </div>
             </section>
 
             <div id="modal-comentario" class="modal" style="display: none;">

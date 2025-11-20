@@ -55,7 +55,8 @@
                         <ul class="submenu">
                             <li><a href="confirmarPagos.html"><i class="material-icons">receipt_long</i> Corroborar
                                     Comprobantes</a></li>
-                            <li><a href="pagos.html"><i class="material-icons">point_of_sale</i> Gestor de Pagos</a></li>
+                            <li><a href="pagos.html"><i class="material-icons">point_of_sale</i> Gestor de Pagos</a>
+                            </li>
                         </ul>
                     </li>
                     <li class="item-menu activo">
@@ -103,11 +104,178 @@
         <main class="contenido-principal">
             <h1>Solicitudes Pendientes</h1>
             <div id="contenedor-solicitudes">
+                <div class="contenedor-solicitud">
+                    <div class="contenido">
+                        <div class="solicitud-header">
+                            <h2>Solicitud Nr#12345</h2>
+                            <button class="btn-solicitud btn-rechazar-solicitud" data-id="12345">
+                                <i class="material-icons">block</i> Rechazar Solicitud
+                            </button>
+                            <button class="btn-solicitud btn-aprobar-solicitud" data-id="12345">
+                                <i class="material-icons">check_circle</i> Aprobar Solicitud
+                            </button>
+                        </div>
+
+                        <div class="solicitud-info">
+                            <div class="info-card" id="info-card-id">
+                                <h3>Información Personal</h3>
+                                <p><strong>Nombre: </strong>Juan Pérez</p>
+                                <p><strong>CI: </strong>45678901</p>
+                                <p><strong>Mail: </strong>juan.perez@email.com</p>
+                                <p><strong>Telefono: </strong>099123456</p>
+                            </div>
+                            <div class="date info-card">
+                                <h3>Asignar Fecha de Entrevista</h3>
+                                <div class="calendario">
+                                    <p><strong>Fecha: </strong>2024-03-15</p>
+                                    <input type="date" id="fecha12345">
+                                </div>
+                                <div class="hora">
+                                    <p><strong>Hora: </strong>14:30</p>
+                                    <input type="time" id="hora12345">
+                                </div>
+                                <div class="direccion">
+                                    <p><strong>Direccion: </strong></p>
+                                    Av.Gral Rivera 3729 bis, 11600 Montevideo
+                                </div>
+                                <button class="btn-asignar-entrevista" data-id="12345">
+                                    <i class="material-icons">event_available</i> Asignar Entrevista
+                                </button>
+                            </div>
+                        </div>
+
+                        <div class="acciones">
+                            <button class="btn-rechazar btn-pendiente" data-id="12345" data-campo="Estado_entrevista">
+                                <i class="material-icons">close</i> Rechazar
+                            </button>
+                            <button class="btn-aprobar btn-pendiente" data-id="12345" data-campo="Estado_entrevista">
+                                <i class="material-icons">check</i> Aprobar
+                            </button>
+                        </div>
+
+                        <div class="tabla-contenedor">
+                            <h3>Integrantes Familiares</h3>
+                            <table class="tabla-pagos">
+                                <thead>
+                                    <tr>
+                                        <th>Nombre</th>
+                                        <th>Apellido</th>
+                                        <th>Cédula</th>
+                                        <th>Fecha de Nac.</th>
+                                        <th>Email</th>
+                                        <th>Género</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td data-label="Nombre">María</td>
+                                        <td data-label="Apellido">González</td>
+                                        <td data-label="Cédula">43210987</td>
+                                        <td data-label="Fecha de Nac.">15/08/1990</td>
+                                        <td data-label="Email">maria.gonzalez@email.com</td>
+                                        <td data-label="Género">Femenino</td>
+                                    </tr>
+                                    <tr>
+                                        <td data-label="Nombre">Pedro</td>
+                                        <td data-label="Apellido">González</td>
+                                        <td data-label="Cédula">12345678</td>
+                                        <td data-label="Fecha de Nac.">22/03/2010</td>
+                                        <td data-label="Email">pedro.gonzalez@email.com</td>
+                                        <td data-label="Género">Masculino</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+
+                        <div class="solicitud documentos">
+                            <h3>Documentos Adjuntos</h3>
+                            <div class="documento-card">
+                                <div class="documento-info">
+                                    <h4>Antecedentes Penales</h4>
+                                    <p>Documento PDF - <span class="estado-badge aprobado">Aprobado</span></p>
+                                </div>
+                                <div class="documento-acciones">
+                                    <a href="../../Recursos/Antecedentes/antecedentes_12345.pdf" download>
+                                        <li class="material-icons">download</li> Descargar
+                                    </a>
+                                </div>
+                            </div>
+                            <div class="acciones">
+                                <button class="btn-rechazar btn-aprobado" data-id="12345"
+                                    data-campo="Estado_antecedentes">
+                                    <i class="material-icons">close</i> Rechazar
+                                </button>
+                                <button class="btn-aprobar btn-aprobado" data-id="12345"
+                                    data-campo="Estado_antecedentes">
+                                    <i class="material-icons">check</i> Aprobar
+                                </button>
+                            </div>
+
+                            <div class="documento-card">
+                                <div class="documento-info">
+                                    <h4>Monto de Pago Inicial</h4>
+                                    <p><strong>Asignado:</strong> $50000</p>
+                                </div>
+                                <div class="documento-acciones">
+                                    <button class="btn-asignar-pago-inicial" data-id="12345">
+                                        <i class="material-icons">payment</i> Asignar / Editar Monto
+                                    </button>
+                                </div>
+                            </div>
+
+                            <div class="documento-card">
+                                <div class="documento-info">
+                                    <h4>Comprobante de Pago Inicial</h4>
+                                    <p>Documento PDF - <span class="estado-badge pendiente">Pendiente</span></p>
+                                </div>
+                                <div class="documento-acciones">
+                                    <a href="../../Recursos/Comprobantes/comprobante_12345.pdf" download>
+                                        <li class="material-icons">download</li> Descargar
+                                    </a>
+                                </div>
+                            </div>
+                            <div class="acciones">
+                                <button class="btn-rechazar btn-pendiente" data-id="12345"
+                                    data-campo="Estado_pago_inicial">
+                                    <i class="material-icons">close</i> Rechazar
+                                </button>
+                                <button class="btn-aprobar btn-pendiente" data-id="12345"
+                                    data-campo="Estado_pago_inicial">
+                                    <i class="material-icons">check</i> Aprobar
+                                </button>
+                            </div>
+
+                            <h3>Asignar Unidad Habitacional</h3>
+                            <div class="asignacion-unidad">
+                                <div class="documento-card">
+                                    <div class="documento-info">
+                                        <h4>Unidad Habitacional</h4>
+                                        <p><strong>Unidad:</strong>
+                                            <span class="estado-unidad" data-id="12345">
+                                                Unidad A-101
+                                            </span>
+                                        </p>
+                                    </div>
+                                    <div class="documento-acciones">
+                                        <button class="btn-asignar-unidad" data-ci="45678901" data-idpersona="12345">
+                                            <i class="material-icons">apartment</i> Asignar Unidad
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="contador">
+                        <div class="segmento s1" id="pendiente"></div>
+                        <div class="segmento s2" id="aprobado"></div>
+                        <div class="segmento s3" id="pendiente"></div>
+                    </div>
+                </div>
             </div>
-            <div id="solicitudesIcon">
+            <!-- <div id="solicitudesIcon">
                 <i class="material-icons">person_search</i>
                 <h1>No hay solicitudes pendientes</h1>
-            </div>
+            </div> -->
         </main>
     </div>
 
@@ -190,31 +358,31 @@
     <div class="modal-unidad" id="modalAsignarUnidad">
         <div class="modal-contenido">
             <h3>
-            <i class="material-icons">apartment</i>
-            Asignar Unidad Habitacional
+                <i class="material-icons">apartment</i>
+                Asignar Unidad Habitacional
             </h3>
             <p>Seleccione una unidad para asignar al interesado:</p>
 
             <div class="select-container">
-            <label class="select-label">Unidad Habitacional</label>
-            <select class="custom-select" id="selectUnidadHabitacional"></select>
-            <span class="select-arrow material-icons">arrow_drop_down</span>
+                <label class="select-label">Unidad Habitacional</label>
+                <select class="custom-select" id="selectUnidadHabitacional"></select>
+                <span class="select-arrow material-icons">arrow_drop_down</span>
             </div>
 
             <!-- NUEVO: detalle de la unidad seleccionada -->
             <p id="infoUnidad" style="margin-top:10px; font-weight:500;">—</p>
 
             <div class="modal-acciones">
-            <button class="btn-cancelar-unidad">
-                <i class="material-icons">arrow_back</i> Cancelar
-            </button>
-            <!-- CAMBIO DE CLASE para no chocar -->
-            <button class="btn-asignar-unidad-personalizada" onclick="window.location.href='crearUnidad.html'">
-                <i class="material-icons">balcony</i> Asignar Unidad Personalizada
-            </button>
-            <button class="btn-confirmar-unidad" id="btnConfirmarUnidad" disabled>
-                <i class="material-icons">check_circle</i> Asignar Unidad
-            </button>
+                <button class="btn-cancelar-unidad">
+                    <i class="material-icons">arrow_back</i> Cancelar
+                </button>
+                <!-- CAMBIO DE CLASE para no chocar -->
+                <button class="btn-asignar-unidad-personalizada" onclick="window.location.href='crearUnidad.html'">
+                    <i class="material-icons">balcony</i> Asignar Unidad Personalizada
+                </button>
+                <button class="btn-confirmar-unidad" id="btnConfirmarUnidad" disabled>
+                    <i class="material-icons">check_circle</i> Asignar Unidad
+                </button>
             </div>
         </div>
     </div>
@@ -246,6 +414,93 @@
     </script>
     <script src="../Javascript/BackOffice/generalidades.js" type="module"></script>
     <script src="../Javascript/BackOffice/solicitudes.js" type="module"></script>
+    <script>
+        /* ========= MODAL RECHAZAR ========= */
+        const modalRechazo = document.getElementById("modalConfirmacion");
+        const botonesRechazar = document.querySelectorAll(".btn-rechazar-solicitud");
+        const btnCerrarRechazo = modalRechazo.querySelector(".btn-cancelar");
+
+        // Abrir modal
+        botonesRechazar.forEach(btn => {
+            btn.addEventListener("click", () => {
+                modalRechazo.style.display = "flex";
+            });
+        });
+
+        // Cerrar con botón
+        btnCerrarRechazo.addEventListener("click", () => {
+            modalRechazo.style.display = "none";
+        });
+
+        // Cerrar haciendo click afuera
+        modalRechazo.addEventListener("click", e => {
+            if (e.target === modalRechazo) modalRechazo.style.display = "none";
+        });
+
+
+        /* ========= MODAL APROBAR ========= */
+        const modalAprobar = document.getElementById("modalConfirmacionAprobar");
+        const botonesAprobar = document.querySelectorAll(".btn-aprobar-solicitud");
+        const btnCerrarAprobar = modalAprobar.querySelector(".btn-cancelar");
+
+        // Abrir modal
+        botonesAprobar.forEach(btn => {
+            btn.addEventListener("click", () => {
+                modalAprobar.style.display = "flex";
+            });
+        });
+
+        // Cerrar con botón
+        btnCerrarAprobar.addEventListener("click", () => {
+            modalAprobar.style.display = "none";
+        });
+
+        // Click afuera
+        modalAprobar.addEventListener("click", e => {
+            if (e.target === modalAprobar) modalAprobar.style.display = "none";
+        });
+
+
+        /* ========= MODAL MONTO ========= */
+        const modalMonto = document.getElementById("modalPagoInicial");
+        const botonesMonto = document.querySelectorAll(".btn-asignar-pago-inicial");
+        const btnCerrarMonto = modalMonto.querySelector(".btn-cancelar-pago");
+
+        botonesMonto.forEach(btn => {
+            btn.addEventListener("click", () => {
+                modalMonto.style.display = "flex";
+            });
+        });
+
+        btnCerrarMonto.addEventListener("click", () => {
+            modalMonto.style.display = "none";
+        });
+
+        modalMonto.addEventListener("click", e => {
+            if (e.target === modalMonto) modalMonto.style.display = "none";
+        });
+
+
+        /* ========= MODAL ASIGNAR UNIDAD ========= */
+        const modalUnidad = document.getElementById("modalAsignarUnidad");
+        const botonesUnidad = document.querySelectorAll(".btn-asignar-unidad");
+        const btnCerrarUnidad = modalUnidad.querySelector(".btn-cancelar-unidad");
+
+        botonesUnidad.forEach(btn => {
+            btn.addEventListener("click", () => {
+                modalUnidad.style.display = "flex";
+            });
+        });
+
+        btnCerrarUnidad.addEventListener("click", () => {
+            modalUnidad.style.display = "none";
+        });
+
+        modalUnidad.addEventListener("click", e => {
+            if (e.target === modalUnidad) modalUnidad.style.display = "none";
+        });
+
+    </script>
 </body>
 
 </html>
