@@ -4,3 +4,5 @@ UTILIZAR ROCKY LINUX 8.10
 2. Ejecutar el segundo script desde ssh para poder copiar y pegar tokens y son solicitados por el script.
 
 Una vez instalado el programa se podra acceder ingresando a la ruta 192.168.1.50:8080/front/Landing%20Page
+
+Si hay errores pruebe usar otro buscador, se recomienda google edga ya que es mas compatible
