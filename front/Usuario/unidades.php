@@ -213,8 +213,8 @@
 
                     <select id="generoIntegrante" required>
                         <option value="" class="modal-integrante-select-placeholder">Seleccioná…</option>
-                        <option class="modal-integrante-select-masculino">Masculino</option>
-                        <option class="modal-integrante-select-femenino">Femenino</option>
+                        <option value="Masculino" class="modal-integrante-select-masculino">Masculino</option>
+                        <option value="Femenino" class="modal-integrante-select-femenino">Femenino</option>
                     </select>
 
                     <div class="modal-acciones">

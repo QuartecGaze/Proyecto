@@ -342,6 +342,7 @@
                     if($falta['Tipo_falta'] == "Exoneracion"){
                         $servicio->acreditarHoras($falta['ID_Persona'], $falta['Horas_solicitadas'], $falta['Fecha'], $falta['ID_Semana_trabajo']);
                     }elseif($falta['Tipo_falta'] == "Pago Compensatorio"){
+                        $servicio->acreditarHoras($falta['ID_Persona'], $falta['Horas_solicitadas'], $falta['Fecha'], $falta['ID_Semana_trabajo']);
                         // ver que hacer al aprobar, todavia nose al asignar el pago se va a crear 
                         //el comprobante pero podriamos hacer una confirmacion si fue pagado el comprobante 
                         //si traemos el id del comprobante ademas del monto (que probablemente habra que hacer)
